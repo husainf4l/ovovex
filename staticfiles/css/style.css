@@ -1444,6 +1444,24 @@ section::before {
     box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
 }
 
+/* Dropdown toggles in main navigation */
+.nav-link-main.dropdown-toggle::after {
+    margin-left: 0.5rem;
+    font-size: 0.75rem;
+    opacity: 0.8;
+    transition: transform 0.3s ease;
+}
+
+.nav-link-main.dropdown-toggle[aria-expanded="true"]::after {
+    transform: rotate(180deg);
+}
+
+/* Main nav dropdown positioning */
+.nav-main .dropdown-menu {
+    top: 100%;
+    margin-top: 0.5rem;
+}
+
 @keyframes activeIndicator {
     0% { width: 0; opacity: 0; }
     100% { width: 35px; opacity: 1; }
