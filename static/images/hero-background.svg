@@ -1,0 +1,184 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Background Gradients -->
+    <linearGradient id="mainBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a;stop-opacity:1"/>
+      <stop offset="30%" style="stop-color:#1e293b;stop-opacity:0.95"/>
+      <stop offset="70%" style="stop-color:#334155;stop-opacity:0.9"/>
+      <stop offset="100%" style="stop-color:#475569;stop-opacity:0.85"/>
+    </linearGradient>
+    
+    <radialGradient id="spotLight1" cx="20%" cy="30%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:0.4"/>
+      <stop offset="50%" style="stop-color:#3b82f6;stop-opacity:0.1"/>
+      <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:0"/>
+    </radialGradient>
+    
+    <radialGradient id="spotLight2" cx="80%" cy="70%">
+      <stop offset="0%" style="stop-color:#6366f1;stop-opacity:0.3"/>
+      <stop offset="50%" style="stop-color:#6366f1;stop-opacity:0.08"/>
+      <stop offset="100%" style="stop-color:#6366f1;stop-opacity:0"/>
+    </radialGradient>
+    
+    <linearGradient id="wave1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:0.1"/>
+      <stop offset="50%" style="stop-color:#6366f1;stop-opacity:0.2"/>
+      <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:0.1"/>
+    </linearGradient>
+    
+    <!-- Filters -->
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="softBlur"/>
+      <feMerge> 
+        <feMergeNode in="softBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Main Background -->
+  <rect width="1200" height="800" fill="url(#mainBg)"/>
+  
+  <!-- Spotlight Effects -->
+  <ellipse cx="240" cy="240" rx="400" ry="300" fill="url(#spotLight1)"/>
+  <ellipse cx="960" cy="560" rx="350" ry="250" fill="url(#spotLight2)"/>
+  
+  <!-- Abstract Geometric Shapes -->
+  <!-- Large Background Circles -->
+  <circle cx="100" cy="150" r="80" fill="none" stroke="#3b82f6" stroke-width="1" opacity="0.2">
+    <animate attributeName="stroke-opacity" values="0.2;0.4;0.2" dur="4s" repeatCount="indefinite"/>
+  </circle>
+  
+  <circle cx="1100" cy="650" r="120" fill="none" stroke="#6366f1" stroke-width="1" opacity="0.15">
+    <animate attributeName="stroke-opacity" values="0.15;0.3;0.15" dur="5s" repeatCount="indefinite"/>
+  </circle>
+  
+  <!-- Floating Geometric Elements -->
+  <g opacity="0.6">
+    <!-- Hexagons -->
+    <polygon points="200,80 220,90 220,110 200,120 180,110 180,90" fill="#3b82f6" opacity="0.3">
+      <animateTransform attributeName="transform" type="rotate" values="0 200 100;360 200 100" dur="20s" repeatCount="indefinite"/>
+    </polygon>
+    
+    <polygon points="950,200 975,212 975,236 950,248 925,236 925,212" fill="#8b5cf6" opacity="0.25">
+      <animateTransform attributeName="transform" type="rotate" values="0 950 224;-360 950 224" dur="25s" repeatCount="indefinite"/>
+    </polygon>
+    
+    <!-- Diamonds -->
+    <polygon points="300,600 320,620 300,640 280,620" fill="#6366f1" opacity="0.4">
+      <animate attributeName="opacity" values="0.4;0.7;0.4" dur="3s" repeatCount="indefinite"/>
+    </polygon>
+    
+    <polygon points="1000,150 1025,175 1000,200 975,175" fill="#3b82f6" opacity="0.3">
+      <animate attributeName="opacity" values="0.3;0.6;0.3" dur="4s" repeatCount="indefinite"/>
+    </polygon>
+  </g>
+  
+  <!-- Wave Patterns -->
+  <path d="M0,400 Q300,350 600,400 T1200,400 L1200,800 L0,800 Z" fill="url(#wave1)" opacity="0.1">
+    <animate attributeName="d" values="M0,400 Q300,350 600,400 T1200,400 L1200,800 L0,800 Z;M0,420 Q300,370 600,420 T1200,420 L1200,800 L0,800 Z;M0,400 Q300,350 600,400 T1200,400 L1200,800 L0,800 Z" dur="8s" repeatCount="indefinite"/>
+  </path>
+  
+  <!-- Grid Pattern -->
+  <defs>
+    <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
+      <path d="M 50 0 L 0 0 0 50" fill="none" stroke="#3b82f6" stroke-width="0.5" opacity="0.1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="800" fill="url(#grid)"/>
+  
+  <!-- Floating Particles -->
+  <g filter="url(#softGlow)">
+    <circle cx="150" cy="300" r="2" fill="#3b82f6" opacity="0.8">
+      <animate attributeName="cy" values="300;280;300" dur="6s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.8;1;0.8" dur="3s" repeatCount="indefinite"/>
+    </circle>
+    
+    <circle cx="400" cy="200" r="1.5" fill="#6366f1" opacity="0.7">
+      <animate attributeName="cy" values="200;180;200" dur="7s" repeatCount="indefinite"/>
+    </circle>
+    
+    <circle cx="800" cy="450" r="2.5" fill="#8b5cf6" opacity="0.6">
+      <animate attributeName="cy" values="450;430;450" dur="5s" repeatCount="indefinite"/>
+    </circle>
+    
+    <circle cx="1050" cy="350" r="1.8" fill="#3b82f6" opacity="0.9">
+      <animate attributeName="cy" values="350;330;350" dur="6.5s" repeatCount="indefinite"/>
+    </circle>
+    
+    <circle cx="300" cy="700" r="2.2" fill="#6366f1" opacity="0.5">
+      <animate attributeName="cy" values="700;680;700" dur="8s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  
+  <!-- Abstract Lines -->
+  <g stroke="#3b82f6" stroke-width="1" fill="none" opacity="0.2">
+    <path d="M50,250 Q200,200 350,250 T650,250">
+      <animate attributeName="stroke-opacity" values="0.2;0.4;0.2" dur="4s" repeatCount="indefinite"/>
+    </path>
+    <path d="M700,500 Q850,450 1000,500 T1200,500">
+      <animate attributeName="stroke-opacity" values="0.1;0.3;0.1" dur="5s" repeatCount="indefinite"/>
+    </path>
+  </g>
+  
+  <!-- Corner Accents -->
+  <g filter="url(#glow)">
+    <!-- Top Left -->
+    <path d="M0,0 L100,0 L0,100 Z" fill="#3b82f6" opacity="0.1"/>
+    
+    <!-- Top Right -->
+    <path d="M1200,0 L1100,0 L1200,100 Z" fill="#6366f1" opacity="0.08"/>
+    
+    <!-- Bottom Right -->
+    <path d="M1200,800 L1200,700 L1100,800 Z" fill="#8b5cf6" opacity="0.09"/>
+    
+    <!-- Bottom Left -->
+    <path d="M0,800 L100,800 L0,700 Z" fill="#3b82f6" opacity="0.07"/>
+  </g>
+  
+  <!-- Central Focus Elements -->
+  <g transform="translate(600, 400)" opacity="0.3">
+    <!-- Concentric Circles -->
+    <circle cx="0" cy="0" r="150" fill="none" stroke="#3b82f6" stroke-width="0.5" opacity="0.4">
+      <animate attributeName="r" values="150;160;150" dur="4s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="0" cy="0" r="100" fill="none" stroke="#6366f1" stroke-width="0.5" opacity="0.5">
+      <animate attributeName="r" values="100;110;100" dur="3s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="0" cy="0" r="50" fill="none" stroke="#8b5cf6" stroke-width="0.5" opacity="0.6">
+      <animate attributeName="r" values="50;60;50" dur="2s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  
+  <!-- Technology Node Network -->
+  <g stroke="#3b82f6" stroke-width="0.5" fill="#3b82f6" opacity="0.4">
+    <!-- Nodes -->
+    <circle cx="200" cy="500" r="3"/>
+    <circle cx="350" cy="450" r="2"/>
+    <circle cx="500" cy="520" r="2.5"/>
+    <circle cx="650" cy="480" r="2"/>
+    <circle cx="800" cy="510" r="3"/>
+    
+    <!-- Connections -->
+    <line x1="200" y1="500" x2="350" y2="450" opacity="0.2">
+      <animate attributeName="stroke-opacity" values="0.2;0.6;0.2" dur="3s" repeatCount="indefinite"/>
+    </line>
+    <line x1="350" y1="450" x2="500" y2="520" opacity="0.2">
+      <animate attributeName="stroke-opacity" values="0.2;0.5;0.2" dur="4s" repeatCount="indefinite"/>
+    </line>
+    <line x1="500" y1="520" x2="650" y2="480" opacity="0.2">
+      <animate attributeName="stroke-opacity" values="0.2;0.7;0.2" dur="2.5s" repeatCount="indefinite"/>
+    </line>
+    <line x1="650" y1="480" x2="800" y2="510" opacity="0.2">
+      <animate attributeName="stroke-opacity" values="0.2;0.4;0.2" dur="3.5s" repeatCount="indefinite"/>
+    </line>
+  </g>
+</svg>
