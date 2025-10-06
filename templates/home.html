@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 <!-- Hero Section -->
@@ -40,6 +41,17 @@
             </div>
             <div class="col-lg-6">
                 <div class="hero-dashboard position-relative">
+                    <!-- Hero Image -->
+                    <div class="hero-image-container mb-4">
+                        <img src="{% static 'images/image1.jpg' %}" alt="Ovovex Platform Preview" class="hero-main-image img-fluid rounded-4 shadow-lg">
+                        <div class="image-overlay">
+                            <div class="overlay-badge">
+                                <i class="fas fa-play-circle me-2"></i>
+                                <span>See Platform in Action</span>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <div class="dashboard-preview p-4">
                         <div class="d-flex justify-content-between align-items-center mb-4">
                             <div class="d-flex align-items-center">
