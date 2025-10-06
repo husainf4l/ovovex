@@ -1,90 +1,95 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
-<div class="dashboard-container">
-    <div class="container-fluid py-4">
+{% include 'components/sidemenu.html' %}
+
+<div class="min-h-screen bg-gray-50 ml-64">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-8">
         <!-- Welcome Header -->
-        <div class="row mb-4">
-            <div class="col-12">
-                <div class="welcome-card">
-                    <div class="welcome-content">
-                        <h1 class="welcome-title">Welcome back, {{ user.first_name|default:user.username }}! 👋</h1>
-                        <p class="welcome-subtitle">Here's what's happening with your finances today</p>
-                    </div>
-                    <div class="welcome-actions">
-                        <a href="#" class="btn btn-primary">
-                            <i class="fas fa-plus me-2"></i>
-                            New Transaction
-                        </a>
-                        <a href="#" class="btn btn-outline-primary">
-                            <i class="fas fa-chart-bar me-2"></i>
-                            View Reports
-                        </a>
-                    </div>
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-8 mb-8">
+            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+                <div class="mb-6 lg:mb-0">
+                    <h1 class="text-3xl font-bold text-gray-900 mb-2">Welcome back, {{ user.first_name|default:user.username }}!</h1>
+                    <p class="text-lg text-gray-600">Here's what's happening with your finances today</p>
+                </div>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#" class="inline-flex items-center justify-center px-6 py-3 bg-gray-900 text-white font-semibold rounded-xl hover:bg-gray-800 transition-colors duration-200">
+                        <i class="fas fa-plus mr-2"></i>
+                        New Transaction
+                    </a>
+                    <a href="#" class="inline-flex items-center justify-center px-6 py-3 bg-white text-gray-700 font-semibold rounded-xl border border-gray-300 hover:border-gray-400 transition-colors duration-200">
+                        <i class="fas fa-chart-bar mr-2"></i>
+                        View Reports
+                    </a>
                 </div>
             </div>
         </div>
 
         <!-- Quick Stats -->
-        <div class="row mb-4">
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="stat-card stat-revenue">
-                    <div class="stat-icon">
-                        <i class="fas fa-dollar-sign"></i>
-                    </div>
-                    <div class="stat-content">
-                        <div class="stat-value">$24,580</div>
-                        <div class="stat-label">Total Revenue</div>
-                        <div class="stat-change positive">
-                            <i class="fas fa-arrow-up"></i>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <!-- Revenue Card -->
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mb-4">
+                            <i class="fas fa-dollar-sign text-green-600 text-xl"></i>
+                        </div>
+                        <div class="text-3xl font-bold text-gray-900 mb-1">$24,580</div>
+                        <div class="text-sm text-gray-600 mb-2">Total Revenue</div>
+                        <div class="flex items-center text-sm text-green-600">
+                            <i class="fas fa-arrow-up mr-1"></i>
                             +12.5% from last month
                         </div>
                     </div>
                 </div>
             </div>
-            
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="stat-card stat-expenses">
-                    <div class="stat-icon">
-                        <i class="fas fa-shopping-cart"></i>
-                    </div>
-                    <div class="stat-content">
-                        <div class="stat-value">$8,940</div>
-                        <div class="stat-label">Total Expenses</div>
-                        <div class="stat-change negative">
-                            <i class="fas fa-arrow-down"></i>
+
+            <!-- Expenses Card -->
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <div class="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center mb-4">
+                            <i class="fas fa-shopping-cart text-red-600 text-xl"></i>
+                        </div>
+                        <div class="text-3xl font-bold text-gray-900 mb-1">$8,940</div>
+                        <div class="text-sm text-gray-600 mb-2">Total Expenses</div>
+                        <div class="flex items-center text-sm text-red-600">
+                            <i class="fas fa-arrow-down mr-1"></i>
                             -3.2% from last month
                         </div>
                     </div>
                 </div>
             </div>
-            
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="stat-card stat-profit">
-                    <div class="stat-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <div class="stat-content">
-                        <div class="stat-value">$15,640</div>
-                        <div class="stat-label">Net Profit</div>
-                        <div class="stat-change positive">
-                            <i class="fas fa-arrow-up"></i>
+
+            <!-- Profit Card -->
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
+                            <i class="fas fa-chart-line text-blue-600 text-xl"></i>
+                        </div>
+                        <div class="text-3xl font-bold text-gray-900 mb-1">$15,640</div>
+                        <div class="text-sm text-gray-600 mb-2">Net Profit</div>
+                        <div class="flex items-center text-sm text-green-600">
+                            <i class="fas fa-arrow-up mr-1"></i>
                             +18.7% from last month
                         </div>
                     </div>
                 </div>
             </div>
-            
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="stat-card stat-invoices">
-                    <div class="stat-icon">
-                        <i class="fas fa-file-invoice"></i>
-                    </div>
-                    <div class="stat-content">
-                        <div class="stat-value">42</div>
-                        <div class="stat-label">Pending Invoices</div>
-                        <div class="stat-change neutral">
-                            <i class="fas fa-clock"></i>
+
+            <!-- Invoices Card -->
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <div class="w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center mb-4">
+                            <i class="fas fa-file-invoice text-yellow-600 text-xl"></i>
+                        </div>
+                        <div class="text-3xl font-bold text-gray-900 mb-1">42</div>
+                        <div class="text-sm text-gray-600 mb-2">Pending Invoices</div>
+                        <div class="flex items-center text-sm text-yellow-600">
+                            <i class="fas fa-clock mr-1"></i>
                             Due within 30 days
                         </div>
                     </div>
@@ -93,78 +98,88 @@
         </div>
 
         <!-- Charts and Recent Activity -->
-        <div class="row">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
             <!-- Revenue Chart -->
-            <div class="col-xl-8 mb-4">
-                <div class="dashboard-card">
-                    <div class="card-header">
-                        <h5 class="card-title">Revenue Overview</h5>
-                        <div class="card-actions">
-                            <select class="form-select form-select-sm">
-                                <option>Last 6 months</option>
-                                <option>Last year</option>
-                                <option>All time</option>
-                            </select>
-                        </div>
+            <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-gray-200">
+                <div class="p-6 border-b border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xl font-bold text-gray-900">Revenue Overview</h3>
+                        <select class="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-gray-500 focus:border-transparent">
+                            <option>Last 6 months</option>
+                            <option>Last year</option>
+                            <option>All time</option>
+                        </select>
                     </div>
-                    <div class="card-body">
-                        <canvas id="revenueChart" height="300"></canvas>
-                    </div>
+                </div>
+                <div class="p-6">
+                    <canvas id="revenueChart" height="300"></canvas>
                 </div>
             </div>
 
             <!-- Recent Transactions -->
-            <div class="col-xl-4 mb-4">
-                <div class="dashboard-card">
-                    <div class="card-header">
-                        <h5 class="card-title">Recent Transactions</h5>
-                        <a href="#" class="btn btn-sm btn-outline-primary">View All</a>
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-200">
+                <div class="p-6 border-b border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xl font-bold text-gray-900">Recent Transactions</h3>
+                        <a href="#" class="text-sm text-gray-600 hover:text-gray-900 font-medium">View All</a>
                     </div>
-                    <div class="card-body">
-                        <div class="transaction-list">
-                            <div class="transaction-item">
-                                <div class="transaction-icon income">
-                                    <i class="fas fa-arrow-down"></i>
+                </div>
+                <div class="p-6">
+                    <div class="space-y-4">
+                        <!-- Transaction Item -->
+                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-arrow-down text-green-600"></i>
                                 </div>
-                                <div class="transaction-details">
-                                    <div class="transaction-title">Client Payment</div>
-                                    <div class="transaction-date">Oct 5, 2025</div>
+                                <div>
+                                    <div class="font-semibold text-gray-900">Client Payment</div>
+                                    <div class="text-sm text-gray-500">Oct 5, 2025</div>
                                 </div>
-                                <div class="transaction-amount positive">+$2,500</div>
                             </div>
-                            
-                            <div class="transaction-item">
-                                <div class="transaction-icon expense">
-                                    <i class="fas fa-arrow-up"></i>
+                            <div class="text-lg font-bold text-green-600">+$2,500</div>
+                        </div>
+
+                        <!-- Transaction Item -->
+                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-arrow-up text-red-600"></i>
                                 </div>
-                                <div class="transaction-details">
-                                    <div class="transaction-title">Office Supplies</div>
-                                    <div class="transaction-date">Oct 4, 2025</div>
+                                <div>
+                                    <div class="font-semibold text-gray-900">Office Supplies</div>
+                                    <div class="text-sm text-gray-500">Oct 4, 2025</div>
                                 </div>
-                                <div class="transaction-amount negative">-$120</div>
                             </div>
-                            
-                            <div class="transaction-item">
-                                <div class="transaction-icon income">
-                                    <i class="fas fa-arrow-down"></i>
+                            <div class="text-lg font-bold text-red-600">-$120</div>
+                        </div>
+
+                        <!-- Transaction Item -->
+                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-arrow-down text-green-600"></i>
                                 </div>
-                                <div class="transaction-details">
-                                    <div class="transaction-title">Subscription Revenue</div>
-                                    <div class="transaction-date">Oct 3, 2025</div>
+                                <div>
+                                    <div class="font-semibold text-gray-900">Subscription Revenue</div>
+                                    <div class="text-sm text-gray-500">Oct 3, 2025</div>
                                 </div>
-                                <div class="transaction-amount positive">+$890</div>
                             </div>
-                            
-                            <div class="transaction-item">
-                                <div class="transaction-icon expense">
-                                    <i class="fas fa-arrow-up"></i>
+                            <div class="text-lg font-bold text-green-600">+$890</div>
+                        </div>
+
+                        <!-- Transaction Item -->
+                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-arrow-up text-red-600"></i>
                                 </div>
-                                <div class="transaction-details">
-                                    <div class="transaction-title">Software License</div>
-                                    <div class="transaction-date">Oct 2, 2025</div>
+                                <div>
+                                    <div class="font-semibold text-gray-900">Software License</div>
+                                    <div class="text-sm text-gray-500">Oct 2, 2025</div>
                                 </div>
-                                <div class="transaction-amount negative">-$299</div>
                             </div>
+                            <div class="text-lg font-bold text-red-600">-$299</div>
                         </div>
                     </div>
                 </div>
@@ -172,48 +187,40 @@
         </div>
 
         <!-- Quick Actions -->
-        <div class="row">
-            <div class="col-12">
-                <div class="dashboard-card">
-                    <div class="card-header">
-                        <h5 class="card-title">Quick Actions</h5>
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-8">
+            <h3 class="text-xl font-bold text-gray-900 mb-6">Quick Actions</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <a href="#" class="group p-6 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors duration-200">
+                    <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-4 group-hover:bg-blue-200 transition-colors duration-200">
+                        <i class="fas fa-file-invoice-dollar text-blue-600 text-xl"></i>
                     </div>
-                    <div class="card-body">
-                        <div class="quick-actions-grid">
-                            <a href="#" class="quick-action-item">
-                                <div class="quick-action-icon">
-                                    <i class="fas fa-file-invoice-dollar"></i>
-                                </div>
-                                <div class="quick-action-title">Create Invoice</div>
-                                <div class="quick-action-desc">Generate and send invoices</div>
-                            </a>
-                            
-                            <a href="#" class="quick-action-item">
-                                <div class="quick-action-icon">
-                                    <i class="fas fa-receipt"></i>
-                                </div>
-                                <div class="quick-action-title">Add Expense</div>
-                                <div class="quick-action-desc">Record business expenses</div>
-                            </a>
-                            
-                            <a href="#" class="quick-action-item">
-                                <div class="quick-action-icon">
-                                    <i class="fas fa-users"></i>
-                                </div>
-                                <div class="quick-action-title">Manage Clients</div>
-                                <div class="quick-action-desc">Add or edit client information</div>
-                            </a>
-                            
-                            <a href="#" class="quick-action-item">
-                                <div class="quick-action-icon">
-                                    <i class="fas fa-chart-pie"></i>
-                                </div>
-                                <div class="quick-action-title">View Reports</div>
-                                <div class="quick-action-desc">Generate financial reports</div>
-                            </a>
-                        </div>
+                    <h4 class="font-semibold text-gray-900 mb-2">Create Invoice</h4>
+                    <p class="text-sm text-gray-600">Generate and send invoices</p>
+                </a>
+
+                <a href="#" class="group p-6 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors duration-200">
+                    <div class="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center mb-4 group-hover:bg-red-200 transition-colors duration-200">
+                        <i class="fas fa-receipt text-red-600 text-xl"></i>
                     </div>
-                </div>
+                    <h4 class="font-semibold text-gray-900 mb-2">Add Expense</h4>
+                    <p class="text-sm text-gray-600">Record business expenses</p>
+                </a>
+
+                <a href="#" class="group p-6 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors duration-200">
+                    <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mb-4 group-hover:bg-purple-200 transition-colors duration-200">
+                        <i class="fas fa-users text-purple-600 text-xl"></i>
+                    </div>
+                    <h4 class="font-semibold text-gray-900 mb-2">Manage Clients</h4>
+                    <p class="text-sm text-gray-600">Add or edit client information</p>
+                </a>
+
+                <a href="#" class="group p-6 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors duration-200">
+                    <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mb-4 group-hover:bg-green-200 transition-colors duration-200">
+                        <i class="fas fa-chart-pie text-green-600 text-xl"></i>
+                    </div>
+                    <h4 class="font-semibold text-gray-900 mb-2">View Reports</h4>
+                    <p class="text-sm text-gray-600">Generate financial reports</p>
+                </a>
             </div>
         </div>
     </div>

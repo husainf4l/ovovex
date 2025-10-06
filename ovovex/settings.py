@@ -30,7 +30,15 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-ry^+@d7spewpxp=zyc(wv$rt48
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'True').lower() == 'true'
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '192.168.1.64', '192.168.1.*']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '192.168.1.64', '192.168.1.*', 'ovovex.com', 'www.ovovex.com']
+
+# CSRF Trusted Origins
+CSRF_TRUSTED_ORIGINS = [
+    'https://ovovex.com',
+    'https://www.ovovex.com',
+    'http://localhost:3006',
+    'http://127.0.0.1:3006',
+]
 
 
 # Application definition

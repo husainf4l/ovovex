@@ -1,0 +1,149 @@
+<!-- Modern Quick Access Navigation -->
+<nav class="bg-white shadow-lg fixed top-0 w-full z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+            <div class="flex items-center">
+                <a class="flex items-center text-gray-800 hover:text-gray-600 font-bold text-xl" href="/">
+                    <div class="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center mr-3">
+                        <i class="fas fa-cube text-white"></i>
+                    </div>
+                    Ovovex
+                </a>
+            </div>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="/" class="text-gray-700 hover:text-gray-900">Home</a>
+                <div class="relative group">
+                    <button class="text-gray-700 hover:text-gray-900 flex items-center">
+                        Solutions <i class="fas fa-chevron-down ml-1"></i>
+                    </button>
+                    <div class="absolute left-0 mt-2 w-64 bg-white shadow-lg rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                        <div class="p-4">
+                            <div class="text-sm font-semibold text-gray-500 mb-2"><i class="fas fa-building mr-2"></i>By Business Size</div>
+                            <a href="#solutions" class="flex items-center p-2 hover:bg-gray-100 rounded">
+                                <i class="fas fa-store mr-2 text-gray-600"></i>
+                                <div>
+                                    <div class="font-semibold">Small Business</div>
+                                    <div class="text-sm text-gray-500">Up to 50 employees</div>
+                                </div>
+                            </a>
+                            <a href="#solutions" class="flex items-center p-2 hover:bg-gray-100 rounded">
+                                <i class="fas fa-industry mr-2 text-gray-600"></i>
+                                <div>
+                                    <div class="font-semibold">Enterprise</div>
+                                    <div class="text-sm text-gray-500">500+ employees</div>
+                                </div>
+                            </a>
+                            <a href="#solutions" class="flex items-center p-2 hover:bg-gray-100 rounded">
+                                <i class="fas fa-handshake mr-2 text-gray-600"></i>
+                                <div>
+                                    <div class="font-semibold">Accounting Firms</div>
+                                    <div class="text-sm text-gray-500">Multi-client management</div>
+                                </div>
+                            </a>
+                            <hr class="my-2">
+                            <div class="text-sm font-semibold text-gray-500 mb-2"><i class="fas fa-tags mr-2"></i>By Industry</div>
+                            <a href="#solutions" class="flex items-center p-2 hover:bg-gray-100 rounded">
+                                <i class="fas fa-shopping-cart mr-2 text-gray-600"></i>Retail & E-commerce
+                            </a>
+                            <a href="#solutions" class="flex items-center p-2 hover:bg-gray-100 rounded">
+                                <i class="fas fa-hammer mr-2 text-gray-600"></i>Manufacturing
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative group">
+                    <button class="text-gray-700 hover:text-gray-900 flex items-center">
+                        Platform <i class="fas fa-chevron-down ml-1"></i>
+                    </button>
+                    <div class="absolute left-0 mt-2 w-64 bg-white shadow-lg rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                        <div class="p-4">
+                            <div class="text-sm font-semibold text-gray-500 mb-2"><i class="fas fa-star mr-2"></i>Core Features</div>
+                            <a href="#features" class="flex items-center p-2 hover:bg-gray-100 rounded">
+                                <i class="fas fa-file-invoice-dollar mr-2 text-gray-600"></i>
+                                <div>
+                                    <div class="font-semibold">Smart Invoicing</div>
+                                    <div class="text-sm text-gray-500">Automated billing & payments</div>
+                                </div>
+                            </a>
+                            <a href="#features" class="flex items-center p-2 hover:bg-gray-100 rounded">
+                                <i class="fas fa-robot mr-2 text-gray-600"></i>
+                                <div>
+                                    <div class="font-semibold">AI Bookkeeping</div>
+                                    <div class="text-sm text-gray-500">Intelligent automation</div>
+                                </div>
+                            </a>
+                            <a href="#features" class="flex items-center p-2 hover:bg-gray-100 rounded">
+                                <i class="fas fa-chart-line mr-2 text-gray-600"></i>
+                                <div>
+                                    <div class="font-semibold">Real-time Analytics</div>
+                                    <div class="text-sm text-gray-500">Live financial insights</div>
+                                </div>
+                            </a>
+                            <hr class="my-2">
+                            <div class="text-sm font-semibold text-gray-500 mb-2"><i class="fas fa-shield-alt mr-2"></i>Security & Compliance</div>
+                            <a href="#security" class="flex items-center p-2 hover:bg-gray-100 rounded">
+                                <i class="fas fa-certificate mr-2 text-gray-600"></i>
+                                <div>
+                                    <div class="font-semibold">IFRS Compliance</div>
+                                    <div class="text-sm text-gray-500">International standards</div>
+                                </div>
+                            </a>
+                            <a href="#security" class="flex items-center p-2 hover:bg-gray-100 rounded">
+                                <i class="fas fa-lock mr-2 text-gray-600"></i>
+                                <div>
+                                    <div class="font-semibold">Bank-Grade Security</div>
+                                    <div class="text-sm text-gray-500">ISO 27001 certified</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <a href="#pricing" class="text-gray-700 hover:text-gray-900">Pricing</a>
+                {% if not user.is_authenticated %}
+                <a href="{% url 'login' %}" class="text-gray-700 hover:text-gray-900">Login</a>
+                <a href="{% url 'signup' %}" class="bg-gray-900 text-white px-4 py-2 rounded-lg hover:bg-gray-800">Sign Up</a>
+                {% endif %}
+            </div>
+            <div class="md:hidden flex items-center">
+                <button class="text-gray-700 hover:text-gray-900">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            {% if user.is_authenticated %}
+            <div class="hidden md:flex items-center space-x-4">
+                <a href="{% url 'dashboard' %}" class="text-gray-700 hover:text-gray-900 flex items-center">
+                    <i class="fas fa-tachometer-alt mr-2"></i>Dashboard
+                </a>
+                <div class="relative group">
+                    <button class="text-gray-700 hover:text-gray-900 flex items-center">
+                        <i class="fas fa-user-circle mr-2"></i>{{ user.first_name|default:user.username }}
+                    </button>
+                    <div class="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                        <div class="p-2">
+                            <a href="{% url 'dashboard' %}" class="flex items-center p-2 hover:bg-gray-100 rounded">
+                                <i class="fas fa-tachometer-alt mr-2"></i>Dashboard
+                            </a>
+                            <a href="#" class="flex items-center p-2 hover:bg-gray-100 rounded">
+                                <i class="fas fa-user mr-2"></i>Profile
+                            </a>
+                            <a href="#" class="flex items-center p-2 hover:bg-gray-100 rounded">
+                                <i class="fas fa-cog mr-2"></i>Settings
+                            </a>
+                            <hr class="my-1">
+                            <a href="{% url 'logout' %}" class="flex items-center p-2 hover:bg-gray-100 rounded">
+                                <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="hidden md:flex items-center">
+                <a href="{% url 'signup' %}" class="bg-gray-900 text-white px-6 py-2 rounded-lg hover:bg-gray-800 flex items-center">
+                    Start Free Trial <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</nav>
