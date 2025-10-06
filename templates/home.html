@@ -4,119 +4,468 @@
 {% block content %}
 <!-- Hero Section -->
 <section class="hero-section">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6">
-                <div class="hero-content">
-                    <div class="badge bg-light text-dark mb-4 px-4 py-2 rounded-pill">
-                        <i class="fas fa-certificate me-2"></i>IFRS Compliant & ISO 27001 Certified
-                    </div>
-                    <h1 class="display-3 fw-bold mb-4">Simplify Your Accounting. Empower Your Business.</h1>
-                    <p class="lead mb-4">Automated, Secure, and IFRS-Compliant accounting system made for modern teams. Transform your financial management with intelligent automation and real-time insights.</p>
-                    <div class="floating-stats mb-4 p-4 rounded-3" style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px);">
-                        <div class="row g-3 text-center">
-                            <div class="col-4">
-                                <div class="h4 mb-0">10K+</div>
-                                <small>Businesses</small>
+    <!-- Full-Width Hero Background Image -->
+    <div class="full-width-hero-container">
+        <img src="{% static 'images/image1.jpg' %}" alt="Ovovex Platform Preview" class="full-width-hero-bg">
+        
+        <!-- Hero Content Overlay -->
+        <div class="hero-content-overlay">
+            <div class="container">
+                <div class="row align-items-center min-vh-70">
+                    <div class="col-lg-7">
+                        <div class="hero-content">
+                            <div class="badge bg-light text-dark mb-4 px-4 py-2 rounded-pill shadow-lg">
+                                <i class="fas fa-certificate me-2"></i>IFRS Compliant & ISO 27001 Certified
                             </div>
-                            <div class="col-4">
-                                <div class="h4 mb-0">40+</div>
-                                <small>Countries</small>
+                            <h1 class="display-2 fw-bold mb-4 text-white">
+                                Simplify Your Accounting. 
+                                <span class="text-gradient-light">Empower Your Business.</span>
+                            </h1>
+                            <p class="lead mb-4 text-white" style="opacity: 0.9;">
+                                Automated, Secure, and IFRS-Compliant accounting system made for modern teams. 
+                                Transform your financial management with intelligent automation and real-time insights.
+                            </p>
+                            <div class="hero-stats mb-4 p-4 rounded-3" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.2);">
+                                <div class="row g-3 text-center">
+                                    <div class="col-4">
+                                        <div class="h3 mb-0 text-white fw-bold">50K+</div>
+                                        <small class="text-white-50">Businesses</small>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="h3 mb-0 text-white fw-bold">40+</div>
+                                        <small class="text-white-50">Countries</small>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="h3 mb-0 text-white fw-bold">99.9%</div>
+                                        <small class="text-white-50">Uptime</small>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-4">
-                                <div class="h4 mb-0">99.9%</div>
-                                <small>Uptime</small>
+                            <div class="d-flex flex-wrap gap-3">
+                                <a href="#demo" class="btn btn-light btn-lg px-5 py-3 shadow-lg">
+                                    <i class="fas fa-rocket me-2"></i>Start Free Trial
+                                </a>
+                                <a href="#features" class="btn btn-outline-light btn-lg px-5 py-3">
+                                    <i class="fas fa-play me-2"></i>Watch Demo
+                                </a>
                             </div>
                         </div>
                     </div>
-                    <div class="d-flex flex-wrap gap-3">
-                        <a href="#demo" class="btn btn-light btn-lg">
-                            <i class="fas fa-rocket me-2"></i>Start Free Trial
-                        </a>
-                        <a href="#features" class="btn btn-outline-light btn-lg">
-                            <i class="fas fa-play me-2"></i>Watch Demo
-                        </a>
+                    <div class="col-lg-5">
+                        <!-- Interactive Demo Section -->
+                        <div class="hero-demo-section text-center">
+                            <div class="demo-play-button mb-4">
+                                <div class="play-button-xl">
+                                    <i class="fas fa-play"></i>
+                                </div>
+                            </div>
+                            <h4 class="text-white mb-3">See Platform in Action</h4>
+                            <p class="text-white-50 mb-4">
+                                Watch how Ovovex transforms your accounting workflow with AI-powered automation
+                            </p>
+                            <div class="demo-features">
+                                <div class="feature-item mb-2">
+                                    <i class="fas fa-check-circle me-2 text-success"></i>
+                                    <span class="text-white">Real-time Financial Insights</span>
+                                </div>
+                                <div class="feature-item mb-2">
+                                    <i class="fas fa-check-circle me-2 text-success"></i>
+                                    <span class="text-white">Automated Invoice Generation</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-check-circle me-2 text-success"></i>
+                                    <span class="text-white">IFRS Compliance Reporting</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Floating Stats Badges -->
+        <div class="floating-stats-badges">
+            <div class="stats-badge badge-1">
+                <div class="badge-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="badge-content">
+                    <div class="badge-value">$127K</div>
+                    <div class="badge-label">Revenue</div>
+                </div>
+            </div>
+            
+            <div class="stats-badge badge-2">
+                <div class="badge-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="badge-content">
+                    <div class="badge-value">50K+</div>
+                    <div class="badge-label">Businesses</div>
+                </div>
+            </div>
+            
+            <div class="stats-badge badge-3">
+                <div class="badge-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="badge-content">
+                    <div class="badge-value">100%</div>
+                    <div class="badge-label">Secure</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Corner Certifications -->
+        <div class="corner-certifications">
+            <div class="cert-badge">
+                <i class="fas fa-award text-warning"></i>
+                <span class="text-white ms-2">IFRS Certified</span>
+            </div>
+            <div class="cert-badge">
+                <i class="fas fa-shield-alt text-success"></i>
+                <span class="text-white ms-2">ISO 27001</span>
+            </div>
+        </div>
+        
+        <!-- Gradient Overlay for Better Text Readability -->
+        <div class="hero-gradient-overlay"></div>
+    </div>
+</section>
+
+<!-- Interactive Demo Section -->
+<section class="demo-section py-5">
+    <div class="container">
+        <div class="row justify-content-center mb-5">
+            <div class="col-lg-8 text-center">
+                <div class="demo-badge mb-3">
+                    <i class="fas fa-play-circle me-2"></i>
+                    <span>Live Demo</span>
+                </div>
+                <h2 class="section-title mb-4">See Ovovex in Action</h2>
+                <p class="section-subtitle">Experience the power of AI-driven accounting automation with our interactive platform demo</p>
+            </div>
+        </div>
+        
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <div class="demo-video-container">
+                    <div class="demo-screen">
+                        <div class="demo-header">
+                            <div class="demo-dots">
+                                <span class="dot bg-danger"></span>
+                                <span class="dot bg-warning"></span>
+                                <span class="dot bg-success"></span>
+                            </div>
+                            <span class="demo-title">Ovovex Dashboard</span>
+                        </div>
+                        <div class="demo-content">
+                            <img src="{% static 'images/image1.jpg' %}" alt="Dashboard Demo" class="demo-image">
+                            <div class="demo-overlay">
+                                <div class="play-button-demo">
+                                    <i class="fas fa-play"></i>
+                                </div>
+                                <p class="demo-text">Click to start interactive demo</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-lg-6">
-                <div class="hero-dashboard position-relative">
-                    <!-- Hero Image -->
-                    <div class="hero-image-container mb-4">
-                        <img src="{% static 'images/image1.jpg' %}" alt="Ovovex Platform Preview" class="hero-main-image img-fluid rounded-4 shadow-lg">
-                        <div class="image-overlay">
-                            <div class="overlay-badge">
-                                <i class="fas fa-play-circle me-2"></i>
-                                <span>See Platform in Action</span>
+                <div class="demo-features">
+                    <h3 class="mb-4">What You'll Experience</h3>
+                    <div class="feature-list">
+                        <div class="feature-item mb-3">
+                            <div class="feature-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="feature-content">
+                                <h5>Real-time Financial Dashboard</h5>
+                                <p>See live cash flow, profit & loss, and key performance indicators</p>
+                            </div>
+                        </div>
+                        <div class="feature-item mb-3">
+                            <div class="feature-icon">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="feature-content">
+                                <h5>AI-Powered Invoice Generation</h5>
+                                <p>Automatically create and send professional invoices with smart automation</p>
+                            </div>
+                        </div>
+                        <div class="feature-item mb-3">
+                            <div class="feature-icon">
+                                <i class="fas fa-file-invoice"></i>
+                            </div>
+                            <div class="feature-content">
+                                <h5>IFRS Compliant Reporting</h5>
+                                <p>Generate audit-ready financial reports that meet international standards</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-mobile-alt"></i>
+                            </div>
+                            <div class="feature-content">
+                                <h5>Mobile-First Experience</h5>
+                                <p>Manage your accounting on-the-go with our responsive mobile interface</p>
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="dashboard-preview p-4">
-                        <div class="d-flex justify-content-between align-items-center mb-4">
-                            <div class="d-flex align-items-center">
-                                <div class="demo-dots me-3">
-                                    <span class="dot bg-danger"></span>
-                                    <span class="dot bg-warning"></span>
-                                    <span class="dot bg-success"></span>
-                                </div>
-                                <h6 class="text-dark mb-0 fw-600">Live Dashboard</h6>
-                            </div>
-                            <div class="d-flex align-items-center">
-                                <div class="pulse-dot me-2"></div>
-                                <span class="badge bg-success rounded-pill">Real-time</span>
-                            </div>
-                        </div>
+                    <div class="demo-cta mt-4">
+                        <a href="#" class="btn btn-primary btn-lg me-3">
+                            <i class="fas fa-rocket me-2"></i>Start Free Trial
+                        </a>
+                        <a href="#" class="btn btn-outline-primary btn-lg">
+                            <i class="fas fa-calendar me-2"></i>Schedule Demo
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Core Features Section -->
+<section class="features-section py-5 bg-light">
+    <div class="container">
+        <div class="row justify-content-center mb-5">
+            <div class="col-lg-8 text-center">
+                <h2 class="section-title mb-4">Everything You Need to Run Your Business</h2>
+                <p class="section-subtitle">From invoicing to financial reporting, Ovovex provides comprehensive accounting tools designed for modern businesses</p>
+            </div>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-card">
+                    <div class="feature-icon-large">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                    </div>
+                    <h4>Smart Invoicing</h4>
+                    <p>Create professional invoices in seconds with AI-powered templates. Track payment status and send automated reminders.</p>
+                    <ul class="feature-benefits">
+                        <li><i class="fas fa-check text-success me-2"></i>Automated invoice generation</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Multi-currency support</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Payment gateway integration</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Recurring billing automation</li>
+                    </ul>
+                    <a href="#" class="feature-link">Learn more <i class="fas fa-arrow-right ms-1"></i></a>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-card featured">
+                    <div class="popular-badge">Most Popular</div>
+                    <div class="feature-icon-large">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h4>Financial Analytics</h4>
+                    <p>Get real-time insights into your business performance with AI-driven analytics and predictive forecasting.</p>
+                    <ul class="feature-benefits">
+                        <li><i class="fas fa-check text-success me-2"></i>Real-time cash flow tracking</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Predictive financial modeling</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Interactive dashboards</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Custom KPI monitoring</li>
+                    </ul>
+                    <a href="#" class="feature-link">Learn more <i class="fas fa-arrow-right ms-1"></i></a>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-card">
+                    <div class="feature-icon-large">
+                        <i class="fas fa-receipt"></i>
+                    </div>
+                    <h4>Expense Management</h4>
+                    <p>Capture receipts, categorize expenses automatically, and track spending across projects and departments.</p>
+                    <ul class="feature-benefits">
+                        <li><i class="fas fa-check text-success me-2"></i>OCR receipt scanning</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Auto expense categorization</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Mileage tracking</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Expense policy enforcement</li>
+                    </ul>
+                    <a href="#" class="feature-link">Learn more <i class="fas fa-arrow-right ms-1"></i></a>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-card">
+                    <div class="feature-icon-large">
+                        <i class="fas fa-users-cog"></i>
+                    </div>
+                    <h4>Team Collaboration</h4>
+                    <p>Work seamlessly with your team, accountants, and stakeholders with role-based permissions and real-time collaboration.</p>
+                    <ul class="feature-benefits">
+                        <li><i class="fas fa-check text-success me-2"></i>Role-based access control</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Real-time collaboration</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Audit trails</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Multi-user support</li>
+                    </ul>
+                    <a href="#" class="feature-link">Learn more <i class="fas fa-arrow-right ms-1"></i></a>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-card">
+                    <div class="feature-icon-large">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h4>Security & Compliance</h4>
+                    <p>Bank-level security with IFRS compliance, automated backups, and comprehensive audit capabilities.</p>
+                    <ul class="feature-benefits">
+                        <li><i class="fas fa-check text-success me-2"></i>256-bit SSL encryption</li>
+                        <li><i class="fas fa-check text-success me-2"></i>IFRS & GAAP compliance</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Automated daily backups</li>
+                        <li><i class="fas fa-check text-success me-2"></i>SOC 2 Type II certified</li>
+                    </ul>
+                    <a href="#" class="feature-link">Learn more <i class="fas fa-arrow-right ms-1"></i></a>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="feature-card">
+                    <div class="feature-icon-large">
+                        <i class="fas fa-plug"></i>
+                    </div>
+                    <h4>Integrations</h4>
+                    <p>Connect with 200+ business apps including banks, payment processors, CRMs, and e-commerce platforms.</p>
+                    <ul class="feature-benefits">
+                        <li><i class="fas fa-check text-success me-2"></i>Bank account synchronization</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Payment gateway integration</li>
+                        <li><i class="fas fa-check text-success me-2"></i>CRM & ERP connections</li>
+                        <li><i class="fas fa-check text-success me-2"></i>API access</li>
+                    </ul>
+                    <a href="#" class="feature-link">Learn more <i class="fas fa-arrow-right ms-1"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- AI-Powered Features Section -->
+<section class="ai-features-section py-5">
+    <div class="container">
+        <div class="row justify-content-center mb-5">
+            <div class="col-lg-8 text-center">
+                <div class="ai-badge mb-3">
+                    <i class="fas fa-brain me-2"></i>
+                    <span>AI-Powered</span>
+                </div>
+                <h2 class="section-title mb-4">Intelligence That Works for You</h2>
+                <p class="section-subtitle">Leverage artificial intelligence to automate routine tasks, gain insights, and make smarter financial decisions</p>
+            </div>
+        </div>
+        
+        <div class="row align-items-center g-5 mb-5">
+            <div class="col-lg-6">
+                <div class="ai-feature-content">
+                    <h3 class="mb-3">Smart Transaction Categorization</h3>
+                    <p class="mb-4">Our AI learns from your business patterns to automatically categorize transactions, saving you hours of manual work each week.</p>
+                    <div class="ai-stats">
                         <div class="row g-3">
-                            <div class="col-6">
-                                <div class="modern-card p-3 text-center">
-                                    <div class="card-icon mb-2">
-                                        <i class="fas fa-chart-line text-primary fs-4"></i>
-                                    </div>
-                                    <div class="small text-muted">Monthly Revenue</div>
-                                    <div class="h4 mb-0 text-primary fw-bold">$127,450</div>
-                                    <div class="small text-success">↗ +12.5%</div>
+                            <div class="col-4">
+                                <div class="stat-item">
+                                    <h4 class="text-primary">98.5%</h4>
+                                    <small>Accuracy Rate</small>
                                 </div>
                             </div>
-                            <div class="col-6">
-                                <div class="modern-card p-3 text-center">
-                                    <div class="card-icon mb-2">
-                                        <i class="fas fa-file-invoice text-info fs-4"></i>
-                                    </div>
-                                    <div class="small text-muted">Invoices Sent</div>
-                                    <div class="h4 mb-0 text-info fw-bold">342</div>
-                                    <div class="small text-success">↗ +8.2%</div>
+                            <div class="col-4">
+                                <div class="stat-item">
+                                    <h4 class="text-success">15hrs</h4>
+                                    <small>Saved Weekly</small>
                                 </div>
                             </div>
-                            <div class="col-12">
-                                <div class="modern-card p-3">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <div class="small text-muted">Cash Flow</div>
-                                            <div class="h5 mb-0 text-success fw-bold">+$45,230</div>
-                                        </div>
-                                        <div class="mini-chart">
-                                            <div class="chart-bar" style="height: 20px;"></div>
-                                            <div class="chart-bar" style="height: 35px;"></div>
-                                            <div class="chart-bar" style="height: 28px;"></div>
-                                            <div class="chart-bar" style="height: 42px;"></div>
-                                            <div class="chart-bar" style="height: 38px;"></div>
-                                        </div>
-                                    </div>
+                            <div class="col-4">
+                                <div class="stat-item">
+                                    <h4 class="text-info">3sec</h4>
+                                    <small>Processing Time</small>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="floating-elements">
-                        <div class="floating-card card-1">
-                            <i class="fas fa-shield-alt text-success"></i>
-                            <span>Secure</span>
-                        </div>
-                        <div class="floating-card card-2">
-                            <i class="fas fa-robot text-primary"></i>
-                            <span>AI Powered</span>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="ai-demo-card">
+                    <div class="demo-header">
+                        <span class="demo-title">AI Transaction Processor</span>
+                        <div class="status-indicator">
+                            <span class="status-dot"></span>
+                            Processing
                         </div>
                     </div>
+                    <div class="transaction-demo">
+                        <div class="transaction-item">
+                            <div class="transaction-icon">
+                                <i class="fas fa-coffee text-warning"></i>
+                            </div>
+                            <div class="transaction-details">
+                                <span class="transaction-desc">Starbucks Coffee #4521</span>
+                                <span class="transaction-category">→ Office Supplies</span>
+                            </div>
+                            <span class="transaction-amount">$15.67</span>
+                        </div>
+                        <div class="transaction-item">
+                            <div class="transaction-icon">
+                                <i class="fas fa-car text-primary"></i>
+                            </div>
+                            <div class="transaction-details">
+                                <span class="transaction-desc">Uber Ride Downtown</span>
+                                <span class="transaction-category">→ Travel Expenses</span>
+                            </div>
+                            <span class="transaction-amount">$24.50</span>
+                        </div>
+                        <div class="transaction-item">
+                            <div class="transaction-icon">
+                                <i class="fas fa-desktop text-success"></i>
+                            </div>
+                            <div class="transaction-details">
+                                <span class="transaction-desc">Adobe Creative Suite</span>
+                                <span class="transaction-category">→ Software & Tools</span>
+                            </div>
+                            <span class="transaction-amount">$52.99</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-lg-3 col-md-6">
+                <div class="ai-capability-card">
+                    <div class="capability-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h5>Predictive Analytics</h5>
+                    <p>Forecast cash flow and identify trends before they impact your business</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="ai-capability-card">
+                    <div class="capability-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h5>Anomaly Detection</h5>
+                    <p>Automatically flag unusual transactions and potential fraud attempts</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="ai-capability-card">
+                    <div class="capability-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h5>Smart Insights</h5>
+                    <p>Receive personalized recommendations to optimize your financial performance</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="ai-capability-card">
+                    <div class="capability-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h5>Natural Language</h5>
+                    <p>Ask questions about your finances in plain English and get instant answers</p>
                 </div>
             </div>
         </div>

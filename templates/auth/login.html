@@ -1,11 +1,16 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 <div class="auth-container">
     <div class="container-fluid min-vh-100">
         <div class="row min-vh-100">
-            <!-- Left Side - Branding -->
-            <div class="col-lg-6 d-none d-lg-flex auth-brand-side">
+            <!-- Left Side - Branding with Hero Image -->
+            <div class="col-lg-6 d-none d-lg-flex auth-brand-side login-hero">
+                <div class="auth-hero-image">
+                    <img src="{% static 'images/image3.jpg' %}" alt="Welcome Back to Ovovex" class="hero-bg-image">
+                    <div class="auth-hero-overlay"></div>
+                </div>
                 <div class="auth-brand-content">
                     <div class="brand-logo">
                         <i class="fas fa-chart-line brand-icon"></i>
@@ -27,6 +32,14 @@
                             <i class="fas fa-mobile-alt"></i>
                             <span>Mobile accessible</span>
                         </div>
+                    </div>
+                    
+                    <div class="login-welcome">
+                        <div class="welcome-badge">
+                            <i class="fas fa-check-circle me-2"></i>
+                            <span>Secure Login</span>
+                        </div>
+                        <p class="welcome-text">Your data is protected with 256-bit SSL encryption and advanced security protocols.</p>
                     </div>
                 </div>
             </div>
