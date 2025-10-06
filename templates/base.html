@@ -173,31 +173,30 @@
                     Ovovex
                 </a>
                 
-                <!-- Quick Access Box -->
-                <div class="quick-access-box d-none d-lg-flex align-items-center me-4">
-                    <div class="quick-search">
-                        <i class="fas fa-search"></i>
-                        <input type="text" placeholder="Quick search..." class="quick-search-input">
+                <!-- Modern Quick Access -->
+                <div class="modern-nav-actions d-none d-lg-flex align-items-center me-4">
+                    <!-- Action Buttons -->
+                    <div class="nav-action-group d-flex align-items-center">
+                        <button class="modern-action-btn" title="Live Demo">
+                            <i class="fas fa-play-circle"></i>
+                            <span>Demo</span>
+                        </button>
+                        <button class="modern-action-btn" title="Documentation">
+                            <i class="fas fa-book-open"></i>
+                            <span>Docs</span>
+                        </button>
+                        <button class="modern-action-btn notification-btn" title="Updates">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-dot"></span>
+                        </button>
                     </div>
-                    <div class="quick-actions d-flex align-items-center ms-3">
-                        <!-- Quick Shortcuts -->
-                        <div class="quick-shortcuts me-3">
-                            <button class="quick-shortcut-btn" title="Dashboard">
-                                <i class="fas fa-chart-pie"></i>
-                            </button>
-                            <button class="quick-shortcut-btn" title="Notifications">
-                                <i class="fas fa-bell"></i>
-                                <span class="notification-badge">3</span>
-                            </button>
-                            <button class="quick-shortcut-btn" title="Settings">
-                                <i class="fas fa-cog"></i>
-                            </button>
-                        </div>
-                        
+                    
+                    <!-- Main Navigation -->
+                    <div class="modern-nav-menu d-flex align-items-center ms-4">
                         <div class="dropdown">
-                            <button class="quick-btn dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                                <i class="fas fa-th-large me-2"></i>
-                                <span>Features</span>
+                            <button class="modern-nav-btn dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                <i class="fas fa-layers me-2"></i>
+                                <span>Platform</span>
                             </button>
                             <ul class="dropdown-menu modern-dropdown">
                                 <li class="dropdown-header">
@@ -238,9 +237,9 @@
                             </ul>
                         </div>
                         
-                        <div class="dropdown ms-2">
-                            <button class="quick-btn dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                                <i class="fas fa-rocket me-2"></i>
+                        <div class="dropdown ms-3">
+                            <button class="modern-nav-btn dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                <i class="fas fa-users me-2"></i>
                                 <span>Solutions</span>
                             </button>
                             <ul class="dropdown-menu modern-dropdown">
@@ -435,27 +434,32 @@
                 }
             });
             
-            // Quick search functionality
-            const quickSearchInput = document.querySelector('.quick-search-input');
-            if (quickSearchInput) {
-                quickSearchInput.addEventListener('input', function(e) {
-                    const searchTerm = e.target.value.toLowerCase();
-                    // Add search logic here - for demo purposes
-                    if (searchTerm.length > 0) {
-                        this.parentElement.style.borderColor = 'rgba(59, 130, 246, 0.5)';
-                    } else {
-                        this.parentElement.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+            // Modern action button interactions
+            document.querySelectorAll('.modern-action-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    // Add ripple effect
+                    const ripple = document.createElement('div');
+                    ripple.classList.add('ripple-effect');
+                    
+                    const rect = this.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    const x = e.clientX - rect.left - size / 2;
+                    const y = e.clientY - rect.top - size / 2;
+                    
+                    ripple.style.width = ripple.style.height = size + 'px';
+                    ripple.style.left = x + 'px';
+                    ripple.style.top = y + 'px';
+                    
+                    this.appendChild(ripple);
+                    
+                    setTimeout(() => ripple.remove(), 600);
+                    
+                    // Handle specific actions
+                    if (this.title === 'Live Demo') {
+                        document.querySelector('#demo')?.scrollIntoView({ behavior: 'smooth' });
                     }
                 });
-                
-                quickSearchInput.addEventListener('keypress', function(e) {
-                    if (e.key === 'Enter') {
-                        // Trigger search functionality
-                        console.log('Searching for:', this.value);
-                        // You can implement actual search here
-                    }
-                });
-            }
+            });
             
             // Enhanced dropdown interactions
             document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
