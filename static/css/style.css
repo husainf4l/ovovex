@@ -1356,3 +1356,194 @@ section::before {
     height: 100px;
     background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(147, 197, 253, 0.2) 100%);
 }
+
+/* ===== ENHANCED NAVIGATION ORGANIZATION ===== */
+
+/* Navigation Layout Organization */
+.nav-main {
+    gap: 2rem;
+    padding: 0 1rem;
+}
+
+.navbar-actions {
+    gap: 1rem;
+    padding: 0 1rem;
+}
+
+/* Enhanced Main Navigation Links */
+.nav-link-main {
+    position: relative;
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.85) !important;
+    padding: 0.75rem 1.25rem !important;
+    border-radius: 10px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-decoration: none;
+    letter-spacing: 0.025em;
+    overflow: hidden;
+}
+
+.nav-link-main::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 0;
+}
+
+.nav-link-main:hover {
+    color: white !important;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.nav-link-main:hover::before {
+    opacity: 1;
+}
+
+.nav-link-main.active {
+    color: var(--accent-blue) !important;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(99, 102, 241, 0.1) 100%);
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2);
+}
+
+.nav-link-main.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 35px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent-blue) 0%, #4f46e5 100%);
+    border-radius: 2px;
+    animation: activeIndicator 0.3s ease;
+}
+
+@keyframes activeIndicator {
+    0% { width: 0; opacity: 0; }
+    100% { width: 35px; opacity: 1; }
+}
+
+.nav-text {
+    position: relative;
+    z-index: 1;
+}
+
+/* Secondary Navigation Link (Login) */
+.nav-link-secondary {
+    color: rgba(255, 255, 255, 0.7) !important;
+    font-weight: 500;
+    font-size: 0.9rem;
+    text-decoration: none;
+    padding: 0.625rem 1.125rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-link-secondary:hover {
+    color: white !important;
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
+}
+
+.nav-link-secondary i {
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.nav-link-secondary:hover i {
+    opacity: 1;
+}
+
+/* Enhanced CTA Button */
+.nav-cta-btn-enhanced {
+    background: linear-gradient(135deg, var(--accent-blue) 0%, #4f46e5 100%);
+    color: white !important;
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 0.875rem 1.75rem;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    box-shadow: 
+        0 4px 15px rgba(59, 130, 246, 0.3),
+        0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-cta-btn-enhanced::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.nav-cta-btn-enhanced:hover {
+    color: white !important;
+    background: linear-gradient(135deg, #4f46e5 0%, var(--accent-blue) 100%);
+    transform: translateY(-3px);
+    box-shadow: 
+        0 8px 25px rgba(59, 130, 246, 0.4),
+        0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.nav-cta-btn-enhanced:hover::before {
+    left: 100%;
+}
+
+.nav-cta-btn-enhanced i {
+    transition: transform 0.3s ease;
+}
+
+.nav-cta-btn-enhanced:hover i {
+    transform: translateX(3px);
+}
+
+/* Mobile Navigation Enhancements */
+@media (max-width: 991px) {
+    .nav-main {
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 1rem 0;
+    }
+    
+    .navbar-actions {
+        flex-direction: column;
+        gap: 0.75rem;
+        padding: 1rem 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        margin-top: 1rem;
+    }
+    
+    .nav-link-main {
+        padding: 1rem 1.5rem !important;
+        margin: 0.25rem 0;
+        border-radius: 8px;
+    }
+    
+    .nav-link-secondary,
+    .nav-cta-btn-enhanced {
+        padding: 1rem 1.5rem;
+        border-radius: 8px;
+        justify-content: center;
+    }
+}
