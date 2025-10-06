@@ -1426,6 +1426,24 @@ section::before {
     animation: activeIndicator 0.3s ease;
 }
 
+/* Special styling for signup link in navigation */
+.nav-signup-highlight {
+    background: linear-gradient(135deg, var(--accent-blue) 0%, #4f46e5 100%) !important;
+    color: white !important;
+    border-radius: 8px !important;
+    padding: 0.75rem 1.25rem !important;
+    margin-left: 0.5rem;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.nav-signup-highlight:hover {
+    background: linear-gradient(135deg, #4f46e5 0%, var(--accent-blue) 100%) !important;
+    color: white !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+}
+
 @keyframes activeIndicator {
     0% { width: 0; opacity: 0; }
     100% { width: 35px; opacity: 1; }

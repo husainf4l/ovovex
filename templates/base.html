@@ -317,6 +317,18 @@
                                 <span class="nav-text">Pricing</span>
                             </a>
                         </li>
+                        {% if not user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-main" href="{% url 'login' %}">
+                                <span class="nav-text">Login</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-main nav-signup-highlight" href="{% url 'signup' %}">
+                                <span class="nav-text">Sign Up</span>
+                            </a>
+                        </li>
+                        {% endif %}
                     </ul>
 
                     <!-- Action Buttons -->
@@ -348,10 +360,6 @@
                                 </ul>
                             </div>
                         {% else %}
-                            <a class="nav-link-secondary me-3" href="{% url 'login' %}">
-                                <i class="fas fa-sign-in-alt me-2"></i>
-                                <span>Login</span>
-                            </a>
                             <a class="nav-cta-btn-enhanced" href="{% url 'signup' %}">
                                 <span>Start Free Trial</span>
                                 <i class="fas fa-arrow-right ms-2"></i>
