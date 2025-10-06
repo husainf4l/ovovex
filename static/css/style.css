@@ -1,0 +1,252 @@
+/* Ovovex Accounting System - Custom Styles */
+
+:root {
+    --primary-blue: #1e3a8a;
+    --light-blue: #3b82f6;
+    --dark-blue: #1e40af;
+    --accent-blue: #60a5fa;
+    --navy-blue: #1e293b;
+    --steel-blue: #475569;
+}
+
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
+    color: white;
+    padding: 100px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="white" opacity="0.1"/></svg>') repeat;
+    animation: float 20s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Feature Cards */
+.feature-card {
+    transition: all 0.3s ease;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15);
+}
+
+/* Navigation */
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+/* Footer */
+footer {
+    background-color: var(--primary-blue);
+    color: white;
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: var(--light-blue);
+    border-color: var(--light-blue);
+}
+
+.btn-primary:hover {
+    background-color: var(--dark-blue);
+    border-color: var(--dark-blue);
+}
+
+/* Text Colors */
+.text-primary {
+    color: var(--light-blue) !important;
+}
+
+.bg-primary {
+    background-color: var(--light-blue) !important;
+}
+
+/* Dashboard Preview */
+.dashboard-preview {
+    animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Floating Stats */
+.floating-stats {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 0.7; }
+    50% { opacity: 1; }
+    100% { opacity: 0.7; }
+}
+
+/* Demo Section */
+.demo-dots .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 4px;
+}
+
+/* Feature Icons */
+.feature-icon {
+    transition: transform 0.3s ease;
+}
+
+.feature-card:hover .feature-icon {
+    transform: scale(1.1);
+}
+
+/* Integration Cards */
+.integration-card {
+    transition: transform 0.3s ease;
+}
+
+.integration-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Security Badges */
+.security-badges .badge {
+    transition: transform 0.3s ease;
+}
+
+.security-badges .badge:hover {
+    transform: scale(1.05);
+}
+
+/* Counters */
+.counter {
+    font-weight: bold;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--accent-blue);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--light-blue);
+}
+
+/* IFRS Compliance Styles */
+.ifrs-badge {
+    background: linear-gradient(45deg, var(--primary-blue), var(--light-blue));
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+/* Accounting-specific animations */
+@keyframes slideInLeft {
+    from { transform: translateX(-100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInRight {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+.slide-in-left {
+    animation: slideInLeft 0.8s ease-out;
+}
+
+.slide-in-right {
+    animation: slideInRight 0.8s ease-out;
+}
+
+/* Professional color scheme for financial data */
+.financial-card {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    border-left: 4px solid var(--light-blue);
+}
+
+.financial-positive {
+    color: #059669;
+}
+
+.financial-negative {
+    color: #dc2626;
+}
+
+.financial-neutral {
+    color: var(--steel-blue);
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 60px 0;
+    }
+    
+    .display-3 {
+        font-size: 2.5rem;
+    }
+    
+    .display-5 {
+        font-size: 2rem;
+    }
+}
+
+/* Loading states */
+.btn-loading {
+    position: relative;
+    color: transparent !important;
+}
+
+.btn-loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    border: 2px solid transparent;
+    border-top: 2px solid currentColor;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
