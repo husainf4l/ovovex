@@ -200,6 +200,456 @@ body {
     padding-top: 80px;
 }
 
+/* Modern Quick Access Box */
+.quick-access-box {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    padding: 8px 16px;
+    margin: 0 20px;
+}
+
+.quick-search {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 8px 12px;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.quick-search:focus-within {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+}
+
+.quick-search i {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+    margin-right: 8px;
+}
+
+.quick-search-input {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 0.9rem;
+    width: 200px;
+    outline: none;
+}
+
+.quick-search-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.quick-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    color: white;
+    padding: 8px 14px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+}
+
+.quick-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+    color: white;
+}
+
+.quick-btn::after {
+    margin-left: 8px;
+    font-size: 0.7rem;
+}
+
+/* Modern Dropdown Styling */
+.modern-dropdown {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    padding: 12px 0;
+    margin-top: 8px;
+    min-width: 280px;
+    animation: dropdownFadeIn 0.3s ease;
+}
+
+@keyframes dropdownFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px) scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.modern-dropdown .dropdown-header {
+    color: var(--steel-blue);
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 8px 20px 4px;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+}
+
+.modern-dropdown .dropdown-item {
+    padding: 12px 20px;
+    color: var(--navy-blue);
+    font-weight: 500;
+    border-radius: 8px;
+    margin: 2px 8px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.modern-dropdown .dropdown-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+    transition: left 0.5s;
+}
+
+.modern-dropdown .dropdown-item:hover {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(147, 197, 253, 0.1) 100%);
+    color: var(--light-blue);
+    transform: translateX(4px);
+}
+
+.modern-dropdown .dropdown-item:hover::before {
+    left: 100%;
+}
+
+.modern-dropdown .dropdown-item i {
+    width: 20px;
+    text-align: center;
+    color: var(--accent-blue);
+}
+
+.modern-dropdown .dropdown-item.featured {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(147, 197, 253, 0.1) 100%);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.modern-dropdown .dropdown-item.featured:hover {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(147, 197, 253, 0.2) 100%);
+    border-color: rgba(59, 130, 246, 0.3);
+}
+
+.modern-dropdown .dropdown-divider {
+    border-color: rgba(226, 232, 240, 0.5);
+    margin: 8px 16px;
+}
+
+/* Enhanced dropdown item content */
+.dropdown-item > div {
+    flex: 1;
+}
+
+.dropdown-item .fw-semibold {
+    font-size: 0.95rem;
+    margin-bottom: 2px;
+}
+
+.dropdown-item small {
+    font-size: 0.8rem;
+    line-height: 1.2;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 991px) {
+    .quick-access-box {
+        display: none !important;
+    }
+    
+    .modern-dropdown {
+        position: static !important;
+        transform: none !important;
+        box-shadow: none;
+        background: rgba(15, 23, 42, 0.95);
+        backdrop-filter: none;
+        border: none;
+        border-radius: 0;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .modern-dropdown .dropdown-item {
+        color: rgba(255, 255, 255, 0.8);
+        margin: 0;
+        border-radius: 0;
+    }
+    
+    .modern-dropdown .dropdown-item:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        transform: none;
+    }
+    
+    .modern-dropdown .dropdown-header {
+        color: rgba(255, 255, 255, 0.6);
+    }
+}
+
+/* Ripple Effect */
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    animation: ripple-animation 0.6s ease-out;
+    pointer-events: none;
+}
+
+@keyframes ripple-animation {
+    0% {
+        width: 0;
+        height: 0;
+        opacity: 1;
+    }
+    100% {
+        width: 40px;
+        height: 40px;
+        opacity: 0;
+        transform: translate(-50%, -50%);
+    }
+}
+
+/* Enhanced Quick Access Animations */
+.quick-access-box {
+    animation: slideInFromTop 0.8s ease-out;
+}
+
+@keyframes slideInFromTop {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Hover effects for quick buttons */
+.quick-btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.quick-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.6s;
+}
+
+.quick-btn:hover::before {
+    left: 100%;
+}
+
+/* Notification badge (for future use) */
+.notification-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: #ef4444;
+    color: white;
+    font-size: 0.7rem;
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-weight: 600;
+    animation: pulse 2s infinite;
+}
+
+/* Enhanced search input styling */
+.quick-search-input:focus {
+    width: 240px;
+    transition: width 0.3s ease;
+}
+
+/* Loading state for quick actions */
+.quick-btn.loading {
+    pointer-events: none;
+}
+
+.quick-btn.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 16px;
+    height: 16px;
+    border: 2px solid transparent;
+    border-top: 2px solid currentColor;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    transform: translate(-50%, -50%);
+}
+
+/* Improved dropdown arrow animation */
+.dropdown-toggle::after {
+    transition: transform 0.3s ease;
+}
+
+.dropdown-toggle[aria-expanded="true"]::after {
+    transform: rotate(180deg);
+}
+
+/* Modern tooltip styling (for future features) */
+.tooltip-modern {
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 0.8rem;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Quick Shortcuts */
+.quick-shortcuts {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.quick-shortcut-btn {
+    width: 36px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    position: relative;
+    cursor: pointer;
+}
+
+.quick-shortcut-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.quick-shortcut-btn:active {
+    transform: translateY(0);
+}
+
+.quick-shortcut-btn i {
+    font-size: 0.9rem;
+}
+
+/* Enhanced notification badge */
+.notification-badge {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    color: white;
+    font-size: 0.65rem;
+    padding: 2px 5px;
+    border-radius: 8px;
+    font-weight: 700;
+    min-width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: notificationPulse 2s infinite;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+}
+
+@keyframes notificationPulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+    }
+    50% {
+        transform: scale(1.1);
+        box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.3);
+    }
+}
+
+/* Tooltip for quick shortcuts */
+.quick-shortcut-btn::before {
+    content: attr(title);
+    position: absolute;
+    bottom: -35px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(15, 23, 42, 0.95);
+    color: white;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 0.7rem;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.quick-shortcut-btn::after {
+    content: '';
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 4px solid transparent;
+    border-bottom-color: rgba(15, 23, 42, 0.95);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.quick-shortcut-btn:hover::before,
+.quick-shortcut-btn:hover::after {
+    opacity: 1;
+}
+
+/* Accessibility improvements */
+.quick-btn:focus,
+.dropdown-item:focus,
+.quick-shortcut-btn:focus {
+    outline: 2px solid rgba(59, 130, 246, 0.5);
+    outline-offset: 2px;
+}
+
+/* Mobile adjustments for shortcuts */
+@media (max-width: 991px) {
+    .quick-shortcuts {
+        display: none;
+    }
+}
+
 /* Modern Footer */
 .modern-footer {
     background: linear-gradient(135deg, var(--primary-blue) 0%, var(--navy-blue) 100%);
