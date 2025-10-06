@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="container-fluid min-vh-100">
+        <div class="row min-vh-100">
+            <!-- Left Side - Branding -->
+            <div class="col-lg-6 d-none d-lg-flex auth-brand-side">
+                <div class="auth-brand-content">
+                    <div class="brand-logo">
+                        <i class="fas fa-chart-line brand-icon"></i>
+                        <h2 class="brand-name">Ovovex</h2>
+                    </div>
+                    <h1 class="auth-title">Welcome back to your financial command center</h1>
+                    <p class="auth-subtitle">Access your dashboard and manage your finances with ease. Your accounting data is secured with bank-grade encryption.</p>
+                    
+                    <div class="auth-features">
+                        <div class="auth-feature">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Bank-grade security</span>
+                        </div>
+                        <div class="auth-feature">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Real-time analytics</span>
+                        </div>
+                        <div class="auth-feature">
+                            <i class="fas fa-mobile-alt"></i>
+                            <span>Mobile accessible</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side - Login Form -->
+            <div class="col-lg-6 auth-form-side">
+                <div class="auth-form-container">
+                    <div class="auth-form-header">
+                        <h3>Sign in to your account</h3>
+                        <p class="text-muted">Enter your credentials to access your dashboard</p>
+                    </div>
+
+                    <!-- Messages -->
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <form method="post" class="auth-form">
+                        {% csrf_token %}
+                        
+                        <div class="form-group">
+                            <label for="username" class="form-label">Username or Email</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="fas fa-user"></i>
+                                </span>
+                                <input type="text" class="form-control" id="username" name="username" 
+                                       placeholder="Enter your username or email" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password" class="form-label">Password</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="fas fa-lock"></i>
+                                </span>
+                                <input type="password" class="form-control" id="password" name="password" 
+                                       placeholder="Enter your password" required>
+                                <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="form-check-group">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="remember" name="remember">
+                                <label class="form-check-label" for="remember">
+                                    Remember me for 30 days
+                                </label>
+                            </div>
+                            <a href="#" class="forgot-password-link">Forgot password?</a>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary auth-submit-btn">
+                            <span>Sign In</span>
+                            <i class="fas fa-arrow-right ms-2"></i>
+                        </button>
+                    </form>
+
+                    <div class="auth-divider">
+                        <span>or</span>
+                    </div>
+
+                    <div class="social-login">
+                        <button type="button" class="btn btn-outline-primary social-btn">
+                            <i class="fab fa-google me-2"></i>
+                            Continue with Google
+                        </button>
+                        <button type="button" class="btn btn-outline-dark social-btn">
+                            <i class="fab fa-github me-2"></i>
+                            Continue with GitHub
+                        </button>
+                    </div>
+
+                    <div class="auth-footer">
+                        <p class="text-center">
+                            Don't have an account? 
+                            <a href="{% url 'signup' %}" class="auth-link">Create one here</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Toggle password visibility
+    const togglePassword = document.getElementById('togglePassword');
+    const passwordField = document.getElementById('password');
+    
+    if (togglePassword && passwordField) {
+        togglePassword.addEventListener('click', function() {
+            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordField.setAttribute('type', type);
+            
+            const icon = this.querySelector('i');
+            icon.classList.toggle('fa-eye');
+            icon.classList.toggle('fa-eye-slash');
+        });
+    }
+});
+</script>
+{% endblock %}

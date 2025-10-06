@@ -321,14 +321,42 @@
 
                     <!-- Action Buttons -->
                     <div class="navbar-actions d-flex align-items-center">
-                        <a class="nav-link-secondary me-3" href="#login">
-                            <i class="fas fa-sign-in-alt me-2"></i>
-                            <span>Login</span>
-                        </a>
-                        <a class="nav-cta-btn-enhanced" href="#trial">
-                            <span>Start Trial</span>
-                            <i class="fas fa-arrow-right ms-2"></i>
-                        </a>
+                        {% if user.is_authenticated %}
+                            <a class="nav-link-secondary me-3" href="{% url 'dashboard' %}">
+                                <i class="fas fa-tachometer-alt me-2"></i>
+                                <span>Dashboard</span>
+                            </a>
+                            <div class="dropdown">
+                                <a class="nav-link-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                                    <i class="fas fa-user-circle me-2"></i>
+                                    <span>{{ user.first_name|default:user.username }}</span>
+                                </a>
+                                <ul class="dropdown-menu modern-dropdown">
+                                    <li><a class="dropdown-item" href="{% url 'dashboard' %}">
+                                        <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                                    </a></li>
+                                    <li><a class="dropdown-item" href="#">
+                                        <i class="fas fa-user me-2"></i>Profile
+                                    </a></li>
+                                    <li><a class="dropdown-item" href="#">
+                                        <i class="fas fa-cog me-2"></i>Settings
+                                    </a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="{% url 'logout' %}">
+                                        <i class="fas fa-sign-out-alt me-2"></i>Logout
+                                    </a></li>
+                                </ul>
+                            </div>
+                        {% else %}
+                            <a class="nav-link-secondary me-3" href="{% url 'login' %}">
+                                <i class="fas fa-sign-in-alt me-2"></i>
+                                <span>Login</span>
+                            </a>
+                            <a class="nav-cta-btn-enhanced" href="{% url 'signup' %}">
+                                <span>Start Free Trial</span>
+                                <i class="fas fa-arrow-right ms-2"></i>
+                            </a>
+                        {% endif %}
                     </div>
                 </div>
             </div>

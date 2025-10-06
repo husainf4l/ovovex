@@ -1,0 +1,229 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="container-fluid min-vh-100">
+        <div class="row min-vh-100">
+            <!-- Left Side - Branding -->
+            <div class="col-lg-6 d-none d-lg-flex auth-brand-side">
+                <div class="auth-brand-content">
+                    <div class="brand-logo">
+                        <i class="fas fa-chart-line brand-icon"></i>
+                        <h2 class="brand-name">Ovovex</h2>
+                    </div>
+                    <h1 class="auth-title">Start your financial journey today</h1>
+                    <p class="auth-subtitle">Join thousands of businesses who trust Ovovex for their accounting needs. Get started in minutes with our intuitive platform.</p>
+                    
+                    <div class="auth-features">
+                        <div class="auth-feature">
+                            <i class="fas fa-rocket"></i>
+                            <span>Quick setup in 5 minutes</span>
+                        </div>
+                        <div class="auth-feature">
+                            <i class="fas fa-users"></i>
+                            <span>Trusted by 10,000+ businesses</span>
+                        </div>
+                        <div class="auth-feature">
+                            <i class="fas fa-star"></i>
+                            <span>Free trial included</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side - Signup Form -->
+            <div class="col-lg-6 auth-form-side">
+                <div class="auth-form-container">
+                    <div class="auth-form-header">
+                        <h3>Create your account</h3>
+                        <p class="text-muted">Join Ovovex and transform your business finances</p>
+                    </div>
+
+                    <!-- Messages -->
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <form method="post" class="auth-form">
+                        {% csrf_token %}
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="first_name" class="form-label">First Name</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-user"></i>
+                                        </span>
+                                        <input type="text" class="form-control" id="first_name" name="first_name" 
+                                               placeholder="First name" required value="{{ request.POST.first_name }}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="last_name" class="form-label">Last Name</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-user"></i>
+                                        </span>
+                                        <input type="text" class="form-control" id="last_name" name="last_name" 
+                                               placeholder="Last name" required value="{{ request.POST.last_name }}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="username" class="form-label">Username</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="fas fa-at"></i>
+                                </span>
+                                <input type="text" class="form-control" id="username" name="username" 
+                                       placeholder="Choose a username" required value="{{ request.POST.username }}">
+                            </div>
+                            <div class="form-text">This will be your unique identifier</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email Address</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="fas fa-envelope"></i>
+                                </span>
+                                <input type="email" class="form-control" id="email" name="email" 
+                                       placeholder="Enter your email" required value="{{ request.POST.email }}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password" class="form-label">Password</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="fas fa-lock"></i>
+                                </span>
+                                <input type="password" class="form-control" id="password" name="password" 
+                                       placeholder="Create a strong password" required>
+                                <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                            <div class="form-text">Minimum 8 characters with letters and numbers</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password_confirm" class="form-label">Confirm Password</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="fas fa-lock"></i>
+                                </span>
+                                <input type="password" class="form-control" id="password_confirm" name="password_confirm" 
+                                       placeholder="Confirm your password" required>
+                                <button class="btn btn-outline-secondary" type="button" id="togglePasswordConfirm">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="form-check-group">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="terms" name="terms" required>
+                                <label class="form-check-label" for="terms">
+                                    I agree to the <a href="#" class="auth-link">Terms of Service</a> and 
+                                    <a href="#" class="auth-link">Privacy Policy</a>
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="newsletter" name="newsletter">
+                                <label class="form-check-label" for="newsletter">
+                                    Send me updates and marketing communications
+                                </label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary auth-submit-btn">
+                            <span>Create Account</span>
+                            <i class="fas fa-arrow-right ms-2"></i>
+                        </button>
+                    </form>
+
+                    <div class="auth-divider">
+                        <span>or</span>
+                    </div>
+
+                    <div class="social-login">
+                        <button type="button" class="btn btn-outline-primary social-btn">
+                            <i class="fab fa-google me-2"></i>
+                            Sign up with Google
+                        </button>
+                        <button type="button" class="btn btn-outline-dark social-btn">
+                            <i class="fab fa-github me-2"></i>
+                            Sign up with GitHub
+                        </button>
+                    </div>
+
+                    <div class="auth-footer">
+                        <p class="text-center">
+                            Already have an account? 
+                            <a href="{% url 'login' %}" class="auth-link">Sign in here</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Toggle password visibility
+    function setupPasswordToggle(toggleId, passwordId) {
+        const toggleButton = document.getElementById(toggleId);
+        const passwordField = document.getElementById(passwordId);
+        
+        if (toggleButton && passwordField) {
+            toggleButton.addEventListener('click', function() {
+                const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordField.setAttribute('type', type);
+                
+                const icon = this.querySelector('i');
+                icon.classList.toggle('fa-eye');
+                icon.classList.toggle('fa-eye-slash');
+            });
+        }
+    }
+    
+    setupPasswordToggle('togglePassword', 'password');
+    setupPasswordToggle('togglePasswordConfirm', 'password_confirm');
+    
+    // Password confirmation validation
+    const password = document.getElementById('password');
+    const passwordConfirm = document.getElementById('password_confirm');
+    
+    function validatePasswordMatch() {
+        if (password.value && passwordConfirm.value) {
+            if (password.value === passwordConfirm.value) {
+                passwordConfirm.classList.remove('is-invalid');
+                passwordConfirm.classList.add('is-valid');
+            } else {
+                passwordConfirm.classList.remove('is-valid');
+                passwordConfirm.classList.add('is-invalid');
+            }
+        } else {
+            passwordConfirm.classList.remove('is-valid', 'is-invalid');
+        }
+    }
+    
+    if (password && passwordConfirm) {
+        passwordConfirm.addEventListener('input', validatePasswordMatch);
+        password.addEventListener('input', validatePasswordMatch);
+    }
+});
+</script>
+{% endblock %}
