@@ -1,0 +1,1119 @@
+{% extends 'modules/base_module.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'components/sidemenu.html' %}
+
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 ml-64 transition-colors duration-300">
+    <!-- Top Navigation Bar -->
+    <div class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4 transition-colors duration-300">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Invoices</h1>
+                <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-sm font-medium rounded-full">{{ total_invoices }} Total</span>
+            </div>
+            <div class="flex items-center space-x-4">
+                <!-- Quick Search -->
+                <div class="relative">
+                    <input type="text" placeholder="Search invoices..." class="w-64 pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+                    <i class="fas fa-search absolute left-3 top-3 text-gray-400 dark:text-gray-500"></i>
+                </div>
+                <!-- New Invoice -->
+                <button id="newInvoiceBtn" class="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200">
+                    <i class="fas fa-plus mr-2"></i>
+                    New Invoice
+                </button>
+                <!-- Theme Toggle -->
+                <button id="theme-toggle" class="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-300">
+                    <i class="fas fa-moon text-xl dark:hidden"></i>
+                    <i class="fas fa-sun text-xl hidden dark:inline"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-8">
+        <!-- Breadcrumb -->
+        <nav class="flex mb-6" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                <li class="inline-flex items-center">
+                    <a href="{% url 'dashboard' %}" class="inline-flex items-center text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
+                        <i class="fas fa-home mr-2"></i>
+                        Dashboard
+                    </a>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+                        <span class="text-sm font-medium text-gray-500 dark:text-gray-400">Invoices</span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
+
+        <!-- Module Description -->
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 mb-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">Invoice Management</h2>
+                    <p class="text-gray-600 dark:text-gray-400">Create, send, and track customer invoices. Monitor payment status and manage outstanding balances.</p>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <div class="text-right">
+                        <div class="text-2xl font-bold text-green-600 dark:text-green-400">${{ total_revenue|floatformat:0 }}</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-400">Total Revenue</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- KPI Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+            <!-- Total Invoices -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-file-invoice text-blue-600 dark:text-blue-400"></i>
+                    </div>
+                    <span class="text-blue-600 dark:text-blue-400 text-sm font-medium">All</span>
+                </div>
+                <div class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">{{ total_invoices }}</div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">Total Invoices</div>
+            </div>
+
+            <!-- Paid Invoices -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-10 h-10 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-check-circle text-green-600 dark:text-green-400"></i>
+                    </div>
+                    <span class="text-green-600 dark:text-green-400 text-sm font-medium">{{ paid_invoices }}</span>
+                </div>
+                <div class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">{{ paid_invoices }}</div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">Paid</div>
+            </div>
+
+            <!-- Overdue Invoices -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-10 h-10 bg-red-100 dark:bg-red-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-exclamation-triangle text-red-600 dark:text-red-400"></i>
+                    </div>
+                    <span class="text-red-600 dark:text-red-400 text-sm font-medium">{{ overdue_invoices }}</span>
+                </div>
+                <div class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">{{ overdue_invoices }}</div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">Overdue</div>
+            </div>
+
+            <!-- Revenue This Month -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-10 h-10 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-dollar-sign text-purple-600 dark:text-purple-400"></i>
+                    </div>
+                    <span class="text-purple-600 dark:text-purple-400 text-sm font-medium">MTD</span>
+                </div>
+                <div class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">${{ total_revenue|floatformat:0 }}</div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">Total Revenue</div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+            <button id="createInvoiceBtn" class="flex items-center justify-center px-4 py-3 bg-blue-600 text-white font-medium rounded-xl hover:bg-blue-700 transition-colors duration-200">
+                <i class="fas fa-plus mr-2"></i>
+                Create Invoice
+            </button>
+            <button id="sendInvoiceBtn" class="flex items-center justify-center px-4 py-3 bg-green-600 text-white font-medium rounded-xl hover:bg-green-700 transition-colors duration-200">
+                <i class="fas fa-paper-plane mr-2"></i>
+                Send Invoice
+            </button>
+            <button id="recordPaymentBtn" class="flex items-center justify-center px-4 py-3 bg-purple-600 text-white font-medium rounded-xl hover:bg-purple-700 transition-colors duration-200">
+                <i class="fas fa-money-bill-wave mr-2"></i>
+                Record Payment
+            </button>
+            <button id="exportBtn" class="flex items-center justify-center px-4 py-3 bg-gray-600 dark:bg-gray-700 text-white font-medium rounded-xl hover:bg-gray-700 dark:hover:bg-gray-600 transition-colors duration-200">
+                <i class="fas fa-download mr-2"></i>
+                Export
+            </button>
+        </div>
+
+        <!-- Main Content Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Invoices List -->
+            <div class="lg:col-span-2 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700">
+                <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100">Recent Invoices</h3>
+                        <div class="flex items-center space-x-2">
+                            <select class="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+                                <option>All Status</option>
+                                <option>Draft</option>
+                                <option>Sent</option>
+                                <option>Paid</option>
+                                <option>Overdue</option>
+                                <option>Cancelled</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-50 dark:bg-gray-700">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Invoice #</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Customer</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Date</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Due Date</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Amount</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Status</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                            {% for invoice in invoices %}
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-150">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600 dark:text-blue-400">
+                                    <a href="#" class="hover:underline">{{ invoice.invoice_number }}</a>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
+                                    {{ invoice.customer.company_name }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                                    {{ invoice.invoice_date|date:"M d, Y" }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                                    {{ invoice.due_date|date:"M d, Y" }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">
+                                    ${{ invoice.total_amount|floatformat:2 }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    {% if invoice.status == 'PAID' %}
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200">Paid</span>
+                                    {% elif invoice.status == 'SENT' %}
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200">Sent</span>
+                                    {% elif invoice.status == 'OVERDUE' %}
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200">Overdue</span>
+                                    {% elif invoice.status == 'DRAFT' %}
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200">Draft</span>
+                                    {% else %}
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200">{{ invoice.status }}</span>
+                                    {% endif %}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                                    <div class="flex items-center space-x-2">
+                                        <button class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300" title="View">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="text-green-600 dark:text-green-400 hover:text-green-800 dark:hover:text-green-300" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="text-purple-600 dark:text-purple-400 hover:text-purple-800 dark:hover:text-purple-300" title="Send">
+                                            <i class="fas fa-paper-plane"></i>
+                                        </button>
+                                        <button class="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="7" class="px-6 py-8 text-center text-gray-500 dark:text-gray-400">
+                                    <div class="flex flex-col items-center">
+                                        <i class="fas fa-file-invoice text-4xl mb-2 text-gray-300 dark:text-gray-600"></i>
+                                        <p>No invoices found. Create your first invoice to get started.</p>
+                                        <button class="mt-4 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700">
+                                            <i class="fas fa-plus mr-2"></i>
+                                            Create Invoice
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% if invoices %}
+                <div class="p-4 border-t border-gray-200 dark:border-gray-700">
+                    <div class="flex items-center justify-between">
+                        <div class="text-sm text-gray-600 dark:text-gray-400">
+                            Showing {{ invoices|length }} of {{ total_invoices }} invoices
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="px-3 py-1 border border-gray-300 dark:border-gray-600 rounded text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700">
+                                Previous
+                            </button>
+                            <button class="px-3 py-1 bg-blue-600 text-white rounded text-sm">1</button>
+                            <button class="px-3 py-1 border border-gray-300 dark:border-gray-600 rounded text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700">
+                                Next
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Sidebar -->
+            <div class="space-y-6">
+                <!-- Recent Activity -->
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700">
+                    <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                        <h4 class="text-lg font-bold text-gray-900 dark:text-gray-100">Recent Activity</h4>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        {% for invoice in recent_invoices %}
+                        <div class="flex items-start space-x-3">
+                            <div class="w-8 h-8 bg-{% if invoice.status == 'PAID' %}green{% elif invoice.status == 'OVERDUE' %}red{% else %}blue{% endif %}-100 dark:bg-{% if invoice.status == 'PAID' %}green{% elif invoice.status == 'OVERDUE' %}red{% else %}blue{% endif %}-900 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-{% if invoice.status == 'PAID' %}check{% elif invoice.status == 'OVERDUE' %}exclamation{% else %}file-invoice{% endif %} text-{% if invoice.status == 'PAID' %}green{% elif invoice.status == 'OVERDUE' %}red{% else %}blue{% endif %}-600 dark:text-{% if invoice.status == 'PAID' %}green{% elif invoice.status == 'OVERDUE' %}red{% else %}blue{% endif %}-400 text-xs"></i>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <p class="text-sm font-medium text-gray-900 dark:text-gray-100">{{ invoice.invoice_number }}</p>
+                                <p class="text-xs text-gray-600 dark:text-gray-400">{{ invoice.customer.company_name }} • ${{ invoice.total_amount|floatformat:0 }}</p>
+                                <p class="text-xs text-gray-500 dark:text-gray-500">{{ invoice.invoice_date|timesince }} ago</p>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <p class="text-sm text-gray-500 dark:text-gray-400 text-center py-4">No recent activity</p>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Revenue Summary -->
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700">
+                    <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                        <h4 class="text-lg font-bold text-gray-900 dark:text-gray-100">Revenue Summary</h4>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-600 dark:text-gray-400">Total Invoiced</span>
+                            <span class="text-sm font-medium text-gray-900 dark:text-gray-100">${{ total_revenue|floatformat:2 }}</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-600 dark:text-gray-400">Paid</span>
+                            <span class="text-sm font-medium text-green-600 dark:text-green-400">${{ total_revenue|floatformat:2 }}</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-600 dark:text-gray-400">Outstanding</span>
+                            <span class="text-sm font-medium text-orange-600 dark:text-orange-400">$0.00</span>
+                        </div>
+                        <hr class="border-gray-200 dark:border-gray-700">
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm font-medium text-gray-900 dark:text-gray-100">Collection Rate</span>
+                            <span class="text-sm font-bold text-green-600 dark:text-green-400">100%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Top Customers -->
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700">
+                    <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                        <h4 class="text-lg font-bold text-gray-900 dark:text-gray-100">Top Customers</h4>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        {% for invoice in invoices|slice:":3" %}
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center space-x-2">
+                                <div class="w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center text-blue-600 dark:text-blue-400 font-bold text-xs">
+                                    {{ invoice.customer.company_name|slice:":1" }}
+                                </div>
+                                <span class="text-sm text-gray-900 dark:text-gray-100">{{ invoice.customer.company_name }}</span>
+                            </div>
+                            <span class="text-sm font-medium text-gray-900 dark:text-gray-100">${{ invoice.total_amount|floatformat:0 }}</span>
+                        </div>
+                        {% empty %}
+                        <p class="text-sm text-gray-500 dark:text-gray-400 text-center py-4">No customers yet</p>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Quick Tools -->
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700">
+                    <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                        <h4 class="text-lg font-bold text-gray-900 dark:text-gray-100">Quick Tools</h4>
+                    </div>
+                    <div class="p-6 space-y-3">
+                        <button id="invoiceReportBtn" class="w-full flex items-center justify-center px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200 text-sm">
+                            <i class="fas fa-file-invoice-dollar mr-2"></i>
+                            Invoice Report
+                        </button>
+                        <button id="agingReportBtn" class="w-full flex items-center justify-center px-4 py-2 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition-colors duration-200 text-sm">
+                            <i class="fas fa-clock mr-2"></i>
+                            Aging Report
+                        </button>
+                        <button id="customerStatementBtn" class="w-full flex items-center justify-center px-4 py-2 bg-purple-600 text-white font-medium rounded-lg hover:bg-purple-700 transition-colors duration-200 text-sm">
+                            <i class="fas fa-user-circle mr-2"></i>
+                            Customer Statement
+                        </button>
+                        <button id="sendRemindersBtn" class="w-full flex items-center justify-center px-4 py-2 bg-orange-600 text-white font-medium rounded-lg hover:bg-orange-700 transition-colors duration-200 text-sm">
+                            <i class="fas fa-bell mr-2"></i>
+                            Send Reminders
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Create/New Invoice Modal -->
+<div id="createInvoiceModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 z-50 flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-5xl w-full max-h-[90vh] overflow-y-auto">
+        <div class="p-6 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between sticky top-0 bg-white dark:bg-gray-800 z-10">
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Create New Invoice</h3>
+            <button class="closeModal text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+        </div>
+        <div class="p-6">
+            <form id="createInvoiceForm" class="space-y-6">
+                <!-- Customer & Invoice Info -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Customer *</label>
+                        <select id="invoiceCustomer" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" required>
+                            <option value="">Select customer...</option>
+                            {% for invoice in invoices %}
+                            <option value="{{ invoice.customer.id }}">{{ invoice.customer.company_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Invoice Number *</label>
+                        <input type="text" id="invoiceNumber" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" placeholder="INV-001" required>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Invoice Date *</label>
+                        <input type="date" id="invoiceDate" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Due Date *</label>
+                        <input type="date" id="invoiceDueDate" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" required>
+                    </div>
+                </div>
+
+                <!-- Line Items -->
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Line Items</label>
+                        <button type="button" id="addInvoiceLineBtn" class="px-3 py-1 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700">
+                            <i class="fas fa-plus mr-1"></i> Add Line
+                        </button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-gray-50 dark:bg-gray-700">
+                                <tr>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Description</th>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Qty</th>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Price</th>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Amount</th>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="invoiceLinesContainer" class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                                <!-- Lines will be added dynamically -->
+                            </tbody>
+                            <tfoot class="bg-gray-50 dark:bg-gray-700">
+                                <tr>
+                                    <td colspan="3" class="px-4 py-3 text-right font-bold text-gray-900 dark:text-gray-100">Subtotal:</td>
+                                    <td class="px-4 py-3 font-bold text-gray-900 dark:text-gray-100" id="invoiceSubtotal">$0.00</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" class="px-4 py-2 text-right text-gray-700 dark:text-gray-300">Tax:</td>
+                                    <td class="px-4 py-2 text-gray-900 dark:text-gray-100" id="invoiceTax">$0.00</td>
+                                    <td></td>
+                                </tr>
+                                <tr class="border-t-2 border-gray-300 dark:border-gray-600">
+                                    <td colspan="3" class="px-4 py-3 text-right font-bold text-lg text-gray-900 dark:text-gray-100">Total:</td>
+                                    <td class="px-4 py-3 font-bold text-lg text-gray-900 dark:text-gray-100" id="invoiceTotal">$0.00</td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Notes -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Notes</label>
+                    <textarea id="invoiceNotes" rows="3" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" placeholder="Add any notes for the customer..."></textarea>
+                </div>
+
+                <!-- Actions -->
+                <div class="flex justify-end space-x-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <button type="button" class="closeModal px-6 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">
+                        Cancel
+                    </button>
+                    <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                        Save Invoice
+                    </button>
+                    <button type="button" id="saveAndSendBtn" class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
+                        Save & Send
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Send Invoice Modal -->
+<div id="sendInvoiceModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 z-50 flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-2xl w-full">
+        <div class="p-6 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Send Invoice</h3>
+            <button class="closeModal text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+        </div>
+        <div class="p-6">
+            <form id="sendInvoiceForm" class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Select Invoice *</label>
+                    <select id="sendInvoiceSelect" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" required>
+                        <option value="">Choose invoice...</option>
+                        {% for invoice in invoices %}
+                        <option value="{{ invoice.id }}">{{ invoice.invoice_number }} - {{ invoice.customer.company_name }} (${{ invoice.total_amount }})</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Recipient Email *</label>
+                    <input type="email" id="recipientEmail" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" placeholder="customer@email.com" required>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Email Subject</label>
+                    <input type="text" id="emailSubject" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" value="Invoice from Your Company" required>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Message</label>
+                    <textarea id="emailMessage" rows="4" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" placeholder="Dear Customer, Please find attached your invoice..."></textarea>
+                </div>
+
+                <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+                    <div class="flex items-start space-x-3">
+                        <i class="fas fa-info-circle text-blue-600 dark:text-blue-400 mt-1"></i>
+                        <div class="text-sm text-gray-700 dark:text-gray-300">
+                            <p>Invoice will be sent as a PDF attachment. A copy will also be saved to your sent folder.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-end space-x-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <button type="button" class="closeModal px-6 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">
+                        Cancel
+                    </button>
+                    <button type="submit" class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
+                        <i class="fas fa-paper-plane mr-2"></i>
+                        Send Invoice
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Record Payment Modal -->
+<div id="recordPaymentModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 z-50 flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-2xl w-full">
+        <div class="p-6 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Record Payment</h3>
+            <button class="closeModal text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+        </div>
+        <div class="p-6">
+            <form id="recordPaymentForm" class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Select Invoice *</label>
+                    <select id="paymentInvoiceSelect" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" required>
+                        <option value="">Choose invoice...</option>
+                        {% for invoice in invoices %}
+                        <option value="{{ invoice.id }}" data-amount="{{ invoice.total_amount }}">{{ invoice.invoice_number }} - {{ invoice.customer.company_name }} (${{ invoice.total_amount }})</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Payment Date *</label>
+                        <input type="date" id="paymentDate" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Payment Amount *</label>
+                        <input type="number" step="0.01" id="paymentAmount" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" placeholder="0.00" required>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Payment Method *</label>
+                    <select id="paymentMethod" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" required>
+                        <option value="CASH">Cash</option>
+                        <option value="CHECK">Check</option>
+                        <option value="BANK_TRANSFER">Bank Transfer</option>
+                        <option value="CREDIT_CARD">Credit Card</option>
+                        <option value="PAYPAL">PayPal</option>
+                        <option value="OTHER">Other</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Reference Number</label>
+                    <input type="text" id="paymentReference" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" placeholder="Check #, Transaction ID, etc.">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Notes</label>
+                    <textarea id="paymentNotes" rows="3" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" placeholder="Add any notes about this payment..."></textarea>
+                </div>
+
+                <div class="flex justify-end space-x-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <button type="button" class="closeModal px-6 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">
+                        Cancel
+                    </button>
+                    <button type="submit" class="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700">
+                        <i class="fas fa-save mr-2"></i>
+                        Record Payment
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Export/Reports Modal -->
+<div id="exportModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 z-50 flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-2xl w-full">
+        <div class="p-6 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Generate Report</h3>
+            <button class="closeModal text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+        </div>
+        <div class="p-6">
+            <form id="exportForm" class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Report Type *</label>
+                    <select id="reportType" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" required>
+                        <option value="">Select report type...</option>
+                        <option value="invoice_report">Invoice Report</option>
+                        <option value="aging_report">Aging Report</option>
+                        <option value="customer_statement">Customer Statement</option>
+                        <option value="revenue_summary">Revenue Summary</option>
+                    </select>
+                </div>
+
+                <div id="customerSelectDiv" class="hidden">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Select Customer</label>
+                    <select id="reportCustomer" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
+                        <option value="">All customers</option>
+                        {% for invoice in invoices %}
+                        <option value="{{ invoice.customer.id }}">{{ invoice.customer.company_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Start Date *</label>
+                        <input type="date" id="reportStartDate" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">End Date *</label>
+                        <input type="date" id="reportEndDate" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" required>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Export Format *</label>
+                    <div class="grid grid-cols-3 gap-3">
+                        <label class="flex items-center justify-center px-4 py-3 border-2 border-gray-300 dark:border-gray-600 rounded-lg cursor-pointer hover:border-blue-500 transition-colors">
+                            <input type="radio" name="exportFormat" value="pdf" class="hidden peer" checked>
+                            <div class="text-center peer-checked:text-blue-600">
+                                <i class="fas fa-file-pdf text-2xl mb-1"></i>
+                                <p class="text-xs font-medium">PDF</p>
+                            </div>
+                        </label>
+                        <label class="flex items-center justify-center px-4 py-3 border-2 border-gray-300 dark:border-gray-600 rounded-lg cursor-pointer hover:border-blue-500 transition-colors">
+                            <input type="radio" name="exportFormat" value="excel" class="hidden peer">
+                            <div class="text-center peer-checked:text-blue-600">
+                                <i class="fas fa-file-excel text-2xl mb-1"></i>
+                                <p class="text-xs font-medium">Excel</p>
+                            </div>
+                        </label>
+                        <label class="flex items-center justify-center px-4 py-3 border-2 border-gray-300 dark:border-gray-600 rounded-lg cursor-pointer hover:border-blue-500 transition-colors">
+                            <input type="radio" name="exportFormat" value="csv" class="hidden peer">
+                            <div class="text-center peer-checked:text-blue-600">
+                                <i class="fas fa-file-csv text-2xl mb-1"></i>
+                                <p class="text-xs font-medium">CSV</p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="flex justify-end space-x-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <button type="button" class="closeModal px-6 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">
+                        Cancel
+                    </button>
+                    <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                        <i class="fas fa-download mr-2"></i>
+                        Generate
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Send Reminders Modal -->
+<div id="sendRemindersModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 z-50 flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-2xl w-full">
+        <div class="p-6 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Send Payment Reminders</h3>
+            <button class="closeModal text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+        </div>
+        <div class="p-6">
+            <form id="sendRemindersForm" class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Days Overdue *</label>
+                    <select id="reminderDaysOverdue" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" required>
+                        <option value="7">7 days overdue</option>
+                        <option value="14">14 days overdue</option>
+                        <option value="30">30 days overdue</option>
+                        <option value="60">60 days overdue</option>
+                        <option value="90">90+ days overdue</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Reminder Type *</label>
+                    <select id="reminderType" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" required>
+                        <option value="first_reminder">First Reminder</option>
+                        <option value="second_reminder">Second Reminder</option>
+                        <option value="final_notice">Final Notice</option>
+                        <option value="collection_notice">Collection Notice</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Custom Message</label>
+                    <textarea id="reminderMessage" rows="4" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" placeholder="Dear Customer, This is a friendly reminder that your payment is overdue. Please remit payment at your earliest convenience..."></textarea>
+                </div>
+
+                <div class="bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 rounded-lg p-4">
+                    <div class="flex items-start space-x-3">
+                        <i class="fas fa-exclamation-triangle text-orange-600 dark:text-orange-400 mt-1"></i>
+                        <div class="text-sm text-gray-700 dark:text-gray-300">
+                            <p>This will send reminder emails to all customers with invoices that match the overdue criteria. Make sure your email settings are configured.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-end space-x-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <button type="button" class="closeModal px-6 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">
+                        Cancel
+                    </button>
+                    <button type="submit" class="px-6 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700">
+                        <i class="fas fa-bell mr-2"></i>
+                        Send Reminders
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Theme Toggle Script -->
+<script>
+    // Theme toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            const html = document.documentElement;
+            const isDark = html.classList.contains('dark');
+            if (isDark) {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+    }
+    
+    // Initialize theme
+    if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+    }
+
+    // Modal Management
+    const modals = {
+        createInvoice: document.getElementById('createInvoiceModal'),
+        sendInvoice: document.getElementById('sendInvoiceModal'),
+        recordPayment: document.getElementById('recordPaymentModal'),
+        export: document.getElementById('exportModal'),
+        sendReminders: document.getElementById('sendRemindersModal')
+    };
+
+    // Open modal functions
+    document.getElementById('newInvoiceBtn').addEventListener('click', () => {
+        modals.createInvoice.classList.remove('hidden');
+        initializeInvoiceForm();
+    });
+
+    document.getElementById('createInvoiceBtn').addEventListener('click', () => {
+        modals.createInvoice.classList.remove('hidden');
+        initializeInvoiceForm();
+    });
+
+    document.getElementById('sendInvoiceBtn').addEventListener('click', () => {
+        modals.sendInvoice.classList.remove('hidden');
+    });
+
+    document.getElementById('recordPaymentBtn').addEventListener('click', () => {
+        modals.recordPayment.classList.remove('hidden');
+        document.getElementById('paymentDate').valueAsDate = new Date();
+    });
+
+    document.getElementById('exportBtn').addEventListener('click', () => {
+        modals.export.classList.remove('hidden');
+        setDefaultReportDates();
+    });
+
+    // Quick Tools
+    document.getElementById('invoiceReportBtn').addEventListener('click', () => {
+        document.getElementById('reportType').value = 'invoice_report';
+        modals.export.classList.remove('hidden');
+        setDefaultReportDates();
+    });
+
+    document.getElementById('agingReportBtn').addEventListener('click', () => {
+        document.getElementById('reportType').value = 'aging_report';
+        modals.export.classList.remove('hidden');
+        setDefaultReportDates();
+    });
+
+    document.getElementById('customerStatementBtn').addEventListener('click', () => {
+        document.getElementById('reportType').value = 'customer_statement';
+        document.getElementById('customerSelectDiv').classList.remove('hidden');
+        modals.export.classList.remove('hidden');
+        setDefaultReportDates();
+    });
+
+    document.getElementById('sendRemindersBtn').addEventListener('click', () => {
+        modals.sendReminders.classList.remove('hidden');
+    });
+
+    // Close modal functionality
+    document.querySelectorAll('.closeModal').forEach(btn => {
+        btn.addEventListener('click', function() {
+            this.closest('[id$="Modal"]').classList.add('hidden');
+        });
+    });
+
+    // Close on outside click
+    Object.values(modals).forEach(modal => {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.add('hidden');
+            }
+        });
+    });
+
+    // Invoice Form Logic
+    let invoiceLineCounter = 0;
+    
+    function initializeInvoiceForm() {
+        document.getElementById('invoiceDate').valueAsDate = new Date();
+        const dueDate = new Date();
+        dueDate.setDate(dueDate.getDate() + 30);
+        document.getElementById('invoiceDueDate').valueAsDate = dueDate;
+        document.getElementById('invoiceLinesContainer').innerHTML = '';
+        invoiceLineCounter = 0;
+        addInvoiceLine();
+    }
+
+    function addInvoiceLine() {
+        invoiceLineCounter++;
+        const container = document.getElementById('invoiceLinesContainer');
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td class="px-4 py-2">
+                <input type="text" class="w-full px-2 py-1 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 text-sm" placeholder="Item description" required>
+            </td>
+            <td class="px-4 py-2">
+                <input type="number" min="1" class="qty-input w-full px-2 py-1 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 text-sm" value="1" onchange="updateInvoiceTotals()" required>
+            </td>
+            <td class="px-4 py-2">
+                <input type="number" step="0.01" min="0" class="price-input w-full px-2 py-1 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 text-sm" placeholder="0.00" onchange="updateInvoiceTotals()" required>
+            </td>
+            <td class="px-4 py-2">
+                <span class="line-amount font-medium text-gray-900 dark:text-gray-100">$0.00</span>
+            </td>
+            <td class="px-4 py-2 text-center">
+                <button type="button" onclick="this.closest('tr').remove(); updateInvoiceTotals();" class="text-red-600 hover:text-red-800">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </td>
+        `;
+        container.appendChild(row);
+        updateInvoiceTotals();
+    }
+
+    document.getElementById('addInvoiceLineBtn').addEventListener('click', addInvoiceLine);
+
+    function updateInvoiceTotals() {
+        let subtotal = 0;
+        const rows = document.querySelectorAll('#invoiceLinesContainer tr');
+        
+        rows.forEach(row => {
+            const qty = parseFloat(row.querySelector('.qty-input').value) || 0;
+            const price = parseFloat(row.querySelector('.price-input').value) || 0;
+            const amount = qty * price;
+            row.querySelector('.line-amount').textContent = '$' + amount.toFixed(2);
+            subtotal += amount;
+        });
+
+        const tax = subtotal * 0.1; // 10% tax
+        const total = subtotal + tax;
+
+        document.getElementById('invoiceSubtotal').textContent = '$' + subtotal.toFixed(2);
+        document.getElementById('invoiceTax').textContent = '$' + tax.toFixed(2);
+        document.getElementById('invoiceTotal').textContent = '$' + total.toFixed(2);
+    }
+
+    // Create Invoice Form Submit
+    document.getElementById('createInvoiceForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const formData = {
+            customer_id: document.getElementById('invoiceCustomer').value,
+            invoice_number: document.getElementById('invoiceNumber').value,
+            invoice_date: document.getElementById('invoiceDate').value,
+            due_date: document.getElementById('invoiceDueDate').value,
+            notes: document.getElementById('invoiceNotes').value,
+            lines: []
+        };
+        
+        // Collect line items
+        const rows = document.querySelectorAll('#invoiceLinesContainer tr');
+        rows.forEach(row => {
+            const description = row.querySelector('input[type="text"]').value;
+            const quantity = row.querySelector('.qty-input').value;
+            const unit_price = row.querySelector('.price-input').value;
+            
+            if (description && quantity && unit_price) {
+                formData.lines.push({
+                    description: description,
+                    quantity: parseFloat(quantity),
+                    unit_price: parseFloat(unit_price)
+                });
+            }
+        });
+        
+        try {
+            const response = await fetch('/invoices/create/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken')
+                },
+                body: JSON.stringify(formData)
+            });
+            
+            const result = await response.json();
+            if (result.success) {
+                alert('Invoice created successfully!');
+                modals.createInvoice.classList.add('hidden');
+                location.reload(); // Refresh to show new invoice
+            } else {
+                alert('Error: ' + result.error);
+            }
+        } catch (error) {
+            alert('Error creating invoice: ' + error.message);
+        }
+    });
+
+    document.getElementById('saveAndSendBtn').addEventListener('click', async () => {
+        // First create the invoice
+        const createForm = document.getElementById('createInvoiceForm');
+        const event = new Event('submit');
+        createForm.dispatchEvent(event);
+        
+        // After creation, the page will reload, so sending logic would be handled separately
+        // In production, you might want to create and send in one step
+    });
+
+    // Send Invoice Form Submit
+    document.getElementById('sendInvoiceForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const invoiceId = document.getElementById('sendInvoiceSelect').value;
+        const formData = {
+            subject: document.getElementById('emailSubject').value,
+            message: document.getElementById('emailMessage').value
+        };
+        
+        try {
+            const response = await fetch(`/invoices/send/${invoiceId}/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken')
+                },
+                body: JSON.stringify(formData)
+            });
+            
+            const result = await response.json();
+            if (result.success) {
+                alert(result.message);
+                modals.sendInvoice.classList.add('hidden');
+                location.reload();
+            } else {
+                alert('Error: ' + result.error);
+            }
+        } catch (error) {
+            alert('Error sending invoice: ' + error.message);
+        }
+    });
+
+    // Record Payment Form Submit
+    document.getElementById('recordPaymentForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const formData = {
+            invoice_id: document.getElementById('paymentInvoiceSelect').value,
+            payment_date: document.getElementById('paymentDate').value,
+            amount: document.getElementById('paymentAmount').value,
+            payment_method: document.getElementById('paymentMethod').value,
+            reference: document.getElementById('paymentReference').value,
+            notes: document.getElementById('paymentNotes').value
+        };
+        
+        try {
+            const response = await fetch('/invoices/record-payment/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken')
+                },
+                body: JSON.stringify(formData)
+            });
+            
+            const result = await response.json();
+            if (result.success) {
+                alert(result.message);
+                modals.recordPayment.classList.add('hidden');
+                location.reload();
+            } else {
+                alert('Error: ' + result.error);
+            }
+        } catch (error) {
+            alert('Error recording payment: ' + error.message);
+        }
+    });
+
+    // Send Reminders Form Submit
+    document.getElementById('sendRemindersForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const formData = {
+            days_overdue: document.getElementById('reminderDaysOverdue').value,
+            reminder_type: document.getElementById('reminderType').value,
+            custom_message: document.getElementById('reminderMessage').value
+        };
+        
+        try {
+            const response = await fetch('/invoices/send-reminders/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken')
+                },
+                body: JSON.stringify(formData)
+            });
+            
+            const result = await response.json();
+            if (result.success) {
+                alert(result.message);
+                modals.sendReminders.classList.add('hidden');
+            } else {
+                alert('Error: ' + result.error);
+            }
+        } catch (error) {
+            alert('Error sending reminders: ' + error.message);
+        }
+    });
+
+    // Payment invoice select - auto-fill amount
+    document.getElementById('paymentInvoiceSelect').addEventListener('change', function() {
+        const selectedOption = this.options[this.selectedIndex];
+        const amount = selectedOption.getAttribute('data-amount');
+        if (amount) {
+            document.getElementById('paymentAmount').value = amount;
+        }
+    });
+
+    // Export Form Logic
+    function setDefaultReportDates() {
+        const today = new Date();
+        const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
+        document.getElementById('reportStartDate').valueAsDate = firstDay;
+        document.getElementById('reportEndDate').valueAsDate = today;
+    }
+
+    // Show customer select for customer statement
+    document.getElementById('reportType').addEventListener('change', function() {
+        if (this.value === 'customer_statement') {
+            document.getElementById('customerSelectDiv').classList.remove('hidden');
+        } else {
+            document.getElementById('customerSelectDiv').classList.add('hidden');
+        }
+    });
+
+    document.getElementById('exportForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const formData = {
+            report_type: document.getElementById('reportType').value,
+            customer_id: document.getElementById('reportCustomer').value || null,
+            start_date: document.getElementById('reportStartDate').value,
+            end_date: document.getElementById('reportEndDate').value,
+            format: document.querySelector('input[name="exportFormat"]:checked').value
+        };
+        
+        try {
+            const response = await fetch('/invoices/generate-report/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken')
+                },
+                body: JSON.stringify(formData)
+            });
+            
+            const result = await response.json();
+            if (result.success) {
+                alert(result.message);
+                modals.export.classList.add('hidden');
+                // In production, this would trigger a download
+            } else {
+                alert('Error: ' + result.error);
+            }
+        } catch (error) {
+            alert('Error generating report: ' + error.message);
+        }
+    });
+</script>
+
+{% endblock %}

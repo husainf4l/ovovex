@@ -1,0 +1,658 @@
+{% extends 'modules/base_module.html' %}
+{% load static %}
+
+{% block content %}
+{% csrf_token %}
+{% include 'components/sidemenu.html' %}
+
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 ml-64 transition-colors duration-300">
+    <!-- Top Navigation Bar -->
+    <div class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4 transition-colors duration-300">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Budgeting</h1>
+                {% if current_budget %}
+                <span class="px-3 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 text-sm font-medium rounded-full">Active Budget</span>
+                {% else %}
+                <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 text-sm font-medium rounded-full">No Active Budget</span>
+                {% endif %}
+            </div>
+            <div class="flex items-center space-x-4">
+                <!-- Quick Search -->
+                <div class="relative">
+                    <input type="text" placeholder="Search budget items..." class="w-64 pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+                    <i class="fas fa-search absolute left-3 top-3 text-gray-400 dark:text-gray-500"></i>
+                </div>
+                <!-- New Budget -->
+                <button id="newBudgetBtn" class="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200">
+                    <i class="fas fa-plus mr-2"></i>
+                    New Budget
+                </button>
+                <!-- Theme Toggle -->
+                <button id="theme-toggle" class="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-300">
+                    <i class="fas fa-moon text-xl dark:hidden"></i>
+                    <i class="fas fa-sun text-xl hidden dark:inline"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-8">
+        <!-- Breadcrumb -->
+        <nav class="flex mb-6" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                <li class="inline-flex items-center">
+                    <a href="{% url 'dashboard' %}" class="inline-flex items-center text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
+                        <i class="fas fa-home mr-2"></i>
+                        Dashboard
+                    </a>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+                        <span class="text-sm font-medium text-gray-500 dark:text-gray-400">Budgeting</span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
+
+        <!-- Module Description -->
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 mb-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">Budget Planning & Variance Analysis</h2>
+                    <p class="text-gray-600 dark:text-gray-400">Create and manage budgets, track actual spending against planned amounts, and analyze variances.</p>
+                </div>
+                {% if current_budget %}
+                <div class="text-right">
+                    <div class="text-sm text-gray-600 dark:text-gray-400">{{ current_budget.name }}</div>
+                    <div class="text-xs text-gray-500 dark:text-gray-500">{{ current_budget.start_date|date:"M Y" }} - {{ current_budget.end_date|date:"M Y" }}</div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- KPI Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+            <!-- Total Budgeted -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-clipboard-list text-blue-600 dark:text-blue-400"></i>
+                    </div>
+                    <span class="text-blue-600 dark:text-blue-400 text-sm font-medium">Planned</span>
+                </div>
+                <div class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">${{ total_budgeted|floatformat:0 }}</div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">Total Budgeted</div>
+            </div>
+
+            <!-- Total Actual -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-10 h-10 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-dollar-sign text-green-600 dark:text-green-400"></i>
+                    </div>
+                    <span class="text-green-600 dark:text-green-400 text-sm font-medium">Actual</span>
+                </div>
+                <div class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">${{ total_actual|floatformat:0 }}</div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">Total Spent</div>
+            </div>
+
+            <!-- Variance -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-10 h-10 bg-{% if total_variance > 0 %}red{% else %}purple{% endif %}-100 dark:bg-{% if total_variance > 0 %}red{% else %}purple{% endif %}-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-{% if total_variance > 0 %}exclamation-triangle{% else %}chart-line{% endif %} text-{% if total_variance > 0 %}red{% else %}purple{% endif %}-600 dark:text-{% if total_variance > 0 %}red{% else %}purple{% endif %}-400"></i>
+                    </div>
+                    <span class="text-{% if total_variance > 0 %}red{% else %}purple{% endif %}-600 dark:text-{% if total_variance > 0 %}red{% else %}purple{% endif %}-400 text-sm font-medium">Variance</span>
+                </div>
+                <div class="text-2xl font-bold text-{% if total_variance > 0 %}red{% else %}green{% endif %}-600 dark:text-{% if total_variance > 0 %}red{% else %}green{% endif %}-400 mb-1">
+                    {% if total_variance > 0 %}+{% endif %}${{ total_variance|floatformat:0 }}
+                </div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">
+                    {% if total_variance > 0 %}Over Budget{% else %}Under Budget{% endif %}
+                </div>
+            </div>
+
+            <!-- Budget Utilization -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-10 h-10 bg-orange-100 dark:bg-orange-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-percent text-orange-600 dark:text-orange-400"></i>
+                    </div>
+                    <span class="text-orange-600 dark:text-orange-400 text-sm font-medium">Used</span>
+                </div>
+                <div class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">
+                    {% if total_budgeted > 0 %}
+                    {{ total_actual|floatformat:0|add:"0"|floatformat:0|slice:"-12:" }}%
+                    {% else %}
+                    0%
+                    {% endif %}
+                </div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">Utilization Rate</div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+            <button id="createBudgetBtn" class="flex items-center justify-center px-4 py-3 bg-blue-600 text-white font-medium rounded-xl hover:bg-blue-700 transition-colors duration-200">
+                <i class="fas fa-plus mr-2"></i>
+                Create Budget
+            </button>
+            <button id="copyBudgetBtn" class="flex items-center justify-center px-4 py-3 bg-green-600 text-white font-medium rounded-xl hover:bg-green-700 transition-colors duration-200">
+                <i class="fas fa-copy mr-2"></i>
+                Copy Budget
+            </button>
+            <button id="varianceReportBtn" class="flex items-center justify-center px-4 py-3 bg-purple-600 text-white font-medium rounded-xl hover:bg-purple-700 transition-colors duration-200">
+                <i class="fas fa-chart-bar mr-2"></i>
+                Variance Report
+            </button>
+            <button id="exportBtn" class="flex items-center justify-center px-4 py-3 bg-gray-600 dark:bg-gray-700 text-white font-medium rounded-xl hover:bg-gray-700 dark:hover:bg-gray-600 transition-colors duration-200">
+                <i class="fas fa-download mr-2"></i>
+                Export
+            </button>
+        </div>
+
+        <!-- Main Content Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Budget Lines List -->
+            <div class="lg:col-span-2 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700">
+                <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100">Budget Items</h3>
+                        <div class="flex items-center space-x-2">
+                            <select class="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+                                <option>All Categories</option>
+                                <option>Revenue</option>
+                                <option>Expenses</option>
+                                <option>Assets</option>
+                                <option>Liabilities</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-50 dark:bg-gray-700">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Account</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Budgeted</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Actual</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Variance</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">%</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Progress</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                            {% for line in budget_lines %}
+                            {% with variance=line.actual_amount|add:"-"|add:line.budgeted_amount %}
+                            {% with percent=line.actual_amount|floatformat:0|add:"0"|floatformat:0 %}
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-150">
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div>
+                                        <div class="text-sm font-medium text-gray-900 dark:text-gray-100">{{ line.account.name }}</div>
+                                        <div class="text-xs text-gray-500 dark:text-gray-400">{{ line.account.code }}</div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">
+                                    ${{ line.budgeted_amount|floatformat:2 }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">
+                                    ${{ line.actual_amount|floatformat:2 }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium {% if variance > 0 %}text-red-600 dark:text-red-400{% else %}text-green-600 dark:text-green-400{% endif %}">
+                                    {% if variance > 0 %}+{% endif %}${{ variance|floatformat:2 }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
+                                    {% if line.budgeted_amount > 0 %}
+                                    {% widthratio line.actual_amount line.budgeted_amount 100 %}%
+                                    {% else %}
+                                    0%
+                                    {% endif %}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                                        {% if line.budgeted_amount > 0 %}
+                                        {% with progress=line.actual_amount|floatformat:0|add:"0" %}
+                                        <div class="h-2 rounded-full {% if variance > 0 %}bg-red-600{% else %}bg-green-600{% endif %}" 
+                                             style="width: {% widthratio line.actual_amount line.budgeted_amount 100 %}%"></div>
+                                        {% endwith %}
+                                        {% else %}
+                                        <div class="h-2 rounded-full bg-gray-400" style="width: 0%"></div>
+                                        {% endif %}
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endwith %}
+                            {% endwith %}
+                            {% empty %}
+                            <tr>
+                                <td colspan="6" class="px-6 py-8 text-center text-gray-500 dark:text-gray-400">
+                                    <div class="flex flex-col items-center">
+                                        <i class="fas fa-clipboard-list text-4xl mb-2 text-gray-300 dark:text-gray-600"></i>
+                                        <p>No budget items found. Create your first budget to get started.</p>
+                                        <button class="mt-4 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700">
+                                            <i class="fas fa-plus mr-2"></i>
+                                            Create Budget
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% if budget_lines %}
+                <div class="p-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-750">
+                    <div class="flex items-center justify-between font-bold">
+                        <div class="text-sm text-gray-900 dark:text-gray-100">TOTALS</div>
+                        <div class="flex space-x-12 text-sm">
+                            <div class="text-gray-900 dark:text-gray-100">${{ total_budgeted|floatformat:2 }}</div>
+                            <div class="text-gray-900 dark:text-gray-100">${{ total_actual|floatformat:2 }}</div>
+                            <div class="{% if total_variance > 0 %}text-red-600 dark:text-red-400{% else %}text-green-600 dark:text-green-400{% endif %}">
+                                {% if total_variance > 0 %}+{% endif %}${{ total_variance|floatformat:2 }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Sidebar -->
+            <div class="space-y-6">
+                <!-- Budget Summary -->
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700">
+                    <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                        <h4 class="text-lg font-bold text-gray-900 dark:text-gray-100">Budget Summary</h4>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-600 dark:text-gray-400">Total Budget</span>
+                            <span class="text-sm font-medium text-gray-900 dark:text-gray-100">${{ total_budgeted|floatformat:2 }}</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-600 dark:text-gray-400">Total Spent</span>
+                            <span class="text-sm font-medium text-gray-900 dark:text-gray-100">${{ total_actual|floatformat:2 }}</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-600 dark:text-gray-400">Remaining</span>
+                            <span class="text-sm font-medium text-{% if total_budgeted|add:"-"|add:total_actual < 0 %}red{% else %}green{% endif %}-600">
+                                ${% widthratio total_budgeted 1 1 %}
+                            </span>
+                        </div>
+                        <hr class="border-gray-200 dark:border-gray-700">
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm font-medium text-gray-900 dark:text-gray-100">Overall Performance</span>
+                            {% if total_variance > 0 %}
+                            <span class="text-sm font-bold text-red-600 dark:text-red-400">
+                                <i class="fas fa-arrow-up mr-1"></i>Over Budget
+                            </span>
+                            {% else %}
+                            <span class="text-sm font-bold text-green-600 dark:text-green-400">
+                                <i class="fas fa-arrow-down mr-1"></i>On Track
+                            </span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- All Budgets -->
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700">
+                    <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                        <h4 class="text-lg font-bold text-gray-900 dark:text-gray-100">All Budgets</h4>
+                    </div>
+                    <div class="p-6 space-y-3">
+                        {% for budget in budgets %}
+                        <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg {% if budget.is_active %}ring-2 ring-blue-500{% endif %}">
+                            <div class="flex-1">
+                                <div class="text-sm font-medium text-gray-900 dark:text-gray-100">{{ budget.name }}</div>
+                                <div class="text-xs text-gray-500 dark:text-gray-400">
+                                    {{ budget.start_date|date:"M d" }} - {{ budget.end_date|date:"M d, Y" }}
+                                </div>
+                            </div>
+                            {% if budget.is_active %}
+                            <span class="px-2 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 text-xs font-medium rounded">Active</span>
+                            {% endif %}
+                        </div>
+                        {% empty %}
+                        <p class="text-sm text-gray-500 dark:text-gray-400 text-center py-4">No budgets available</p>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Variance Analysis -->
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700">
+                    <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                        <h4 class="text-lg font-bold text-gray-900 dark:text-gray-100">Top Variances</h4>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        {% for line in budget_lines|slice:":5" %}
+                        {% with variance=line.actual_amount|add:"-"|add:line.budgeted_amount %}
+                        <div class="flex items-start space-x-3">
+                            <div class="w-8 h-8 bg-{% if variance > 0 %}red{% else %}green{% endif %}-100 dark:bg-{% if variance > 0 %}red{% else %}green{% endif %}-900 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-{% if variance > 0 %}exclamation{% else %}check{% endif %} text-{% if variance > 0 %}red{% else %}green{% endif %}-600 dark:text-{% if variance > 0 %}red{% else %}green{% endif %}-400 text-xs"></i>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <p class="text-sm font-medium text-gray-900 dark:text-gray-100">{{ line.account.name }}</p>
+                                <p class="text-xs text-gray-600 dark:text-gray-400">
+                                    {% if variance > 0 %}+{% endif %}${{ variance|floatformat:0 }} variance
+                                </p>
+                            </div>
+                        </div>
+                        {% endwith %}
+                        {% empty %}
+                        <p class="text-sm text-gray-500 dark:text-gray-400 text-center py-4">No variances to show</p>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Quick Tools -->
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700">
+                    <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                        <h4 class="text-lg font-bold text-gray-900 dark:text-gray-100">Quick Tools</h4>
+                    </div>
+                    <div class="p-6 space-y-3">
+                        <button id="budgetVsActualBtn" class="w-full flex items-center justify-center px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200 text-sm">
+                            <i class="fas fa-chart-line mr-2"></i>
+                            Budget vs Actual
+                        </button>
+                        <button id="monthlyBreakdownBtn" class="w-full flex items-center justify-center px-4 py-2 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition-colors duration-200 text-sm">
+                            <i class="fas fa-calendar-alt mr-2"></i>
+                            Monthly Breakdown
+                        </button>
+                        <button id="exportToExcelBtn" class="w-full flex items-center justify-center px-4 py-2 bg-purple-600 text-white font-medium rounded-lg hover:bg-purple-700 transition-colors duration-200 text-sm">
+                            <i class="fas fa-file-export mr-2"></i>
+                            Export to Excel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Theme Toggle Script -->
+<script>
+    // Theme toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            const html = document.documentElement;
+            const isDark = html.classList.contains('dark');
+            if (isDark) {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+    }
+    
+    // Initialize theme
+    if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+    }
+
+    // Budgeting functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        // Create Budget
+        const createBudgetBtn = document.getElementById('createBudgetBtn');
+        if (createBudgetBtn) {
+            createBudgetBtn.addEventListener('click', function() {
+                // Show create budget modal or redirect
+                showCreateBudgetModal();
+            });
+        }
+
+        // Copy Budget
+        const copyBudgetBtn = document.getElementById('copyBudgetBtn');
+        if (copyBudgetBtn) {
+            copyBudgetBtn.addEventListener('click', function() {
+                // Copy current budget
+                copyCurrentBudget();
+            });
+        }
+
+        // Variance Report
+        const varianceReportBtn = document.getElementById('varianceReportBtn');
+        if (varianceReportBtn) {
+            varianceReportBtn.addEventListener('click', function() {
+                // Show variance report
+                showVarianceReport();
+            });
+        }
+
+        // Export Budget vs Actual
+        const budgetVsActualBtn = document.getElementById('budgetVsActualBtn');
+        if (budgetVsActualBtn) {
+            budgetVsActualBtn.addEventListener('click', function() {
+                // Export budget vs actual
+                exportBudgetVsActual();
+            });
+        }
+
+        // Monthly Breakdown
+        const monthlyBreakdownBtn = document.getElementById('monthlyBreakdownBtn');
+        if (monthlyBreakdownBtn) {
+            monthlyBreakdownBtn.addEventListener('click', function() {
+                // Show monthly breakdown
+                showMonthlyBreakdown();
+            });
+        }
+
+        // Export to Excel
+        const exportToExcelBtn = document.getElementById('exportToExcelBtn');
+        if (exportToExcelBtn) {
+            exportToExcelBtn.addEventListener('click', function() {
+                // Export to Excel
+                exportToExcel();
+            });
+        }
+
+        // General Export
+        const exportBtn = document.getElementById('exportBtn');
+        if (exportBtn) {
+            exportBtn.addEventListener('click', function() {
+                // General export
+                exportBudgetData();
+            });
+        }
+
+        // New Budget button
+        const newBudgetBtn = document.getElementById('newBudgetBtn');
+        if (newBudgetBtn) {
+            newBudgetBtn.addEventListener('click', function() {
+                showCreateBudgetModal();
+            });
+        }
+    });
+
+    // Function to show create budget modal
+    function showCreateBudgetModal() {
+        // Create modal HTML
+        const modal = document.createElement('div');
+        modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+        modal.innerHTML = `
+            <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 max-w-md w-full mx-4">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100">Create New Budget</h3>
+                    <button onclick="this.closest('.fixed').remove()" class="text-gray-400 hover:text-gray-600">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <form id="createBudgetForm">
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Budget Name</label>
+                        <input type="text" id="budgetName" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" placeholder="Enter budget name" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Fiscal Year</label>
+                        <input type="number" id="fiscalYear" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" placeholder="2024" value="2024" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Period</label>
+                        <select id="budgetPeriod" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
+                            <option value="MONTHLY">Monthly</option>
+                            <option value="QUARTERLY">Quarterly</option>
+                            <option value="ANNUAL">Annual</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Start Date</label>
+                        <input type="date" id="startDate" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" required>
+                    </div>
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">End Date</label>
+                        <input type="date" id="endDate" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" required>
+                    </div>
+                    <div class="flex space-x-3">
+                        <button type="button" onclick="this.closest('.fixed').remove()" class="flex-1 px-4 py-2 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">
+                            Cancel
+                        </button>
+                        <button type="submit" class="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                            Create Budget
+                        </button>
+                    </div>
+                </form>
+            </div>
+        `;
+        document.body.appendChild(modal);
+
+        // Handle form submission
+        const form = modal.querySelector('#createBudgetForm');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData();
+            formData.append('name', document.getElementById('budgetName').value);
+            formData.append('fiscal_year', document.getElementById('fiscalYear').value);
+            formData.append('period', document.getElementById('budgetPeriod').value);
+            formData.append('start_date', document.getElementById('startDate').value);
+            formData.append('end_date', document.getElementById('endDate').value);
+
+            // Send to server (placeholder - would need actual endpoint)
+            fetch('/budgeting/create/', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]')?.value || ''
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    modal.remove();
+                    location.reload();
+                } else {
+                    alert('Error creating budget: ' + (data.error || 'Unknown error'));
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error creating budget');
+            });
+        });
+    }
+
+    // Function to copy current budget
+    function copyCurrentBudget() {
+        {% if current_budget %}
+        const budgetId = {{ current_budget.id }};
+        const newName = prompt('Enter name for copied budget:', '{{ current_budget.name }} (Copy)');
+        
+        if (newName) {
+            const formData = new FormData();
+            formData.append('budget_id', budgetId);
+            formData.append('new_name', newName);
+            
+            fetch('/budgeting/copy/', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]')?.value || ''
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Budget copied successfully!');
+                    location.reload();
+                } else {
+                    alert('Error copying budget: ' + (data.error || 'Unknown error'));
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error copying budget');
+            });
+        }
+        {% else %}
+        alert('No active budget to copy');
+        {% endif %}
+    }
+
+    // Function to show variance report
+    function showVarianceReport() {
+        // Scroll to variance analysis section
+        const varianceSections = document.querySelectorAll('.bg-white.dark\\:bg-gray-800.rounded-2xl.shadow-sm.border.border-gray-200.dark\\:border-gray-700');
+        if (varianceSections.length >= 4) {
+            // The variance analysis is typically the 4th section
+            varianceSections[3].scrollIntoView({ behavior: 'smooth' });
+            // Highlight it briefly
+            varianceSections[3].classList.add('ring-2', 'ring-blue-500');
+            setTimeout(() => {
+                varianceSections[3].classList.remove('ring-2', 'ring-blue-500');
+            }, 2000);
+        } else {
+            alert('Variance Report - Data is displayed in the "Top Variances" section');
+        }
+    }
+
+    // Function to show monthly breakdown
+    function showMonthlyBreakdown() {
+        // Create modal with monthly breakdown
+        const modal = document.createElement('div');
+        modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+        modal.innerHTML = `
+            <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 max-w-4xl w-full mx-4 max-h-96 overflow-y-auto">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100">Monthly Budget Breakdown</h3>
+                    <button onclick="this.closest('.fixed').remove()" class="text-gray-400 hover:text-gray-600">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="text-center py-8">
+                    <i class="fas fa-calendar-alt text-4xl text-gray-300 dark:text-gray-600 mb-4"></i>
+                    <p class="text-gray-600 dark:text-gray-400">Monthly breakdown feature is coming soon!</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-500 mt-2">This will show budget allocations and actual spending by month.</p>
+                </div>
+                <div class="flex justify-end mt-6">
+                    <button onclick="this.closest('.fixed').remove()" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                        Close
+                    </button>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(modal);
+    }
+
+    // Function to export budget vs actual
+    function exportBudgetVsActual() {
+        // Redirect to export endpoint
+        window.location.href = '/budgeting/export/';
+    }
+
+    // Function to export to Excel
+    function exportToExcel() {
+        // For now, use CSV export (Excel compatible)
+        exportBudgetVsActual();
+        alert('Excel export completed! File downloaded as CSV (compatible with Excel)');
+    }
+
+    // Function to export budget data
+    function exportBudgetData() {
+        exportBudgetVsActual();
+    }
+</script>
+
+{% endblock %}

@@ -1,0 +1,184 @@
+{% extends 'modules/base_module.html' %}
+{% load static %}
+
+{% block content %}
+{% csrf_token %}
+{% include 'components/sidemenu.html' %}
+
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 ml-64 transition-colors duration-300">
+    <!-- Top Navigation Bar -->
+    <div class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4 transition-colors duration-300">
+        <div class="flex items-center justify-between">
+            <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Customer Portal</h1>
+            <div class="flex items-center space-x-4">
+                <!-- Theme Toggle -->
+                <button id="theme-toggle" class="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-300">
+                    <i class="fas fa-moon text-xl dark:hidden"></i>
+                    <i class="fas fa-sun text-xl hidden dark:inline"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-8">
+        <!-- Breadcrumb -->
+        <nav class="flex mb-6" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                <li class="inline-flex items-center">
+                    <a href="{% url 'dashboard' %}" class="inline-flex items-center text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
+                        <i class="fas fa-home mr-2"></i>
+                        Dashboard
+                    </a>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+                        <span class="text-sm font-medium text-gray-500 dark:text-gray-400">Customer Portal</span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
+
+        <!-- Welcome Section -->
+        <div class="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 mb-8 text-white">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="text-3xl font-bold mb-2">Welcome to Your Portal</h2>
+                    <p class="text-blue-100 text-lg">Access your account information, assets, and support resources</p>
+                </div>
+                <div class="hidden md:block">
+                    <i class="fas fa-user-shield text-6xl text-blue-200"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            <!-- Fixed Assets Portal -->
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-lg transition-shadow duration-200">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="p-3 bg-blue-100 dark:bg-blue-900 rounded-lg">
+                        <i class="fas fa-cubes text-blue-600 dark:text-blue-400 text-2xl"></i>
+                    </div>
+                    <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs font-medium rounded-full">{{ total_customers }} Active</span>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">Fixed Assets</h3>
+                <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">View and manage your assigned fixed assets, track depreciation, and report issues.</p>
+                <a href="{% url 'customer_fixed_assets' %}" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200">
+                    <i class="fas fa-arrow-right mr-2"></i>
+                    Access Assets
+                </a>
+            </div>
+
+            <!-- Account Information -->
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-lg transition-shadow duration-200">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="p-3 bg-green-100 dark:bg-green-900 rounded-lg">
+                        <i class="fas fa-user text-green-600 dark:text-green-400 text-2xl"></i>
+                    </div>
+                    <span class="px-3 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 text-xs font-medium rounded-full">Profile</span>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">Account Information</h3>
+                <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">Update your profile, contact information, and account preferences.</p>
+                <a href="{% url 'customer_profile' %}" class="inline-flex items-center px-4 py-2 bg-green-600 text-white text-sm font-medium rounded-lg hover:bg-green-700 transition-colors duration-200">
+                    <i class="fas fa-edit mr-2"></i>
+                    Update Profile
+                </a>
+            </div>
+
+            <!-- Support & Help -->
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-lg transition-shadow duration-200">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="p-3 bg-purple-100 dark:bg-purple-900 rounded-lg">
+                        <i class="fas fa-question-circle text-purple-600 dark:text-purple-400 text-2xl"></i>
+                    </div>
+                    <span class="px-3 py-1 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 text-xs font-medium rounded-full">Help</span>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">Support Center</h3>
+                <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">Get help with your assets, submit support tickets, and access documentation.</p>
+                <a href="{% url 'customer_support' %}" class="inline-flex items-center px-4 py-2 bg-purple-600 text-white text-sm font-medium rounded-lg hover:bg-purple-700 transition-colors duration-200">
+                    <i class="fas fa-life-ring mr-2"></i>
+                    Get Support
+                </a>
+            </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700">
+            <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100">Recent Activity</h3>
+            </div>
+            <div class="p-6">
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-4">
+                        <div class="p-2 bg-blue-100 dark:bg-blue-900 rounded-lg">
+                            <i class="fas fa-cubes text-blue-600 dark:text-blue-400"></i>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-sm font-medium text-gray-900 dark:text-gray-100">Asset Portal Accessed</p>
+                            <p class="text-xs text-gray-600 dark:text-gray-400">You viewed your fixed assets 2 hours ago</p>
+                        </div>
+                        <span class="text-xs text-gray-500 dark:text-gray-400">2h ago</span>
+                    </div>
+
+                    <div class="flex items-center space-x-4">
+                        <div class="p-2 bg-green-100 dark:bg-green-900 rounded-lg">
+                            <i class="fas fa-user text-green-600 dark:text-green-400"></i>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-sm font-medium text-gray-900 dark:text-gray-100">Profile Updated</p>
+                            <p class="text-xs text-gray-600 dark:text-gray-400">Contact information was updated successfully</p>
+                        </div>
+                        <span class="text-xs text-gray-500 dark:text-gray-400">1d ago</span>
+                    </div>
+
+                    <div class="flex items-center space-x-4">
+                        <div class="p-2 bg-purple-100 dark:bg-purple-900 rounded-lg">
+                            <i class="fas fa-exclamation-triangle text-purple-600 dark:text-purple-400"></i>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-sm font-medium text-gray-900 dark:text-gray-100">Support Ticket Submitted</p>
+                            <p class="text-xs text-gray-600 dark:text-gray-400">Asset maintenance request submitted</p>
+                        </div>
+                        <span class="text-xs text-gray-500 dark:text-gray-400">3d ago</span>
+                    </div>
+                </div>
+
+                <!-- View All Activity -->
+                <div class="mt-6 text-center">
+                    <a href="{% url 'customer_activity' %}" class="px-6 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm font-medium rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200">
+                        View All Activity
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Theme Toggle Script -->
+<script>
+    // Theme toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    themeToggle.addEventListener('click', () => {
+        const html = document.documentElement;
+        const isDark = html.classList.contains('dark');
+        if (isDark) {
+            html.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+        } else {
+            html.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+        }
+    });
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        // Check for saved theme preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.documentElement.classList.add('dark');
+        }
+    });
+</script>
+
+{% endblock %}

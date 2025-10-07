@@ -1,0 +1,250 @@
+{% extends 'modules/base_module.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'components/sidemenu.html' %}
+
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 ml-64 transition-colors duration-300">
+    <!-- Top Navigation Bar -->
+    <div class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4 transition-colors duration-300">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Account Reconciliation</h1>
+                {% if reconciliation_data %}
+                <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-sm font-medium rounded-full">
+                    {{ reconciliation_data.account.name }}
+                </span>
+                {% endif %}
+            </div>
+            <div class="flex items-center space-x-4">
+                <!-- Export Button -->
+                <button id="export-reconciliation-btn" class="px-4 py-2 bg-green-600 text-white text-sm font-medium rounded-lg hover:bg-green-700 transition-colors duration-200">
+                    <i class="fas fa-download mr-2"></i>
+                    Export Report
+                </button>
+                <!-- Theme Toggle -->
+                <button id="theme-toggle" class="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-300">
+                    <i class="fas fa-moon text-xl dark:hidden"></i>
+                    <i class="fas fa-sun text-xl hidden dark:inline"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-8">
+        <!-- Breadcrumb -->
+        <nav class="flex mb-6" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                <li class="inline-flex items-center">
+                    <a href="{% url 'dashboard' %}" class="inline-flex items-center text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
+                        <i class="fas fa-home mr-2"></i>
+                        Dashboard
+                    </a>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+                        <a href="{% url 'journal_entries' %}" class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Journal Entries</a>
+                    </div>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+                        <span class="text-sm font-medium text-gray-500 dark:text-gray-400">Reconciliation</span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
+
+        <!-- Account Selection -->
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 mb-6">
+            <form method="get" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Account</label>
+                    <select name="account" required class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
+                        <option value="">Select Account</option>
+                        {% for account in accounts %}
+                        <option value="{{ account.code }}" {% if selected_account == account.code %}selected{% endif %}>{{ account.code }} - {{ account.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Period End Date</label>
+                    <input type="date" name="period_end" value="{{ period_end|date:'Y-m-d' }}" required class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
+                </div>
+                <div class="flex items-end">
+                    <button type="submit" class="w-full px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200">
+                        <i class="fas fa-search mr-2"></i>
+                        Reconcile
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        {% if reconciliation_data %}
+        <!-- Reconciliation Summary -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-book text-blue-600 dark:text-blue-400"></i>
+                    </div>
+                    <span class="text-blue-600 dark:text-blue-400 text-sm font-medium">Book Balance</span>
+                </div>
+                <div class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">${{ reconciliation_data.book_balance|floatformat:2 }}</div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">From General Ledger</div>
+            </div>
+
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-10 h-10 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-file-invoice-dollar text-green-600 dark:text-green-400"></i>
+                    </div>
+                    <span class="text-green-600 dark:text-green-400 text-sm font-medium">Statement Balance</span>
+                </div>
+                <div class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">${{ reconciliation_data.statement_balance|floatformat:2 }}</div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">From Bank Statement</div>
+            </div>
+
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-10 h-10 bg-{% if reconciliation_data.book_balance == reconciliation_data.statement_balance %}green{% else %}red{% endif %}-100 dark:bg-{% if reconciliation_data.book_balance == reconciliation_data.statement_balance %}green{% else %}red{% endif %}-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-{% if reconciliation_data.book_balance == reconciliation_data.statement_balance %}check{% else %}exclamation{% endif %}-circle text-{% if reconciliation_data.book_balance == reconciliation_data.statement_balance %}green{% else %}red{% endif %}-600 dark:text-{% if reconciliation_data.book_balance == reconciliation_data.statement_balance %}green{% else %}red{% endif %}-400"></i>
+                    </div>
+                    <span class="text-{% if reconciliation_data.book_balance == reconciliation_data.statement_balance %}green{% else %}red{% endif %}-600 dark:text-{% if reconciliation_data.book_balance == reconciliation_data.statement_balance %}green{% else %}red{% endif %}-400 text-sm font-medium">Difference</span>
+                </div>
+                <div class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">
+                    ${{ reconciliation_data.book_balance|add:"-"|add:reconciliation_data.statement_balance|floatformat:2 }}
+                </div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">Book vs Statement</div>
+            </div>
+        </div>
+
+        <!-- Reconciliation Details -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Outstanding Transactions -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700">
+                <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100">Outstanding Transactions</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm">Transactions not yet reflected in bank statement</p>
+                </div>
+                <div class="p-6">
+                    <div class="space-y-4">
+                        <!-- Sample outstanding transactions - in real app, this would be dynamic -->
+                        <div class="flex items-center justify-between p-4 bg-yellow-50 dark:bg-yellow-900 rounded-lg">
+                            <div>
+                                <div class="font-medium text-gray-900 dark:text-gray-100">Check #1234</div>
+                                <div class="text-sm text-gray-600 dark:text-gray-400">Payment to Vendor ABC</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="font-medium text-gray-900 dark:text-gray-100">-$500.00</div>
+                                <div class="text-sm text-gray-600 dark:text-gray-400">Dec 15, 2023</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between p-4 bg-yellow-50 dark:bg-yellow-900 rounded-lg">
+                            <div>
+                                <div class="font-medium text-gray-900 dark:text-gray-100">Deposit</div>
+                                <div class="text-sm text-gray-600 dark:text-gray-400">Customer Payment</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="font-medium text-gray-900 dark:text-gray-100">+$1,250.00</div>
+                                <div class="text-sm text-gray-600 dark:text-gray-400">Dec 18, 2023</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Adjustments Needed -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700">
+                <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100">Adjustments Needed</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm">Entries to bring book balance in line with statement</p>
+                </div>
+                <div class="p-6">
+                    {% if reconciliation_data.adjustments %}
+                    <div class="space-y-4">
+                        {% for adjustment in reconciliation_data.adjustments %}
+                        <div class="flex items-center justify-between p-4 bg-red-50 dark:bg-red-900 rounded-lg">
+                            <div>
+                                <div class="font-medium text-gray-900 dark:text-gray-100">{{ adjustment.description }}</div>
+                                <div class="text-sm text-gray-600 dark:text-gray-400">{{ adjustment.type }}</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="font-medium text-gray-900 dark:text-gray-100">${{ adjustment.amount|floatformat:2 }}</div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <div class="text-center py-8">
+                        <i class="fas fa-check-circle text-4xl text-green-500 mb-2"></i>
+                        <p class="text-gray-600 dark:text-gray-400">No adjustments needed. Account is reconciled.</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Reconciliation Actions -->
+        <div class="mt-8 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+            <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">Reconciliation Actions</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <button class="flex items-center justify-center px-4 py-3 bg-green-600 text-white font-medium rounded-xl hover:bg-green-700 transition-colors duration-200">
+                    <i class="fas fa-check mr-2"></i>
+                    Mark as Reconciled
+                </button>
+                <button class="flex items-center justify-center px-4 py-3 bg-blue-600 text-white font-medium rounded-xl hover:bg-blue-700 transition-colors duration-200">
+                    <i class="fas fa-plus mr-2"></i>
+                    Add Adjustment
+                </button>
+                <button class="flex items-center justify-center px-4 py-3 bg-gray-600 dark:bg-gray-700 text-white font-medium rounded-xl hover:bg-gray-700 dark:hover:bg-gray-600 transition-colors duration-200">
+                    <i class="fas fa-save mr-2"></i>
+                    Save Progress
+                </button>
+            </div>
+        </div>
+        {% else %}
+        <!-- No Account Selected -->
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-12">
+            <div class="text-center">
+                <i class="fas fa-calculator text-6xl text-gray-300 dark:text-gray-600 mb-4"></i>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">Select an Account to Reconcile</h3>
+                <p class="text-gray-600 dark:text-gray-400">Choose an account and period end date to begin the reconciliation process.</p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Theme Toggle Script -->
+<script>
+    // Theme toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            const html = document.documentElement;
+            const isDark = html.classList.contains('dark');
+            if (isDark) {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+    }
+
+    // Initialize theme
+    if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+    }
+
+    // Export functionality
+    document.getElementById('export-reconciliation-btn').addEventListener('click', () => {
+        // For now, just trigger browser print
+        window.print();
+    });
+</script>
+
+{% endblock %}

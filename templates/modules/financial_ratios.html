@@ -1,0 +1,784 @@
+{% extends 'modules/base_module.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'components/sidemenu.html' %}
+
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 ml-64 transition-colors duration-300">
+    <!-- Top Navigation Bar -->
+    <div class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4 transition-colors duration-300">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Financial Ratios</h1>
+                <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-sm font-medium rounded-full">Analysis Complete</span>
+            </div>
+            <div class="flex items-center space-x-4">
+                <!-- Quick Search -->
+                <div class="relative">
+                    <input type="text" placeholder="Search ratios..." class="w-64 pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+                    <i class="fas fa-search absolute left-3 top-3 text-gray-400 dark:text-gray-500"></i>
+                </div>
+                <!-- Export -->
+                <button class="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200">
+                    <i class="fas fa-download mr-2"></i>
+                    Export
+                </button>
+                <!-- Theme Toggle -->
+                <button id="theme-toggle" class="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-300">
+                    <i class="fas fa-moon text-xl dark:hidden"></i>
+                    <i class="fas fa-sun text-xl hidden dark:inline"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-8">
+        <!-- Breadcrumb -->
+        <nav class="flex mb-6" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                <li class="inline-flex items-center">
+                    <a href="{% url 'dashboard' %}" class="inline-flex items-center text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
+                        <i class="fas fa-home mr-2"></i>
+                        Dashboard
+                    </a>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+                        <span class="text-sm font-medium text-gray-500 dark:text-gray-400">Financial Ratios</span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
+
+        <!-- Module Description -->
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 mb-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">Financial Ratios Analysis</h2>
+                    <p class="text-gray-600 dark:text-gray-400">Comprehensive analysis of liquidity, profitability, efficiency, and solvency ratios to assess financial health and performance.</p>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <div class="text-right">
+                        <div class="text-2xl font-bold text-gray-900 dark:text-gray-100">94.2%</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-400">Overall Score</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ratio Categories -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+            <!-- Liquidity Ratios -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-water text-blue-600 dark:text-blue-400"></i>
+                    </div>
+                    <span class="text-green-600 dark:text-green-400 text-sm font-medium">Strong</span>
+                </div>
+                <div class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">2.4:1</div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">Current Ratio</div>
+                <div class="mt-2 text-xs text-green-600 dark:text-green-400">Above industry average</div>
+            </div>
+
+            <!-- Profitability Ratios -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-10 h-10 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-chart-line text-green-600 dark:text-green-400"></i>
+                    </div>
+                    <span class="text-green-600 dark:text-green-400 text-sm font-medium">Excellent</span>
+                </div>
+                <div class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">38.4%</div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">Net Profit Margin</div>
+                <div class="mt-2 text-xs text-green-600 dark:text-green-400">Top quartile performance</div>
+            </div>
+
+            <!-- Efficiency Ratios -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-10 h-10 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-tachometer-alt text-purple-600 dark:text-purple-400"></i>
+                    </div>
+                    <span class="text-blue-600 dark:text-blue-400 text-sm font-medium">Good</span>
+                </div>
+                <div class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">4.2x</div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">Asset Turnover</div>
+                <div class="mt-2 text-xs text-blue-600 dark:text-blue-400">Industry average</div>
+            </div>
+
+            <!-- Solvency Ratios -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-10 h-10 bg-orange-100 dark:bg-orange-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-shield-alt text-orange-600 dark:text-orange-400"></i>
+                    </div>
+                    <span class="text-green-600 dark:text-green-400 text-sm font-medium">Strong</span>
+                </div>
+                <div class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">0.22:1</div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">Debt-to-Equity</div>
+                <div class="mt-2 text-xs text-green-600 dark:text-green-400">Conservative leverage</div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+            <button id="calculate-ratios-btn" class="flex items-center justify-center px-4 py-3 bg-blue-600 text-white font-medium rounded-xl hover:bg-blue-700 transition-colors duration-200">
+                <i class="fas fa-calculator mr-2"></i>
+                Calculate Ratios
+            </button>
+            <button id="trend-analysis-btn" class="flex items-center justify-center px-4 py-3 bg-green-600 text-white font-medium rounded-xl hover:bg-green-700 transition-colors duration-200">
+                <i class="fas fa-chart-bar mr-2"></i>
+                Trend Analysis
+            </button>
+            <button id="industry-compare-btn" class="flex items-center justify-center px-4 py-3 bg-purple-600 text-white font-medium rounded-xl hover:bg-purple-700 transition-colors duration-200">
+                <i class="fas fa-industry mr-2"></i>
+                Industry Compare
+            </button>
+            <button id="ratio-report-btn" class="flex items-center justify-center px-4 py-3 bg-gray-600 dark:bg-gray-700 text-white font-medium rounded-xl hover:bg-gray-700 dark:hover:bg-gray-600 transition-colors duration-200">
+                <i class="fas fa-file-alt mr-2"></i>
+                Ratio Report
+            </button>
+        </div>
+
+        <!-- Detailed Ratios Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Liquidity Ratios -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700">
+                <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100">Liquidity Ratios</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Ability to meet short-term obligations</p>
+                </div>
+                <div class="p-6 space-y-4">
+                    <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                        <div>
+                            <div class="text-sm font-medium text-gray-900 dark:text-gray-100">Current Ratio</div>
+                            <div class="text-xs text-gray-600 dark:text-gray-400">Current Assets / Current Liabilities</div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-lg font-bold text-blue-600 dark:text-blue-400" data-ratio="current_ratio">2.4:1</div>
+                            <div class="text-xs text-green-600 dark:text-green-400">Excellent</div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                        <div>
+                            <div class="text-sm font-medium text-gray-900 dark:text-gray-100">Quick Ratio</div>
+                            <div class="text-xs text-gray-600 dark:text-gray-400">Liquid Assets / Current Liabilities</div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-lg font-bold text-blue-600 dark:text-blue-400" data-ratio="quick_ratio">1.8:1</div>
+                            <div class="text-xs text-green-600 dark:text-green-400">Good</div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                        <div>
+                            <div class="text-sm font-medium text-gray-900 dark:text-gray-100">Cash Ratio</div>
+                            <div class="text-xs text-gray-600 dark:text-gray-400">Cash / Current Liabilities</div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-lg font-bold text-blue-600 dark:text-blue-400" data-ratio="cash_ratio">8.5:1</div>
+                            <div class="text-xs text-green-600 dark:text-green-400">Strong</div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                        <div>
+                            <div class="text-sm font-medium text-gray-900 dark:text-gray-100">Working Capital</div>
+                            <div class="text-xs text-gray-600 dark:text-gray-400">Current Assets - Current Liabilities</div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-lg font-bold text-green-600 dark:text-green-400" data-ratio="working_capital">$389,170</div>
+                            <div class="text-xs text-green-600 dark:text-green-400">Positive</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profitability Ratios -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700">
+                <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100">Profitability Ratios</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Ability to generate profits</p>
+                </div>
+                <div class="p-6 space-y-4">
+                    <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                        <div>
+                            <div class="text-sm font-medium text-gray-900 dark:text-gray-100">Gross Profit Margin</div>
+                            <div class="text-xs text-gray-600 dark:text-gray-400">Gross Profit / Revenue</div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-lg font-bold text-green-600 dark:text-green-400" data-ratio="gross_margin">63.8%</div>
+                            <div class="text-xs text-green-600 dark:text-green-400">High</div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                        <div>
+                            <div class="text-sm font-medium text-gray-900 dark:text-gray-100">Operating Profit Margin</div>
+                            <div class="text-xs text-gray-600 dark:text-gray-400">Operating Profit / Revenue</div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-lg font-bold text-green-600 dark:text-green-400" data-ratio="operating_margin">38.4%</div>
+                            <div class="text-xs text-green-600 dark:text-green-400">Excellent</div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                        <div>
+                            <div class="text-sm font-medium text-gray-900 dark:text-gray-100">Net Profit Margin</div>
+                            <div class="text-xs text-gray-600 dark:text-gray-400">Net Profit / Revenue</div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-lg font-bold text-green-600 dark:text-green-400" data-ratio="net_margin">25.3%</div>
+                            <div class="text-xs text-green-600 dark:text-green-400">Strong</div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                        <div>
+                            <div class="text-sm font-medium text-gray-900 dark:text-gray-100">Return on Assets</div>
+                            <div class="text-xs text-gray-600 dark:text-gray-400">Net Profit / Total Assets</div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-lg font-bold text-blue-600 dark:text-blue-400" data-ratio="return_on_assets">12.2%</div>
+                            <div class="text-xs text-blue-600 dark:text-blue-400">Good</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Efficiency Ratios -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700">
+                <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100">Efficiency Ratios</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">How effectively assets are used</p>
+                </div>
+                <div class="p-6 space-y-4">
+                    <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                        <div>
+                            <div class="text-sm font-medium text-gray-900 dark:text-gray-100">Asset Turnover</div>
+                            <div class="text-xs text-gray-600 dark:text-gray-400">Revenue / Total Assets</div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-lg font-bold text-purple-600 dark:text-purple-400" data-ratio="asset_turnover">4.2x</div>
+                            <div class="text-xs text-blue-600 dark:text-blue-400">Average</div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                        <div>
+                            <div class="text-sm font-medium text-gray-900 dark:text-gray-100">Inventory Turnover</div>
+                            <div class="text-xs text-gray-600 dark:text-gray-400">COGS / Average Inventory</div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-lg font-bold text-purple-600 dark:text-purple-400">8.5x</div>
+                            <div class="text-xs text-green-600 dark:text-green-400">Fast</div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                        <div>
+                            <div class="text-sm font-medium text-gray-900 dark:text-gray-100">Receivables Turnover</div>
+                            <div class="text-xs text-gray-600 dark:text-gray-400">Revenue / Average Receivables</div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-lg font-bold text-purple-600 dark:text-purple-400">6.2x</div>
+                            <div class="text-xs text-green-600 dark:text-green-400">Efficient</div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                        <div>
+                            <div class="text-sm font-medium text-gray-900 dark:text-gray-100">Payables Turnover</div>
+                            <div class="text-xs text-gray-600 dark:text-gray-400">COGS / Average Payables</div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-lg font-bold text-purple-600 dark:text-purple-400">12.8x</div>
+                            <div class="text-xs text-blue-600 dark:text-blue-400">Standard</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Solvency Ratios -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700">
+                <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100">Solvency Ratios</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Ability to meet long-term obligations</p>
+                </div>
+                <div class="p-6 space-y-4">
+                    <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                        <div>
+                            <div class="text-sm font-medium text-gray-900 dark:text-gray-100">Debt-to-Equity</div>
+                            <div class="text-xs text-gray-600 dark:text-gray-400">Total Debt / Total Equity</div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-lg font-bold text-orange-600 dark:text-orange-400" data-ratio="debt_to_equity">0.22:1</div>
+                            <div class="text-xs text-green-600 dark:text-green-400">Low</div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                        <div>
+                            <div class="text-sm font-medium text-gray-900 dark:text-gray-100">Debt Ratio</div>
+                            <div class="text-xs text-gray-600 dark:text-gray-400">Total Debt / Total Assets</div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-lg font-bold text-orange-600 dark:text-orange-400" data-ratio="debt_ratio">18.0%</div>
+                            <div class="text-xs text-green-600 dark:text-green-400">Conservative</div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                        <div>
+                            <div class="text-sm font-medium text-gray-900 dark:text-gray-100">Equity Ratio</div>
+                            <div class="text-xs text-gray-600 dark:text-gray-400">Total Equity / Total Assets</div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-lg font-bold text-orange-600 dark:text-orange-400" data-ratio="equity_ratio">82.0%</div>
+                            <div class="text-xs text-green-600 dark:text-green-400">Strong</div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                        <div>
+                            <div class="text-sm font-medium text-gray-900 dark:text-gray-100">Interest Coverage</div>
+                            <div class="text-xs text-gray-600 dark:text-gray-400">EBIT / Interest Expense</div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-lg font-bold text-orange-600 dark:text-orange-400">25.6x</div>
+                            <div class="text-xs text-green-600 dark:text-green-400">Excellent</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ratio Trends -->
+        <div class="mt-8 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700">
+            <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100">Ratio Trends (Last 6 Months)</h3>
+            </div>
+            <div class="p-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="text-center">
+                        <canvas id="currentRatioChart" width="200" height="150"></canvas>
+                        <div class="mt-2 text-sm font-medium text-gray-900 dark:text-gray-100">Current Ratio Trend</div>
+                    </div>
+                    <div class="text-center">
+                        <canvas id="profitMarginChart" width="200" height="150"></canvas>
+                        <div class="mt-2 text-sm font-medium text-gray-900 dark:text-gray-100">Profit Margin Trend</div>
+                    </div>
+                    <div class="text-center">
+                        <canvas id="assetTurnoverChart" width="200" height="150"></canvas>
+                        <div class="mt-2 text-sm font-medium text-gray-900 dark:text-gray-100">Asset Turnover Trend</div>
+                    </div>
+                    <div class="text-center">
+                        <canvas id="debtEquityChart" width="200" height="150"></canvas>
+                        <div class="mt-2 text-sm font-medium text-gray-900 dark:text-gray-100">Debt-to-Equity Trend</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Theme Toggle Script -->
+<script>
+    // Theme toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    themeToggle.addEventListener('click', () => {
+        const html = document.documentElement;
+        const isDark = html.classList.contains('dark');
+        if (isDark) {
+            html.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+        } else {
+            html.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+        }
+    });
+
+    // Simple trend charts using Chart.js
+    const chartOptions = {
+        type: 'line',
+        options: {
+            responsive: true,
+            plugins: { legend: { display: false } },
+            scales: { x: { display: false }, y: { display: false } }
+        }
+    };
+
+    // Current Ratio Trend
+    window.currentRatioChart = new Chart(document.getElementById('currentRatioChart'), {
+        ...chartOptions,
+        data: {
+            labels: ['Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+            datasets: [{
+                data: [2.1, 2.2, 2.3, 2.2, 2.3, 2.4],
+                borderColor: '#3B82F6',
+                backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                tension: 0.4,
+                fill: true
+            }]
+        }
+    });
+
+    // Profit Margin Trend
+    window.profitMarginChart = new Chart(document.getElementById('profitMarginChart'), {
+        ...chartOptions,
+        data: {
+            labels: ['Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+            datasets: [{
+                data: [22.1, 24.2, 25.8, 26.3, 24.7, 25.3],
+                borderColor: '#10B981',
+                backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                tension: 0.4,
+                fill: true
+            }]
+        }
+    });
+
+    // Asset Turnover Trend
+    window.assetTurnoverChart = new Chart(document.getElementById('assetTurnoverChart'), {
+        ...chartOptions,
+        data: {
+            labels: ['Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+            datasets: [{
+                data: [3.8, 4.1, 4.2, 4.0, 4.1, 4.2],
+                borderColor: '#8B5CF6',
+                backgroundColor: 'rgba(139, 92, 246, 0.1)',
+                tension: 0.4,
+                fill: true
+            }]
+        }
+    });
+
+    // Debt-to-Equity Trend
+    window.debtEquityChart = new Chart(document.getElementById('debtEquityChart'), {
+        ...chartOptions,
+        data: {
+            labels: ['Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+            datasets: [{
+                data: [0.25, 0.24, 0.23, 0.23, 0.22, 0.22],
+                borderColor: '#F59E0B',
+                backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                tension: 0.4,
+                fill: true
+            }]
+        }
+    });
+</script>
+
+<!-- Financial Ratios API Functions -->
+<script>
+    // CSRF token for AJAX requests
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    const csrftoken = getCookie('csrftoken');
+
+    // Calculate Ratios Function
+    async function calculateRatios() {
+        const button = document.getElementById('calculate-ratios-btn');
+        const originalText = button.innerHTML;
+        
+        // Show loading state
+        button.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Calculating...';
+        button.disabled = true;
+        
+        try {
+            const response = await fetch('/api/financial-ratios/calculate/', {
+                method: 'GET',
+                headers: {
+                    'X-CSRFToken': csrftoken,
+                    'Content-Type': 'application/json',
+                }
+            });
+            
+            const data = await response.json();
+            
+            if (data.success) {
+                // Update the UI with new ratios
+                updateRatiosDisplay(data.ratios);
+                
+                // Show success message
+                showNotification('Ratios calculated successfully!', 'success');
+            } else {
+                showNotification('Error calculating ratios: ' + data.error, 'error');
+            }
+        } catch (error) {
+            showNotification('Error calculating ratios: ' + error.message, 'error');
+        } finally {
+            // Reset button
+            button.innerHTML = originalText;
+            button.disabled = false;
+        }
+    }
+
+    // Trend Analysis Function
+    async function showTrendAnalysis() {
+        const button = document.getElementById('trend-analysis-btn');
+        const originalText = button.innerHTML;
+        
+        button.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Loading Trends...';
+        button.disabled = true;
+        
+        try {
+            const response = await fetch('/api/financial-ratios/trends/', {
+                method: 'GET',
+                headers: {
+                    'X-CSRFToken': csrftoken,
+                    'Content-Type': 'application/json',
+                }
+            });
+            
+            const data = await response.json();
+            
+            if (data.success) {
+                // Update trend charts with new data
+                updateTrendCharts(data.trends, data.months);
+                
+                // Show success message
+                showNotification('Trend analysis loaded successfully!', 'success');
+            } else {
+                showNotification('Error loading trends: ' + data.error, 'error');
+            }
+        } catch (error) {
+            showNotification('Error loading trends: ' + error.message, 'error');
+        } finally {
+            button.innerHTML = originalText;
+            button.disabled = false;
+        }
+    }
+
+    // Industry Compare Function
+    async function showIndustryComparison() {
+        const button = document.getElementById('industry-compare-btn');
+        const originalText = button.innerHTML;
+        
+        button.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Loading Comparison...';
+        button.disabled = true;
+        
+        try {
+            const response = await fetch('/api/financial-ratios/industry/', {
+                method: 'GET',
+                headers: {
+                    'X-CSRFToken': csrftoken,
+                    'Content-Type': 'application/json',
+                }
+            });
+            
+            const data = await response.json();
+            
+            if (data.success) {
+                // Show industry comparison modal or update UI
+                showIndustryComparisonModal(data);
+                
+                showNotification('Industry comparison loaded successfully!', 'success');
+            } else {
+                showNotification('Error loading industry data: ' + data.error, 'error');
+            }
+        } catch (error) {
+            showNotification('Error loading industry data: ' + error.message, 'error');
+        } finally {
+            button.innerHTML = originalText;
+            button.disabled = false;
+        }
+    }
+
+    // Export Ratios Function
+    async function exportRatios() {
+        const button = document.getElementById('ratio-report-btn');
+        const originalText = button.innerHTML;
+        
+        button.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Exporting...';
+        button.disabled = true;
+        
+        try {
+            // Create download link for CSV export
+            const link = document.createElement('a');
+            link.href = '/api/financial-ratios/export/?format=csv';
+            link.download = 'financial_ratios_report.csv';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            showNotification('Ratio report exported successfully!', 'success');
+        } catch (error) {
+            showNotification('Error exporting report: ' + error.message, 'error');
+        } finally {
+            button.innerHTML = originalText;
+            button.disabled = false;
+        }
+    }
+
+    // Update Ratios Display Function
+    function updateRatiosDisplay(ratios) {
+        // Update liquidity ratios
+        document.querySelector('[data-ratio="current_ratio"]').textContent = ratios.current_ratio.toFixed(2) + ':1';
+        document.querySelector('[data-ratio="quick_ratio"]').textContent = ratios.quick_ratio.toFixed(2) + ':1';
+        document.querySelector('[data-ratio="cash_ratio"]').textContent = ratios.cash_ratio.toFixed(2) + ':1';
+        document.querySelector('[data-ratio="working_capital"]').textContent = '$' + ratios.working_capital.toLocaleString();
+        
+        // Update profitability ratios
+        document.querySelector('[data-ratio="gross_margin"]').textContent = ratios.gross_margin.toFixed(1) + '%';
+        document.querySelector('[data-ratio="operating_margin"]').textContent = ratios.operating_margin.toFixed(1) + '%';
+        document.querySelector('[data-ratio="net_margin"]').textContent = ratios.net_margin.toFixed(1) + '%';
+        document.querySelector('[data-ratio="return_on_assets"]').textContent = ratios.return_on_assets.toFixed(1) + '%';
+        
+        // Update efficiency ratios
+        document.querySelector('[data-ratio="asset_turnover"]').textContent = ratios.asset_turnover.toFixed(1) + 'x';
+        
+        // Update solvency ratios
+        document.querySelector('[data-ratio="debt_to_equity"]').textContent = ratios.debt_to_equity.toFixed(2) + ':1';
+        document.querySelector('[data-ratio="debt_ratio"]').textContent = ratios.debt_ratio.toFixed(1) + '%';
+        document.querySelector('[data-ratio="equity_ratio"]').textContent = ratios.equity_ratio.toFixed(1) + '%';
+    }
+
+    // Update Trend Charts Function
+    function updateTrendCharts(trends, months) {
+        // Update Current Ratio Chart
+        if (window.currentRatioChart) {
+            window.currentRatioChart.data.labels = months;
+            window.currentRatioChart.data.datasets[0].data = trends.current_ratio;
+            window.currentRatioChart.update();
+        }
+        
+        // Update Profit Margin Chart
+        if (window.profitMarginChart) {
+            window.profitMarginChart.data.labels = months;
+            window.profitMarginChart.data.datasets[0].data = trends.profit_margin;
+            window.profitMarginChart.update();
+        }
+        
+        // Update Asset Turnover Chart
+        if (window.assetTurnoverChart) {
+            window.assetTurnoverChart.data.labels = months;
+            window.assetTurnoverChart.data.datasets[0].data = trends.asset_turnover;
+            window.assetTurnoverChart.update();
+        }
+        
+        // Update Debt-to-Equity Chart
+        if (window.debtEquityChart) {
+            window.debtEquityChart.data.labels = months;
+            window.debtEquityChart.data.datasets[0].data = trends.debt_to_equity;
+            window.debtEquityChart.update();
+        }
+    }
+
+    // Show Industry Comparison Modal
+    function showIndustryComparisonModal(data) {
+        // Create modal HTML
+        const modalHtml = `
+            <div id="industry-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+                <div class="relative top-20 mx-auto p-5 border w-11/12 md:w-3/4 lg:w-1/2 shadow-lg rounded-md bg-white dark:bg-gray-800">
+                    <div class="mt-3">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100">Industry Comparison</h3>
+                            <button id="close-industry-modal" class="text-gray-400 hover:text-gray-600">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="font-semibold text-gray-900 dark:text-gray-100 mb-3">Your Company</h4>
+                                <div class="space-y-2">
+                                    <div class="flex justify-between">
+                                        <span>Current Ratio:</span>
+                                        <span class="font-medium">${data.company_ratios.current_ratio}:1</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span>Net Margin:</span>
+                                        <span class="font-medium">${data.company_ratios.net_margin}%</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span>Asset Turnover:</span>
+                                        <span class="font-medium">${data.company_ratios.asset_turnover}x</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span>Debt-to-Equity:</span>
+                                        <span class="font-medium">${data.company_ratios.debt_to_equity}:1</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900 dark:text-gray-100 mb-3">Technology Industry Avg</h4>
+                                <div class="space-y-2">
+                                    <div class="flex justify-between">
+                                        <span>Current Ratio:</span>
+                                        <span class="font-medium">${data.industry_data.technology.current_ratio}:1</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span>Net Margin:</span>
+                                        <span class="font-medium">${data.industry_data.technology.net_margin}%</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span>Asset Turnover:</span>
+                                        <span class="font-medium">${data.industry_data.technology.asset_turnover}x</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span>Debt-to-Equity:</span>
+                                        <span class="font-medium">${data.industry_data.technology.debt_to_equity}:1</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        document.body.insertAdjacentHTML('beforeend', modalHtml);
+        
+        // Close modal functionality
+        document.getElementById('close-industry-modal').addEventListener('click', () => {
+            document.getElementById('industry-modal').remove();
+        });
+    }
+
+    // Notification Function
+    function showNotification(message, type = 'info') {
+        const notification = document.createElement('div');
+        notification.className = `fixed top-4 right-4 px-6 py-3 rounded-md text-white z-50 ${
+            type === 'success' ? 'bg-green-500' : 
+            type === 'error' ? 'bg-red-500' : 'bg-blue-500'
+        }`;
+        notification.textContent = message;
+        
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.remove();
+        }, 3000);
+    }
+
+    // Event Listeners
+    document.getElementById('calculate-ratios-btn').addEventListener('click', calculateRatios);
+    document.getElementById('trend-analysis-btn').addEventListener('click', showTrendAnalysis);
+    document.getElementById('industry-compare-btn').addEventListener('click', showIndustryComparison);
+    document.getElementById('ratio-report-btn').addEventListener('click', exportRatios);
+
+    // Add data attributes to ratio elements for dynamic updates
+    document.addEventListener('DOMContentLoaded', function() {
+        // Add data attributes to ratio value elements
+        const ratioElements = document.querySelectorAll('.text-lg.font-bold');
+        ratioElements.forEach(el => {
+            if (el.textContent.includes(':1') || el.textContent.includes('%') || el.textContent.includes('x') || el.textContent.includes('$')) {
+                // This is a ratio value element - we'll identify them by their parent context
+                const parentDiv = el.closest('.flex.justify-between.items-center');
+                if (parentDiv) {
+                    const label = parentDiv.querySelector('.text-sm.font-medium');
+                    if (label) {
+                        const labelText = label.textContent.toLowerCase().replace(/[^a-z]/g, '_');
+                        el.setAttribute('data-ratio', labelText);
+                    }
+                }
+            }
+        });
+    });
+</script>
+
+{% endblock %}

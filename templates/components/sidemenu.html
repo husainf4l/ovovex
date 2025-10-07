@@ -1,10 +1,10 @@
 <!-- Dashboard Sidebar Menu -->
-<div class="fixed left-0 top-0 h-full w-64 bg-white shadow-xl border-r border-gray-200 z-40">
+<div class="fixed left-0 top-0 h-full w-64 bg-white dark:bg-gray-800 shadow-xl border-r border-gray-200 dark:border-gray-700 z-40 transition-colors duration-300">
     <div class="flex flex-col h-full">
         <!-- Logo/Brand -->
-        <div class="flex items-center justify-center h-16 border-b border-gray-200">
-            <a class="flex items-center text-gray-800 hover:text-gray-600 font-bold text-xl" href="/">
-                <div class="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center mr-3">
+        <div class="flex items-center justify-center h-16 border-b border-gray-200 dark:border-gray-700">
+            <a class="flex items-center text-gray-800 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-400 font-bold text-xl" href="/">
+                <div class="w-8 h-8 bg-gray-800 dark:bg-gray-600 rounded-lg flex items-center justify-center mr-3">
                     <i class="fas fa-cube text-white"></i>
                 </div>
                 Ovovex
@@ -12,67 +12,220 @@
         </div>
 
         <!-- Navigation Menu -->
-        <nav class="flex-1 px-4 py-6 space-y-2">
+        <nav class="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
             <!-- Dashboard -->
-            <a href="{% url 'dashboard' %}" class="flex items-center px-4 py-3 text-gray-700 rounded-xl hover:bg-gray-100 hover:text-gray-900 transition-colors duration-200 group">
-                <i class="fas fa-tachometer-alt w-5 h-5 mr-3 text-gray-500 group-hover:text-gray-700"></i>
+            <a href="{% url 'dashboard' %}" class="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200 group active">
+                <i class="fas fa-tachometer-alt w-5 h-5 mr-3 text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300"></i>
                 <span class="font-medium">Dashboard</span>
+                <span class="ml-auto bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs font-medium px-2 py-1 rounded-full">Home</span>
             </a>
 
-            <!-- Transactions -->
-            <a href="#" class="flex items-center px-4 py-3 text-gray-700 rounded-xl hover:bg-gray-100 hover:text-gray-900 transition-colors duration-200 group">
-                <i class="fas fa-exchange-alt w-5 h-5 mr-3 text-gray-500 group-hover:text-gray-700"></i>
-                <span class="font-medium">Transactions</span>
-            </a>
+            <!-- Core Accounting -->
+            <details class="pt-4" open>
+                <summary class="px-4 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2 cursor-pointer hover:text-gray-700 dark:hover:text-gray-300 transition-colors duration-200 flex items-center">
+                    <i class="fas fa-calculator w-4 h-4 mr-2 text-gray-400 dark:text-gray-500"></i>
+                    Core Accounting
+                    <i class="fas fa-chevron-down ml-auto text-xs transition-transform duration-200"></i>
+                </summary>
+                <div class="space-y-1">
+                    <a href="{% url 'general_ledger' %}" class="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200 group" title="Chart of accounts, journals, and ledger balances">
+                        <i class="fas fa-book w-5 h-5 mr-3 text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300"></i>
+                        <span class="font-medium">General Ledger</span>
+                    </a>
+                    <a href="{% url 'invoices' %}" class="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200 group" title="Create, send, and track invoices">
+                        <i class="fas fa-file-invoice-dollar w-5 h-5 mr-3 text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300"></i>
+                        <span class="font-medium">Invoices</span>
+                        <span class="ml-auto bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 text-xs font-medium px-2 py-1 rounded-full">12</span>
+                    </a>
+                    <a href="{% url 'balance_sheet' %}" class="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200 group" title="Assets, liabilities, and equity overview">
+                        <i class="fas fa-balance-scale w-5 h-5 mr-3 text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300"></i>
+                        <span class="font-medium">Balance Sheet</span>
+                    </a>
+                    <a href="{% url 'pnl_statement' %}" class="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200 group" title="Profit and Loss statement analysis">
+                        <i class="fas fa-chart-line w-5 h-5 mr-3 text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300"></i>
+                        <span class="font-medium">P&L Statement</span>
+                    </a>
+                    <a href="{% url 'journal_entries' %}" class="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200 group" title="Manual journal entries and adjustments">
+                        <i class="fas fa-journal-whills w-5 h-5 mr-3 text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300"></i>
+                        <span class="font-medium">Journal Entries</span>
+                        <span class="ml-auto bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 text-xs font-medium px-2 py-1 rounded-full">New</span>
+                    </a>
+                </div>
+            </details>
 
-            <!-- Invoices -->
-            <a href="#" class="flex items-center px-4 py-3 text-gray-700 rounded-xl hover:bg-gray-100 hover:text-gray-900 transition-colors duration-200 group">
-                <i class="fas fa-file-invoice-dollar w-5 h-5 mr-3 text-gray-500 group-hover:text-gray-700"></i>
-                <span class="font-medium">Invoices</span>
-            </a>
+            <!-- Financial Management -->
+            <details class="pt-4">
+                <summary class="px-4 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2 cursor-pointer hover:text-gray-700 dark:hover:text-gray-300 transition-colors duration-200 flex items-center">
+                    <i class="fas fa-money-bill-wave w-4 h-4 mr-2 text-gray-400 dark:text-gray-500"></i>
+                    Financial Management
+                    <i class="fas fa-chevron-down ml-auto text-xs transition-transform duration-200"></i>
+                </summary>
+                <div class="space-y-1">
+                    <a href="{% url 'cash_flow' %}" class="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200 group" title="Cash flow analysis and projections">
+                        <i class="fas fa-cash-register w-5 h-5 mr-3 text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300"></i>
+                        <span class="font-medium">Cash Flow</span>
+                    </a>
+                    <a href="{% url 'budgeting' %}" class="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200 group" title="Budget planning and variance analysis">
+                        <i class="fas fa-chart-pie w-5 h-5 mr-3 text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300"></i>
+                        <span class="font-medium">Budgeting</span>
+                    </a>
+                    <a href="{% url 'fixed_assets' %}" class="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200 group" title="Asset management and depreciation tracking">
+                        <i class="fas fa-building w-5 h-5 mr-3 text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300"></i>
+                        <span class="font-medium">Fixed Assets</span>
+                    </a>
+                    <a href="{% url 'bank_reconciliation' %}" class="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200 group" title="Bank statement reconciliation and matching">
+                        <i class="fas fa-university w-5 h-5 mr-3 text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300"></i>
+                        <span class="font-medium">Bank Reconciliation</span>
+                    </a>
+                    <a href="{% url 'tax_center' %}" class="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200 group" title="Tax planning, filing, and compliance">
+                        <i class="fas fa-calculator w-5 h-5 mr-3 text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300"></i>
+                        <span class="font-medium">Tax Center</span>
+                    </a>
+                </div>
+            </details>
 
-            <!-- Reports -->
-            <a href="#" class="flex items-center px-4 py-3 text-gray-700 rounded-xl hover:bg-gray-100 hover:text-gray-900 transition-colors duration-200 group">
-                <i class="fas fa-chart-bar w-5 h-5 mr-3 text-gray-500 group-hover:text-gray-700"></i>
-                <span class="font-medium">Reports</span>
-            </a>
+            <!-- Receivables & Payables -->
+            <details class="pt-4">
+                <summary class="px-4 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2 cursor-pointer hover:text-gray-700 dark:hover:text-gray-300 transition-colors duration-200 flex items-center">
+                    <i class="fas fa-exchange-alt w-4 h-4 mr-2 text-gray-400 dark:text-gray-500"></i>
+                    Receivables & Payables
+                    <i class="fas fa-chevron-down ml-auto text-xs transition-transform duration-200"></i>
+                </summary>
+                <div class="space-y-1">
+                    <a href="{% url 'accounts_receivable' %}" class="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200 group" title="Manage customer invoices and payments">
+                        <i class="fas fa-hand-holding-usd w-5 h-5 mr-3 text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300"></i>
+                        <span class="font-medium">Accounts Receivable</span>
+                        <span class="ml-auto bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs font-medium px-2 py-1 rounded-full">$45.2K</span>
+                    </a>
+                    <a href="{% url 'accounts_payable' %}" class="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200 group" title="Manage vendor bills and payments">
+                        <i class="fas fa-credit-card w-5 h-5 mr-3 text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300"></i>
+                        <span class="font-medium">Accounts Payable</span>
+                        <span class="ml-auto bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 text-xs font-medium px-2 py-1 rounded-full">$12.8K</span>
+                    </a>
+                    <a href="{% url 'customer_portal' %}" class="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200 group" title="Customer self-service portal management">
+                        <i class="fas fa-users-cog w-5 h-5 mr-3 text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300"></i>
+                        <span class="font-medium">Customer Portal</span>
+                    </a>
+                </div>
+            </details>
 
-            <!-- Clients -->
-            <a href="#" class="flex items-center px-4 py-3 text-gray-700 rounded-xl hover:bg-gray-100 hover:text-gray-900 transition-colors duration-200 group">
-                <i class="fas fa-users w-5 h-5 mr-3 text-gray-500 group-hover:text-gray-700"></i>
-                <span class="font-medium">Clients</span>
-            </a>
+            <!-- Analytics & Insights -->
+            <details class="pt-4">
+                <summary class="px-4 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2 cursor-pointer hover:text-gray-700 dark:hover:text-gray-300 transition-colors duration-200 flex items-center">
+                    <i class="fas fa-chart-area w-4 h-4 mr-2 text-gray-400 dark:text-gray-500"></i>
+                    Analytics & Insights
+                    <i class="fas fa-chevron-down ml-auto text-xs transition-transform duration-200"></i>
+                </summary>
+                <div class="space-y-1">
+                    <a href="{% url 'financial_ratios' %}" class="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200 group" title="Key financial ratios and performance metrics">
+                        <i class="fas fa-chart-bar w-5 h-5 mr-3 text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300"></i>
+                        <span class="font-medium">Financial Ratios</span>
+                    </a>
+                    <a href="{% url 'ai_insights' %}" class="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200 group" title="AI-powered financial insights and recommendations">
+                        <i class="fas fa-robot w-5 h-5 mr-3 text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300"></i>
+                        <span class="font-medium">AI Insights</span>
+                        <span class="ml-auto bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 text-xs font-medium px-2 py-1 rounded-full">AI</span>
+                    </a>
+                    <a href="{% url 'anomaly_detection' %}" class="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200 group" title="Detect unusual patterns and potential issues">
+                        <i class="fas fa-search-dollar w-5 h-5 mr-3 text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300"></i>
+                        <span class="font-medium">Anomaly Detection</span>
+                        <span class="ml-auto bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 text-xs font-medium px-2 py-1 rounded-full">Beta</span>
+                    </a>
+                </div>
+            </details>
 
-            <!-- Accounting -->
-            <a href="#" class="flex items-center px-4 py-3 text-gray-700 rounded-xl hover:bg-gray-100 hover:text-gray-900 transition-colors duration-200 group">
-                <i class="fas fa-calculator w-5 h-5 mr-3 text-gray-500 group-hover:text-gray-700"></i>
-                <span class="font-medium">Accounting</span>
-            </a>
+            <!-- Operations -->
+            <details class="pt-4">
+                <summary class="px-4 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2 cursor-pointer hover:text-gray-700 dark:hover:text-gray-300 transition-colors duration-200 flex items-center">
+                    <i class="fas fa-cogs w-4 h-4 mr-2 text-gray-400 dark:text-gray-500"></i>
+                    Operations
+                    <i class="fas fa-chevron-down ml-auto text-xs transition-transform duration-200"></i>
+                </summary>
+                <div class="space-y-1">
+                    <a href="{% url 'expense_management' %}" class="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200 group" title="Track and manage business expenses">
+                        <i class="fas fa-receipt w-5 h-5 mr-3 text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300"></i>
+                        <span class="font-medium">Expense Management</span>
+                    </a>
+                    <a href="{% url 'purchase_orders' %}" class="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200 group" title="Purchase order creation and tracking">
+                        <i class="fas fa-shopping-cart w-5 h-5 mr-3 text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300"></i>
+                        <span class="font-medium">Purchase Orders</span>
+                    </a>
+                    <a href="{% url 'inventory' %}" class="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200 group" title="Inventory management and stock tracking">
+                        <i class="fas fa-warehouse w-5 h-5 mr-3 text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300"></i>
+                        <span class="font-medium">Inventory</span>
+                    </a>
+                    <a href="{% url 'documents' %}" class="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200 group" title="Document management and storage">
+                        <i class="fas fa-file-alt w-5 h-5 mr-3 text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300"></i>
+                        <span class="font-medium">Documents</span>
+                    </a>
+                </div>
+            </details>
+
+            <!-- Reports & Compliance -->
+            <details class="pt-4">
+                <summary class="px-4 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2 cursor-pointer hover:text-gray-700 dark:hover:text-gray-300 transition-colors duration-200 flex items-center">
+                    <i class="fas fa-clipboard-check w-4 h-4 mr-2 text-gray-400 dark:text-gray-500"></i>
+                    Reports & Compliance
+                    <i class="fas fa-chevron-down ml-auto text-xs transition-transform duration-200"></i>
+                </summary>
+                <div class="space-y-1">
+                    <a href="{% url 'financial_statements' %}" class="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200 group" title="Complete financial statement generation">
+                        <i class="fas fa-file-contract w-5 h-5 mr-3 text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300"></i>
+                        <span class="font-medium">Financial Statements</span>
+                    </a>
+                    <a href="{% url 'tax_reports' %}" class="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200 group" title="Tax reporting and compliance documents">
+                        <i class="fas fa-gavel w-5 h-5 mr-3 text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300"></i>
+                        <span class="font-medium">Tax Reports</span>
+                    </a>
+                    <a href="{% url 'audit_compliance' %}" class="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200 group" title="Audit trails and compliance reporting">
+                        <i class="fas fa-shield-alt w-5 h-5 mr-3 text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300"></i>
+                        <span class="font-medium">Audit Compliance</span>
+                    </a>
+                </div>
+            </details>
 
             <!-- Settings -->
-            <a href="#" class="flex items-center px-4 py-3 text-gray-700 rounded-xl hover:bg-gray-100 hover:text-gray-900 transition-colors duration-200 group">
-                <i class="fas fa-cog w-5 h-5 mr-3 text-gray-500 group-hover:text-gray-700"></i>
-                <span class="font-medium">Settings</span>
-            </a>
-        </nav>
+            <div class="pt-4">
+                <a href="{% url 'settings' %}" class="flex items-center px-4 py-3 text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-200 group" title="System configuration and user preferences">
+                    <i class="fas fa-cog w-5 h-5 mr-3 text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300"></i>
+                    <span class="font-medium">Settings</span>
+                </a>
+            </div>
 
         <!-- User Section -->
-        <div class="border-t border-gray-200 p-4">
+        <div class="border-t border-gray-200 dark:border-gray-700 p-4">
             <div class="flex items-center space-x-3 mb-4">
-                <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
-                    <i class="fas fa-user text-gray-600"></i>
+                <div class="w-10 h-10 bg-gray-200 dark:bg-gray-600 rounded-full flex items-center justify-center">
+                    <i class="fas fa-user text-gray-600 dark:text-gray-300"></i>
                 </div>
                 <div class="flex-1 min-w-0">
-                    <p class="text-sm font-medium text-gray-900 truncate">{{ user.first_name|default:user.username }}</p>
-                    <p class="text-xs text-gray-500 truncate">{{ user.email }}</p>
+                    <p class="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">{{ user.first_name|default:user.username }}</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 truncate">{{ user.email }}</p>
                 </div>
             </div>
 
             <!-- Logout -->
-            <a href="{% url 'logout' %}" class="flex items-center px-4 py-2 text-red-600 rounded-xl hover:bg-red-50 hover:text-red-700 transition-colors duration-200 group w-full">
+            <a href="{% url 'logout' %}" class="flex items-center px-4 py-2 text-red-600 dark:text-red-400 rounded-xl hover:bg-red-50 dark:hover:bg-red-900 hover:text-red-700 dark:hover:text-red-300 transition-colors duration-200 group w-full">
                 <i class="fas fa-sign-out-alt w-4 h-4 mr-3"></i>
                 <span class="font-medium">Logout</span>
             </a>
         </div>
     </div>
 </div>
+
+<!-- Sidebar JavaScript -->
+<script>
+    // Handle details toggle for chevron rotation
+    document.querySelectorAll('details').forEach(details => {
+        const summary = details.querySelector('summary');
+        const chevron = summary.querySelector('.fa-chevron-down');
+        
+        details.addEventListener('toggle', () => {
+            if (details.open) {
+                chevron.style.transform = 'rotate(180deg)';
+            } else {
+                chevron.style.transform = 'rotate(0deg)';
+            }
+        });
+    });
+</script>

@@ -1,0 +1,399 @@
+{% extends 'modules/base_module.html' %}
+{% load static %}
+
+{% block content %}
+{% csrf_token %}
+{% include 'components/sidemenu.html' %}
+
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 ml-64 transition-colors duration-300">
+    <!-- Top Navigation Bar -->
+    <div class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4 transition-colors duration-300">
+        <div class="flex items-center justify-between">
+            <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">My Fixed Assets</h1>
+            <div class="flex items-center space-x-4">
+                <!-- Quick Search -->
+                <div class="relative">
+                    <input type="text" placeholder="Search my assets..." class="w-64 pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+                    <i class="fas fa-search absolute left-3 top-3 text-gray-400 dark:text-gray-500"></i>
+                </div>
+                <!-- Theme Toggle -->
+                <button id="theme-toggle" class="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-300">
+                    <i class="fas fa-moon text-xl dark:hidden"></i>
+                    <i class="fas fa-sun text-xl hidden dark:inline"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-8">
+        <!-- Breadcrumb -->
+        <nav class="flex mb-6" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                <li class="inline-flex items-center">
+                    <a href="{% url 'dashboard' %}" class="inline-flex items-center text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
+                        <i class="fas fa-home mr-2"></i>
+                        Dashboard
+                    </a>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+                        <span class="text-sm font-medium text-gray-500 dark:text-gray-400">Customer Portal</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+                        <span class="text-sm font-medium text-gray-500 dark:text-gray-400">My Fixed Assets</span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
+
+        <!-- Summary Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <div class="flex items-center">
+                    <div class="p-2 bg-blue-100 dark:bg-blue-900 rounded-lg">
+                        <i class="fas fa-cubes text-blue-600 dark:text-blue-400 text-xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400">My Assets</p>
+                        <p class="text-2xl font-bold text-gray-900 dark:text-gray-100">{{ total_assets }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <div class="flex items-center">
+                    <div class="p-2 bg-green-100 dark:bg-green-900 rounded-lg">
+                        <i class="fas fa-dollar-sign text-green-600 dark:text-green-400 text-xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Total Value</p>
+                        <p class="text-2xl font-bold text-gray-900 dark:text-gray-100">${{ total_value|floatformat:2 }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <div class="flex items-center">
+                    <div class="p-2 bg-purple-100 dark:bg-purple-900 rounded-lg">
+                        <i class="fas fa-info-circle text-purple-600 dark:text-purple-400 text-xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Asset Status</p>
+                        <p class="text-2xl font-bold text-gray-900 dark:text-gray-100">Active</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Assets Table -->
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700">
+            <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100">My Assigned Assets</h3>
+                    <div class="flex items-center space-x-2">
+                        <select class="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+                            <option>All Assets</option>
+                            <option>Equipment</option>
+                            <option>Furniture</option>
+                            <option>Vehicles</option>
+                        </select>
+                        <button class="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">
+                            <i class="fas fa-refresh text-sm"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead class="bg-gray-50 dark:bg-gray-700">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Asset Code</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Name</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Category</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Location</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Book Value</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Status</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                        {% for asset in assets %}
+                        <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">{{ asset.asset_code }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
+                                <div class="flex items-center">
+                                    <div>
+                                        <div class="font-medium">{{ asset.name }}</div>
+                                        {% if asset.serial_number %}
+                                        <div class="text-gray-500 dark:text-gray-400 text-xs">SN: {{ asset.serial_number }}</div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
+                                <span class="px-2 py-1 text-xs font-medium rounded-full
+                                    {% if asset.category == 'COMPUTER_EQUIPMENT' %}bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200
+                                    {% elif asset.category == 'OFFICE_EQUIPMENT' %}bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200
+                                    {% elif asset.category == 'FURNITURE' %}bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200
+                                    {% elif asset.category == 'VEHICLES' %}bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200
+                                    {% else %}bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200{% endif %}">
+                                    {{ asset.get_category_display }}
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
+                                <div>
+                                    <div>{{ asset.location }}</div>
+                                    {% if asset.department %}
+                                    <div class="text-gray-500 dark:text-gray-400 text-xs">{{ asset.department }}</div>
+                                    {% endif %}
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">${{ asset.book_value|floatformat:2 }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                {% if asset.is_active %}
+                                <span class="px-2 py-1 text-xs font-medium rounded-full bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">Active</span>
+                                {% else %}
+                                <span class="px-2 py-1 text-xs font-medium rounded-full bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">Inactive</span>
+                                {% endif %}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                <div class="flex items-center space-x-2">
+                                    <button class="text-blue-600 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-300" title="View Details" onclick="viewAssetDetails({{ asset.id }})">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="text-green-600 dark:text-green-400 hover:text-green-900 dark:hover:text-green-300" title="Report Issue" onclick="reportAssetIssue({{ asset.id }})">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="7" class="px-6 py-12 text-center">
+                                <i class="fas fa-cubes text-6xl text-gray-300 dark:text-gray-600 mb-4"></i>
+                                <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">No Assets Assigned</h3>
+                                <p class="text-gray-600 dark:text-gray-400 mb-6">You don't have any fixed assets assigned to you yet.</p>
+                                <button class="px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200">
+                                    Contact Support
+                                </button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            {% if customer_assets|length > 10 %}
+            <div class="px-6 py-4 border-t border-gray-200 dark:border-gray-700">
+                <div class="flex items-center justify-between">
+                    <div class="text-sm text-gray-700 dark:text-gray-300">
+                        Showing 1 to {{ customer_assets|length }} of {{ customer_assets|length }} entries
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button class="px-3 py-1 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600 disabled:opacity-50" disabled>
+                            Previous
+                        </button>
+                        <button class="px-3 py-1 text-sm bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50" disabled>
+                            1
+                        </button>
+                        <button class="px-3 py-1 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600 disabled:opacity-50" disabled>
+                            Next
+                        </button>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- Asset Details Modal -->
+<div id="assetDetailsModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+    <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+        <div class="flex items-center justify-between mb-6">
+            <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100">Asset Details</h3>
+            <button onclick="closeAssetModal()" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-400">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div id="assetDetailsContent">
+            <!-- Asset details will be loaded here -->
+        </div>
+    </div>
+</div>
+
+<!-- Report Issue Modal -->
+<div id="reportIssueModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+    <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 max-w-lg w-full mx-4">
+        <div class="flex items-center justify-between mb-6">
+            <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100">Report Asset Issue</h3>
+            <button onclick="closeReportModal()" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-400">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <form id="reportIssueForm">
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Issue Type</label>
+                    <select id="issueType" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" required>
+                        <option value="">Select Issue Type</option>
+                        <option value="damage">Physical Damage</option>
+                        <option value="malfunction">Malfunction</option>
+                        <option value="missing">Missing/Lost</option>
+                        <option value="maintenance">Needs Maintenance</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Description</label>
+                    <textarea id="issueDescription" rows="4" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" placeholder="Describe the issue..." required></textarea>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Urgency</label>
+                    <select id="issueUrgency" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" required>
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                        <option value="critical">Critical</option>
+                    </select>
+                </div>
+            </div>
+            <div class="flex justify-end space-x-3 mt-6">
+                <button type="button" onclick="closeReportModal()" class="px-4 py-2 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200">
+                    Cancel
+                </button>
+                <button type="submit" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors duration-200">
+                    Report Issue
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Theme Toggle Script -->
+<script>
+    // Theme toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    themeToggle.addEventListener('click', () => {
+        const html = document.documentElement;
+        const isDark = html.classList.contains('dark');
+        if (isDark) {
+            html.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+        } else {
+            html.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+        }
+    });
+
+    // Customer Fixed Assets functionality
+    let currentAssetId = null;
+
+    function viewAssetDetails(assetId) {
+        currentAssetId = assetId;
+        const modal = document.getElementById('assetDetailsModal');
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+
+        // Load asset details (simplified - would fetch from API)
+        const content = document.getElementById('assetDetailsContent');
+        content.innerHTML = `
+            <div class="space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Asset Code</label>
+                        <p class="text-sm text-gray-900 dark:text-gray-100">Loading...</p>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Name</label>
+                        <p class="text-sm text-gray-900 dark:text-gray-100">Loading...</p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Category</label>
+                        <p class="text-sm text-gray-900 dark:text-gray-100">Loading...</p>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Location</label>
+                        <p class="text-sm text-gray-900 dark:text-gray-100">Loading...</p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Book Value</label>
+                        <p class="text-sm text-gray-900 dark:text-gray-100">Loading...</p>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Status</label>
+                        <p class="text-sm text-gray-900 dark:text-gray-100">Loading...</p>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        // In production, fetch asset details from API
+        // fetch(`/api/assets/${assetId}/`)
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         // Populate modal with data
+        //     });
+    }
+
+    function closeAssetModal() {
+        const modal = document.getElementById('assetDetailsModal');
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+    }
+
+    function reportAssetIssue(assetId) {
+        currentAssetId = assetId;
+        const modal = document.getElementById('reportIssueModal');
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+    }
+
+    function closeReportModal() {
+        const modal = document.getElementById('reportIssueModal');
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+    }
+
+    // Handle issue reporting form
+    document.getElementById('reportIssueForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const issueType = document.getElementById('issueType').value;
+        const description = document.getElementById('issueDescription').value;
+        const urgency = document.getElementById('issueUrgency').value;
+
+        // In production, send to API
+        console.log('Reporting issue:', {
+            assetId: currentAssetId,
+            issueType,
+            description,
+            urgency
+        });
+
+        // Show success message
+        alert('Issue reported successfully! Support will contact you soon.');
+
+        closeReportModal();
+        document.getElementById('reportIssueForm').reset();
+    });
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        // Check for saved theme preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.documentElement.classList.add('dark');
+        }
+    });
+</script>
+
+{% endblock %}

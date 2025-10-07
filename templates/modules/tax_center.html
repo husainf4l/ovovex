@@ -1,0 +1,607 @@
+{% extends 'modules/base_module.html' %}
+{% load static %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Header -->
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-900">Tax Center</h1>
+        <p class="mt-2 text-gray-600">Comprehensive tax planning, depreciation calculations, and compliance for fixed assets</p>
+    </div>
+
+    <!-- Tax Insights Alert -->
+    {% if tax_insights %}
+    <div class="mb-8">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">Tax Planning Insights</h2>
+        <div class="space-y-4">
+            {% for insight in tax_insights %}
+            <div class="bg-{{ insight.color }}-50 border border-{{ insight.color }}-200 rounded-lg p-4">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        {% if insight.type == 'warning' %}
+                        <svg class="h-5 w-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                        </svg>
+                        {% elif insight.type == 'opportunity' %}
+                        <svg class="h-5 w-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                        </svg>
+                        {% else %}
+                        <svg class="h-5 w-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+                        </svg>
+                        {% endif %}
+                    </div>
+                    <div class="ml-3">
+                        <h3 class="text-sm font-medium text-{{ insight.color }}-800">
+                            {{ insight.title }}
+                        </h3>
+                        <div class="mt-2 text-sm text-{{ insight.color }}-700">
+                            <p>{{ insight.message }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Tax Summary Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <!-- Tax Depreciation Summary -->
+        <div class="bg-white rounded-lg shadow p-6">
+            <div class="flex items-center">
+                <div class="flex-shrink-0">
+                    <svg class="h-8 w-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                    </svg>
+                </div>
+                <div class="ml-4">
+                    <dt class="text-sm font-medium text-gray-500 truncate">Tax Depreciation</dt>
+                    <dd class="text-lg font-semibold text-gray-900">${{ tax_depreciation_summary.current_year_depreciation|floatformat:2 }}</dd>
+                    <dd class="text-sm text-gray-600">Current Year</dd>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tax Basis -->
+        <div class="bg-white rounded-lg shadow p-6">
+            <div class="flex items-center">
+                <div class="flex-shrink-0">
+                    <svg class="h-8 w-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"/>
+                    </svg>
+                </div>
+                <div class="ml-4">
+                    <dt class="text-sm font-medium text-gray-500 truncate">Total Tax Basis</dt>
+                    <dd class="text-lg font-semibold text-gray-900">${{ tax_depreciation_summary.total_tax_basis|floatformat:2 }}</dd>
+                    <dd class="text-sm text-gray-600">{{ total_assets }} Assets</dd>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tax Book Value -->
+        <div class="bg-white rounded-lg shadow p-6">
+            <div class="flex items-center">
+                <div class="flex-shrink-0">
+                    <svg class="h-8 w-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                </div>
+                <div class="ml-4">
+                    <dt class="text-sm font-medium text-gray-500 truncate">Tax Book Value</dt>
+                    <dd class="text-lg font-semibold text-gray-900">${{ tax_depreciation_summary.total_tax_book_value|floatformat:2 }}</dd>
+                    <dd class="text-sm text-gray-600">Remaining Basis</dd>
+                </div>
+            </div>
+        </div>
+
+        <!-- Property Tax -->
+        <div class="bg-white rounded-lg shadow p-6">
+            <div class="flex items-center">
+                <div class="flex-shrink-0">
+                    <svg class="h-8 w-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                    </svg>
+                </div>
+                <div class="ml-4">
+                    <dt class="text-sm font-medium text-gray-500 truncate">Property Tax</dt>
+                    <dd class="text-lg font-semibold text-gray-900">${{ property_tax_summary.total_property_tax|floatformat:2 }}</dd>
+                    <dd class="text-sm text-gray-600">{{ property_tax_summary.assets_with_property_tax }} Assets</dd>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tax Forms Section -->
+    <div class="bg-white shadow rounded-lg mb-8">
+        <div class="px-6 py-4 border-b border-gray-200">
+            <h2 class="text-lg font-medium text-gray-900">Tax Forms & Reports</h2>
+            <p class="mt-1 text-sm text-gray-600">Generate tax forms and reports for fixed assets</p>
+        </div>
+        <div class="p-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Form 4562 -->
+                <div class="border border-gray-200 rounded-lg p-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-sm font-medium text-gray-900">Form 4562</h3>
+                            <p class="text-sm text-gray-600">Depreciation and Amortization</p>
+                        </div>
+                        <button onclick="generateTaxReport('form_4562')" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            Generate
+                        </button>
+                    </div>
+                    <div class="mt-4 space-y-2">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-600">Total Basis:</span>
+                            <span class="font-medium">${{ form_4562_data.total_basis|floatformat:2 }}</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-600">Current Depreciation:</span>
+                            <span class="font-medium">${{ form_4562_data.total_depreciation|floatformat:2 }}</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-600">Section 179:</span>
+                            <span class="font-medium">${{ form_4562_data.section_179_deduction|floatformat:2 }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depreciation Report -->
+                <div class="border border-gray-200 rounded-lg p-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-sm font-medium text-gray-900">Depreciation Report</h3>
+                            <p class="text-sm text-gray-600">Detailed depreciation schedule</p>
+                        </div>
+                        <button onclick="generateTaxReport('depreciation')" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                            Generate
+                        </button>
+                    </div>
+                    <div class="mt-4 space-y-2">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-600">Tax Year:</span>
+                            <span class="font-medium">{{ current_year }}</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-600">Assets:</span>
+                            <span class="font-medium">{{ total_assets }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Property Tax Report -->
+                <div class="border border-gray-200 rounded-lg p-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-sm font-medium text-gray-900">Property Tax Report</h3>
+                            <p class="text-sm text-gray-600">Property tax assessment</p>
+                        </div>
+                        <button onclick="generateTaxReport('property_tax')" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
+                            Generate
+                        </button>
+                    </div>
+                    <div class="mt-4 space-y-2">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-600">Total Assessed:</span>
+                            <span class="font-medium">${{ property_tax_summary.total_assessed_value|floatformat:2 }}</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-600">Tax Due:</span>
+                            <span class="font-medium">${{ property_tax_summary.total_property_tax|floatformat:2 }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Assets Tax Details -->
+    <div class="bg-white shadow rounded-lg">
+        <div class="px-6 py-4 border-b border-gray-200">
+            <h2 class="text-lg font-medium text-gray-900">Asset Tax Details</h2>
+            <p class="mt-1 text-sm text-gray-600">Tax information and depreciation details for each fixed asset</p>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Asset</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tax Basis</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Current Year Dep.</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tax Book Value</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Property Tax</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    {% for asset_detail in asset_tax_details %}
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="flex items-center">
+                                <div>
+                                    <div class="text-sm font-medium text-gray-900">{{ asset_detail.asset.asset_code }}</div>
+                                    <div class="text-sm text-gray-500">{{ asset_detail.asset.name|truncatechars:30 }}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            ${{ asset_detail.tax_info.tax_basis|floatformat:2 }}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            ${{ asset_detail.current_year_depreciation|floatformat:2 }}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            ${{ asset_detail.tax_info.tax_book_value|floatformat:2 }}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            ${{ asset_detail.property_tax|floatformat:2 }}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+                                {% if 'Fully depreciated' in asset_detail.tax_status %}bg-red-100 text-red-800
+                                {% elif 'Nearly' in asset_detail.tax_status %}bg-yellow-100 text-yellow-800
+                                {% else %}bg-green-100 text-green-800{% endif %}">
+                                {{ asset_detail.tax_status }}
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            <button onclick="editAssetTaxInfo({{ asset_detail.asset.id }}, '{{ asset_detail.asset.asset_code }}', '{{ asset_detail.asset.name }}')"
+                                    class="text-blue-600 hover:text-blue-900 mr-3">Edit Tax Info</button>
+                            <button onclick="viewDepreciationSchedule({{ asset_detail.asset.id }}, '{{ asset_detail.asset.asset_code }}')"
+                                    class="text-green-600 hover:text-green-900">View Schedule</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Tax Info Modal -->
+<div id="editTaxInfoModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
+    <div class="relative top-20 mx-auto p-5 border w-11/12 md:w-3/4 lg:w-1/2 shadow-lg rounded-md bg-white">
+        <div class="mt-3">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-medium text-gray-900" id="modalTitle">Edit Tax Information</h3>
+                <button onclick="closeEditModal()" class="text-gray-400 hover:text-gray-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            
+            <form id="taxInfoForm" onsubmit="saveTaxInfo(event)">
+                {% csrf_token %}
+                <input type="hidden" id="assetId" name="asset_id">
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Tax Basis</label>
+                        <input type="number" step="0.01" id="taxBasis" name="tax_basis" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" required>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Section 179 Deduction</label>
+                        <input type="number" step="0.01" id="section179Deduction" name="section_179_deduction" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Bonus Depreciation</label>
+                        <input type="number" step="0.01" id="bonusDepreciation" name="bonus_depreciation" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Property Class</label>
+                        <select id="propertyClass" name="property_class" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                            {% for value, display in property_classes %}
+                            <option value="{{ value }}">{{ display }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Tax Depreciation Method</label>
+                        <select id="taxDepreciationMethod" name="tax_depreciation_method" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                            {% for value, display in tax_depreciation_methods %}
+                            <option value="{{ value }}">{{ display }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Assessed Value</label>
+                        <input type="number" step="0.01" id="assessedValue" name="assessed_value" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Property Tax Rate (%)</label>
+                        <input type="number" step="0.0001" id="propertyTaxRate" name="property_tax_rate" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Property Tax Jurisdiction</label>
+                        <input type="text" id="propertyTaxJurisdiction" name="property_tax_jurisdiction" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700">Tax Notes</label>
+                    <textarea id="taxNotes" name="tax_notes" rows="3" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"></textarea>
+                </div>
+                
+                <div class="flex justify-end space-x-3">
+                    <button type="button" onclick="closeEditModal()" class="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        Cancel
+                    </button>
+                    <button type="submit" class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        Save Changes
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Depreciation Schedule Modal -->
+<div id="depreciationModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
+    <div class="relative top-20 mx-auto p-5 border w-11/12 md:w-4/5 lg:w-3/4 shadow-lg rounded-md bg-white max-h-screen overflow-y-auto">
+        <div class="mt-3">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-medium text-gray-900" id="depreciationModalTitle">Depreciation Schedule</h3>
+                <button onclick="closeDepreciationModal()" class="text-gray-400 hover:text-gray-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            
+            <div id="depreciationContent">
+                <!-- Content will be loaded here -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Report Modal -->
+<div id="reportModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
+    <div class="relative top-20 mx-auto p-5 border w-11/12 md:w-5/6 lg:w-4/5 shadow-lg rounded-md bg-white max-h-screen overflow-y-auto">
+        <div class="mt-3">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-medium text-gray-900" id="reportModalTitle">Tax Report</h3>
+                <button onclick="closeReportModal()" class="text-gray-400 hover:text-gray-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            
+            <div id="reportContent">
+                <!-- Content will be loaded here -->
+            </div>
+            
+            <div class="flex justify-end mt-4">
+                <button onclick="exportReport()" class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                    Export to PDF
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// CSRF token setup
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+const csrftoken = getCookie('csrftoken');
+
+// Edit Tax Info Functions
+function editAssetTaxInfo(assetId, assetCode, assetName) {
+    document.getElementById('modalTitle').textContent = `Edit Tax Information - ${assetCode}: ${assetName}`;
+    document.getElementById('assetId').value = assetId;
+    
+    // Load current tax info
+    fetch(`/tax-center/update-asset-tax-info/${assetId}/`, {
+        method: 'GET',
+        headers: {
+            'X-CSRFToken': csrftoken,
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.tax_info) {
+            document.getElementById('taxBasis').value = data.tax_info.tax_basis || '';
+            document.getElementById('section179Deduction').value = data.tax_info.section_179_deduction || '';
+            document.getElementById('bonusDepreciation').value = data.tax_info.bonus_depreciation || '';
+            document.getElementById('propertyClass').value = data.tax_info.property_class || '';
+            document.getElementById('taxDepreciationMethod').value = data.tax_info.tax_depreciation_method || '';
+            document.getElementById('assessedValue').value = data.tax_info.assessed_value || '';
+            document.getElementById('propertyTaxRate').value = data.tax_info.property_tax_rate || '';
+            document.getElementById('propertyTaxJurisdiction').value = data.tax_info.property_tax_jurisdiction || '';
+            document.getElementById('taxNotes').value = data.tax_info.tax_notes || '';
+        }
+    })
+    .catch(error => console.error('Error loading tax info:', error));
+    
+    document.getElementById('editTaxInfoModal').classList.remove('hidden');
+}
+
+function closeEditModal() {
+    document.getElementById('editTaxInfoModal').classList.add('hidden');
+}
+
+function saveTaxInfo(event) {
+    event.preventDefault();
+    
+    const assetId = document.getElementById('assetId').value;
+    const formData = new FormData(document.getElementById('taxInfoForm'));
+    
+    fetch(`/tax-center/update-asset-tax-info/${assetId}/`, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-CSRFToken': csrftoken,
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Tax information updated successfully!');
+            closeEditModal();
+            location.reload(); // Refresh to show updated data
+        } else {
+            alert('Error: ' + data.error);
+        }
+    })
+    .catch(error => {
+        console.error('Error saving tax info:', error);
+        alert('An error occurred while saving.');
+    });
+}
+
+// Depreciation Schedule Functions
+function viewDepreciationSchedule(assetId, assetCode) {
+    document.getElementById('depreciationModalTitle').textContent = `Depreciation Schedule - ${assetCode}`;
+    
+    const formData = new FormData();
+    formData.append('asset_id', assetId);
+    formData.append('year', {{ current_year }});
+    
+    fetch('/tax-center/calculate-depreciation/', {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-CSRFToken': csrftoken,
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            let content = '<div class="overflow-x-auto"><table class="min-w-full divide-y divide-gray-200">';
+            content += '<thead class="bg-gray-50"><tr>';
+            content += '<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Year</th>';
+            content += '<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Rate</th>';
+            content += '<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Annual Depreciation</th>';
+            content += '<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Accumulated Depreciation</th>';
+            content += '</tr></thead><tbody class="bg-white divide-y divide-gray-200">';
+            
+            data.schedule.forEach(item => {
+                content += `<tr>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.year}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${(item.rate * 100).toFixed(2)}%</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">$${parseFloat(item.annual_depreciation).toFixed(2)}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">$${parseFloat(item.accumulated_depreciation).toFixed(2)}</td>
+                </tr>`;
+            });
+            
+            content += '</tbody></table></div>';
+            document.getElementById('depreciationContent').innerHTML = content;
+        } else {
+            document.getElementById('depreciationContent').innerHTML = '<p class="text-red-600">Error loading depreciation schedule.</p>';
+        }
+    })
+    .catch(error => {
+        console.error('Error loading depreciation schedule:', error);
+        document.getElementById('depreciationContent').innerHTML = '<p class="text-red-600">An error occurred while loading the schedule.</p>';
+    });
+    
+    document.getElementById('depreciationModal').classList.remove('hidden');
+}
+
+function closeDepreciationModal() {
+    document.getElementById('depreciationModal').classList.add('hidden');
+}
+
+// Report Functions
+function generateTaxReport(reportType) {
+    document.getElementById('reportModalTitle').textContent = `${reportType.replace('_', ' ').toUpperCase()} Report`;
+    
+    const formData = new FormData();
+    formData.append('report_type', reportType);
+    formData.append('year', {{ current_year }});
+    
+    fetch('/tax-center/generate-report/', {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-CSRFToken': csrftoken,
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            let content = `<div class="mb-4"><p class="text-sm text-gray-600">Generated on: ${new Date().toLocaleDateString()}</p></div>`;
+            
+            if (reportType === 'depreciation') {
+                content += '<div class="overflow-x-auto"><table class="min-w-full divide-y divide-gray-200">';
+                content += '<thead class="bg-gray-50"><tr>';
+                content += '<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Asset Code</th>';
+                content += '<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>';
+                content += '<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tax Basis</th>';
+                content += '<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Current Year Dep.</th>';
+                content += '<th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tax Book Value</th>';
+                content += '</tr></thead><tbody class="bg-white divide-y divide-gray-200">';
+                
+                data.report_data.assets.forEach(asset => {
+                    content += `<tr>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${asset.asset_code}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${asset.name}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">$${parseFloat(asset.tax_basis).toFixed(2)}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">$${parseFloat(asset.current_year_depreciation).toFixed(2)}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">$${parseFloat(asset.tax_book_value).toFixed(2)}</td>
+                    </tr>`;
+                });
+                
+                content += '</tbody></table></div>';
+                
+                // Add totals
+                content += '<div class="mt-4 p-4 bg-gray-50 rounded-lg">';
+                content += '<h4 class="text-sm font-medium text-gray-900 mb-2">Report Totals</h4>';
+                content += `<div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">`;
+                content += `<div><span class="text-gray-600">Total Basis:</span> <span class="font-medium">$${parseFloat(data.report_data.totals.total_basis).toFixed(2)}</span></div>`;
+                content += `<div><span class="text-gray-600">Total Depreciation:</span> <span class="font-medium">$${parseFloat(data.report_data.totals.total_depreciation).toFixed(2)}</span></div>`;
+                content += `<div><span class="text-gray-600">Total Book Value:</span> <span class="font-medium">$${parseFloat(data.report_data.totals.total_book_value).toFixed(2)}</span></div>`;
+                content += `<div><span class="text-gray-600">Section 179 Total:</span> <span class="font-medium">$${parseFloat(data.report_data.totals.section_179_total).toFixed(2)}</span></div>`;
+                content += '</div></div>';
+            }
+            
+            document.getElementById('reportContent').innerHTML = content;
+        } else {
+            document.getElementById('reportContent').innerHTML = '<p class="text-red-600">Error generating report.</p>';
+        }
+    })
+    .catch(error => {
+        console.error('Error generating report:', error);
+        document.getElementById('reportContent').innerHTML = '<p class="text-red-600">An error occurred while generating the report.</p>';
+    });
+    
+    document.getElementById('reportModal').classList.remove('hidden');
+}
+
+function closeReportModal() {
+    document.getElementById('reportModal').classList.add('hidden');
+}
+
+function exportReport() {
+    // For now, just print the report
+    window.print();
+}
+</script>
+
+{% endblock %}

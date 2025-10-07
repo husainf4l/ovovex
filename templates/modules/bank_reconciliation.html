@@ -1,0 +1,512 @@
+{% extends 'modules/base_module.html' %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Header -->
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-900">Bank Reconciliation</h1>
+        <p class="mt-2 text-gray-600">Reconcile bank statements with book balances and track fixed asset transactions</p>
+    </div>
+
+    <!-- Filters -->
+    <div class="bg-white shadow rounded-lg p-6 mb-8">
+        <form method="get" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div>
+                <label for="account" class="block text-sm font-medium text-gray-700">Account</label>
+                <select name="account" id="account" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                    <option value="">Select Account</option>
+                    {% for account in accounts %}
+                    <option value="{{ account.code }}" {% if account.code == selected_account %}selected{% endif %}>
+                        {{ account.code }} - {{ account.name }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div>
+                <label for="reconciliation_date" class="block text-sm font-medium text-gray-700">Reconciliation Date</label>
+                <input type="date" name="reconciliation_date" id="reconciliation_date"
+                       value="{{ reconciliation_date|date:'Y-m-d' }}"
+                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+            </div>
+
+            <div>
+                <label for="asset_only" class="block text-sm font-medium text-gray-700">Filter</label>
+                <div class="mt-1">
+                    <label class="inline-flex items-center">
+                        <input type="checkbox" name="asset_only" value="true" {% if show_asset_only %}checked{% endif %}
+                               class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                        <span class="ml-2 text-sm text-gray-700">Asset accounts only</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="flex items-end">
+                <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                    Apply Filters
+                </button>
+            </div>
+        </form>
+    </div>
+
+    {% if reconciliation_data %}
+    <!-- Reconciliation Summary -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+        <!-- Balance Summary -->
+        <div class="bg-white shadow rounded-lg p-6">
+            <h3 class="text-lg font-medium text-gray-900 mb-4">Balance Summary</h3>
+            <div class="space-y-3">
+                <div class="flex justify-between">
+                    <span class="text-gray-600">Book Balance:</span>
+                    <span class="font-medium">${{ reconciliation_data.book_balance|floatformat:2 }}</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-gray-600">Adjusted Book Balance:</span>
+                    <span class="font-medium">${{ reconciliation_data.adjusted_book_balance|floatformat:2 }}</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-gray-600">Statement Balance:</span>
+                    <span class="font-medium">${{ reconciliation_data.statement_balance|floatformat:2 }}</span>
+                </div>
+                <div class="border-t pt-2">
+                    <div class="flex justify-between">
+                        <span class="text-gray-900 font-medium">Difference:</span>
+                        <span class="font-bold {% if reconciliation_data.is_balanced %}text-green-600{% else %}text-red-600{% endif %}">
+                            ${{ reconciliation_data.difference|floatformat:2 }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            {% if reconciliation_data.is_balanced %}
+            <div class="mt-4 p-3 bg-green-50 rounded-md">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <svg class="h-5 w-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm font-medium text-green-800">Reconciliation is balanced</p>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="mt-4 p-3 bg-yellow-50 rounded-md">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <svg class="h-5 w-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm font-medium text-yellow-800">Reconciliation needs adjustment</p>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Statistics -->
+        <div class="bg-white shadow rounded-lg p-6">
+            <h3 class="text-lg font-medium text-gray-900 mb-4">Reconciliation Stats</h3>
+            <div class="space-y-3">
+                <div class="flex justify-between">
+                    <span class="text-gray-600">Total Statements:</span>
+                    <span class="font-medium">{{ reconciliation_data.bank_statements_count }}</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-gray-600">Reconciled:</span>
+                    <span class="font-medium text-green-600">{{ reconciliation_data.reconciled_count }}</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-gray-600">Outstanding:</span>
+                    <span class="font-medium text-orange-600">{{ reconciliation_data.outstanding_count }}</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-gray-600">Adjustments:</span>
+                    <span class="font-medium">{{ reconciliation_data.adjustments_count }}</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-gray-600">Fixed Assets:</span>
+                    <span class="font-medium">{{ reconciliation_data.fixed_assets_count }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="bg-white shadow rounded-lg p-6">
+            <h3 class="text-lg font-medium text-gray-900 mb-4">Actions</h3>
+            <div class="space-y-3">
+                <button type="button" onclick="updateStatementBalance()"
+                        class="w-full bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                    Update Statement Balance
+                </button>
+                <button type="button" onclick="addAdjustment()"
+                        class="w-full bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
+                    Add Adjustment
+                </button>
+                <button type="button" onclick="exportReconciliation()"
+                        class="w-full bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
+                    Export Report
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fixed Assets Summary -->
+    {% if fixed_assets_summary %}
+    <div class="bg-white shadow rounded-lg p-6 mb-8">
+        <h3 class="text-lg font-medium text-gray-900 mb-4">Fixed Assets in This Account</h3>
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Asset Code</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Book Value</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Transactions</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Reconciled</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total Amount</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    {% for asset_summary in fixed_assets_summary %}
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                            {{ asset_summary.asset.asset_code }}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            {{ asset_summary.asset.name }}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            {{ asset_summary.asset.get_category_display }}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            ${{ asset_summary.asset.book_value|floatformat:2 }}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            {{ asset_summary.transaction_count }}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600">
+                            {{ asset_summary.reconciled_count }}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            ${{ asset_summary.total_amount|floatformat:2 }}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Bank Statements -->
+    <div class="bg-white shadow rounded-lg p-6 mb-8">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg font-medium text-gray-900">Bank Statements</h3>
+            <button type="button" onclick="importStatements()"
+                    class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                Import Statements
+            </button>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Asset</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    {% for statement in bank_statements %}
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            {{ statement.statement_date|date:"M d, Y" }}
+                        </td>
+                        <td class="px-6 py-4 text-sm text-gray-900">
+                            {{ statement.description }}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            {{ statement.get_statement_type_display }}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            <span class="{% if statement.amount > 0 %}text-green-600{% else %}text-red-600{% endif %}">
+                                ${{ statement.amount|floatformat:2 }}
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            {% if statement.fixed_asset %}
+                                {{ statement.fixed_asset.asset_code }} - {{ statement.asset_transaction_type }}
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            {% if statement.is_reconciled %}
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                Reconciled
+                            </span>
+                            {% else %}
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                                Outstanding
+                            </span>
+                            {% endif %}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            {% if not statement.is_reconciled %}
+                            <button onclick="reconcileStatement({{ statement.id }})"
+                                    class="text-indigo-600 hover:text-indigo-900 mr-3">Reconcile</button>
+                            {% endif %}
+                            <button onclick="viewStatement({{ statement.id }})"
+                                    class="text-gray-600 hover:text-gray-900">View</button>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="7" class="px-6 py-4 text-center text-gray-500">
+                            No bank statements found for this account and period.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Adjustments -->
+    {% if adjustments %}
+    <div class="bg-white shadow rounded-lg p-6">
+        <h3 class="text-lg font-medium text-gray-900 mb-4">Reconciliation Adjustments</h3>
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Asset</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    {% for adjustment in adjustments %}
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            {{ adjustment.get_adjustment_type_display }}
+                        </td>
+                        <td class="px-6 py-4 text-sm text-gray-900">
+                            {{ adjustment.description }}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            <span class="{% if adjustment.is_addition %}text-green-600{% else %}text-red-600{% endif %}">
+                                {% if adjustment.is_addition %}+{% else %}-{% endif %}${{ adjustment.amount|floatformat:2 }}
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            {% if adjustment.fixed_asset %}
+                                {{ adjustment.fixed_asset.asset_code }}
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            {{ adjustment.created_at|date:"M d, Y" }}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endif %}
+
+    {% else %}
+    <!-- No reconciliation data -->
+    <div class="bg-white shadow rounded-lg p-12 text-center">
+        <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+        </svg>
+        <h3 class="mt-2 text-sm font-medium text-gray-900">No reconciliation data</h3>
+        <p class="mt-1 text-sm text-gray-500">Select an account and reconciliation date to view reconciliation details.</p>
+    </div>
+    {% endif %}
+</div>
+
+<!-- Modals -->
+<!-- Update Statement Balance Modal -->
+<div id="statementBalanceModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden" id="my-modal">
+    <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+        <div class="mt-3">
+            <h3 class="text-lg font-medium text-gray-900 mb-4">Update Statement Balance</h3>
+            <form id="statementBalanceForm">
+                {% csrf_token %}
+                <div class="mb-4">
+                    <label for="statement_balance" class="block text-sm font-medium text-gray-700">Statement Balance</label>
+                    <input type="number" step="0.01" name="statement_balance" id="statement_balance"
+                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                           required>
+                </div>
+                <div class="flex justify-end space-x-3">
+                    <button type="button" onclick="closeStatementBalanceModal()"
+                            class="bg-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-400">Cancel</button>
+                    <button type="submit"
+                            class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Add Adjustment Modal -->
+<div id="adjustmentModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden">
+    <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+        <div class="mt-3">
+            <h3 class="text-lg font-medium text-gray-900 mb-4">Add Reconciliation Adjustment</h3>
+            <form id="adjustmentForm">
+                {% csrf_token %}
+                <div class="mb-4">
+                    <label for="adjustment_type" class="block text-sm font-medium text-gray-700">Adjustment Type</label>
+                    <select name="adjustment_type" id="adjustment_type"
+                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required>
+                        <option value="DEPOSIT_IN_TRANSIT">Deposit in Transit</option>
+                        <option value="OUTSTANDING_CHECK">Outstanding Check</option>
+                        <option value="BANK_ERROR">Bank Error</option>
+                        <option value="BOOK_ERROR">Book Error</option>
+                        <option value="INTEREST_EARNED">Interest Earned</option>
+                        <option value="BANK_FEE">Bank Fee</option>
+                        <option value="OTHER">Other</option>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label for="adjustment_description" class="block text-sm font-medium text-gray-700">Description</label>
+                    <input type="text" name="description" id="adjustment_description"
+                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required>
+                </div>
+                <div class="mb-4">
+                    <label for="adjustment_amount" class="block text-sm font-medium text-gray-700">Amount</label>
+                    <input type="number" step="0.01" name="amount" id="adjustment_amount"
+                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required>
+                </div>
+                <div class="mb-4">
+                    <label class="inline-flex items-center">
+                        <input type="checkbox" name="is_addition" id="is_addition" checked
+                               class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                        <span class="ml-2 text-sm text-gray-700">Add to book balance</span>
+                    </label>
+                </div>
+                <div class="flex justify-end space-x-3">
+                    <button type="button" onclick="closeAdjustmentModal()"
+                            class="bg-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-400">Cancel</button>
+                    <button type="submit"
+                            class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700">Add Adjustment</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+// Modal functions
+function updateStatementBalance() {
+    document.getElementById('statementBalanceModal').classList.remove('hidden');
+}
+
+function closeStatementBalanceModal() {
+    document.getElementById('statementBalanceModal').classList.add('hidden');
+}
+
+function addAdjustment() {
+    document.getElementById('adjustmentModal').classList.remove('hidden');
+}
+
+function closeAdjustmentModal() {
+    document.getElementById('adjustmentModal').classList.add('hidden');
+}
+
+// Form submissions
+document.getElementById('statementBalanceForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+
+    fetch('/update-statement-balance/', {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            location.reload();
+        } else {
+            alert('Error: ' + data.error);
+        }
+    });
+});
+
+document.getElementById('adjustmentForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+
+    fetch('/add-reconciliation-adjustment/', {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            location.reload();
+        } else {
+            alert('Error: ' + data.error);
+        }
+    });
+});
+
+// Other functions
+function reconcileStatement(statementId) {
+    if (confirm('Mark this statement as reconciled?')) {
+        fetch(`/reconcile-statement/${statementId}/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                location.reload();
+            } else {
+                alert('Error: ' + data.error);
+            }
+        });
+    }
+}
+
+function viewStatement(statementId) {
+    // Implement view statement details
+    alert('View statement functionality to be implemented');
+}
+
+function importStatements() {
+    // Implement import statements functionality
+    alert('Import statements functionality to be implemented');
+}
+
+function exportReconciliation() {
+    // Implement export functionality
+    alert('Export functionality to be implemented');
+}
+</script>
+
+{% endblock %}

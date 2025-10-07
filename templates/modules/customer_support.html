@@ -1,0 +1,210 @@
+{% extends 'modules/base_module.html' %}
+{% load static %}
+
+{% block content %}
+{% csrf_token %}
+{% include 'components/sidemenu.html' %}
+
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 ml-64 transition-colors duration-300">
+    <!-- Top Navigation Bar -->
+    <div class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4 transition-colors duration-300">
+        <div class="flex items-center justify-between">
+            <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Support Center</h1>
+            <div class="flex items-center space-x-4">
+                <!-- Theme Toggle -->
+                <button id="theme-toggle" class="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-300">
+                    <i class="fas fa-moon text-xl dark:hidden"></i>
+                    <i class="fas fa-sun text-xl hidden dark:inline"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-8">
+        <!-- Breadcrumb -->
+        <nav class="flex mb-6" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                <li class="inline-flex items-center">
+                    <a href="{% url 'dashboard' %}" class="inline-flex items-center text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
+                        <i class="fas fa-home mr-2"></i>
+                        Dashboard
+                    </a>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+                        <a href="{% url 'customer_portal' %}" class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Customer Portal</a>
+                    </div>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+                        <span class="text-sm font-medium text-gray-500 dark:text-gray-400">Support Center</span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Support Form -->
+            <div class="lg:col-span-2">
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-8">
+                    <div class="mb-8">
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">Submit Support Request</h2>
+                        <p class="text-gray-600 dark:text-gray-400">Get help with your account, assets, or any other issues.</p>
+                    </div>
+
+                    <form method="post" class="space-y-6">
+                        {% csrf_token %}
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="subject" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Subject</label>
+                                <input type="text" id="subject" name="subject" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" placeholder="Brief description of your issue" required>
+                            </div>
+                            <div>
+                                <label for="category" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Category</label>
+                                <select id="category" name="category" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" required>
+                                    <option value="">Select Category</option>
+                                    <option value="account">Account & Profile</option>
+                                    <option value="assets">Fixed Assets</option>
+                                    <option value="billing">Billing & Payments</option>
+                                    <option value="technical">Technical Support</option>
+                                    <option value="general">General Inquiry</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="description" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Description</label>
+                            <textarea id="description" name="description" rows="6" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" placeholder="Please provide detailed information about your issue..." required></textarea>
+                        </div>
+
+                        <div>
+                            <label for="priority" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Priority</label>
+                            <select id="priority" name="priority" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" required>
+                                <option value="low">Low - General inquiry or minor issue</option>
+                                <option value="medium" selected>Medium - Issue affecting normal operations</option>
+                                <option value="high">High - Urgent issue requiring immediate attention</option>
+                                <option value="critical">Critical - System down or major business impact</option>
+                            </select>
+                        </div>
+
+                        <div class="flex justify-end space-x-4 pt-6">
+                            <a href="{% url 'customer_portal' %}" class="px-6 py-2 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200">
+                                Cancel
+                            </a>
+                            <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200">
+                                <i class="fas fa-paper-plane mr-2"></i>
+                                Submit Request
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Help Resources -->
+            <div class="space-y-6">
+                <!-- Quick Help -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Quick Help</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-question-circle text-blue-500 mt-1"></i>
+                            <div>
+                                <h4 class="text-sm font-medium text-gray-900 dark:text-gray-100">How to View Assets</h4>
+                                <p class="text-xs text-gray-600 dark:text-gray-400">Access your fixed assets from the Customer Portal main page.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-flag text-red-500 mt-1"></i>
+                            <div>
+                                <h4 class="text-sm font-medium text-gray-900 dark:text-gray-100">Report Asset Issues</h4>
+                                <p class="text-xs text-gray-600 dark:text-gray-400">Use the report button next to any asset to submit maintenance requests.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-user-edit text-green-500 mt-1"></i>
+                            <div>
+                                <h4 class="text-sm font-medium text-gray-900 dark:text-gray-100">Update Profile</h4>
+                                <p class="text-xs text-gray-600 dark:text-gray-400">Keep your contact information current for better support.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Information -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Contact Information</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-envelope text-blue-500"></i>
+                            <div>
+                                <p class="text-sm font-medium text-gray-900 dark:text-gray-100">Email Support</p>
+                                <p class="text-xs text-gray-600 dark:text-gray-400">support@ovovex.com</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-phone text-green-500"></i>
+                            <div>
+                                <p class="text-sm font-medium text-gray-900 dark:text-gray-100">Phone Support</p>
+                                <p class="text-xs text-gray-600 dark:text-gray-400">1-800-OVOVEX-1</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-clock text-purple-500"></i>
+                            <div>
+                                <p class="text-sm font-medium text-gray-900 dark:text-gray-100">Support Hours</p>
+                                <p class="text-xs text-gray-600 dark:text-gray-400">Mon-Fri 9AM-6PM EST</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Response Time -->
+                <div class="bg-blue-50 dark:bg-blue-900/20 rounded-xl border border-blue-200 dark:border-blue-800 p-6">
+                    <div class="flex items-start">
+                        <i class="fas fa-clock text-blue-600 dark:text-blue-400 mt-1 mr-3"></i>
+                        <div>
+                            <h4 class="text-sm font-medium text-blue-800 dark:text-blue-200 mb-1">Response Times</h4>
+                            <ul class="text-xs text-blue-700 dark:text-blue-300 space-y-1">
+                                <li>• Critical: Within 1 hour</li>
+                                <li>• High: Within 4 hours</li>
+                                <li>• Medium: Within 24 hours</li>
+                                <li>• Low: Within 48 hours</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Theme Toggle Script -->
+<script>
+    // Theme toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    themeToggle.addEventListener('click', () => {
+        const html = document.documentElement;
+        const isDark = html.classList.contains('dark');
+        if (isDark) {
+            html.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+        } else {
+            html.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+        }
+    });
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        // Check for saved theme preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.documentElement.classList.add('dark');
+        }
+    });
+</script>
+
+{% endblock %}

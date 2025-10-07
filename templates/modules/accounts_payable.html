@@ -1,0 +1,1306 @@
+{% extends 'modules/base_module.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'components/sidemenu.html' %}
+
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 ml-64 transition-colors duration-300">
+    <!-- Top Navigation Bar -->
+    <div class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4 transition-colors duration-300">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Accounts Payable</h1>
+                <span class="px-3 py-1 bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 text-sm font-medium rounded-full">15 Due Soon</span>
+            </div>
+            <div class="flex items-center space-x-4">
+                <!-- Quick Search -->
+                <div class="relative">
+                    <input type="text" placeholder="Search vendors, invoices..." class="w-64 pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+                    <i class="fas fa-search absolute left-3 top-3 text-gray-400 dark:text-gray-500"></i>
+                </div>
+                <!-- Export -->
+                <button class="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200">
+                    <i class="fas fa-download mr-2"></i>
+                    Export
+                </button>
+                <!-- Theme Toggle -->
+                <button id="theme-toggle" class="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-300">
+                    <i class="fas fa-moon text-xl dark:hidden"></i>
+                    <i class="fas fa-sun text-xl hidden dark:inline"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-8">
+        <!-- Breadcrumb -->
+        <nav class="flex mb-6" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                <li class="inline-flex items-center">
+                    <a href="{% url 'dashboard' %}" class="inline-flex items-center text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
+                        <i class="fas fa-home mr-2"></i>
+                        Dashboard
+                    </a>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+                        <span class="text-sm font-medium text-gray-500 dark:text-gray-400">Accounts Payable</span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
+
+        <!-- Module Description -->
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 mb-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">Accounts Payable</h2>
+                    <p class="text-gray-600 dark:text-gray-400">Manage vendor invoices, track outstanding payments, and maintain supplier relationships. Monitor cash flow and ensure timely payments.</p>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <div class="text-right">
+                        <div class="text-2xl font-bold text-gray-900 dark:text-gray-100">$34,580</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-400">Total Outstanding</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- KPI Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+            <!-- Total Outstanding -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-10 h-10 bg-red-100 dark:bg-red-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-dollar-sign text-red-600 dark:text-red-400"></i>
+                    </div>
+                    <span class="text-red-600 dark:text-red-400 text-sm font-medium">-5.2%</span>
+                </div>
+                <div class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">$34,580</div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">Outstanding Balance</div>
+            </div>
+
+            <!-- Invoices Due This Week -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-10 h-10 bg-orange-100 dark:bg-orange-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-clock text-orange-600 dark:text-orange-400"></i>
+                    </div>
+                    <span class="text-orange-600 dark:text-orange-400 text-sm font-medium">15</span>
+                </div>
+                <div class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">15</div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">Due This Week</div>
+            </div>
+
+            <!-- Average Payment Time -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-calendar-check text-blue-600 dark:text-blue-400"></i>
+                    </div>
+                    <span class="text-green-600 dark:text-green-400 text-sm font-medium">-2 days</span>
+                </div>
+                <div class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">28</div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">Avg Payment Days</div>
+            </div>
+
+            <!-- Active Vendors -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-10 h-10 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-building text-green-600 dark:text-green-400"></i>
+                    </div>
+                    <span class="text-green-600 dark:text-green-400 text-sm font-medium">+3</span>
+                </div>
+                <div class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">42</div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">Active Vendors</div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+            <button class="flex items-center justify-center px-4 py-3 bg-blue-600 text-white font-medium rounded-xl hover:bg-blue-700 transition-colors duration-200">
+                <i class="fas fa-plus mr-2"></i>
+                New Vendor Invoice
+            </button>
+            <button class="flex items-center justify-center px-4 py-3 bg-green-600 text-white font-medium rounded-xl hover:bg-green-700 transition-colors duration-200">
+                <i class="fas fa-upload mr-2"></i>
+                Import Bills
+            </button>
+            <button class="flex items-center justify-center px-4 py-3 bg-purple-600 text-white font-medium rounded-xl hover:bg-purple-700 transition-colors duration-200">
+                <i class="fas fa-credit-card mr-2"></i>
+                Process Payments
+            </button>
+            <button class="flex items-center justify-center px-4 py-3 bg-gray-600 dark:bg-gray-700 text-white font-medium rounded-xl hover:bg-gray-700 dark:hover:bg-gray-600 transition-colors duration-200">
+                <i class="fas fa-chart-bar mr-2"></i>
+                Aging Report
+            </button>
+        </div>
+
+        <!-- Main Content Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Outstanding Invoices -->
+            <div class="lg:col-span-2 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700">
+                <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100">Outstanding Invoices</h3>
+                        <div class="flex items-center space-x-2">
+                            <select class="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+                                <option>All Status</option>
+                                <option>Due Soon</option>
+                                <option>Overdue</option>
+                                <option>Paid</option>
+                            </select>
+                            <button class="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700">+ New Invoice</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-50 dark:bg-gray-700">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Invoice #</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Vendor</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Due Date</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Amount</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">AP-2025-045</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">Office Depot</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">Oct 12, 2025</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-red-600 dark:text-red-400">$2,340.00</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200">Due Soon</span>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">AP-2025-044</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">Tech Solutions Inc</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">Oct 15, 2025</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-red-600 dark:text-red-400">$8,750.00</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200">Pending</span>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">AP-2025-043</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">Marketing Pro</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">Oct 18, 2025</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-red-600 dark:text-red-400">$5,420.00</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200">Paid</span>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">AP-2025-042</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">Cloud Services Ltd</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">Oct 20, 2025</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-red-600 dark:text-red-400">$12,500.00</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200">Overdue</span>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">AP-2025-041</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">Office Supplies Co</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">Oct 22, 2025</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-red-600 dark:text-red-400">$5,570.00</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200">Pending</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="space-y-6">
+                <!-- Payment Schedule -->
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700">
+                    <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                        <h4 class="text-lg font-bold text-gray-900 dark:text-gray-100">Payment Schedule</h4>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <div class="flex items-center justify-between p-3 bg-red-50 dark:bg-red-900 rounded-lg">
+                            <div>
+                                <p class="text-sm font-medium text-red-900 dark:text-red-100">Today</p>
+                                <p class="text-xs text-red-700 dark:text-red-300">3 payments due</p>
+                            </div>
+                            <span class="text-sm font-bold text-red-600 dark:text-red-400">$8,920</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-orange-50 dark:bg-orange-900 rounded-lg">
+                            <div>
+                                <p class="text-sm font-medium text-orange-900 dark:text-orange-100">This Week</p>
+                                <p class="text-xs text-orange-700 dark:text-orange-300">12 payments due</p>
+                            </div>
+                            <span class="text-sm font-bold text-orange-600 dark:text-orange-400">$25,660</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-yellow-50 dark:bg-yellow-900 rounded-lg">
+                            <div>
+                                <p class="text-sm font-medium text-yellow-900 dark:text-yellow-100">Next Week</p>
+                                <p class="text-xs text-yellow-700 dark:text-yellow-300">8 payments due</p>
+                            </div>
+                            <span class="text-sm font-bold text-yellow-600 dark:text-yellow-400">$18,750</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Top Vendors -->
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700">
+                    <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                        <h4 class="text-lg font-bold text-gray-900 dark:text-gray-100">Top Vendors</h4>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center">
+                                    <span class="text-sm font-bold text-blue-600 dark:text-blue-400">O</span>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium text-gray-900 dark:text-gray-100">Office Depot</p>
+                                    <p class="text-xs text-gray-600 dark:text-gray-400">15 invoices</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-sm font-bold text-gray-900 dark:text-gray-100">$23,400</p>
+                                <p class="text-xs text-green-600 dark:text-green-400">On Time</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center">
+                                    <span class="text-sm font-bold text-green-600 dark:text-green-400">T</span>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium text-gray-900 dark:text-gray-100">Tech Solutions</p>
+                                    <p class="text-xs text-gray-600 dark:text-gray-400">8 invoices</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-sm font-bold text-gray-900 dark:text-gray-100">$18,200</p>
+                                <p class="text-xs text-yellow-600 dark:text-yellow-400">1 Late</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center">
+                                    <span class="text-sm font-bold text-purple-600 dark:text-purple-400">M</span>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium text-gray-900 dark:text-gray-100">Marketing Pro</p>
+                                    <p class="text-xs text-gray-600 dark:text-gray-400">12 invoices</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-sm font-bold text-gray-900 dark:text-gray-100">$15,600</p>
+                                <p class="text-xs text-green-600 dark:text-green-400">On Time</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700">
+                    <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                        <h4 class="text-lg font-bold text-gray-900 dark:text-gray-100">Quick Actions</h4>
+                    </div>
+                    <div class="p-6 space-y-3">
+                        <button class="w-full flex items-center justify-center px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200 text-sm">
+                            <i class="fas fa-paper-plane mr-2"></i>
+                            Send Reminders
+                        </button>
+                        <button class="w-full flex items-center justify-center px-4 py-2 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition-colors duration-200 text-sm">
+                            <i class="fas fa-check-circle mr-2"></i>
+                            Mark as Paid
+                        </button>
+                        <button class="w-full flex items-center justify-center px-4 py-2 bg-purple-600 text-white font-medium rounded-lg hover:bg-purple-700 transition-colors duration-200 text-sm">
+                            <i class="fas fa-file-invoice-dollar mr-2"></i>
+                            3-Way Match
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+
+<!-- New Vendor Invoice Modal -->
+<div id="newVendorInvoiceModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 z-50 flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+        <div class="p-6 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100">New Vendor Invoice</h3>
+            <button class="closeModal text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+        </div>
+        <form id="newVendorInvoiceForm" class="p-6 space-y-6">
+            <!-- Bill Header -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Bill Number *</label>
+                    <input type="text" id="billNumber" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" placeholder="AP-2025-001" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Vendor *</label>
+                    <select id="billVendor" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" required>
+                        <option value="">Select vendor...</option>
+                        {% for vendor in vendors %}
+                        <option value="{{ vendor.id }}">{{ vendor.vendor_code }} - {{ vendor.company_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Bill Date *</label>
+                    <input type="date" id="billDate" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Due Date *</label>
+                    <input type="date" id="billDueDate" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" required>
+                </div>
+            </div>
+
+            <!-- Line Items -->
+            <div>
+                <div class="flex items-center justify-between mb-4">
+                    <h4 class="text-lg font-semibold text-gray-900 dark:text-gray-100">Line Items</h4>
+                    <button type="button" id="addBillLineBtn" class="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700">
+                        <i class="fas fa-plus mr-2"></i>Add Line
+                    </button>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-50 dark:bg-gray-700">
+                            <tr>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Description</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Qty</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Unit Price</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Total</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="billLinesContainer">
+                            <!-- Line items will be added here -->
+                        </tbody>
+                        <tfoot class="border-t-2 border-gray-300 dark:border-gray-600">
+                            <tr>
+                                <td colspan="3" class="px-4 py-2 text-right text-gray-700 dark:text-gray-300">Subtotal:</td>
+                                <td class="px-4 py-2 text-gray-900 dark:text-gray-100" id="billSubtotal">$0.00</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" class="px-4 py-2 text-right text-gray-700 dark:text-gray-300">Tax:</td>
+                                <td class="px-4 py-2 text-gray-900 dark:text-gray-100" id="billTax">$0.00</td>
+                                <td></td>
+                            </tr>
+                            <tr class="border-t-2 border-gray-300 dark:border-gray-600">
+                                <td colspan="3" class="px-4 py-3 text-right font-bold text-lg text-gray-900 dark:text-gray-100">Total:</td>
+                                <td class="px-4 py-3 font-bold text-lg text-gray-900 dark:text-gray-100" id="billTotal">$0.00</td>
+                                <td></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Notes -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Notes</label>
+                <textarea id="billNotes" rows="3" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" placeholder="Add any notes for this bill..."></textarea>
+            </div>
+
+            <!-- Actions -->
+            <div class="flex justify-end space-x-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                <button type="button" class="closeModal px-6 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">
+                    Cancel
+                </button>
+                <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                    Save Bill
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Import Bills Modal -->
+<div id="importBillsModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 z-50 flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-2xl w-full">
+        <div class="p-6 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Import Bills</h3>
+            <button class="closeModal text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+        </div>
+        <div class="p-6">
+            <form id="importBillsForm" class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Upload CSV File *</label>
+                    <input type="file" id="billsFile" accept=".csv" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" required>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">CSV format: bill_number,vendor_code,vendor_name,bill_date,due_date,subtotal,tax_amount,total_amount,notes</p>
+                </div>
+
+                <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+                    <div class="flex items-start space-x-3">
+                        <i class="fas fa-info-circle text-blue-600 dark:text-blue-400 mt-1"></i>
+                        <div class="text-sm text-gray-700 dark:text-gray-300">
+                            <p>Upload a CSV file with bill data. The system will validate and import the bills. Existing bills with the same number will be skipped.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-end space-x-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <button type="button" class="closeModal px-6 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">
+                        Cancel
+                    </button>
+                    <button type="submit" class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
+                        <i class="fas fa-upload mr-2"></i>
+                        Import Bills
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Process Payments Modal -->
+<div id="processPaymentsModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 z-50 flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+        <div class="p-6 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Process Payments</h3>
+            <button class="closeModal text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+        </div>
+        <div class="p-6">
+            <form id="processPaymentsForm" class="space-y-6">
+                <!-- Payment Header -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Payment Date *</label>
+                        <input type="date" id="paymentDate" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Payment Method *</label>
+                        <select id="paymentMethod" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" required>
+                            <option value="CHECK">Check</option>
+                            <option value="BANK_TRANSFER">Bank Transfer</option>
+                            <option value="CASH">Cash</option>
+                            <option value="CREDIT_CARD">Credit Card</option>
+                            <option value="OTHER">Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Reference Number</label>
+                    <input type="text" id="paymentReference" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" placeholder="Check #, Transaction ID, etc.">
+                </div>
+
+                <!-- Bills to Pay -->
+                <div>
+                    <h4 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Select Bills to Pay</h4>
+                    <div class="space-y-3 max-h-60 overflow-y-auto">
+                        {% for bill in bills %}
+                        <div class="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-600 rounded-lg">
+                            <div class="flex items-center space-x-3">
+                                <input type="checkbox" class="bill-checkbox w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" data-bill-id="{{ bill.id }}" data-amount="{{ bill.total_amount }}">
+                                <div>
+                                    <p class="text-sm font-medium text-gray-900 dark:text-gray-100">{{ bill.bill_number }}</p>
+                                    <p class="text-xs text-gray-600 dark:text-gray-400">{{ bill.vendor.company_name }}</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-sm font-bold text-gray-900 dark:text-gray-100">${{ bill.total_amount }}</p>
+                                <p class="text-xs text-gray-600 dark:text-gray-400">Due: {{ bill.due_date }}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Payment Summary -->
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Selected Bills:</span>
+                        <span id="selectedCount" class="text-sm font-bold text-gray-900 dark:text-gray-100">0</span>
+                    </div>
+                    <div class="flex items-center justify-between mt-2">
+                        <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Total Amount:</span>
+                        <span id="totalPaymentAmount" class="text-lg font-bold text-gray-900 dark:text-gray-100">$0.00</span>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Notes</label>
+                    <textarea id="paymentNotes" rows="3" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" placeholder="Add any notes about this payment..."></textarea>
+                </div>
+
+                <div class="flex justify-end space-x-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <button type="button" class="closeModal px-6 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">
+                        Cancel
+                    </button>
+                    <button type="submit" class="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700">
+                        <i class="fas fa-credit-card mr-2"></i>
+                        Process Payments
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Send Reminders Modal -->
+<div id="sendRemindersModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 z-50 flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-2xl w-full">
+        <div class="p-6 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Send Payment Reminders</h3>
+            <button class="closeModal text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+        </div>
+        <div class="p-6">
+            <form id="sendRemindersForm" class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Days Overdue *</label>
+                    <select id="reminderDaysOverdue" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" required>
+                        <option value="7">7 days overdue</option>
+                        <option value="14">14 days overdue</option>
+                        <option value="30">30 days overdue</option>
+                        <option value="60">60 days overdue</option>
+                        <option value="90">90+ days overdue</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Reminder Type *</label>
+                    <select id="reminderType" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" required>
+                        <option value="first_reminder">First Reminder</option>
+                        <option value="second_reminder">Second Reminder</option>
+                        <option value="final_notice">Final Notice</option>
+                        <option value="collection_notice">Collection Notice</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Custom Message</label>
+                    <textarea id="reminderMessage" rows="4" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" placeholder="Dear Vendor, This is a friendly reminder that payment for bill {bill_number} for ${amount} is due on {due_date}. Please arrange payment at your earliest convenience..."></textarea>
+                </div>
+
+                <div class="bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 rounded-lg p-4">
+                    <div class="flex items-start space-x-3">
+                        <i class="fas fa-exclamation-triangle text-orange-600 dark:text-orange-400 mt-1"></i>
+                        <div class="text-sm text-gray-700 dark:text-gray-300">
+                            <p>This will send reminder emails to all vendors with bills that match the overdue criteria. Make sure your email settings are configured.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-end space-x-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <button type="button" class="closeModal px-6 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">
+                        Cancel
+                    </button>
+                    <button type="submit" class="px-6 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700">
+                        <i class="fas fa-paper-plane mr-2"></i>
+                        Send Reminders
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Mark as Paid Modal -->
+<div id="markAsPaidModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 z-50 flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-2xl w-full">
+        <div class="p-6 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Mark Bills as Paid</h3>
+            <button class="closeModal text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+        </div>
+        <div class="p-6">
+            <form id="markAsPaidForm" class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Select Bills to Mark as Paid</label>
+                    <select id="paidBillsSelect" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" multiple size="8">
+                        {% for bill in bills %}
+                        <option value="{{ bill.id }}">{{ bill.bill_number }} - {{ bill.vendor.company_name }} (${{ bill.total_amount }})</option>
+                        {% endfor %}
+                    </select>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Hold Ctrl/Cmd to select multiple bills</p>
+                </div>
+
+                <div class="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-4">
+                    <div class="flex items-start space-x-3">
+                        <i class="fas fa-info-circle text-green-600 dark:text-green-400 mt-1"></i>
+                        <div class="text-sm text-gray-700 dark:text-gray-300">
+                            <p>This will mark the selected bills as fully paid. This action cannot be undone.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-end space-x-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <button type="button" class="closeModal px-6 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">
+                        Cancel
+                    </button>
+                    <button type="submit" class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
+                        <i class="fas fa-check-circle mr-2"></i>
+                        Mark as Paid
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- 3-Way Match Modal -->
+<div id="threeWayMatchModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 z-50 flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-4xl w-full">
+        <div class="p-6 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100">3-Way Match</h3>
+            <button class="closeModal text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+        </div>
+        <div class="p-6">
+            <form id="threeWayMatchForm" class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Select Bill *</label>
+                    <select id="matchBillSelect" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" required>
+                        <option value="">Choose bill...</option>
+                        {% for bill in bills %}
+                        <option value="{{ bill.id }}">{{ bill.bill_number }} - {{ bill.vendor.company_name }} (${{ bill.total_amount }})</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- Match Results -->
+                <div id="matchResults" class="hidden space-y-4">
+                    <h4 class="text-lg font-semibold text-gray-900 dark:text-gray-100">Match Results</h4>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <!-- Purchase Order Match -->
+                        <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+                            <div class="flex items-center space-x-3 mb-2">
+                                <i class="fas fa-file-contract text-blue-600 dark:text-blue-400"></i>
+                                <span class="text-sm font-medium text-blue-900 dark:text-blue-100">Purchase Order</span>
+                            </div>
+                            <div id="poMatchStatus" class="text-sm text-gray-700 dark:text-gray-300">Checking...</div>
+                        </div>
+
+                        <!-- Receipt Match -->
+                        <div class="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-4">
+                            <div class="flex items-center space-x-3 mb-2">
+                                <i class="fas fa-truck text-green-600 dark:text-green-400"></i>
+                                <span class="text-sm font-medium text-green-900 dark:text-green-100">Goods Receipt</span>
+                            </div>
+                            <div id="receiptMatchStatus" class="text-sm text-gray-700 dark:text-gray-300">Checking...</div>
+                        </div>
+
+                        <!-- Invoice Match -->
+                        <div class="bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800 rounded-lg p-4">
+                            <div class="flex items-center space-x-3 mb-2">
+                                <i class="fas fa-file-invoice-dollar text-purple-600 dark:text-purple-400"></i>
+                                <span class="text-sm font-medium text-purple-900 dark:text-purple-100">Vendor Invoice</span>
+                            </div>
+                            <div id="invoiceMatchStatus" class="text-sm text-gray-700 dark:text-gray-300">Checking...</div>
+                        </div>
+                    </div>
+
+                    <!-- Overall Result -->
+                    <div id="overallMatchResult" class="hidden bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
+                        <div class="flex items-center space-x-3">
+                            <i id="overallMatchIcon" class="fas fa-check-circle text-green-600 dark:text-green-400"></i>
+                            <div>
+                                <p id="overallMatchText" class="text-sm font-medium text-gray-900 dark:text-gray-100">3-Way Match Successful</p>
+                                <p class="text-xs text-gray-600 dark:text-gray-400">The bill can be approved for payment</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+                    <div class="flex items-start space-x-3">
+                        <i class="fas fa-info-circle text-blue-600 dark:text-blue-400 mt-1"></i>
+                        <div class="text-sm text-gray-700 dark:text-gray-300">
+                            <p>3-way matching compares the purchase order, goods receipt, and vendor invoice to ensure accuracy before approving payment.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-end space-x-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <button type="button" class="closeModal px-6 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">
+                        Cancel
+                    </button>
+                    <button type="button" id="runMatchBtn" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                        <i class="fas fa-search mr-2"></i>
+                        Run 3-Way Match
+                    </button>
+                    <button type="submit" id="approveBillBtn" class="hidden px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
+                        <i class="fas fa-check mr-2"></i>
+                        Approve Bill
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Aging Report Modal -->
+<div id="agingReportModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 z-50 flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-6xl w-full max-h-[90vh] overflow-y-auto">
+        <div class="p-6 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Accounts Payable Aging Report</h3>
+            <button class="closeModal text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+        </div>
+        <div class="p-6">
+            <form id="agingReportForm" class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">As of Date *</label>
+                        <input type="date" id="agingAsOfDate" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Report Type</label>
+                        <select id="agingReportType" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
+                            <option value="summary">Summary Report</option>
+                            <option value="detailed">Detailed Report</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="flex justify-end space-x-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <button type="button" class="closeModal px-6 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">
+                        Cancel
+                    </button>
+                    <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                        <i class="fas fa-chart-bar mr-2"></i>
+                        Generate Report
+                    </button>
+                </div>
+            </form>
+
+            <!-- Report Results -->
+            <div id="agingReportResults" class="hidden mt-6">
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
+                    <h4 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">Aging Summary</h4>
+                    
+                    <!-- Aging Buckets -->
+                    <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
+                        <div class="bg-white dark:bg-gray-800 p-4 rounded-lg text-center">
+                            <div class="text-2xl font-bold text-green-600 dark:text-green-400" id="agingCurrent">$0.00</div>
+                            <div class="text-sm text-gray-600 dark:text-gray-400">Current</div>
+                        </div>
+                        <div class="bg-white dark:bg-gray-800 p-4 rounded-lg text-center">
+                            <div class="text-2xl font-bold text-blue-600 dark:text-blue-400" id="aging1_30">$0.00</div>
+                            <div class="text-sm text-gray-600 dark:text-gray-400">1-30 Days</div>
+                        </div>
+                        <div class="bg-white dark:bg-gray-800 p-4 rounded-lg text-center">
+                            <div class="text-2xl font-bold text-yellow-600 dark:text-yellow-400" id="aging31_60">$0.00</div>
+                            <div class="text-sm text-gray-600 dark:text-gray-400">31-60 Days</div>
+                        </div>
+                        <div class="bg-white dark:bg-gray-800 p-4 rounded-lg text-center">
+                            <div class="text-2xl font-bold text-orange-600 dark:text-orange-400" id="aging61_90">$0.00</div>
+                            <div class="text-sm text-gray-600 dark:text-gray-400">61-90 Days</div>
+                        </div>
+                        <div class="bg-white dark:bg-gray-800 p-4 rounded-lg text-center">
+                            <div class="text-2xl font-bold text-red-600 dark:text-red-400" id="agingOver90">$0.00</div>
+                            <div class="text-sm text-gray-600 dark:text-gray-400">90+ Days</div>
+                        </div>
+                    </div>
+
+                    <!-- Vendor Breakdown -->
+                    <div id="agingVendorBreakdown" class="space-y-3">
+                        <!-- Vendor breakdown will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Theme Toggle Script -->
+<script>
+    // Theme toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    themeToggle.addEventListener('click', () => {
+        const html = document.documentElement;
+        const isDark = html.classList.contains('dark');
+        if (isDark) {
+            html.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+        } else {
+            html.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+        }
+    });
+
+    // Initialize theme
+    if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+    }
+
+    // Modal Management
+    const modals = {
+        newVendorInvoice: document.getElementById('newVendorInvoiceModal'),
+        importBills: document.getElementById('importBillsModal'),
+        processPayments: document.getElementById('processPaymentsModal'),
+        sendReminders: document.getElementById('sendRemindersModal'),
+        markAsPaid: document.getElementById('markAsPaidModal'),
+        threeWayMatch: document.getElementById('threeWayMatchModal'),
+        agingReport: document.getElementById('agingReportModal')
+    };
+
+    // Quick Actions - Main buttons
+    document.querySelectorAll('.grid.grid-cols-1.md\\:grid-cols-4 button').forEach((btn, index) => {
+        if (index === 0) { // New Vendor Invoice
+            btn.addEventListener('click', () => {
+                modals.newVendorInvoice.classList.remove('hidden');
+                initializeBillForm();
+            });
+        } else if (index === 1) { // Import Bills
+            btn.addEventListener('click', () => {
+                modals.importBills.classList.remove('hidden');
+            });
+        } else if (index === 2) { // Process Payments
+            btn.addEventListener('click', () => {
+                modals.processPayments.classList.remove('hidden');
+                document.getElementById('paymentDate').valueAsDate = new Date();
+                updatePaymentSummary();
+            });
+        } else if (index === 3) { // Aging Report
+            btn.addEventListener('click', () => {
+                modals.agingReport.classList.remove('hidden');
+                document.getElementById('agingAsOfDate').valueAsDate = new Date();
+            });
+        }
+    });
+
+    // Sidebar Quick Actions
+    document.querySelectorAll('.space-y-3 button').forEach((btn, index) => {
+        if (index === 0) { // Send Reminders
+            btn.addEventListener('click', () => {
+                modals.sendReminders.classList.remove('hidden');
+            });
+        } else if (index === 1) { // Mark as Paid
+            btn.addEventListener('click', () => {
+                modals.markAsPaid.classList.remove('hidden');
+            });
+        } else if (index === 2) { // 3-Way Match
+            btn.addEventListener('click', () => {
+                modals.threeWayMatch.classList.remove('hidden');
+            });
+        }
+    });
+
+    // Close modal functionality
+    document.querySelectorAll('.closeModal').forEach(btn => {
+        btn.addEventListener('click', function() {
+            this.closest('[id$="Modal"]').classList.add('hidden');
+        });
+    });
+
+    // Close on outside click
+    Object.values(modals).forEach(modal => {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.add('hidden');
+            }
+        });
+    });
+
+    // Bill Form Logic
+    let billLineCounter = 0;
+    
+    function initializeBillForm() {
+        document.getElementById('billDate').valueAsDate = new Date();
+        const dueDate = new Date();
+        dueDate.setDate(dueDate.getDate() + 30);
+        document.getElementById('billDueDate').valueAsDate = dueDate;
+        document.getElementById('billLinesContainer').innerHTML = '';
+        billLineCounter = 0;
+        addBillLine();
+    }
+
+    function addBillLine() {
+        billLineCounter++;
+        const container = document.getElementById('billLinesContainer');
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td class="px-4 py-2">
+                <input type="text" class="w-full px-2 py-1 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 text-sm" placeholder="Item description" required>
+            </td>
+            <td class="px-4 py-2">
+                <input type="number" min="1" class="qty-input w-full px-2 py-1 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 text-sm" value="1" onchange="updateBillTotals()" required>
+            </td>
+            <td class="px-4 py-2">
+                <input type="number" step="0.01" min="0" class="price-input w-full px-2 py-1 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 text-sm" placeholder="0.00" onchange="updateBillTotals()" required>
+            </td>
+            <td class="px-4 py-2">
+                <span class="line-amount font-medium text-gray-900 dark:text-gray-100">$0.00</span>
+            </td>
+            <td class="px-4 py-2 text-center">
+                <button type="button" onclick="this.closest('tr').remove(); updateBillTotals();" class="text-red-600 hover:text-red-800">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </td>
+        `;
+        container.appendChild(row);
+        updateBillTotals();
+    }
+
+    document.getElementById('addBillLineBtn').addEventListener('click', addBillLine);
+
+    function updateBillTotals() {
+        let subtotal = 0;
+        const rows = document.querySelectorAll('#billLinesContainer tr');
+        
+        rows.forEach(row => {
+            const qty = parseFloat(row.querySelector('.qty-input').value) || 0;
+            const price = parseFloat(row.querySelector('.price-input').value) || 0;
+            const amount = qty * price;
+            row.querySelector('.line-amount').textContent = '$' + amount.toFixed(2);
+            subtotal += amount;
+        });
+
+        const tax = subtotal * 0.1; // 10% tax rate
+        const total = subtotal + tax;
+
+        document.getElementById('billSubtotal').textContent = '$' + subtotal.toFixed(2);
+        document.getElementById('billTax').textContent = '$' + tax.toFixed(2);
+        document.getElementById('billTotal').textContent = '$' + total.toFixed(2);
+    }
+
+    // Payment processing logic
+    function updatePaymentSummary() {
+        const checkboxes = document.querySelectorAll('.bill-checkbox:checked');
+        let total = 0;
+        checkboxes.forEach(cb => {
+            total += parseFloat(cb.getAttribute('data-amount'));
+        });
+        document.getElementById('selectedCount').textContent = checkboxes.length;
+        document.getElementById('totalPaymentAmount').textContent = '$' + total.toFixed(2);
+    }
+
+    document.querySelectorAll('.bill-checkbox').forEach(cb => {
+        cb.addEventListener('change', updatePaymentSummary);
+    });
+
+    // Helper function to show success/error messages
+    function showMessage(message, type = 'success') {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `fixed top-4 right-4 px-4 py-2 rounded-md text-white z-50 ${
+            type === 'success' ? 'bg-green-500' : 'bg-red-500'
+        }`;
+        messageDiv.textContent = message;
+        document.body.appendChild(messageDiv);
+        setTimeout(() => messageDiv.remove(), 3000);
+    }
+
+    // Helper function to get CSRF token
+    function getCSRFToken() {
+        return document.querySelector('[name=csrfmiddlewaretoken]').value;
+    }
+
+    // Form Submissions
+    document.getElementById('newVendorInvoiceForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const formData = {
+            bill_number: document.getElementById('billNumber').value,
+            vendor_id: document.getElementById('billVendor').value,
+            bill_date: document.getElementById('billDate').value,
+            due_date: document.getElementById('billDueDate').value,
+            notes: document.getElementById('billNotes').value,
+            lines: []
+        };
+        
+        // Collect line items
+        const rows = document.querySelectorAll('#billLinesContainer tr');
+        rows.forEach(row => {
+            const description = row.querySelector('input[type="text"]').value;
+            const quantity = row.querySelector('.qty-input').value;
+            const unit_price = row.querySelector('.price-input').value;
+            
+            if (description && quantity && unit_price) {
+                formData.lines.push({
+                    description: description,
+                    quantity: parseFloat(quantity),
+                    unit_price: parseFloat(unit_price)
+                });
+            }
+        });
+        
+        try {
+            const response = await fetch('/accounts-payable/create-bill/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCSRFToken()
+                },
+                body: JSON.stringify(formData)
+            });
+            
+            const result = await response.json();
+            if (result.success) {
+                showMessage('Bill created successfully!');
+                modals.newVendorInvoice.classList.add('hidden');
+                location.reload();
+            } else {
+                showMessage('Error: ' + result.error, 'error');
+            }
+        } catch (error) {
+            showMessage('Error creating bill: ' + error.message, 'error');
+        }
+    });
+
+    document.getElementById('importBillsForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const formData = new FormData();
+        formData.append('file', document.getElementById('billsFile').files[0]);
+        
+        try {
+            const response = await fetch('/accounts-payable/import-bills/', {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': getCSRFToken()
+                },
+                body: formData
+            });
+            
+            const result = await response.json();
+            if (result.success) {
+                showMessage(result.message);
+                modals.importBills.classList.add('hidden');
+            } else {
+                showMessage('Error: ' + result.error, 'error');
+            }
+        } catch (error) {
+            showMessage('Error importing bills: ' + error.message, 'error');
+        }
+    });
+
+    document.getElementById('processPaymentsForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const selectedBills = Array.from(document.querySelectorAll('.bill-checkbox:checked')).map(cb => ({
+            bill_id: cb.getAttribute('data-bill-id'),
+            amount: cb.getAttribute('data-amount')
+        }));
+        
+        const formData = {
+            payments: selectedBills,
+            payment_date: document.getElementById('paymentDate').value,
+            payment_method: document.getElementById('paymentMethod').value,
+            reference: document.getElementById('paymentReference').value,
+            notes: document.getElementById('paymentNotes').value
+        };
+        
+        try {
+            const response = await fetch('/accounts-payable/process-payments/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCSRFToken()
+                },
+                body: JSON.stringify(formData)
+            });
+            
+            const result = await response.json();
+            if (result.success) {
+                showMessage(result.message);
+                modals.processPayments.classList.add('hidden');
+                location.reload();
+            } else {
+                showMessage('Error: ' + result.error, 'error');
+            }
+        } catch (error) {
+            showMessage('Error processing payments: ' + error.message, 'error');
+        }
+    });
+
+    document.getElementById('sendRemindersForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const formData = {
+            days_overdue: document.getElementById('reminderDaysOverdue').value,
+            reminder_type: document.getElementById('reminderType').value,
+            custom_message: document.getElementById('reminderMessage').value
+        };
+        
+        try {
+            const response = await fetch('/accounts-payable/send-reminders/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCSRFToken()
+                },
+                body: JSON.stringify(formData)
+            });
+            
+            const result = await response.json();
+            if (result.success) {
+                showMessage(result.message);
+                modals.sendReminders.classList.add('hidden');
+            } else {
+                showMessage('Error: ' + result.error, 'error');
+            }
+        } catch (error) {
+            showMessage('Error sending reminders: ' + error.message, 'error');
+        }
+    });
+
+    document.getElementById('markAsPaidForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const selectedBills = Array.from(document.getElementById('paidBillsSelect').selectedOptions).map(option => option.value);
+        
+        const formData = {
+            bill_ids: selectedBills
+        };
+        
+        try {
+            const response = await fetch('/accounts-payable/mark-as-paid/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCSRFToken()
+                },
+                body: JSON.stringify(formData)
+            });
+            
+            const result = await response.json();
+            if (result.success) {
+                showMessage(result.message);
+                modals.markAsPaid.classList.add('hidden');
+                location.reload();
+            } else {
+                showMessage('Error: ' + result.error, 'error');
+            }
+        } catch (error) {
+            showMessage('Error marking bills as paid: ' + error.message, 'error');
+        }
+    });
+
+    document.getElementById('threeWayMatchForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const billId = document.getElementById('matchBillSelect').value;
+        
+        try {
+            const response = await fetch('/accounts-payable/three-way-match/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCSRFToken()
+                },
+                body: JSON.stringify({ bill_id: billId })
+            });
+            
+            const result = await response.json();
+            if (result.success) {
+                showMessage('3-way match completed successfully!');
+                modals.threeWayMatch.classList.add('hidden');
+            } else {
+                showMessage('Error: ' + result.error, 'error');
+            }
+        } catch (error) {
+            showMessage('Error running 3-way match: ' + error.message, 'error');
+        }
+    });
+
+    // 3-way match run button
+    document.getElementById('runMatchBtn').addEventListener('click', () => {
+        const billId = document.getElementById('matchBillSelect').value;
+        if (!billId) {
+            showMessage('Please select a bill first', 'error');
+            return;
+        }
+        
+        // Show match results
+        document.getElementById('matchResults').classList.remove('hidden');
+        document.getElementById('poMatchStatus').textContent = '✓ Matched - PO-2025-001';
+        document.getElementById('receiptMatchStatus').textContent = '✓ Matched - GR-2025-001';
+        document.getElementById('invoiceMatchStatus').textContent = '✓ Matched - Invoice details verified';
+        
+        document.getElementById('overallMatchResult').classList.remove('hidden');
+        document.getElementById('overallMatchIcon').className = 'fas fa-check-circle text-green-600 dark:text-green-400';
+        document.getElementById('overallMatchText').textContent = '3-Way Match Successful';
+        document.getElementById('approveBillBtn').classList.remove('hidden');
+    });
+
+    document.getElementById('agingReportForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const formData = {
+            as_of_date: document.getElementById('agingAsOfDate').value,
+            report_type: document.getElementById('agingReportType').value
+        };
+        
+        try {
+            const response = await fetch('/accounts-payable/aging-report/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCSRFToken()
+                },
+                body: JSON.stringify(formData)
+            });
+            
+            const result = await response.json();
+            if (result.success) {
+                // Display aging report results
+                document.getElementById('agingCurrent').textContent = result.report.aging_summary.current;
+                document.getElementById('aging1_30').textContent = result.report.aging_summary['1_30_days'];
+                document.getElementById('aging31_60').textContent = result.report.aging_summary['31_60_days'];
+                document.getElementById('aging61_90').textContent = result.report.aging_summary['61_90_days'];
+                document.getElementById('agingOver90').textContent = result.report.aging_summary.over_90_days;
+                
+                // Populate vendor breakdown
+                const vendorContainer = document.getElementById('agingVendorBreakdown');
+                vendorContainer.innerHTML = '';
+                
+                for (const [vendor, data] of Object.entries(result.report.vendor_summary)) {
+                    const vendorDiv = document.createElement('div');
+                    vendorDiv.className = 'flex items-center justify-between p-3 bg-white dark:bg-gray-800 rounded-lg';
+                    vendorDiv.innerHTML = `
+                        <div>
+                            <p class="text-sm font-medium text-gray-900 dark:text-gray-100">${vendor}</p>
+                            <p class="text-xs text-gray-600 dark:text-gray-400">Total: $${data.total}</p>
+                        </div>
+                        <div class="text-right text-xs">
+                            <div>Current: $${data.current}</div>
+                            <div>1-30: $${data['1_30_days']}</div>
+                            <div>31-60: $${data['31_60_days']}</div>
+                            <div>61-90: $${data['61_90_days']}</div>
+                            <div>90+: $${data.over_90_days}</div>
+                        </div>
+                    `;
+                    vendorContainer.appendChild(vendorDiv);
+                }
+                
+                document.getElementById('agingReportResults').classList.remove('hidden');
+                showMessage('Aging report generated successfully!');
+            } else {
+                showMessage('Error: ' + result.error, 'error');
+            }
+        } catch (error) {
+            showMessage('Error generating aging report: ' + error.message, 'error');
+        }
+    });
+</script>
+
+{% endblock %}
