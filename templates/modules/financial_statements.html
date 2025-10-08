@@ -1,1 +1,702 @@
 {% extends 'modules/base_module.html' %}
+
+{% block content %}
+{% include 'components/sidemenu.html' %}
+
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 ml-64 transition-colors duration-300">
+    <!-- Top Navigation Bar -->
+    <div class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4 transition-colors duration-300">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Financial Statements</h1>
+                <span class="px-3 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 text-sm font-medium rounded-full">Q4 2025</span>
+            </div>
+            <div class="flex items-center space-x-4">
+                <!-- Period Selector -->
+                <select class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+                    <option>Q4 2025</option>
+                    <option>Q3 2025</option>
+                    <option>Q2 2025</option>
+                    <option>Q1 2025</option>
+                    <option>2024 Annual</option>
+                </select>
+                <!-- Export -->
+                <button class="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200">
+                    <i class="fas fa-download mr-2"></i>
+                    Export
+                </button>
+                <!-- Theme Toggle -->
+                <button id="theme-toggle" class="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-300">
+                    <i class="fas fa-moon text-xl dark:hidden"></i>
+                    <i class="fas fa-sun text-xl hidden dark:inline"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-8">
+        <!-- Breadcrumb -->
+        <nav class="flex mb-6" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                <li class="inline-flex items-center">
+                    <a href="{% url 'dashboard' %}" class="inline-flex items-center text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
+                        <i class="fas fa-home mr-2"></i>
+                        Dashboard
+                    </a>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+                        <span class="text-sm font-medium text-gray-500 dark:text-gray-400">Financial Statements</span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
+
+        <!-- Financial Overview Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Total Revenue</p>
+                        <p class="text-2xl font-bold text-gray-900 dark:text-gray-100">$2.4M</p>
+                    </div>
+                    <div class="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-chart-line text-green-600 dark:text-green-400"></i>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <div class="flex items-center text-sm">
+                        <span class="text-green-600 dark:text-green-400 font-medium">+12.5%</span>
+                        <span class="text-gray-600 dark:text-gray-400 ml-2">vs last quarter</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Net Profit</p>
+                        <p class="text-2xl font-bold text-gray-900 dark:text-gray-100">$487K</p>
+                    </div>
+                    <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-dollar-sign text-blue-600 dark:text-blue-400"></i>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <div class="flex items-center text-sm">
+                        <span class="text-green-600 dark:text-green-400 font-medium">+8.3%</span>
+                        <span class="text-gray-600 dark:text-gray-400 ml-2">vs last quarter</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Total Assets</p>
+                        <p class="text-2xl font-bold text-gray-900 dark:text-gray-100">$8.9M</p>
+                    </div>
+                    <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-building text-purple-600 dark:text-purple-400"></i>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <div class="flex items-center text-sm">
+                        <span class="text-green-600 dark:text-green-400 font-medium">+5.2%</span>
+                        <span class="text-gray-600 dark:text-gray-400 ml-2">vs last quarter</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Cash Flow</p>
+                        <p class="text-2xl font-bold text-gray-900 dark:text-gray-100">$1.2M</p>
+                    </div>
+                    <div class="w-12 h-12 bg-orange-100 dark:bg-orange-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-cash-register text-orange-600 dark:text-orange-400"></i>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <div class="flex items-center text-sm">
+                        <span class="text-green-600 dark:text-green-400 font-medium">+15.7%</span>
+                        <span class="text-gray-600 dark:text-gray-400 ml-2">vs last quarter</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Financial Statements Description -->
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 mb-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">Comprehensive Financial Reporting</h2>
+                    <p class="text-gray-600 dark:text-gray-400">Generate and analyze balance sheets, income statements, cash flow statements, and key financial ratios with automated calculations and IFRS compliance.</p>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <div class="text-right">
+                        <div class="text-2xl font-bold text-gray-900 dark:text-gray-100">98%</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-400">Accuracy Rate</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Statement Type Tabs -->
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 mb-6">
+            <div class="border-b border-gray-200 dark:border-gray-700">
+                <nav class="flex space-x-8 px-6" aria-label="Tabs">
+                    <button class="border-b-2 border-blue-500 py-4 px-1 text-sm font-medium text-blue-600 dark:text-blue-400" id="balance-sheet-tab">
+                        Balance Sheet
+                    </button>
+                    <button class="border-b-2 border-transparent py-4 px-1 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300" id="income-statement-tab">
+                        Income Statement
+                    </button>
+                    <button class="border-b-2 border-transparent py-4 px-1 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300" id="cash-flow-tab">
+                        Cash Flow
+                    </button>
+                    <button class="border-b-2 border-transparent py-4 px-1 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300" id="ratios-tab">
+                        Key Ratios
+                    </button>
+                </nav>
+            </div>
+
+            <!-- Balance Sheet Content -->
+            <div id="balance-sheet-content" class="p-6">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100">Balance Sheet - Q4 2025</h3>
+                    <div class="flex items-center space-x-2">
+                        <button class="px-3 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm font-medium rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200">
+                            <i class="fas fa-print mr-2"></i>
+                            Print
+                        </button>
+                        <button class="px-3 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200">
+                            <i class="fas fa-download mr-2"></i>
+                            Export PDF
+                        </button>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                        <thead class="bg-gray-50 dark:bg-gray-700">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Account</th>
+                                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Q4 2025</th>
+                                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Q3 2025</th>
+                                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Change</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                            <!-- Assets -->
+                            <tr class="bg-gray-50 dark:bg-gray-700">
+                                <td colspan="4" class="px-6 py-4 text-sm font-bold text-gray-900 dark:text-gray-100">ASSETS</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-sm font-medium text-gray-900 dark:text-gray-100">Cash and Cash Equivalents</td>
+                                <td class="px-6 py-4 text-sm text-right text-gray-900 dark:text-gray-100">$1,245,000</td>
+                                <td class="px-6 py-4 text-sm text-right text-gray-900 dark:text-gray-100">$987,000</td>
+                                <td class="px-6 py-4 text-sm text-right text-green-600 dark:text-green-400">+25.8%</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-sm font-medium text-gray-900 dark:text-gray-100">Accounts Receivable</td>
+                                <td class="px-6 py-4 text-sm text-right text-gray-900 dark:text-gray-100">$456,000</td>
+                                <td class="px-6 py-4 text-sm text-right text-gray-900 dark:text-gray-100">$423,000</td>
+                                <td class="px-6 py-4 text-sm text-right text-green-600 dark:text-green-400">+7.8%</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-sm font-medium text-gray-900 dark:text-gray-100">Inventory</td>
+                                <td class="px-6 py-4 text-sm text-right text-gray-900 dark:text-gray-100">$234,000</td>
+                                <td class="px-6 py-4 text-sm text-right text-gray-900 dark:text-gray-100">$267,000</td>
+                                <td class="px-6 py-4 text-sm text-right text-red-600 dark:text-red-400">-12.4%</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-sm font-medium text-gray-900 dark:text-gray-100">Property, Plant & Equipment</td>
+                                <td class="px-6 py-4 text-sm text-right text-gray-900 dark:text-gray-100">$6,789,000</td>
+                                <td class="px-6 py-4 text-sm text-right text-gray-900 dark:text-gray-100">$6,654,000</td>
+                                <td class="px-6 py-4 text-sm text-right text-green-600 dark:text-green-400">+2.0%</td>
+                            </tr>
+                            <tr class="bg-gray-50 dark:bg-gray-700 font-bold">
+                                <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">Total Assets</td>
+                                <td class="px-6 py-4 text-sm text-right text-gray-900 dark:text-gray-100">$8,724,000</td>
+                                <td class="px-6 py-4 text-sm text-right text-gray-900 dark:text-gray-100">$8,331,000</td>
+                                <td class="px-6 py-4 text-sm text-right text-green-600 dark:text-green-400">+4.7%</td>
+                            </tr>
+
+                            <!-- Liabilities -->
+                            <tr class="bg-gray-50 dark:bg-gray-700">
+                                <td colspan="4" class="px-6 py-4 text-sm font-bold text-gray-900 dark:text-gray-100">LIABILITIES</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-sm font-medium text-gray-900 dark:text-gray-100">Accounts Payable</td>
+                                <td class="px-6 py-4 text-sm text-right text-gray-900 dark:text-gray-100">$345,000</td>
+                                <td class="px-6 py-4 text-sm text-right text-gray-900 dark:text-gray-100">$378,000</td>
+                                <td class="px-6 py-4 text-sm text-right text-green-600 dark:text-green-400">-8.7%</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-sm font-medium text-gray-900 dark:text-gray-100">Loans Payable</td>
+                                <td class="px-6 py-4 text-sm text-right text-gray-900 dark:text-gray-100">$2,100,000</td>
+                                <td class="px-6 py-4 text-sm text-right text-gray-900 dark:text-gray-100">$2,200,000</td>
+                                <td class="px-6 py-4 text-sm text-right text-green-600 dark:text-green-400">-4.5%</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-sm font-medium text-gray-900 dark:text-gray-100">Accrued Expenses</td>
+                                <td class="px-6 py-4 text-sm text-right text-gray-900 dark:text-gray-100">$156,000</td>
+                                <td class="px-6 py-4 text-sm text-right text-gray-900 dark:text-gray-100">$134,000</td>
+                                <td class="px-6 py-4 text-sm text-right text-red-600 dark:text-red-400">+16.4%</td>
+                            </tr>
+                            <tr class="bg-gray-50 dark:bg-gray-700 font-bold">
+                                <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">Total Liabilities</td>
+                                <td class="px-6 py-4 text-sm text-right text-gray-900 dark:text-gray-100">$2,601,000</td>
+                                <td class="px-6 py-4 text-sm text-right text-gray-900 dark:text-gray-100">$2,712,000</td>
+                                <td class="px-6 py-4 text-sm text-right text-green-600 dark:text-green-400">-4.1%</td>
+                            </tr>
+
+                            <!-- Equity -->
+                            <tr class="bg-gray-50 dark:bg-gray-700">
+                                <td colspan="4" class="px-6 py-4 text-sm font-bold text-gray-900 dark:text-gray-100">EQUITY</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-sm font-medium text-gray-900 dark:text-gray-100">Common Stock</td>
+                                <td class="px-6 py-4 text-sm text-right text-gray-900 dark:text-gray-100">$1,000,000</td>
+                                <td class="px-6 py-4 text-sm text-right text-gray-900 dark:text-gray-100">$1,000,000</td>
+                                <td class="px-6 py-4 text-sm text-right text-gray-600 dark:text-gray-400">0.0%</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-sm font-medium text-gray-900 dark:text-gray-100">Retained Earnings</td>
+                                <td class="px-6 py-4 text-sm text-right text-gray-900 dark:text-gray-100">$5,123,000</td>
+                                <td class="px-6 py-4 text-sm text-right text-gray-900 dark:text-gray-100">$4,619,000</td>
+                                <td class="px-6 py-4 text-sm text-right text-green-600 dark:text-green-400">+10.9%</td>
+                            </tr>
+                            <tr class="bg-gray-50 dark:bg-gray-700 font-bold">
+                                <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">Total Equity</td>
+                                <td class="px-6 py-4 text-sm text-right text-gray-900 dark:text-gray-100">$6,123,000</td>
+                                <td class="px-6 py-4 text-sm text-right text-gray-900 dark:text-gray-100">$5,619,000</td>
+                                <td class="px-6 py-4 text-sm text-right text-green-600 dark:text-green-400">+9.0%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Income Statement Content -->
+            <div id="income-statement-content" class="p-6 hidden">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100">Income Statement - Q4 2025</h3>
+                    <div class="flex items-center space-x-2">
+                        <button class="px-3 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm font-medium rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200">
+                            <i class="fas fa-print mr-2"></i>
+                            Print
+                        </button>
+                        <button class="px-3 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200">
+                            <i class="fas fa-download mr-2"></i>
+                            Export PDF
+                        </button>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                        <thead class="bg-gray-50 dark:bg-gray-700">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Account</th>
+                                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Q4 2025</th>
+                                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Q3 2025</th>
+                                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Change</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                            <!-- Revenue -->
+                            <tr class="bg-gray-50 dark:bg-gray-700">
+                                <td colspan="4" class="px-6 py-4 text-sm font-bold text-gray-900 dark:text-gray-100">REVENUE</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-sm font-medium text-gray-900 dark:text-gray-100">Product Sales</td>
+                                <td class="px-6 py-4 text-sm text-right text-gray-900 dark:text-gray-100">$1,890,000</td>
+                                <td class="px-6 py-4 text-sm text-right text-gray-900 dark:text-gray-100">$1,678,000</td>
+                                <td class="px-6 py-4 text-sm text-right text-green-600 dark:text-green-400">+12.6%</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-sm font-medium text-gray-900 dark:text-gray-100">Service Revenue</td>
+                                <td class="px-6 py-4 text-sm text-right text-gray-900 dark:text-gray-100">$487,000</td>
+                                <td class="px-6 py-4 text-sm text-right text-gray-900 dark:text-gray-100">$456,000</td>
+                                <td class="px-6 py-4 text-sm text-right text-green-600 dark:text-green-400">+6.8%</td>
+                            </tr>
+                            <tr class="bg-gray-50 dark:bg-gray-700 font-bold">
+                                <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">Total Revenue</td>
+                                <td class="px-6 py-4 text-sm text-right text-gray-900 dark:text-gray-100">$2,377,000</td>
+                                <td class="px-6 py-4 text-sm text-right text-gray-900 dark:text-gray-100">$2,134,000</td>
+                                <td class="px-6 py-4 text-sm text-right text-green-600 dark:text-green-400">+11.4%</td>
+                            </tr>
+
+                            <!-- Expenses -->
+                            <tr class="bg-gray-50 dark:bg-gray-700">
+                                <td colspan="4" class="px-6 py-4 text-sm font-bold text-gray-900 dark:text-gray-100">EXPENSES</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-sm font-medium text-gray-900 dark:text-gray-100">Cost of Goods Sold</td>
+                                <td class="px-6 py-4 text-sm text-right text-gray-900 dark:text-gray-100">$1,123,000</td>
+                                <td class="px-6 py-4 text-sm text-right text-gray-900 dark:text-gray-100">$1,056,000</td>
+                                <td class="px-6 py-4 text-sm text-right text-red-600 dark:text-red-400">+6.3%</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-sm font-medium text-gray-900 dark:text-gray-100">Operating Expenses</td>
+                                <td class="px-6 py-4 text-sm text-right text-gray-900 dark:text-gray-100">$567,000</td>
+                                <td class="px-6 py-4 text-sm text-right text-gray-900 dark:text-gray-100">$534,000</td>
+                                <td class="px-6 py-4 text-sm text-right text-red-600 dark:text-red-400">+6.2%</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 text-sm font-medium text-gray-900 dark:text-gray-100">Depreciation & Amortization</td>
+                                <td class="px-6 py-4 text-sm text-right text-gray-900 dark:text-gray-100">$89,000</td>
+                                <td class="px-6 py-4 text-sm text-right text-gray-900 dark:text-gray-100">$87,000</td>
+                                <td class="px-6 py-4 text-sm text-right text-red-600 dark:text-red-400">+2.3%</td>
+                            </tr>
+                            <tr class="bg-gray-50 dark:bg-gray-700 font-bold">
+                                <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">Total Expenses</td>
+                                <td class="px-6 py-4 text-sm text-right text-gray-900 dark:text-gray-100">$1,779,000</td>
+                                <td class="px-6 py-4 text-sm text-right text-gray-900 dark:text-gray-100">$1,677,000</td>
+                                <td class="px-6 py-4 text-sm text-right text-red-600 dark:text-red-400">+6.1%</td>
+                            </tr>
+
+                            <!-- Net Income -->
+                            <tr class="bg-green-50 dark:bg-green-900/20">
+                                <td class="px-6 py-4 text-sm font-bold text-gray-900 dark:text-gray-100">Net Income</td>
+                                <td class="px-6 py-4 text-sm text-right font-bold text-green-600 dark:text-green-400">$598,000</td>
+                                <td class="px-6 py-4 text-sm text-right font-bold text-green-600 dark:text-green-400">$457,000</td>
+                                <td class="px-6 py-4 text-sm text-right font-bold text-green-600 dark:text-green-400">+30.9%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Cash Flow Content -->
+            <div id="cash-flow-content" class="p-6 hidden">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100">Cash Flow Statement - Q4 2025</h3>
+                    <div class="flex items-center space-x-2">
+                        <button class="px-3 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm font-medium rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200">
+                            <i class="fas fa-print mr-2"></i>
+                            Print
+                        </button>
+                        <button class="px-3 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200">
+                            <i class="fas fa-download mr-2"></i>
+                            Export PDF
+                        </button>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Operating Activities -->
+                    <div>
+                        <h4 class="text-md font-semibold text-gray-900 dark:text-gray-100 mb-4">Operating Activities</h4>
+                        <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm text-gray-600 dark:text-gray-400">Net Income</span>
+                                    <span class="text-sm font-medium text-gray-900 dark:text-gray-100">$598,000</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm text-gray-600 dark:text-gray-400">Depreciation & Amortization</span>
+                                    <span class="text-sm font-medium text-gray-900 dark:text-gray-100">$89,000</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm text-gray-600 dark:text-gray-400">Changes in Working Capital</span>
+                                    <span class="text-sm font-medium text-red-600 dark:text-red-400">($45,000)</span>
+                                </div>
+                                <div class="flex justify-between items-center border-t border-gray-200 dark:border-gray-600 pt-2">
+                                    <span class="text-sm font-semibold text-gray-900 dark:text-gray-100">Net Cash from Operating</span>
+                                    <span class="text-sm font-bold text-green-600 dark:text-green-400">$642,000</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Investing Activities -->
+                    <div>
+                        <h4 class="text-md font-semibold text-gray-900 dark:text-gray-100 mb-4">Investing Activities</h4>
+                        <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm text-gray-600 dark:text-gray-400">Purchase of Equipment</span>
+                                    <span class="text-sm font-medium text-red-600 dark:text-red-400">($135,000)</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm text-gray-600 dark:text-gray-400">Sale of Investments</span>
+                                    <span class="text-sm font-medium text-green-600 dark:text-green-400">$23,000</span>
+                                </div>
+                                <div class="flex justify-between items-center border-t border-gray-200 dark:border-gray-600 pt-2">
+                                    <span class="text-sm font-semibold text-gray-900 dark:text-gray-100">Net Cash from Investing</span>
+                                    <span class="text-sm font-bold text-red-600 dark:text-red-400">($112,000)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Financing Activities -->
+                    <div>
+                        <h4 class="text-md font-semibold text-gray-900 dark:text-gray-100 mb-4">Financing Activities</h4>
+                        <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm text-gray-600 dark:text-gray-400">Loan Repayment</span>
+                                    <span class="text-sm font-medium text-red-600 dark:text-red-400">($100,000)</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm text-gray-600 dark:text-gray-400">Dividend Payment</span>
+                                    <span class="text-sm font-medium text-red-600 dark:text-red-400">($45,000)</span>
+                                </div>
+                                <div class="flex justify-between items-center border-t border-gray-200 dark:border-gray-600 pt-2">
+                                    <span class="text-sm font-semibold text-gray-900 dark:text-gray-100">Net Cash from Financing</span>
+                                    <span class="text-sm font-bold text-red-600 dark:text-red-400">($145,000)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Net Change -->
+                    <div class="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4">
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg font-semibold text-gray-900 dark:text-gray-100">Net Change in Cash</span>
+                            <span class="text-lg font-bold text-green-600 dark:text-green-400">$385,000</span>
+                        </div>
+                        <div class="flex justify-between items-center mt-2">
+                            <span class="text-sm text-gray-600 dark:text-gray-400">Beginning Cash Balance</span>
+                            <span class="text-sm font-medium text-gray-900 dark:text-gray-100">$860,000</span>
+                        </div>
+                        <div class="flex justify-between items-center border-t border-blue-200 dark:border-blue-800 pt-2">
+                            <span class="text-sm font-semibold text-gray-900 dark:text-gray-100">Ending Cash Balance</span>
+                            <span class="text-sm font-bold text-green-600 dark:text-green-400">$1,245,000</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Ratios Content -->
+            <div id="ratios-content" class="p-6 hidden">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100">Key Financial Ratios - Q4 2025</h3>
+                    <div class="flex items-center space-x-2">
+                        <button class="px-3 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm font-medium rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200">
+                            <i class="fas fa-print mr-2"></i>
+                            Print
+                        </button>
+                        <button class="px-3 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200">
+                            <i class="fas fa-download mr-2"></i>
+                            Export PDF
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Profitability Ratios -->
+                    <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
+                        <h4 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Profitability Ratios</h4>
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600 dark:text-gray-400">Gross Margin</span>
+                                <span class="text-sm font-bold text-green-600 dark:text-green-400">52.8%</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600 dark:text-gray-400">Operating Margin</span>
+                                <span class="text-sm font-bold text-green-600 dark:text-green-400">25.2%</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600 dark:text-gray-400">Net Profit Margin</span>
+                                <span class="text-sm font-bold text-green-600 dark:text-green-400">25.1%</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600 dark:text-gray-400">Return on Assets (ROA)</span>
+                                <span class="text-sm font-bold text-blue-600 dark:text-blue-400">6.9%</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600 dark:text-gray-400">Return on Equity (ROE)</span>
+                                <span class="text-sm font-bold text-blue-600 dark:text-blue-400">9.8%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Liquidity Ratios -->
+                    <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
+                        <h4 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Liquidity Ratios</h4>
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600 dark:text-gray-400">Current Ratio</span>
+                                <span class="text-sm font-bold text-green-600 dark:text-green-400">3.35</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600 dark:text-gray-400">Quick Ratio</span>
+                                <span class="text-sm font-bold text-green-600 dark:text-green-400">2.87</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600 dark:text-gray-400">Cash Ratio</span>
+                                <span class="text-sm font-bold text-green-600 dark:text-green-400">1.23</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600 dark:text-gray-400">Working Capital</span>
+                                <span class="text-sm font-bold text-green-600 dark:text-green-400">$1,400,000</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Leverage Ratios -->
+                    <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
+                        <h4 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Leverage Ratios</h4>
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600 dark:text-gray-400">Debt-to-Equity</span>
+                                <span class="text-sm font-bold text-yellow-600 dark:text-yellow-400">0.43</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600 dark:text-gray-400">Debt Ratio</span>
+                                <span class="text-sm font-bold text-yellow-600 dark:text-yellow-400">29.8%</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600 dark:text-gray-400">Equity Ratio</span>
+                                <span class="text-sm font-bold text-green-600 dark:text-green-400">70.2%</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600 dark:text-gray-400">Interest Coverage</span>
+                                <span class="text-sm font-bold text-green-600 dark:text-green-400">12.4x</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Efficiency Ratios -->
+                    <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
+                        <h4 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Efficiency Ratios</h4>
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600 dark:text-gray-400">Asset Turnover</span>
+                                <span class="text-sm font-bold text-blue-600 dark:text-blue-400">0.27</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600 dark:text-gray-400">Inventory Turnover</span>
+                                <span class="text-sm font-bold text-blue-600 dark:text-blue-400">4.8x</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600 dark:text-gray-400">Receivables Turnover</span>
+                                <span class="text-sm font-bold text-blue-600 dark:text-blue-400">5.2x</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600 dark:text-gray-400">Days Sales Outstanding</span>
+                                <span class="text-sm font-bold text-blue-600 dark:text-blue-400">70 days</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Financial Trends Chart -->
+        <div class="mt-6 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100">Financial Trends</h3>
+                <div class="flex items-center space-x-2">
+                    <select class="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+                        <option>Last 6 quarters</option>
+                        <option>Last 12 months</option>
+                        <option>Last 2 years</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Chart Placeholder -->
+            <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-8 text-center">
+                <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-chart-line text-blue-600 dark:text-blue-400 text-2xl"></i>
+                </div>
+                <h4 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">Revenue & Profit Trends</h4>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">Interactive visualization of financial performance over time with quarterly comparisons and growth indicators</p>
+                <div class="flex justify-center space-x-4 text-sm">
+                    <div class="flex items-center">
+                        <div class="w-3 h-3 bg-green-600 rounded-full mr-2"></div>
+                        <span class="text-gray-600 dark:text-gray-400">Revenue</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-3 h-3 bg-blue-600 rounded-full mr-2"></div>
+                        <span class="text-gray-600 dark:text-gray-400">Net Profit</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-3 h-3 bg-purple-600 rounded-full mr-2"></div>
+                        <span class="text-gray-600 dark:text-gray-400">Cash Flow</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-3 h-3 bg-orange-600 rounded-full mr-2"></div>
+                        <span class="text-gray-600 dark:text-gray-400">Total Assets</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trend Summary -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-6">
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-green-600 dark:text-green-400">+11.4%</div>
+                    <div class="text-sm text-gray-600 dark:text-gray-400">Revenue Growth</div>
+                    <div class="text-xs text-green-600 dark:text-green-400 mt-1">Q4 vs Q3</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-green-600 dark:text-green-400">+30.9%</div>
+                    <div class="text-sm text-gray-600 dark:text-gray-400">Profit Growth</div>
+                    <div class="text-xs text-green-600 dark:text-green-400 mt-1">Q4 vs Q3</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-green-600 dark:text-green-400">+4.7%</div>
+                    <div class="text-sm text-gray-600 dark:text-gray-400">Asset Growth</div>
+                    <div class="text-xs text-green-600 dark:text-green-400 mt-1">Q4 vs Q3</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-green-600 dark:text-green-400">+9.0%</div>
+                    <div class="text-sm text-gray-600 dark:text-gray-400">Equity Growth</div>
+                    <div class="text-xs text-green-600 dark:text-green-400 mt-1">Q4 vs Q3</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Tab Switching Script -->
+<script>
+    // Tab switching functionality
+    const tabs = ['balance-sheet', 'income-statement', 'cash-flow', 'ratios'];
+    const contents = ['balance-sheet-content', 'income-statement-content', 'cash-flow-content', 'ratios-content'];
+
+    tabs.forEach((tab, index) => {
+        document.getElementById(tab + '-tab').addEventListener('click', () => {
+            // Remove active classes
+            tabs.forEach(t => {
+                document.getElementById(t + '-tab').classList.remove('border-blue-500', 'text-blue-600', 'dark:text-blue-400');
+                document.getElementById(t + '-tab').classList.add('border-transparent', 'text-gray-500', 'dark:text-gray-400');
+            });
+            contents.forEach(c => document.getElementById(c).classList.add('hidden'));
+
+            // Add active class to clicked tab
+            document.getElementById(tab + '-tab').classList.remove('border-transparent', 'text-gray-500', 'dark:text-gray-400');
+            document.getElementById(tab + '-tab').classList.add('border-blue-500', 'text-blue-600', 'dark:text-blue-400');
+
+            // Show corresponding content
+            document.getElementById(contents[index]).classList.remove('hidden');
+        });
+    });
+</script>
+
+<!-- Theme Toggle Script -->
+<script>
+    // Theme toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    themeToggle.addEventListener('click', () => {
+        const html = document.documentElement;
+        const isDark = html.classList.contains('dark');
+        if (isDark) {
+            html.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+        } else {
+            html.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+        }
+    });
+</script>
+
+{% endblock %}

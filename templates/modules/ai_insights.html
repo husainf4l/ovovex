@@ -1,1 +1,910 @@
 {% extends 'modules/base_module.html' %}
+
+{% block content %}
+{% include 'components/sidemenu.html' %}
+
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 ml-64 transition-colors duration-300">
+    <!-- Top Navigation Bar -->
+    <div class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4 transition-colors duration-300">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">AI Insights</h1>
+                <span class="px-3 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 text-sm font-medium rounded-full">AI Active</span>
+            </div>
+            <div class="flex items-center space-x-4">
+                <!-- Quick Search -->
+                <div class="relative">
+                    <input type="text" placeholder="Search insights..." class="w-64 pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+                    <i class="fas fa-search absolute left-3 top-3 text-gray-400 dark:text-gray-500"></i>
+                </div>
+                <!-- Export -->
+                <button class="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200">
+                    <i class="fas fa-download mr-2"></i>
+                    Export Report
+                </button>
+                <!-- Theme Toggle -->
+                <button id="theme-toggle" class="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-300">
+                    <i class="fas fa-moon text-xl dark:hidden"></i>
+                    <i class="fas fa-sun text-xl hidden dark:inline"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-8">
+        <!-- Breadcrumb -->
+        <nav class="flex mb-6" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                <li class="inline-flex items-center">
+                    <a href="{% url 'dashboard' %}" class="inline-flex items-center text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
+                        <i class="fas fa-home mr-2"></i>
+                        Dashboard
+                    </a>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+                        <span class="text-sm font-medium text-gray-500 dark:text-gray-400">AI Insights</span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
+
+        <!-- AI Insights Overview -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Active Insights</p>
+                        <p class="text-2xl font-bold text-gray-900 dark:text-gray-100">24</p>
+                    </div>
+                    <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-brain text-blue-600 dark:text-blue-400"></i>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <div class="flex items-center text-sm">
+                        <span class="text-green-600 dark:text-green-400 font-medium">+12%</span>
+                        <span class="text-gray-600 dark:text-gray-400 ml-2">from last month</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Anomalies Detected</p>
+                        <p class="text-2xl font-bold text-gray-900 dark:text-gray-100">7</p>
+                    </div>
+                    <div class="w-12 h-12 bg-red-100 dark:bg-red-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-exclamation-triangle text-red-600 dark:text-red-400"></i>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <div class="flex items-center text-sm">
+                        <span class="text-red-600 dark:text-red-400 font-medium">-3</span>
+                        <span class="text-gray-600 dark:text-gray-400 ml-2">from last week</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Predictions Made</p>
+                        <p class="text-2xl font-bold text-gray-900 dark:text-gray-100">156</p>
+                    </div>
+                    <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-chart-line text-purple-600 dark:text-purple-400"></i>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <div class="flex items-center text-sm">
+                        <span class="text-green-600 dark:text-green-400 font-medium">+28%</span>
+                        <span class="text-gray-600 dark:text-gray-400 ml-2">accuracy rate</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400">AI Confidence</p>
+                        <p class="text-2xl font-bold text-gray-900 dark:text-gray-100">94%</p>
+                    </div>
+                    <div class="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-check-circle text-green-600 dark:text-green-400"></i>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <div class="flex items-center text-sm">
+                        <span class="text-green-600 dark:text-green-400 font-medium">+2%</span>
+                        <span class="text-gray-600 dark:text-gray-400 ml-2">from last month</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI Insights Description -->
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 mb-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">AI-Powered Business Intelligence</h2>
+                    <p class="text-gray-600 dark:text-gray-400">Advanced machine learning algorithms analyze your financial data to provide actionable insights, detect anomalies, and predict future trends.</p>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <div class="text-right">
+                        <div class="text-2xl font-bold text-gray-900 dark:text-gray-100">24/7</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-400">Monitoring</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+            <button class="flex items-center justify-center px-4 py-3 bg-blue-600 text-white font-medium rounded-xl hover:bg-blue-700 transition-colors duration-200">
+                <i class="fas fa-robot mr-2"></i>
+                Run Analysis
+            </button>
+            <button class="flex items-center justify-center px-4 py-3 bg-green-600 text-white font-medium rounded-xl hover:bg-green-700 transition-colors duration-200">
+                <i class="fas fa-chart-bar mr-2"></i>
+                View Trends
+            </button>
+            <button class="flex items-center justify-center px-4 py-3 bg-purple-600 text-white font-medium rounded-xl hover:bg-purple-700 transition-colors duration-200">
+                <i class="fas fa-bell mr-2"></i>
+                Alert Settings
+            </button>
+            <button class="flex items-center justify-center px-4 py-3 bg-gray-600 dark:bg-gray-700 text-white font-medium rounded-xl hover:bg-gray-700 dark:hover:bg-gray-600 transition-colors duration-200">
+                <i class="fas fa-cog mr-2"></i>
+                AI Settings
+            </button>
+        </div>
+
+        <!-- Main Content Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Recent Insights -->
+            <div class="lg:col-span-2">
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700">
+                    <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100">Recent AI Insights</h3>
+                            <div class="flex items-center space-x-2">
+                                <select class="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+                                    <option>All Insights</option>
+                                    <option>High Priority</option>
+                                    <option>Financial</option>
+                                    <option>Operational</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-6 space-y-4">
+                        <!-- Insight 1 -->
+                        <div class="border border-green-200 dark:border-green-800 bg-green-50 dark:bg-green-900/20 rounded-lg p-4">
+                            <div class="flex items-start space-x-3">
+                                <div class="w-10 h-10 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-trending-up text-green-600 dark:text-green-400"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <h4 class="font-semibold text-gray-900 dark:text-gray-100">Revenue Growth Opportunity</h4>
+                                        <span class="px-2 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 text-xs font-medium rounded-full">High Confidence</span>
+                                    </div>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">AI detected a 23% increase in customer acquisition rate. Consider increasing marketing spend in Q4.</p>
+                                    <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+                                        <span>2 hours ago</span>
+                                        <div class="flex items-center space-x-2">
+                                            <span class="flex items-center">
+                                                <i class="fas fa-thumbs-up mr-1"></i>
+                                                94% confidence
+                                            </span>
+                                            <button class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300">View Details</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Insight 2 -->
+                        <div class="border border-yellow-200 dark:border-yellow-800 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg p-4">
+                            <div class="flex items-start space-x-3">
+                                <div class="w-10 h-10 bg-yellow-100 dark:bg-yellow-900 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-exclamation-triangle text-yellow-600 dark:text-yellow-400"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <h4 class="font-semibold text-gray-900 dark:text-gray-100">Cash Flow Anomaly Detected</h4>
+                                        <span class="px-2 py-1 bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 text-xs font-medium rounded-full">Medium Priority</span>
+                                    </div>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Unusual cash outflow pattern detected in accounts payable. Review vendor payments for potential issues.</p>
+                                    <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+                                        <span>4 hours ago</span>
+                                        <div class="flex items-center space-x-2">
+                                            <span class="flex items-center">
+                                                <i class="fas fa-thumbs-up mr-1"></i>
+                                                87% confidence
+                                            </span>
+                                            <button class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300">Investigate</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Insight 3 -->
+                        <div class="border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4">
+                            <div class="flex items-start space-x-3">
+                                <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-users text-blue-600 dark:text-blue-400"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <h4 class="font-semibold text-gray-900 dark:text-gray-100">Customer Churn Prediction</h4>
+                                        <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs font-medium rounded-full">Action Required</span>
+                                    </div>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">3 high-value customers show 78% churn risk. AI recommends personalized retention offers.</p>
+                                    <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+                                        <span>6 hours ago</span>
+                                        <div class="flex items-center space-x-2">
+                                            <span class="flex items-center">
+                                                <i class="fas fa-thumbs-up mr-1"></i>
+                                                91% confidence
+                                            </span>
+                                            <button class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300">View Customers</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Insight 4 -->
+                        <div class="border border-purple-200 dark:border-purple-800 bg-purple-50 dark:bg-purple-900/20 rounded-lg p-4">
+                            <div class="flex items-start space-x-3">
+                                <div class="w-10 h-10 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-chart-pie text-purple-600 dark:text-purple-400"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <h4 class="font-semibold text-gray-900 dark:text-gray-100">Expense Optimization</h4>
+                                        <span class="px-2 py-1 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 text-xs font-medium rounded-full">Opportunity</span>
+                                    </div>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">AI identified $12,450 in potential annual savings through vendor consolidation and contract renegotiation.</p>
+                                    <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+                                        <span>1 day ago</span>
+                                        <div class="flex items-center space-x-2">
+                                            <span class="flex items-center">
+                                                <i class="fas fa-thumbs-up mr-1"></i>
+                                                89% confidence
+                                            </span>
+                                            <button class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300">View Savings</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Insight 5 -->
+                        <div class="border border-indigo-200 dark:border-indigo-800 bg-indigo-50 dark:bg-indigo-900/20 rounded-lg p-4">
+                            <div class="flex items-start space-x-3">
+                                <div class="w-10 h-10 bg-indigo-100 dark:bg-indigo-900 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-calendar-alt text-indigo-600 dark:text-indigo-400"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <h4 class="font-semibold text-gray-900 dark:text-gray-100">Seasonal Trend Prediction</h4>
+                                        <span class="px-2 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200 text-xs font-medium rounded-full">Forecast</span>
+                                    </div>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Q4 revenue projected to increase 34% based on historical patterns and current market indicators.</p>
+                                    <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+                                        <span>2 days ago</span>
+                                        <div class="flex items-center space-x-2">
+                                            <span class="flex items-center">
+                                                <i class="fas fa-thumbs-up mr-1"></i>
+                                                85% confidence
+                                            </span>
+                                            <button class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300">View Forecast</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="space-y-6">
+                <!-- AI Performance -->
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">AI Performance</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-gray-600 dark:text-gray-400">Prediction Accuracy</span>
+                                <span class="font-medium text-gray-900 dark:text-gray-100">94%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                                <div class="bg-green-600 h-2 rounded-full" style="width: 94%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-gray-600 dark:text-gray-400">Anomaly Detection</span>
+                                <span class="font-medium text-gray-900 dark:text-gray-100">87%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                                <div class="bg-blue-600 h-2 rounded-full" style="width: 87%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-gray-600 dark:text-gray-400">Trend Analysis</span>
+                                <span class="font-medium text-gray-900 dark:text-gray-100">91%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                                <div class="bg-purple-600 h-2 rounded-full" style="width: 91%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Active Models -->
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">Active AI Models</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between p-3 bg-green-50 dark:bg-green-900/20 rounded-lg">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-brain text-green-600 dark:text-green-400 text-sm"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-gray-900 dark:text-gray-100 text-sm">Revenue Predictor</p>
+                                    <p class="text-xs text-gray-600 dark:text-gray-400">Active</p>
+                                </div>
+                            </div>
+                            <span class="px-2 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 text-xs font-medium rounded-full">94%</span>
+                        </div>
+
+                        <div class="flex items-center justify-between p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-search text-blue-600 dark:text-blue-400 text-sm"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-gray-900 dark:text-gray-100 text-sm">Anomaly Detector</p>
+                                    <p class="text-xs text-gray-600 dark:text-gray-400">Active</p>
+                                </div>
+                            </div>
+                            <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs font-medium rounded-full">87%</span>
+                        </div>
+
+                        <div class="flex items-center justify-between p-3 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-chart-line text-purple-600 dark:text-purple-400 text-sm"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-gray-900 dark:text-gray-100 text-sm">Trend Analyzer</p>
+                                    <p class="text-xs text-gray-600 dark:text-gray-400">Active</p>
+                                </div>
+                            </div>
+                            <span class="px-2 py-1 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 text-xs font-medium rounded-full">91%</span>
+                        </div>
+
+                        <div class="flex items-center justify-between p-3 bg-orange-50 dark:bg-orange-900/20 rounded-lg">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 bg-orange-100 dark:bg-orange-900 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-users text-orange-600 dark:text-orange-400 text-sm"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-gray-900 dark:text-gray-100 text-sm">Customer Insights</p>
+                                    <p class="text-xs text-gray-600 dark:text-gray-400">Active</p>
+                                </div>
+                            </div>
+                            <span class="px-2 py-1 bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 text-xs font-medium rounded-full">89%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">Quick Actions</h3>
+                    <div class="space-y-2">
+                        <button class="w-full text-left px-4 py-3 bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-100 dark:hover:bg-blue-900/30 rounded-lg transition-colors duration-200">
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-play text-blue-600 dark:text-blue-400"></i>
+                                <span class="text-sm font-medium text-gray-900 dark:text-gray-100">Run Full Analysis</span>
+                            </div>
+                        </button>
+                        <button class="w-full text-left px-4 py-3 bg-green-50 dark:bg-green-900/20 hover:bg-green-100 dark:hover:bg-green-900/30 rounded-lg transition-colors duration-200">
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-download text-green-600 dark:text-green-400"></i>
+                                <span class="text-sm font-medium text-gray-900 dark:text-gray-100">Export Insights</span>
+                            </div>
+                        </button>
+                        <button class="w-full text-left px-4 py-3 bg-purple-50 dark:bg-purple-900/20 hover:bg-purple-100 dark:hover:bg-purple-900/30 rounded-lg transition-colors duration-200">
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-cog text-purple-600 dark:text-purple-400"></i>
+                                <span class="text-sm font-medium text-gray-900 dark:text-gray-100">Configure AI</span>
+                            </div>
+                        </button>
+                        <button class="w-full text-left px-4 py-3 bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded-lg transition-colors duration-200">
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-bell text-gray-600 dark:text-gray-400"></i>
+                                <span class="text-sm font-medium text-gray-900 dark:text-gray-100">Alert Settings</span>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Predictions Chart Section -->
+        <div class="mt-6 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100">Revenue Predictions</h3>
+                <div class="flex items-center space-x-2">
+                    <select class="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+                        <option>Last 30 days</option>
+                        <option>Last 90 days</option>
+                        <option>Last 6 months</option>
+                        <option>Last year</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Chart Placeholder -->
+            <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-8 text-center">
+                <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-chart-line text-blue-600 dark:text-blue-400 text-2xl"></i>
+                </div>
+                <h4 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">Interactive Revenue Chart</h4>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">AI-powered predictions with confidence intervals and trend analysis</p>
+                <div class="flex justify-center space-x-4 text-sm">
+                    <div class="flex items-center">
+                        <div class="w-3 h-3 bg-blue-600 rounded-full mr-2"></div>
+                        <span class="text-gray-600 dark:text-gray-400">Actual Revenue</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-3 h-3 bg-green-600 rounded-full mr-2"></div>
+                        <span class="text-gray-600 dark:text-gray-400">AI Prediction</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-3 h-3 bg-gray-400 rounded-full mr-2"></div>
+                        <span class="text-gray-600 dark:text-gray-400">Confidence Range</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Prediction Stats -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-6">
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-green-600 dark:text-green-400">$124,500</div>
+                    <div class="text-sm text-gray-600 dark:text-gray-400">Next Month Prediction</div>
+                    <div class="text-xs text-green-600 dark:text-green-400 mt-1">↑ 12% growth</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-blue-600 dark:text-blue-400">$1,456,800</div>
+                    <div class="text-sm text-gray-600 dark:text-gray-400">Q4 2025 Projection</div>
+                    <div class="text-xs text-blue-600 dark:text-blue-400 mt-1">↑ 28% growth</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-purple-600 dark:text-purple-400">89%</div>
+                    <div class="text-sm text-gray-600 dark:text-gray-400">Prediction Accuracy</div>
+                    <div class="text-xs text-purple-600 dark:text-purple-400 mt-1">↑ 5% improvement</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-orange-600 dark:text-orange-400">15</div>
+                    <div class="text-sm text-gray-600 dark:text-gray-400">Key Insights Generated</div>
+                    <div class="text-xs text-orange-600 dark:text-orange-400 mt-1">This month</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Theme Toggle Script -->
+<script>
+    // Theme toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    themeToggle.addEventListener('click', () => {
+        const html = document.documentElement;
+        const isDark = html.classList.contains('dark');
+        if (isDark) {
+            html.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+        } else {
+            html.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+        }
+    });
+
+    // AI Insights Action Buttons
+    document.addEventListener('DOMContentLoaded', function() {
+        // Run Analysis Button
+        const runAnalysisBtn = document.querySelector('button:has(i.fas.fa-robot)');
+        if (runAnalysisBtn) {
+            runAnalysisBtn.addEventListener('click', function() {
+                showAnalysisModal();
+            });
+        }
+
+        // View Trends Button
+        const viewTrendsBtn = document.querySelector('button:has(i.fas.fa-chart-bar)');
+        if (viewTrendsBtn) {
+            viewTrendsBtn.addEventListener('click', function() {
+                showTrendsModal();
+            });
+        }
+
+        // Alert Settings Button
+        const alertSettingsBtn = document.querySelector('button:has(i.fas.fa-bell)');
+        if (alertSettingsBtn) {
+            alertSettingsBtn.addEventListener('click', function() {
+                showAlertSettingsModal();
+            });
+        }
+
+        // Export Reports Button
+        const exportReportsBtn = document.querySelector('button:has(i.fas.fa-cog)');
+        if (exportReportsBtn) {
+            exportReportsBtn.addEventListener('click', function() {
+                showExportModal();
+            });
+        }
+    });
+
+    // Modal Functions
+    function showAnalysisModal() {
+        const modal = createModal('Run AI Analysis', `
+            <div class="space-y-4">
+                <div class="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
+                    <div class="flex items-center space-x-3">
+                        <i class="fas fa-robot text-blue-600 dark:text-blue-400 text-xl"></i>
+                        <div>
+                            <h3 class="font-semibold text-gray-900 dark:text-gray-100">AI Analysis in Progress</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">Analyzing your financial data with advanced machine learning algorithms...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-600 dark:text-gray-400">Scanning transactions...</span>
+                        <span class="text-sm font-medium text-green-600 dark:text-green-400">✓ Complete</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-600 dark:text-gray-400">Analyzing patterns...</span>
+                        <span class="text-sm font-medium text-blue-600 dark:text-blue-400">⟳ Processing</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-600 dark:text-gray-400">Generating insights...</span>
+                        <span class="text-sm text-gray-500 dark:text-gray-400">Pending</span>
+                    </div>
+                </div>
+                <div class="flex justify-end space-x-3">
+                    <button onclick="closeModal()" class="px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">Cancel</button>
+                    <button onclick="startAnalysis()" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Start Analysis</button>
+                </div>
+            </div>
+        `);
+        document.body.appendChild(modal);
+    }
+
+    function showTrendsModal() {
+        const modal = createModal('Financial Trends Analysis', `
+            <div class="space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg">
+                        <h4 class="font-semibold text-gray-900 dark:text-gray-100 mb-2">Revenue Trends</h4>
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-600 dark:text-gray-400">Monthly Growth</span>
+                                <span class="font-medium text-green-600 dark:text-green-400">+12.5%</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-600 dark:text-gray-400">Quarterly Trend</span>
+                                <span class="font-medium text-green-600 dark:text-green-400">+28.3%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
+                        <h4 class="font-semibold text-gray-900 dark:text-gray-100 mb-2">Expense Trends</h4>
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-600 dark:text-gray-400">Cost Reduction</span>
+                                <span class="font-medium text-blue-600 dark:text-blue-400">-8.2%</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-600 dark:text-gray-400">Efficiency Gain</span>
+                                <span class="font-medium text-blue-600 dark:text-blue-400">+15.7%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg">
+                    <div class="text-center">
+                        <i class="fas fa-chart-line text-3xl text-gray-400 dark:text-gray-500 mb-2"></i>
+                        <p class="text-gray-600 dark:text-gray-400">Interactive trend visualization would appear here</p>
+                    </div>
+                </div>
+                <div class="flex justify-end space-x-3">
+                    <button onclick="closeModal()" class="px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">Close</button>
+                    <button onclick="exportTrends()" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">Export Trends</button>
+                </div>
+            </div>
+        `);
+        document.body.appendChild(modal);
+    }
+
+    function showAlertSettingsModal() {
+        const modal = createModal('Alert Settings', `
+            <div class="space-y-4">
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-600 rounded-lg">
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-exclamation-triangle text-yellow-600 dark:text-yellow-400"></i>
+                            <div>
+                                <h4 class="font-medium text-gray-900 dark:text-gray-100">Anomaly Alerts</h4>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Get notified when unusual patterns are detected</p>
+                            </div>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" class="sr-only peer" checked>
+                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                        </label>
+                    </div>
+
+                    <div class="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-600 rounded-lg">
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-trending-up text-green-600 dark:text-green-400"></i>
+                            <div>
+                                <h4 class="font-medium text-gray-900 dark:text-gray-100">Revenue Milestones</h4>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Alerts for significant revenue changes</p>
+                            </div>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" class="sr-only peer" checked>
+                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                        </label>
+                    </div>
+
+                    <div class="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-600 rounded-lg">
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-users text-blue-600 dark:text-blue-400"></i>
+                            <div>
+                                <h4 class="font-medium text-gray-900 dark:text-gray-100">Customer Insights</h4>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Notifications about customer behavior changes</p>
+                            </div>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" class="sr-only peer">
+                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                        </label>
+                    </div>
+
+                    <div class="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-600 rounded-lg">
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-chart-pie text-purple-600 dark:text-purple-400"></i>
+                            <div>
+                                <h4 class="font-medium text-gray-900 dark:text-gray-100">Expense Optimization</h4>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Alerts for cost-saving opportunities</p>
+                            </div>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" class="sr-only peer" checked>
+                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="border-t border-gray-200 dark:border-gray-600 pt-4">
+                    <h4 class="font-medium text-gray-900 dark:text-gray-100 mb-3">Notification Preferences</h4>
+                    <div class="space-y-2">
+                        <label class="flex items-center space-x-3">
+                            <input type="radio" name="notification-type" class="text-blue-600 focus:ring-blue-500" checked>
+                            <span class="text-sm text-gray-600 dark:text-gray-400">Email notifications</span>
+                        </label>
+                        <label class="flex items-center space-x-3">
+                            <input type="radio" name="notification-type" class="text-blue-600 focus:ring-blue-500">
+                            <span class="text-sm text-gray-600 dark:text-gray-400">In-app notifications only</span>
+                        </label>
+                        <label class="flex items-center space-x-3">
+                            <input type="radio" name="notification-type" class="text-blue-600 focus:ring-blue-500">
+                            <span class="text-sm text-gray-600 dark:text-gray-400">SMS alerts for critical issues</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="flex justify-end space-x-3">
+                    <button onclick="closeModal()" class="px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">Cancel</button>
+                    <button onclick="saveAlertSettings()" class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700">Save Settings</button>
+                </div>
+            </div>
+        `);
+        document.body.appendChild(modal);
+    }
+
+    function showExportModal() {
+        const modal = createModal('Export Reports', `
+            <div class="space-y-4">
+                <div class="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
+                    <div class="flex items-center space-x-3">
+                        <i class="fas fa-download text-blue-600 dark:text-blue-400 text-xl"></i>
+                        <div>
+                            <h3 class="font-semibold text-gray-900 dark:text-gray-100">Export AI Insights Report</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">Download comprehensive analysis and insights</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Report Type</label>
+                        <select class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
+                            <option>Complete AI Insights Report</option>
+                            <option>Financial Analysis Summary</option>
+                            <option>Anomaly Detection Report</option>
+                            <option>Revenue Prediction Report</option>
+                            <option>Customer Insights Report</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Date Range</label>
+                        <select class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
+                            <option>Last 30 days</option>
+                            <option>Last 90 days</option>
+                            <option>Last 6 months</option>
+                            <option>Last year</option>
+                            <option>Custom range</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Export Format</label>
+                        <div class="space-y-2">
+                            <label class="flex items-center space-x-3">
+                                <input type="radio" name="export-format" class="text-blue-600 focus:ring-blue-500" checked>
+                                <span class="text-sm text-gray-600 dark:text-gray-400">PDF Report</span>
+                            </label>
+                            <label class="flex items-center space-x-3">
+                                <input type="radio" name="export-format" class="text-blue-600 focus:ring-blue-500">
+                                <span class="text-sm text-gray-600 dark:text-gray-400">Excel Spreadsheet</span>
+                            </label>
+                            <label class="flex items-center space-x-3">
+                                <input type="radio" name="export-format" class="text-blue-600 focus:ring-blue-500">
+                                <span class="text-sm text-gray-600 dark:text-gray-400">CSV Data Export</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center space-x-3">
+                        <input type="checkbox" class="text-blue-600 focus:ring-blue-500" checked>
+                        <span class="text-sm text-gray-600 dark:text-gray-400">Include charts and visualizations</span>
+                    </div>
+
+                    <div class="flex items-center space-x-3">
+                        <input type="checkbox" class="text-blue-600 focus:ring-blue-500" checked>
+                        <span class="text-sm text-gray-600 dark:text-gray-400">Include raw data</span>
+                    </div>
+                </div>
+
+                <div class="flex justify-end space-x-3">
+                    <button onclick="closeModal()" class="px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">Cancel</button>
+                    <button onclick="startExport()" class="px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700">Generate Report</button>
+                </div>
+            </div>
+        `);
+        document.body.appendChild(modal);
+    }
+
+    // Helper Functions
+    function createModal(title, content) {
+        const modal = document.createElement('div');
+        modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4';
+        modal.innerHTML = `
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+                <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-xl font-bold text-gray-900 dark:text-gray-100">${title}</h2>
+                        <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
+                            <i class="fas fa-times text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="p-6">
+                    ${content}
+                </div>
+            </div>
+        `;
+        return modal;
+    }
+
+    function closeModal() {
+        const modal = document.querySelector('.fixed.inset-0.bg-black');
+        if (modal) {
+            modal.remove();
+        }
+    }
+
+    // Action Functions
+    function startAnalysis() {
+        // Show loading state
+        const modal = document.querySelector('.fixed.inset-0.bg-black');
+        if (modal) {
+            const content = modal.querySelector('div > div:last-child');
+            content.innerHTML = `
+                <div class="text-center py-8">
+                    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">Running AI Analysis</h3>
+                    <p class="text-gray-600 dark:text-gray-400">This may take a few moments...</p>
+                </div>
+            `;
+        }
+
+        // Simulate analysis completion
+        setTimeout(() => {
+            if (modal) {
+                const content = modal.querySelector('div > div:last-child');
+                content.innerHTML = `
+                    <div class="text-center py-8">
+                        <div class="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-check text-green-600 dark:text-green-400 text-2xl"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">Analysis Complete!</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-6">New insights have been generated and added to your dashboard.</p>
+                        <button onclick="closeModal()" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">View Results</button>
+                    </div>
+                `;
+            }
+        }, 3000);
+    }
+
+    function exportTrends() {
+        // Simulate export
+        alert('Trends data exported successfully! Check your downloads folder.');
+        closeModal();
+    }
+
+    function saveAlertSettings() {
+        // Simulate saving
+        alert('Alert settings saved successfully!');
+        closeModal();
+    }
+
+    function startExport() {
+        // Show loading state
+        const modal = document.querySelector('.fixed.inset-0.bg-black');
+        if (modal) {
+            const content = modal.querySelector('div > div:last-child');
+            content.innerHTML = `
+                <div class="text-center py-8">
+                    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-600 mx-auto mb-4"></div>
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">Generating Report</h3>
+                    <p class="text-gray-600 dark:text-gray-400">Preparing your AI insights report...</p>
+                </div>
+            `;
+        }
+
+        // Simulate export completion
+        setTimeout(() => {
+            if (modal) {
+                const content = modal.querySelector('div > div:last-child');
+                content.innerHTML = `
+                    <div class="text-center py-8">
+                        <div class="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-check text-green-600 dark:text-green-400 text-2xl"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">Report Generated!</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-6">Your AI insights report has been downloaded.</p>
+                        <button onclick="closeModal()" class="px-6 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700">Close</button>
+                    </div>
+                `;
+            }
+        }, 2000);
+    }
+</script>
+
+{% endblock %}

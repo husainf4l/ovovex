@@ -1,1 +1,1324 @@
 {% extends 'modules/base_module.html' %}
+
+{% block content %}
+{% include 'components/sidemenu.html' %}
+
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 ml-64 transition-colors duration-300">
+    <!-- Top Navigation Bar -->
+    <div class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4 transition-colors duration-300">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Anomaly Detection</h1>
+                <span class="px-3 py-1 bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 text-sm font-medium rounded-full">AI Active</span>
+            </div>
+            <div class="flex items-center space-x-4">
+                <!-- Quick Search -->
+                <div class="relative">
+                    <input type="text" placeholder="Search anomalies..." class="w-64 pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+                    <i class="fas fa-search absolute left-3 top-3 text-gray-400 dark:text-gray-500"></i>
+                </div>
+                <!-- Export -->
+                <button class="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200">
+                    <i class="fas fa-download mr-2"></i>
+                    Export Report
+                </button>
+                <!-- Theme Toggle -->
+                <button id="theme-toggle" class="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-300">
+                    <i class="fas fa-moon text-xl dark:hidden"></i>
+                    <i class="fas fa-sun text-xl hidden dark:inline"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-8">
+        <!-- Breadcrumb -->
+        <nav class="flex mb-6" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                <li class="inline-flex items-center">
+                    <a href="{% url 'dashboard' %}" class="inline-flex items-center text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
+                        <i class="fas fa-home mr-2"></i>
+                        Dashboard
+                    </a>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+                        <span class="text-sm font-medium text-gray-500 dark:text-gray-400">Anomaly Detection</span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
+
+        <!-- Anomaly Detection Overview -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Anomalies Detected</p>
+                        <p class="text-2xl font-bold text-gray-900 dark:text-gray-100">47</p>
+                    </div>
+                    <div class="w-12 h-12 bg-red-100 dark:bg-red-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-exclamation-triangle text-red-600 dark:text-red-400"></i>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <div class="flex items-center text-sm">
+                        <span class="text-red-600 dark:text-red-400 font-medium">+8</span>
+                        <span class="text-gray-600 dark:text-gray-400 ml-2">from last week</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400">False Positives</p>
+                        <p class="text-2xl font-bold text-gray-900 dark:text-gray-100">3</p>
+                    </div>
+                    <div class="w-12 h-12 bg-yellow-100 dark:bg-yellow-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-times-circle text-yellow-600 dark:text-yellow-400"></i>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <div class="flex items-center text-sm">
+                        <span class="text-green-600 dark:text-green-400 font-medium">-2</span>
+                        <span class="text-gray-600 dark:text-gray-400 ml-2">improvement</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Detection Accuracy</p>
+                        <p class="text-2xl font-bold text-gray-900 dark:text-gray-100">94.2%</p>
+                    </div>
+                    <div class="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-check-circle text-green-600 dark:text-green-400"></i>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <div class="flex items-center text-sm">
+                        <span class="text-green-600 dark:text-green-400 font-medium">+1.8%</span>
+                        <span class="text-gray-600 dark:text-gray-400 ml-2">from last month</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Risk Score</p>
+                        <p class="text-2xl font-bold text-gray-900 dark:text-gray-100">Medium</p>
+                    </div>
+                    <div class="w-12 h-12 bg-orange-100 dark:bg-orange-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-shield-alt text-orange-600 dark:text-orange-400"></i>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <div class="flex items-center text-sm">
+                        <span class="text-orange-600 dark:text-orange-400 font-medium">Stable</span>
+                        <span class="text-gray-600 dark:text-gray-400 ml-2">overall risk level</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Anomaly Detection Description -->
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 mb-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">AI-Powered Anomaly Detection</h2>
+                    <p class="text-gray-600 dark:text-gray-400">Advanced machine learning algorithms continuously monitor your financial transactions and operations to detect unusual patterns, potential fraud, and operational anomalies in real-time.</p>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <div class="text-right">
+                        <div class="text-2xl font-bold text-gray-900 dark:text-gray-100">24/7</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-400">Monitoring</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+            <button class="flex items-center justify-center px-4 py-3 bg-red-600 text-white font-medium rounded-xl hover:bg-red-700 transition-colors duration-200">
+                <i class="fas fa-search mr-2"></i>
+                Scan Now
+            </button>
+            <button class="flex items-center justify-center px-4 py-3 bg-blue-600 text-white font-medium rounded-xl hover:bg-blue-700 transition-colors duration-200">
+                <i class="fas fa-chart-line mr-2"></i>
+                View Patterns
+            </button>
+            <button class="flex items-center justify-center px-4 py-3 bg-yellow-600 text-white font-medium rounded-xl hover:bg-yellow-700 transition-colors duration-200">
+                <i class="fas fa-flag mr-2"></i>
+                Report Issue
+            </button>
+            <button class="flex items-center justify-center px-4 py-3 bg-gray-600 dark:bg-gray-700 text-white font-medium rounded-xl hover:bg-gray-700 dark:hover:bg-gray-600 transition-colors duration-200">
+                <i class="fas fa-cog mr-2"></i>
+                Detection Settings
+            </button>
+        </div>
+
+        <!-- Main Content Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Recent Anomalies -->
+            <div class="lg:col-span-2">
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700">
+                    <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100">Recent Anomalies</h3>
+                            <div class="flex items-center space-x-2">
+                                <select class="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+                                    <option>All Anomalies</option>
+                                    <option>High Risk</option>
+                                    <option>Financial</option>
+                                    <option>Operational</option>
+                                    <option>Security</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-6 space-y-4">
+                        <!-- Anomaly 1 -->
+                        <div class="border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/20 rounded-lg p-4">
+                            <div class="flex items-start space-x-3">
+                                <div class="w-10 h-10 bg-red-100 dark:bg-red-900 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-exclamation-triangle text-red-600 dark:text-red-400"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <h4 class="font-semibold text-gray-900 dark:text-gray-100">Unusual Cash Withdrawal Pattern</h4>
+                                        <span class="px-2 py-1 bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 text-xs font-medium rounded-full">Critical</span>
+                                    </div>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Large cash withdrawal of $45,000 detected from account #****1234, exceeding normal transaction patterns by 340%.</p>
+                                    <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+                                        <span>2 hours ago</span>
+                                        <div class="flex items-center space-x-2">
+                                            <span class="flex items-center">
+                                                <i class="fas fa-shield-alt mr-1"></i>
+                                                Risk Score: 9.2/10
+                                            </span>
+                                            <button class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300">Investigate</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Anomaly 2 -->
+                        <div class="border border-orange-200 dark:border-orange-800 bg-orange-50 dark:bg-orange-900/20 rounded-lg p-4">
+                            <div class="flex items-start space-x-3">
+                                <div class="w-10 h-10 bg-orange-100 dark:bg-orange-900 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-chart-line text-orange-600 dark:text-orange-400"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <h4 class="font-semibold text-gray-900 dark:text-gray-100">Expense Spike Detected</h4>
+                                        <span class="px-2 py-1 bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 text-xs font-medium rounded-full">High</span>
+                                    </div>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Office supplies expense increased by 280% this month compared to historical average. Potential budget overrun.</p>
+                                    <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+                                        <span>4 hours ago</span>
+                                        <div class="flex items-center space-x-2">
+                                            <span class="flex items-center">
+                                                <i class="fas fa-shield-alt mr-1"></i>
+                                                Risk Score: 7.8/10
+                                            </span>
+                                            <button class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300">Review</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Anomaly 3 -->
+                        <div class="border border-yellow-200 dark:border-yellow-800 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg p-4">
+                            <div class="flex items-start space-x-3">
+                                <div class="w-10 h-10 bg-yellow-100 dark:bg-yellow-900 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-user-clock text-yellow-600 dark:text-yellow-400"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <h4 class="font-semibold text-gray-900 dark:text-gray-100">Login Anomaly</h4>
+                                        <span class="px-2 py-1 bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 text-xs font-medium rounded-full">Medium</span>
+                                    </div>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Unusual login attempt from unrecognized IP address (192.168.1.100) at 2:30 AM, outside normal business hours.</p>
+                                    <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+                                        <span>6 hours ago</span>
+                                        <div class="flex items-center space-x-2">
+                                            <span class="flex items-center">
+                                                <i class="fas fa-shield-alt mr-1"></i>
+                                                Risk Score: 6.1/10
+                                            </span>
+                                            <button class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300">Verify</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Anomaly 4 -->
+                        <div class="border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4">
+                            <div class="flex items-start space-x-3">
+                                <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-exchange-alt text-blue-600 dark:text-blue-400"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <h4 class="font-semibold text-gray-900 dark:text-gray-100">Transaction Pattern Change</h4>
+                                        <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs font-medium rounded-full">Low</span>
+                                    </div>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Vendor payment frequency changed from weekly to daily. May indicate operational changes or potential issues.</p>
+                                    <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+                                        <span>8 hours ago</span>
+                                        <div class="flex items-center space-x-2">
+                                            <span class="flex items-center">
+                                                <i class="fas fa-shield-alt mr-1"></i>
+                                                Risk Score: 4.3/10
+                                            </span>
+                                            <button class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300">Monitor</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Anomaly 5 -->
+                        <div class="border border-purple-200 dark:border-purple-800 bg-purple-50 dark:bg-purple-900/20 rounded-lg p-4">
+                            <div class="flex items-start space-x-3">
+                                <div class="w-10 h-10 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-calculator text-purple-600 dark:text-purple-400"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <h4 class="font-semibold text-gray-900 dark:text-gray-100">Inventory Discrepancy</h4>
+                                        <span class="px-2 py-1 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 text-xs font-medium rounded-full">Medium</span>
+                                    </div>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Stock levels for Product SKU-456 show 15% variance between system records and physical count. Possible inventory management issue.</p>
+                                    <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+                                        <span>12 hours ago</span>
+                                        <div class="flex items-center space-x-2">
+                                            <span class="flex items-center">
+                                                <i class="fas fa-shield-alt mr-1"></i>
+                                                Risk Score: 5.7/10
+                                            </span>
+                                            <button class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300">Audit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="space-y-6">
+                <!-- Detection Performance -->
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">Detection Performance</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-gray-600 dark:text-gray-400">Financial Anomalies</span>
+                                <span class="font-medium text-gray-900 dark:text-gray-100">96%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                                <div class="bg-red-600 h-2 rounded-full" style="width: 96%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-gray-600 dark:text-gray-400">Operational Issues</span>
+                                <span class="font-medium text-gray-900 dark:text-gray-100">89%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                                <div class="bg-orange-600 h-2 rounded-full" style="width: 89%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-gray-600 dark:text-gray-400">Security Threats</span>
+                                <span class="font-medium text-gray-900 dark:text-gray-100">98%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                                <div class="bg-yellow-600 h-2 rounded-full" style="width: 98%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-gray-600 dark:text-gray-400">False Positive Rate</span>
+                                <span class="font-medium text-gray-900 dark:text-gray-100">3.2%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                                <div class="bg-green-600 h-2 rounded-full" style="width: 3.2%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Anomaly Categories -->
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">Anomaly Categories</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between p-3 bg-red-50 dark:bg-red-900/20 rounded-lg">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 bg-red-100 dark:bg-red-900 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-dollar-sign text-red-600 dark:text-red-400 text-sm"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-gray-900 dark:text-gray-100 text-sm">Financial</p>
+                                    <p class="text-xs text-gray-600 dark:text-gray-400">23 detected</p>
+                                </div>
+                            </div>
+                            <span class="px-2 py-1 bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 text-xs font-medium rounded-full">High Risk</span>
+                        </div>
+
+                        <div class="flex items-center justify-between p-3 bg-orange-50 dark:bg-orange-900/20 rounded-lg">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 bg-orange-100 dark:bg-orange-900 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-cogs text-orange-600 dark:text-orange-400 text-sm"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-gray-900 dark:text-gray-100 text-sm">Operational</p>
+                                    <p class="text-xs text-gray-600 dark:text-gray-400">12 detected</p>
+                                </div>
+                            </div>
+                            <span class="px-2 py-1 bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 text-xs font-medium rounded-full">Medium Risk</span>
+                        </div>
+
+                        <div class="flex items-center justify-between p-3 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 bg-yellow-100 dark:bg-yellow-900 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-shield-alt text-yellow-600 dark:text-yellow-400 text-sm"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-gray-900 dark:text-gray-100 text-sm">Security</p>
+                                    <p class="text-xs text-gray-600 dark:text-gray-400">8 detected</p>
+                                </div>
+                            </div>
+                            <span class="px-2 py-1 bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 text-xs font-medium rounded-full">Low Risk</span>
+                        </div>
+
+                        <div class="flex items-center justify-between p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-boxes text-blue-600 dark:text-blue-400 text-sm"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-gray-900 dark:text-gray-100 text-sm">Inventory</p>
+                                    <p class="text-xs text-gray-600 dark:text-gray-400">4 detected</p>
+                                </div>
+                            </div>
+                            <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs font-medium rounded-full">Info</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">Quick Actions</h3>
+                    <div class="space-y-2">
+                        <button class="w-full text-left px-4 py-3 bg-red-50 dark:bg-red-900/20 hover:bg-red-100 dark:hover:bg-red-900/30 rounded-lg transition-colors duration-200">
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-search text-red-600 dark:text-red-400"></i>
+                                <span class="text-sm font-medium text-gray-900 dark:text-gray-100">Deep Scan</span>
+                            </div>
+                        </button>
+                        <button class="w-full text-left px-4 py-3 bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-100 dark:hover:bg-blue-900/30 rounded-lg transition-colors duration-200">
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-download text-blue-600 dark:text-blue-400"></i>
+                                <span class="text-sm font-medium text-gray-900 dark:text-gray-100">Export Anomalies</span>
+                            </div>
+                        </button>
+                        <button class="w-full text-left px-4 py-3 bg-yellow-50 dark:bg-yellow-900/20 hover:bg-yellow-100 dark:hover:bg-yellow-900/30 rounded-lg transition-colors duration-200">
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-bell text-yellow-600 dark:text-yellow-400"></i>
+                                <span class="text-sm font-medium text-gray-900 dark:text-gray-100">Alert Settings</span>
+                            </div>
+                        </button>
+                        <button class="w-full text-left px-4 py-3 bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded-lg transition-colors duration-200">
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-wrench text-gray-600 dark:text-gray-400"></i>
+                                <span class="text-sm font-medium text-gray-900 dark:text-gray-100">Maintenance</span>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detection Timeline Chart Section -->
+        <div class="mt-6 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100">Anomaly Detection Timeline</h3>
+                <div class="flex items-center space-x-2">
+                    <select class="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+                        <option>Last 7 days</option>
+                        <option>Last 30 days</option>
+                        <option>Last 90 days</option>
+                        <option>Last year</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Chart Placeholder -->
+            <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-8 text-center">
+                <div class="w-16 h-16 bg-red-100 dark:bg-red-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-chart-area text-red-600 dark:text-red-400 text-2xl"></i>
+                </div>
+                <h4 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">Interactive Anomaly Timeline</h4>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">Real-time visualization of detected anomalies with risk levels and patterns over time</p>
+                <div class="flex justify-center space-x-4 text-sm">
+                    <div class="flex items-center">
+                        <div class="w-3 h-3 bg-red-600 rounded-full mr-2"></div>
+                        <span class="text-gray-600 dark:text-gray-400">Critical Anomalies</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-3 h-3 bg-orange-600 rounded-full mr-2"></div>
+                        <span class="text-gray-600 dark:text-gray-400">High Risk</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-3 h-3 bg-yellow-600 rounded-full mr-2"></div>
+                        <span class="text-gray-600 dark:text-gray-400">Medium Risk</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-3 h-3 bg-blue-600 rounded-full mr-2"></div>
+                        <span class="text-gray-600 dark:text-gray-400">Low Risk</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Timeline Stats -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-6">
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-red-600 dark:text-red-400">12</div>
+                    <div class="text-sm text-gray-600 dark:text-gray-400">Critical Issues</div>
+                    <div class="text-xs text-red-600 dark:text-red-400 mt-1">This week</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-orange-600 dark:text-orange-400">23</div>
+                    <div class="text-sm text-gray-600 dark:text-gray-400">High Priority</div>
+                    <div class="text-xs text-orange-600 dark:text-orange-400 mt-1">Resolved: 18</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-yellow-600 dark:text-yellow-400">8</div>
+                    <div class="text-sm text-gray-600 dark:text-gray-400">Under Investigation</div>
+                    <div class="text-xs text-yellow-600 dark:text-yellow-400 mt-1">Active cases</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-green-600 dark:text-green-400">4</div>
+                    <div class="text-sm text-gray-600 dark:text-gray-400">False Positives</div>
+                    <div class="text-xs text-green-600 dark:text-green-400 mt-1">AI learning</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Theme Toggle Script -->
+<script>
+    // Theme toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    themeToggle.addEventListener('click', () => {
+        const html = document.documentElement;
+        const isDark = html.classList.contains('dark');
+        if (isDark) {
+            html.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+        } else {
+            html.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+        }
+    });
+
+    // Anomaly Detection Action Buttons
+    document.addEventListener('DOMContentLoaded', function() {
+        // Main Action Buttons
+        const scanNowBtn = document.querySelector('button:has(i.fas.fa-search)');
+        if (scanNowBtn) {
+            scanNowBtn.addEventListener('click', function() {
+                showScanModal();
+            });
+        }
+
+        const viewPatternsBtn = document.querySelector('button:has(i.fas.fa-chart-bar)');
+        if (viewPatternsBtn) {
+            viewPatternsBtn.addEventListener('click', function() {
+                showPatternsModal();
+            });
+        }
+
+        const reportIssueBtn = document.querySelector('button:has(i.fas.fa-bell)');
+        if (reportIssueBtn) {
+            reportIssueBtn.addEventListener('click', function() {
+                showReportModal();
+            });
+        }
+
+        const detectionSettingsBtn = document.querySelector('button:has(i.fas.fa-cog)');
+        if (detectionSettingsBtn) {
+            detectionSettingsBtn.addEventListener('click', function() {
+                showDetectionSettingsModal();
+            });
+        }
+
+        // Sidebar Quick Actions
+        const deepScanBtn = document.querySelector('button:has(.fas.fa-search):has(span:contains("Deep Scan"))');
+        if (deepScanBtn) {
+            deepScanBtn.addEventListener('click', function() {
+                showDeepScanModal();
+            });
+        }
+
+        const exportAnomaliesBtn = document.querySelector('button:has(.fas.fa-download):has(span:contains("Export Anomalies"))');
+        if (exportAnomaliesBtn) {
+            exportAnomaliesBtn.addEventListener('click', function() {
+                showExportModal();
+            });
+        }
+
+        const alertSettingsBtn = document.querySelector('button:has(.fas.fa-bell):has(span:contains("Alert Settings"))');
+        if (alertSettingsBtn) {
+            alertSettingsBtn.addEventListener('click', function() {
+                showAlertSettingsModal();
+            });
+        }
+
+        const maintenanceBtn = document.querySelector('button:has(.fas.fa-wrench):has(span:contains("Maintenance"))');
+        if (maintenanceBtn) {
+            maintenanceBtn.addEventListener('click', function() {
+                showMaintenanceModal();
+            });
+        }
+    });
+
+    // Modal Functions
+    function showScanModal() {
+        const modal = createModal('AI Anomaly Scan', `
+            <div class="space-y-4">
+                <div class="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg">
+                    <div class="flex items-center space-x-3">
+                        <i class="fas fa-search text-red-600 dark:text-red-400 text-xl"></i>
+                        <div>
+                            <h3 class="font-semibold text-gray-900 dark:text-gray-100">Deep Anomaly Scan in Progress</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">AI is performing comprehensive analysis of all financial data...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-600 dark:text-gray-400">Scanning transactions...</span>
+                        <span class="text-sm font-medium text-green-600 dark:text-green-400">✓ Complete</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-600 dark:text-gray-400">Analyzing patterns...</span>
+                        <span class="text-sm font-medium text-blue-600 dark:text-blue-400">⟳ Processing</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-600 dark:text-gray-400">Checking security logs...</span>
+                        <span class="text-sm text-gray-500 dark:text-gray-400">Pending</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-600 dark:text-gray-400">Validating inventory...</span>
+                        <span class="text-sm text-gray-500 dark:text-gray-400">Pending</span>
+                    </div>
+                </div>
+                <div class="flex justify-end space-x-3">
+                    <button onclick="closeModal()" class="px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">Cancel</button>
+                    <button onclick="startScan()" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">Start Deep Scan</button>
+                </div>
+            </div>
+        `);
+        document.body.appendChild(modal);
+    }
+
+    function showPatternsModal() {
+        const modal = createModal('Anomaly Patterns Analysis', `
+            <div class="space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg">
+                        <h4 class="font-semibold text-gray-900 dark:text-gray-100 mb-2">Financial Patterns</h4>
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-600 dark:text-gray-400">Cash Flow Anomalies</span>
+                                <span class="font-medium text-red-600 dark:text-red-400">23 detected</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-600 dark:text-gray-400">Expense Spikes</span>
+                                <span class="font-medium text-red-600 dark:text-red-400">12 detected</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-600 dark:text-gray-400">Revenue Drops</span>
+                                <span class="font-medium text-orange-600 dark:text-orange-400">8 detected</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
+                        <h4 class="font-semibold text-gray-900 dark:text-gray-100 mb-2">Operational Patterns</h4>
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-600 dark:text-gray-400">Login Anomalies</span>
+                                <span class="font-medium text-blue-600 dark:text-blue-400">15 detected</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-600 dark:text-gray-400">Access Pattern Changes</span>
+                                <span class="font-medium text-blue-600 dark:text-blue-400">7 detected</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-600 dark:text-gray-400">System Usage Spikes</span>
+                                <span class="font-medium text-yellow-600 dark:text-yellow-400">5 detected</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg">
+                    <div class="text-center">
+                        <i class="fas fa-chart-line text-3xl text-gray-400 dark:text-gray-500 mb-2"></i>
+                        <p class="text-gray-600 dark:text-gray-400">Pattern analysis visualization would appear here</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Interactive charts showing anomaly patterns and trends</p>
+                    </div>
+                </div>
+                <div class="flex justify-end space-x-3">
+                    <button onclick="closeModal()" class="px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">Close</button>
+                    <button onclick="exportPatterns()" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Export Patterns</button>
+                </div>
+            </div>
+        `);
+        document.body.appendChild(modal);
+    }
+
+    function showReportModal() {
+        const modal = createModal('Report Anomaly Issue', `
+            <div class="space-y-4">
+                <div class="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg">
+                    <div class="flex items-center space-x-3">
+                        <i class="fas fa-flag text-yellow-600 dark:text-yellow-400 text-xl"></i>
+                        <div>
+                            <h3 class="font-semibold text-gray-900 dark:text-gray-100">Report Detected Issue</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">Help improve our AI detection by reporting issues or false positives</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Issue Type</label>
+                        <select class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
+                            <option>False Positive - Normal activity flagged as anomaly</option>
+                            <option>Missed Anomaly - Should have been detected</option>
+                            <option>Incorrect Risk Level - Wrong severity assigned</option>
+                            <option>System Error - Technical issue with detection</option>
+                            <option>Other - Please specify</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Anomaly ID (optional)</label>
+                        <input type="text" placeholder="e.g., ANOM-2025-00123" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Description</label>
+                        <textarea rows="4" placeholder="Please describe the issue in detail..." class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"></textarea>
+                    </div>
+
+                    <div class="flex items-center space-x-3">
+                        <input type="checkbox" class="text-blue-600 focus:ring-blue-500">
+                        <span class="text-sm text-gray-600 dark:text-gray-400">Include system logs and context data</span>
+                    </div>
+                </div>
+
+                <div class="flex justify-end space-x-3">
+                    <button onclick="closeModal()" class="px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">Cancel</button>
+                    <button onclick="submitReport()" class="px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700">Submit Report</button>
+                </div>
+            </div>
+        `);
+        document.body.appendChild(modal);
+    }
+
+    function showDetectionSettingsModal() {
+        const modal = createModal('Detection Settings', `
+            <div class="space-y-4">
+                <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                    <div class="flex items-center space-x-3">
+                        <i class="fas fa-cog text-gray-600 dark:text-gray-400 text-xl"></i>
+                        <div>
+                            <h3 class="font-semibold text-gray-900 dark:text-gray-100">AI Detection Configuration</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">Fine-tune anomaly detection parameters and thresholds</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <div>
+                        <h4 class="font-medium text-gray-900 dark:text-gray-100 mb-3">Detection Sensitivity</h4>
+                        <div class="space-y-3">
+                            <div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span class="text-gray-600 dark:text-gray-400">Financial Anomalies</span>
+                                    <span class="font-medium text-gray-900 dark:text-gray-100">Medium</span>
+                                </div>
+                                <input type="range" min="1" max="5" value="3" class="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer">
+                                <div class="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-1">
+                                    <span>Low</span>
+                                    <span>High</span>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span class="text-gray-600 dark:text-gray-400">Security Threats</span>
+                                    <span class="font-medium text-gray-900 dark:text-gray-100">High</span>
+                                </div>
+                                <input type="range" min="1" max="5" value="4" class="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer">
+                                <div class="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-1">
+                                    <span>Low</span>
+                                    <span>High</span>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span class="text-gray-600 dark:text-gray-400">Operational Issues</span>
+                                    <span class="font-medium text-gray-900 dark:text-gray-100">Medium</span>
+                                </div>
+                                <input type="range" min="1" max="5" value="3" class="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer">
+                                <div class="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-1">
+                                    <span>Low</span>
+                                    <span>High</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border-t border-gray-200 dark:border-gray-600 pt-4">
+                        <h4 class="font-medium text-gray-900 dark:text-gray-100 mb-3">Alert Thresholds</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm text-gray-600 dark:text-gray-400 mb-1">Critical Risk Threshold</label>
+                                <input type="number" value="9.0" step="0.1" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
+                            </div>
+                            <div>
+                                <label class="block text-sm text-gray-600 dark:text-gray-400 mb-1">High Risk Threshold</label>
+                                <input type="number" value="7.0" step="0.1" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
+                            </div>
+                            <div>
+                                <label class="block text-sm text-gray-600 dark:text-gray-400 mb-1">Medium Risk Threshold</label>
+                                <input type="number" value="5.0" step="0.1" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
+                            </div>
+                            <div>
+                                <label class="block text-sm text-gray-600 dark:text-gray-400 mb-1">False Positive Tolerance</label>
+                                <input type="number" value="3.0" step="0.1" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border-t border-gray-200 dark:border-gray-600 pt-4">
+                        <h4 class="font-medium text-gray-900 dark:text-gray-100 mb-3">Advanced Settings</h4>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h5 class="text-sm font-medium text-gray-900 dark:text-gray-100">Real-time Scanning</h5>
+                                    <p class="text-xs text-gray-600 dark:text-gray-400">Continuous monitoring vs scheduled scans</p>
+                                </div>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" class="sr-only peer" checked>
+                                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                                </label>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h5 class="text-sm font-medium text-gray-900 dark:text-gray-100">Auto-learning</h5>
+                                    <p class="text-xs text-gray-600 dark:text-gray-400">AI adapts to your business patterns</p>
+                                </div>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" class="sr-only peer" checked>
+                                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-end space-x-3">
+                    <button onclick="resetSettings()" class="px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">Reset to Default</button>
+                    <button onclick="saveDetectionSettings()" class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700">Save Settings</button>
+                </div>
+            </div>
+        `);
+        document.body.appendChild(modal);
+    }
+
+    function showDeepScanModal() {
+        const modal = createModal('Deep System Scan', `
+            <div class="space-y-4">
+                <div class="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg">
+                    <div class="flex items-center space-x-3">
+                        <i class="fas fa-search text-red-600 dark:text-red-400 text-xl"></i>
+                        <div>
+                            <h3 class="font-semibold text-gray-900 dark:text-gray-100">Comprehensive System Analysis</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">Deep scan of all systems, databases, and historical data...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-600 dark:text-gray-400">Database integrity check...</span>
+                        <span class="text-sm font-medium text-green-600 dark:text-green-400">✓ Complete</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-600 dark:text-gray-400">Historical pattern analysis...</span>
+                        <span class="text-sm font-medium text-blue-600 dark:text-blue-400">⟳ Processing</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-600 dark:text-gray-400">Cross-system correlation...</span>
+                        <span class="text-sm text-gray-500 dark:text-gray-400">Pending</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-gray-600 dark:text-gray-400">Advanced AI analysis...</span>
+                        <span class="text-sm text-gray-500 dark:text-gray-400">Pending</span>
+                    </div>
+                </div>
+                <div class="bg-yellow-50 dark:bg-yellow-900/20 p-3 rounded-lg">
+                    <p class="text-sm text-yellow-800 dark:text-yellow-200">
+                        <i class="fas fa-exclamation-triangle mr-2"></i>
+                        Deep scan may take 10-15 minutes and could impact system performance.
+                    </p>
+                </div>
+                <div class="flex justify-end space-x-3">
+                    <button onclick="closeModal()" class="px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">Cancel</button>
+                    <button onclick="startDeepScan()" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">Start Deep Scan</button>
+                </div>
+            </div>
+        `);
+        document.body.appendChild(modal);
+    }
+
+    function showExportModal() {
+        const modal = createModal('Export Anomalies Report', `
+            <div class="space-y-4">
+                <div class="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
+                    <div class="flex items-center space-x-3">
+                        <i class="fas fa-download text-blue-600 dark:text-blue-400 text-xl"></i>
+                        <div>
+                            <h3 class="font-semibold text-gray-900 dark:text-gray-100">Export Anomalies Report</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">Download comprehensive anomaly detection data and analysis</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Report Scope</label>
+                        <select class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
+                            <option>All Anomalies (Complete Report)</option>
+                            <option>Critical & High Risk Only</option>
+                            <option>Recent Anomalies (Last 7 days)</option>
+                            <option>Resolved Cases</option>
+                            <option>Custom Date Range</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Export Format</label>
+                        <div class="space-y-2">
+                            <label class="flex items-center space-x-3">
+                                <input type="radio" name="export-format" class="text-blue-600 focus:ring-blue-500" checked>
+                                <span class="text-sm text-gray-600 dark:text-gray-400">PDF Report</span>
+                            </label>
+                            <label class="flex items-center space-x-3">
+                                <input type="radio" name="export-format" class="text-blue-600 focus:ring-blue-500">
+                                <span class="text-sm text-gray-600 dark:text-gray-400">Excel Spreadsheet</span>
+                            </label>
+                            <label class="flex items-center space-x-3">
+                                <input type="radio" name="export-format" class="text-blue-600 focus:ring-blue-500">
+                                <span class="text-sm text-gray-600 dark:text-gray-400">CSV Data Export</span>
+                            </label>
+                            <label class="flex items-center space-x-3">
+                                <input type="radio" name="export-format" class="text-blue-600 focus:ring-blue-500">
+                                <span class="text-sm text-gray-600 dark:text-gray-400">JSON API Format</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Include Data</label>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                            <div class="flex items-center space-x-3">
+                                <input type="checkbox" class="text-blue-600 focus:ring-blue-500" checked>
+                                <span class="text-sm text-gray-600 dark:text-gray-400">Risk Scores</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <input type="checkbox" class="text-blue-600 focus:ring-blue-500" checked>
+                                <span class="text-sm text-gray-600 dark:text-gray-400">Detection Details</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <input type="checkbox" class="text-blue-600 focus:ring-blue-500" checked>
+                                <span class="text-sm text-gray-600 dark:text-gray-400">Historical Context</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <input type="checkbox" class="text-blue-600 focus:ring-blue-500">
+                                <span class="text-sm text-gray-600 dark:text-gray-400">Raw Data</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center space-x-3">
+                        <input type="checkbox" class="text-blue-600 focus:ring-blue-500" checked>
+                        <span class="text-sm text-gray-600 dark:text-gray-400">Include executive summary and recommendations</span>
+                    </div>
+                </div>
+
+                <div class="flex justify-end space-x-3">
+                    <button onclick="closeModal()" class="px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">Cancel</button>
+                    <button onclick="startExport()" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Generate Report</button>
+                </div>
+            </div>
+        `);
+        document.body.appendChild(modal);
+    }
+
+    function showAlertSettingsModal() {
+        const modal = createModal('Alert Configuration', `
+            <div class="space-y-4">
+                <div class="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg">
+                    <div class="flex items-center space-x-3">
+                        <i class="fas fa-bell text-yellow-600 dark:text-yellow-400 text-xl"></i>
+                        <div>
+                            <h3 class="font-semibold text-gray-900 dark:text-gray-100">Anomaly Alert Settings</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">Configure how and when you receive anomaly notifications</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-600 rounded-lg">
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-exclamation-triangle text-red-600 dark:text-red-400"></i>
+                            <div>
+                                <h4 class="font-medium text-gray-900 dark:text-gray-100">Critical Anomalies</h4>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Immediate alerts for high-risk issues</p>
+                            </div>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" class="sr-only peer" checked>
+                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                        </label>
+                    </div>
+
+                    <div class="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-600 rounded-lg">
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-exclamation-circle text-orange-600 dark:text-orange-400"></i>
+                            <div>
+                                <h4 class="font-medium text-gray-900 dark:text-gray-100">High Risk Alerts</h4>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Notifications for significant anomalies</p>
+                            </div>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" class="sr-only peer" checked>
+                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                        </label>
+                    </div>
+
+                    <div class="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-600 rounded-lg">
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-info-circle text-blue-600 dark:text-blue-400"></i>
+                            <div>
+                                <h4 class="font-medium text-gray-900 dark:text-gray-100">Weekly Summary</h4>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Weekly overview of all detected anomalies</p>
+                            </div>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" class="sr-only peer" checked>
+                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                        </label>
+                    </div>
+
+                    <div class="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-600 rounded-lg">
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-chart-line text-green-600 dark:text-green-400"></i>
+                            <div>
+                                <h4 class="font-medium text-gray-900 dark:text-gray-100">Performance Reports</h4>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Monthly AI performance and accuracy updates</p>
+                            </div>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" class="sr-only peer">
+                            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="border-t border-gray-200 dark:border-gray-600 pt-4">
+                    <h4 class="font-medium text-gray-900 dark:text-gray-100 mb-3">Notification Methods</h4>
+                    <div class="space-y-2">
+                        <label class="flex items-center space-x-3">
+                            <input type="radio" name="notification-method" class="text-blue-600 focus:ring-blue-500" checked>
+                            <span class="text-sm text-gray-600 dark:text-gray-400">Email notifications</span>
+                        </label>
+                        <label class="flex items-center space-x-3">
+                            <input type="radio" name="notification-method" class="text-blue-600 focus:ring-blue-500">
+                            <span class="text-sm text-gray-600 dark:text-gray-400">In-app notifications only</span>
+                        </label>
+                        <label class="flex items-center space-x-3">
+                            <input type="radio" name="notification-method" class="text-blue-600 focus:ring-blue-500">
+                            <span class="text-sm text-gray-600 dark:text-gray-400">SMS for critical alerts</span>
+                        </label>
+                        <label class="flex items-center space-x-3">
+                            <input type="radio" name="notification-method" class="text-blue-600 focus:ring-blue-500">
+                            <span class="text-sm text-gray-600 dark:text-gray-400">Slack/Teams integration</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="flex justify-end space-x-3">
+                    <button onclick="closeModal()" class="px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">Cancel</button>
+                    <button onclick="saveAlertSettings()" class="px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700">Save Settings</button>
+                </div>
+            </div>
+        `);
+        document.body.appendChild(modal);
+    }
+
+    function showMaintenanceModal() {
+        const modal = createModal('System Maintenance', `
+            <div class="space-y-4">
+                <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                    <div class="flex items-center space-x-3">
+                        <i class="fas fa-wrench text-gray-600 dark:text-gray-400 text-xl"></i>
+                        <div>
+                            <h3 class="font-semibold text-gray-900 dark:text-gray-100">AI System Maintenance</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">Optimize and maintain anomaly detection performance</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="p-4 border border-gray-200 dark:border-gray-600 rounded-lg">
+                            <h4 class="font-medium text-gray-900 dark:text-gray-100 mb-2">Model Retraining</h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Update AI models with latest data patterns</p>
+                            <button onclick="retrainModel()" class="w-full px-3 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700">Start Retraining</button>
+                        </div>
+                        <div class="p-4 border border-gray-200 dark:border-gray-600 rounded-lg">
+                            <h4 class="font-medium text-gray-900 dark:text-gray-100 mb-2">Database Cleanup</h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Remove old logs and optimize storage</p>
+                            <button onclick="cleanupDatabase()" class="w-full px-3 py-2 bg-green-600 text-white text-sm rounded-lg hover:bg-green-700">Clean Database</button>
+                        </div>
+                        <div class="p-4 border border-gray-200 dark:border-gray-600 rounded-lg">
+                            <h4 class="font-medium text-gray-900 dark:text-gray-100 mb-2">Performance Check</h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Run system performance diagnostics</p>
+                            <button onclick="performanceCheck()" class="w-full px-3 py-2 bg-purple-600 text-white text-sm rounded-lg hover:bg-purple-700">Run Diagnostics</button>
+                        </div>
+                        <div class="p-4 border border-gray-200 dark:border-gray-600 rounded-lg">
+                            <h4 class="font-medium text-gray-900 dark:text-gray-100 mb-2">Backup Data</h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">Create system backup for safety</p>
+                            <button onclick="backupData()" class="w-full px-3 py-2 bg-orange-600 text-white text-sm rounded-lg hover:bg-orange-700">Create Backup</button>
+                        </div>
+                    </div>
+
+                    <div class="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
+                        <h4 class="font-medium text-gray-900 dark:text-gray-100 mb-2">System Status</h4>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                            <div>
+                                <span class="text-gray-600 dark:text-gray-400">Last Backup:</span>
+                                <div class="font-medium text-gray-900 dark:text-gray-100">2 days ago</div>
+                            </div>
+                            <div>
+                                <span class="text-gray-600 dark:text-gray-400">Model Version:</span>
+                                <div class="font-medium text-gray-900 dark:text-gray-100">v2.4.1</div>
+                            </div>
+                            <div>
+                                <span class="text-gray-600 dark:text-gray-400">Data Processed:</span>
+                                <div class="font-medium text-gray-900 dark:text-gray-100">1.2M records</div>
+                            </div>
+                            <div>
+                                <span class="text-gray-600 dark:text-gray-400">Uptime:</span>
+                                <div class="font-medium text-gray-900 dark:text-gray-100">99.8%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-end space-x-3">
+                    <button onclick="closeModal()" class="px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">Close</button>
+                    <button onclick="runFullMaintenance()" class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700">Run Full Maintenance</button>
+                </div>
+            </div>
+        `);
+        document.body.appendChild(modal);
+    }
+
+    // Helper Functions
+    function createModal(title, content) {
+        const modal = document.createElement('div');
+        modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4';
+        modal.innerHTML = `
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+                <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-xl font-bold text-gray-900 dark:text-gray-100">${title}</h2>
+                        <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
+                            <i class="fas fa-times text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="p-6">
+                    ${content}
+                </div>
+            </div>
+        `;
+        return modal;
+    }
+
+    function closeModal() {
+        const modal = document.querySelector('.fixed.inset-0.bg-black');
+        if (modal) {
+            modal.remove();
+        }
+    }
+
+    // Action Functions
+    function startScan() {
+        const modal = document.querySelector('.fixed.inset-0.bg-black');
+        if (modal) {
+            const content = modal.querySelector('div > div:last-child');
+            content.innerHTML = `
+                <div class="text-center py-8">
+                    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600 mx-auto mb-4"></div>
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">Running AI Scan</h3>
+                    <p class="text-gray-600 dark:text-gray-400">Analyzing your data for anomalies...</p>
+                </div>
+            `;
+        }
+
+        setTimeout(() => {
+            if (modal) {
+                const content = modal.querySelector('div > div:last-child');
+                content.innerHTML = `
+                    <div class="text-center py-8">
+                        <div class="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-check text-green-600 dark:text-green-400 text-2xl"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">Scan Complete!</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-6">3 new anomalies detected and added to your dashboard.</p>
+                        <button onclick="closeModal()" class="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">View Results</button>
+                    </div>
+                `;
+            }
+        }, 3000);
+    }
+
+    function exportPatterns() {
+        alert('Pattern analysis exported successfully! Check your downloads folder.');
+        closeModal();
+    }
+
+    function submitReport() {
+        alert('Issue report submitted successfully! Thank you for helping improve our AI detection.');
+        closeModal();
+    }
+
+    function saveDetectionSettings() {
+        alert('Detection settings saved successfully!');
+        closeModal();
+    }
+
+    function resetSettings() {
+        if (confirm('Are you sure you want to reset all settings to default values?')) {
+            alert('Settings reset to defaults.');
+            closeModal();
+        }
+    }
+
+    function startDeepScan() {
+        const modal = document.querySelector('.fixed.inset-0.bg-black');
+        if (modal) {
+            const content = modal.querySelector('div > div:last-child');
+            content.innerHTML = `
+                <div class="text-center py-8">
+                    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600 mx-auto mb-4"></div>
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">Deep System Scan</h3>
+                    <p class="text-gray-600 dark:text-gray-400">This may take several minutes...</p>
+                </div>
+            `;
+        }
+
+        setTimeout(() => {
+            if (modal) {
+                const content = modal.querySelector('div > div:last-child');
+                content.innerHTML = `
+                    <div class="text-center py-8">
+                        <div class="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-check text-green-600 dark:text-green-400 text-2xl"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">Deep Scan Complete!</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-6">Comprehensive analysis finished. 12 new insights discovered.</p>
+                        <button onclick="closeModal()" class="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">View Detailed Report</button>
+                    </div>
+                `;
+            }
+        }, 8000);
+    }
+
+    function startExport() {
+        const modal = document.querySelector('.fixed.inset-0.bg-black');
+        if (modal) {
+            const content = modal.querySelector('div > div:last-child');
+            content.innerHTML = `
+                <div class="text-center py-8">
+                    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">Generating Report</h3>
+                    <p class="text-gray-600 dark:text-gray-400">Preparing your anomalies report...</p>
+                </div>
+            `;
+        }
+
+        setTimeout(() => {
+            if (modal) {
+                const content = modal.querySelector('div > div:last-child');
+                content.innerHTML = `
+                    <div class="text-center py-8">
+                        <div class="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-check text-green-600 dark:text-green-400 text-2xl"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">Report Generated!</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-6">Your anomalies report has been downloaded.</p>
+                        <button onclick="closeModal()" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Close</button>
+                    </div>
+                `;
+            }
+        }, 2500);
+    }
+
+    function saveAlertSettings() {
+        alert('Alert settings saved successfully!');
+        closeModal();
+    }
+
+    function retrainModel() {
+        alert('AI model retraining started. This will take approximately 30 minutes.');
+    }
+
+    function cleanupDatabase() {
+        alert('Database cleanup completed successfully!');
+    }
+
+    function performanceCheck() {
+        alert('Performance diagnostics completed. System is running optimally.');
+    }
+
+    function backupData() {
+        alert('System backup created successfully!');
+    }
+
+    function runFullMaintenance() {
+        alert('Full system maintenance initiated. This will take approximately 15 minutes.');
+        closeModal();
+    }
+</script>
+
+{% endblock %}

@@ -1117,3 +1117,859 @@ class ReconciliationAdjustment(models.Model):
     
     def __str__(self):
         return f"{self.reconciliation} - {self.adjustment_type} - ${self.amount}"
+
+
+# ============================================================================
+# AI INSIGHTS & ANALYTICS
+# ============================================================================
+
+class AIInsight(models.Model):
+    """AI-generated insights and recommendations"""
+    class InsightType(models.TextChoices):
+        REVENUE_OPTIMIZATION = 'REVENUE_OPTIMIZATION', 'Revenue Optimization'
+        COST_REDUCTION = 'COST_REDUCTION', 'Cost Reduction'
+        CASH_FLOW_IMPROVEMENT = 'CASH_FLOW_IMPROVEMENT', 'Cash Flow Improvement'
+        RISK_WARNING = 'RISK_WARNING', 'Risk Warning'
+        TREND_ANALYSIS = 'TREND_ANALYSIS', 'Trend Analysis'
+        PERFORMANCE_METRIC = 'PERFORMANCE_METRIC', 'Performance Metric'
+        COMPLIANCE_ALERT = 'COMPLIANCE_ALERT', 'Compliance Alert'
+        MARKET_INSIGHT = 'MARKET_INSIGHT', 'Market Insight'
+    
+    class Priority(models.TextChoices):
+        LOW = 'LOW', 'Low'
+        MEDIUM = 'MEDIUM', 'Medium'
+        HIGH = 'HIGH', 'High'
+        CRITICAL = 'CRITICAL', 'Critical'
+    
+    insight_id = models.CharField(max_length=50, unique=True, db_index=True)
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+    insight_type = models.CharField(max_length=30, choices=InsightType.choices)
+    priority = models.CharField(max_length=20, choices=Priority.choices, default=Priority.MEDIUM)
+    
+    # AI confidence and impact
+    confidence_score = models.DecimalField(max_digits=5, decimal_places=2, help_text="AI confidence score (0-100)")
+    impact_score = models.DecimalField(max_digits=15, decimal_places=2, help_text="Potential impact score (0-100)")
+    potential_savings = models.DecimalField(max_digits=15, decimal_places=2, null=True, blank=True)
+    
+    # Related data
+    related_accounts = models.ManyToManyField(Account, blank=True, related_name='ai_insights')
+    related_customers = models.ManyToManyField(Customer, blank=True, related_name='ai_insights')
+    related_vendors = models.ManyToManyField(Vendor, blank=True, related_name='ai_insights')
+    
+    # Status and tracking
+    is_active = models.BooleanField(default=True)
+    is_implemented = models.BooleanField(default=False)
+    implemented_date = models.DateField(null=True, blank=True)
+    feedback_rating = models.IntegerField(null=True, blank=True, help_text="User feedback rating (1-5)")
+    
+    # Metadata
+    generated_at = models.DateTimeField(auto_now_add=True)
+    expires_at = models.DateTimeField(null=True, blank=True)
+    ai_model_version = models.CharField(max_length=50, blank=True, null=True)
+    
+    class Meta:
+        ordering = ['-generated_at', '-priority']
+        indexes = [
+            models.Index(fields=['insight_type', 'priority']),
+            models.Index(fields=['is_active', 'generated_at']),
+        ]
+    
+    def __str__(self):
+        return f"{self.insight_id} - {self.title}"
+
+
+class AIPrediction(models.Model):
+    """AI predictions for future trends and values"""
+    class PredictionType(models.TextChoices):
+        REVENUE_FORECAST = 'REVENUE_FORECAST', 'Revenue Forecast'
+        EXPENSE_FORECAST = 'EXPENSE_FORECAST', 'Expense Forecast'
+        CASH_FLOW_FORECAST = 'CASH_FLOW_FORECAST', 'Cash Flow Forecast'
+        PROFIT_FORECAST = 'PROFIT_FORECAST', 'Profit Forecast'
+        BUDGET_VARIANCE = 'BUDGET_VARIANCE', 'Budget Variance'
+        SEASONAL_TREND = 'SEASONAL_TREND', 'Seasonal Trend'
+        MARKET_DEMAND = 'MARKET_DEMAND', 'Market Demand'
+    
+    prediction_id = models.CharField(max_length=50, unique=True, db_index=True)
+    title = models.CharField(max_length=255)
+    prediction_type = models.CharField(max_length=30, choices=PredictionType.choices)
+    
+    # Prediction details
+    predicted_value = models.DecimalField(max_digits=15, decimal_places=2)
+    confidence_interval_lower = models.DecimalField(max_digits=15, decimal_places=2, null=True, blank=True)
+    confidence_interval_upper = models.DecimalField(max_digits=15, decimal_places=2, null=True, blank=True)
+    prediction_date = models.DateField()
+    forecast_period_months = models.IntegerField(default=1)
+    
+    # Historical context
+    actual_value = models.DecimalField(max_digits=15, decimal_places=2, null=True, blank=True)
+    accuracy_score = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    
+    # Related data
+    related_account = models.ForeignKey(Account, on_delete=models.SET_NULL, null=True, blank=True, related_name='ai_predictions')
+    
+    # Metadata
+    generated_at = models.DateTimeField(auto_now_add=True)
+    ai_model_version = models.CharField(max_length=50, blank=True, null=True)
+    
+    class Meta:
+        ordering = ['-prediction_date', '-generated_at']
+        indexes = [
+            models.Index(fields=['prediction_type', 'prediction_date']),
+        ]
+    
+    def __str__(self):
+        return f"{self.prediction_id} - {self.title}"
+
+
+class AIModel(models.Model):
+    """AI models and their performance tracking"""
+    class ModelType(models.TextChoices):
+        FORECASTING = 'FORECASTING', 'Forecasting'
+        ANOMALY_DETECTION = 'ANOMALY_DETECTION', 'Anomaly Detection'
+        CLASSIFICATION = 'CLASSIFICATION', 'Classification'
+        REGRESSION = 'REGRESSION', 'Regression'
+        NLP = 'NLP', 'Natural Language Processing'
+    
+    class Status(models.TextChoices):
+        TRAINING = 'TRAINING', 'Training'
+        ACTIVE = 'ACTIVE', 'Active'
+        INACTIVE = 'INACTIVE', 'Inactive'
+        DEPRECATED = 'DEPRECATED', 'Deprecated'
+    
+    model_name = models.CharField(max_length=100, unique=True)
+    model_type = models.CharField(max_length=30, choices=ModelType.choices)
+    version = models.CharField(max_length=20)
+    status = models.CharField(max_length=20, choices=Status.choices, default=Status.ACTIVE)
+    
+    # Performance metrics
+    accuracy_score = models.DecimalField(max_digits=6, decimal_places=4, null=True, blank=True)
+    precision_score = models.DecimalField(max_digits=6, decimal_places=4, null=True, blank=True)
+    recall_score = models.DecimalField(max_digits=6, decimal_places=4, null=True, blank=True)
+    f1_score = models.DecimalField(max_digits=6, decimal_places=4, null=True, blank=True)
+    
+    # Training data
+    training_data_size = models.IntegerField(null=True, blank=True)
+    last_trained_at = models.DateTimeField(null=True, blank=True)
+    training_duration_hours = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
+    
+    # Usage statistics
+    total_predictions = models.IntegerField(default=0)
+    successful_predictions = models.IntegerField(default=0)
+    
+    # Metadata
+    description = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        ordering = ['-created_at']
+        unique_together = ['model_name', 'version']
+    
+    def __str__(self):
+        return f"{self.model_name} v{self.version}"
+    
+    def get_success_rate(self):
+        """Calculate prediction success rate"""
+        if self.total_predictions == 0:
+            return Decimal('0.00')
+        return (Decimal(self.successful_predictions) / Decimal(self.total_predictions)) * 100
+
+
+# ============================================================================
+# ANOMALY DETECTION
+# ============================================================================
+
+class AnomalyAlert(models.Model):
+    """Detected anomalies in financial data"""
+    class AnomalyType(models.TextChoices):
+        TRANSACTION_AMOUNT = 'TRANSACTION_AMOUNT', 'Unusual Transaction Amount'
+        FREQUENCY_SPIKE = 'FREQUENCY_SPIKE', 'Transaction Frequency Spike'
+        VENDOR_PATTERN = 'VENDOR_PATTERN', 'Unusual Vendor Pattern'
+        CUSTOMER_PATTERN = 'CUSTOMER_PATTERN', 'Unusual Customer Pattern'
+        ACCOUNT_BALANCE = 'ACCOUNT_BALANCE', 'Account Balance Anomaly'
+        BUDGET_VARIANCE = 'BUDGET_VARIANCE', 'Budget Variance Anomaly'
+        CASH_FLOW_IRREGULARITY = 'CASH_FLOW_IRREGULARITY', 'Cash Flow Irregularity'
+        EXPENSE_SPIKE = 'EXPENSE_SPIKE', 'Expense Spike'
+        REVENUE_DROP = 'REVENUE_DROP', 'Revenue Drop'
+    
+    class Severity(models.TextChoices):
+        LOW = 'LOW', 'Low'
+        MEDIUM = 'MEDIUM', 'Medium'
+        HIGH = 'HIGH', 'High'
+        CRITICAL = 'CRITICAL', 'Critical'
+    
+    class Status(models.TextChoices):
+        DETECTED = 'DETECTED', 'Detected'
+        INVESTIGATING = 'INVESTIGATING', 'Investigating'
+        RESOLVED = 'RESOLVED', 'Resolved'
+        FALSE_POSITIVE = 'FALSE_POSITIVE', 'False Positive'
+        IGNORED = 'IGNORED', 'Ignored'
+    
+    alert_id = models.CharField(max_length=50, unique=True, db_index=True)
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+    anomaly_type = models.CharField(max_length=30, choices=AnomalyType.choices)
+    severity = models.CharField(max_length=20, choices=Severity.choices, default=Severity.MEDIUM)
+    status = models.CharField(max_length=20, choices=Status.choices, default=Status.DETECTED)
+    
+    # Anomaly details
+    detected_value = models.DecimalField(max_digits=15, decimal_places=2)
+    expected_value = models.DecimalField(max_digits=15, decimal_places=2, null=True, blank=True)
+    deviation_percentage = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
+    confidence_score = models.DecimalField(max_digits=5, decimal_places=2)
+    
+    # Related entities
+    related_account = models.ForeignKey(Account, on_delete=models.SET_NULL, null=True, blank=True, related_name='anomaly_alerts')
+    related_customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True, related_name='anomaly_alerts')
+    related_vendor = models.ForeignKey(Vendor, on_delete=models.SET_NULL, null=True, blank=True, related_name='anomaly_alerts')
+    related_journal_entry = models.ForeignKey(JournalEntry, on_delete=models.SET_NULL, null=True, blank=True, related_name='anomaly_alerts')
+    
+    # Investigation and resolution
+    investigation_notes = models.TextField(blank=True, null=True)
+    resolution_notes = models.TextField(blank=True, null=True)
+    assigned_to = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='assigned_anomalies')
+    resolved_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='resolved_anomalies')
+    resolved_at = models.DateTimeField(null=True, blank=True)
+    
+    # Metadata
+    detected_at = models.DateTimeField(auto_now_add=True)
+    ai_model_version = models.CharField(max_length=50, blank=True, null=True)
+    
+    class Meta:
+        ordering = ['-detected_at', '-severity']
+        indexes = [
+            models.Index(fields=['status', 'severity']),
+            models.Index(fields=['anomaly_type', 'detected_at']),
+        ]
+    
+    def __str__(self):
+        return f"{self.alert_id} - {self.title}"
+
+
+class AnomalyDetectionModel(models.Model):
+    """Performance tracking for anomaly detection models"""
+    class ModelType(models.TextChoices):
+        STATISTICAL = 'STATISTICAL', 'Statistical'
+        MACHINE_LEARNING = 'MACHINE_LEARNING', 'Machine Learning'
+        RULE_BASED = 'RULE_BASED', 'Rule Based'
+        HYBRID = 'HYBRID', 'Hybrid'
+    
+    model_name = models.CharField(max_length=100, unique=True)
+    model_type = models.CharField(max_length=20, choices=ModelType.choices)
+    version = models.CharField(max_length=20)
+    is_active = models.BooleanField(default=True)
+    
+    # Performance metrics
+    total_alerts_generated = models.IntegerField(default=0)
+    true_positives = models.IntegerField(default=0)
+    false_positives = models.IntegerField(default=0)
+    true_negatives = models.IntegerField(default=0)
+    false_negatives = models.IntegerField(default=0)
+    
+    # Thresholds
+    sensitivity_threshold = models.DecimalField(max_digits=6, decimal_places=2, default=Decimal('0.80'))
+    specificity_threshold = models.DecimalField(max_digits=6, decimal_places=2, default=Decimal('0.85'))
+    
+    # Metadata
+    last_updated = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        ordering = ['-created_at']
+        unique_together = ['model_name', 'version']
+    
+    def __str__(self):
+        return f"{self.model_name} v{self.version}"
+    
+    def get_precision(self):
+        """Calculate precision (true positives / (true positives + false positives))"""
+        denominator = self.true_positives + self.false_positives
+        return (self.true_positives / denominator * 100) if denominator > 0 else Decimal('0.00')
+    
+    def get_recall(self):
+        """Calculate recall (true positives / (true positives + false negatives))"""
+        denominator = self.true_positives + self.false_negatives
+        return (self.true_positives / denominator * 100) if denominator > 0 else Decimal('0.00')
+    
+    def get_accuracy(self):
+        """Calculate accuracy"""
+        total = self.true_positives + self.true_negatives + self.false_positives + self.false_negatives
+        correct = self.true_positives + self.true_negatives
+        return (correct / total * 100) if total > 0 else Decimal('0.00')
+
+
+# ============================================================================
+# INVENTORY MANAGEMENT
+# ============================================================================
+
+class InventoryCategory(models.Model):
+    """Inventory item categories"""
+    name = models.CharField(max_length=255, unique=True)
+    description = models.TextField(blank=True, null=True)
+    parent_category = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True, related_name='subcategories')
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        ordering = ['name']
+        verbose_name_plural = 'Inventory Categories'
+    
+    def __str__(self):
+        return self.name
+
+
+class InventoryItem(models.Model):
+    """Inventory items tracking"""
+    class UnitOfMeasure(models.TextChoices):
+        EACH = 'EACH', 'Each'
+        KG = 'KG', 'Kilogram'
+        LB = 'LB', 'Pound'
+        LITER = 'LITER', 'Liter'
+        GALLON = 'GALLON', 'Gallon'
+        METER = 'METER', 'Meter'
+        FOOT = 'FOOT', 'Foot'
+        SQUARE_METER = 'SQUARE_METER', 'Square Meter'
+        CUBIC_METER = 'CUBIC_METER', 'Cubic Meter'
+        BOX = 'BOX', 'Box'
+        CASE = 'CASE', 'Case'
+        PALLET = 'PALLET', 'Pallet'
+    
+    item_code = models.CharField(max_length=50, unique=True, db_index=True)
+    name = models.CharField(max_length=255)
+    description = models.TextField(blank=True, null=True)
+    category = models.ForeignKey(InventoryCategory, on_delete=models.SET_NULL, null=True, blank=True, related_name='items')
+    
+    # Stock levels
+    current_stock = models.DecimalField(max_digits=12, decimal_places=2, default=Decimal('0.00'))
+    minimum_stock = models.DecimalField(max_digits=12, decimal_places=2, default=Decimal('0.00'))
+    maximum_stock = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
+    reorder_point = models.DecimalField(max_digits=12, decimal_places=2, default=Decimal('0.00'))
+    
+    # Pricing
+    unit_cost = models.DecimalField(max_digits=12, decimal_places=2, default=Decimal('0.00'))
+    selling_price = models.DecimalField(max_digits=12, decimal_places=2, default=Decimal('0.00'))
+    unit_of_measure = models.CharField(max_length=20, choices=UnitOfMeasure.choices, default=UnitOfMeasure.EACH)
+    
+    # Supplier information
+    primary_vendor = models.ForeignKey(Vendor, on_delete=models.SET_NULL, null=True, blank=True, related_name='supplied_items')
+    vendor_item_code = models.CharField(max_length=50, blank=True, null=True)
+    
+    # Location and tracking
+    location = models.CharField(max_length=255, blank=True, null=True)
+    barcode = models.CharField(max_length=100, blank=True, null=True, unique=True)
+    serial_number_required = models.BooleanField(default=False)
+    
+    # Status
+    is_active = models.BooleanField(default=True)
+    is_taxable = models.BooleanField(default=True)
+    
+    # Financial tracking
+    total_value = models.DecimalField(max_digits=15, decimal_places=2, default=Decimal('0.00'))
+    
+    # Metadata
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    
+    class Meta:
+        ordering = ['item_code']
+        indexes = [
+            models.Index(fields=['category', 'is_active']),
+            models.Index(fields=['current_stock', 'minimum_stock']),
+        ]
+    
+    def __str__(self):
+        return f"{self.item_code} - {self.name}"
+    
+    def get_stock_status(self):
+        """Get stock status based on current levels"""
+        if self.current_stock <= 0:
+            return "Out of Stock"
+        elif self.current_stock <= self.reorder_point:
+            return "Low Stock"
+        elif self.maximum_stock and self.current_stock >= self.maximum_stock:
+            return "Overstock"
+        else:
+            return "In Stock"
+    
+    def get_total_value(self):
+        """Calculate total inventory value"""
+        return self.current_stock * self.unit_cost
+    
+    def needs_reorder(self):
+        """Check if item needs reordering"""
+        return self.current_stock <= self.reorder_point
+
+
+class InventoryTransaction(models.Model):
+    """Inventory transactions (in/out/adjustments)"""
+    class TransactionType(models.TextChoices):
+        RECEIPT = 'RECEIPT', 'Stock Receipt'
+        ISSUE = 'ISSUE', 'Stock Issue'
+        ADJUSTMENT = 'ADJUSTMENT', 'Stock Adjustment'
+        TRANSFER = 'TRANSFER', 'Stock Transfer'
+        RETURN = 'RETURN', 'Stock Return'
+        DAMAGE = 'DAMAGE', 'Damage/Loss'
+    
+    item = models.ForeignKey(InventoryItem, on_delete=models.PROTECT, related_name='transactions')
+    transaction_type = models.CharField(max_length=20, choices=TransactionType.choices)
+    quantity = models.DecimalField(max_digits=12, decimal_places=2)
+    unit_cost = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
+    
+    # References
+    reference_number = models.CharField(max_length=100, blank=True, null=True)
+    related_bill = models.ForeignKey(Bill, on_delete=models.SET_NULL, null=True, blank=True, related_name='inventory_transactions')
+    related_invoice = models.ForeignKey(Invoice, on_delete=models.SET_NULL, null=True, blank=True, related_name='inventory_transactions')
+    
+    # Location tracking
+    from_location = models.CharField(max_length=255, blank=True, null=True)
+    to_location = models.CharField(max_length=255, blank=True, null=True)
+    
+    # Notes
+    notes = models.TextField(blank=True, null=True)
+    
+    # Audit trail
+    created_at = models.DateTimeField(auto_now_add=True)
+    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    
+    class Meta:
+        ordering = ['-created_at']
+        indexes = [
+            models.Index(fields=['item', 'created_at']),
+            models.Index(fields=['transaction_type', 'created_at']),
+        ]
+    
+    def __str__(self):
+        return f"{self.item.item_code} - {self.transaction_type} - {self.quantity}"
+
+
+# ============================================================================
+# DOCUMENT MANAGEMENT
+# ============================================================================
+
+class DocumentCategory(models.Model):
+    """Document categories for organization"""
+    name = models.CharField(max_length=255, unique=True)
+    description = models.TextField(blank=True, null=True)
+    parent_category = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True, related_name='subcategories')
+    color_code = models.CharField(max_length=7, default='#3498db', help_text="Hex color code for UI")
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        ordering = ['name']
+        verbose_name_plural = 'Document Categories'
+    
+    def __str__(self):
+        return self.name
+
+
+class Document(models.Model):
+    """Document management system"""
+    class DocumentType(models.TextChoices):
+        INVOICE = 'INVOICE', 'Invoice'
+        RECEIPT = 'RECEIPT', 'Receipt'
+        CONTRACT = 'CONTRACT', 'Contract'
+        STATEMENT = 'STATEMENT', 'Financial Statement'
+        TAX_DOCUMENT = 'TAX_DOCUMENT', 'Tax Document'
+        LEGAL_DOCUMENT = 'LEGAL_DOCUMENT', 'Legal Document'
+        CORRESPONDENCE = 'CORRESPONDENCE', 'Correspondence'
+        REPORT = 'REPORT', 'Report'
+        OTHER = 'OTHER', 'Other'
+    
+    class Status(models.TextChoices):
+        DRAFT = 'DRAFT', 'Draft'
+        FINAL = 'FINAL', 'Final'
+        ARCHIVED = 'ARCHIVED', 'Archived'
+        DELETED = 'DELETED', 'Deleted'
+    
+    document_id = models.CharField(max_length=50, unique=True, db_index=True)
+    title = models.CharField(max_length=255)
+    description = models.TextField(blank=True, null=True)
+    document_type = models.CharField(max_length=20, choices=DocumentType.choices, default=DocumentType.OTHER)
+    category = models.ForeignKey(DocumentCategory, on_delete=models.SET_NULL, null=True, blank=True, related_name='documents')
+    
+    # File information
+    file_name = models.CharField(max_length=255)
+    file_path = models.FileField(upload_to='documents/%Y/%m/')
+    file_size = models.PositiveIntegerField(help_text="File size in bytes")
+    mime_type = models.CharField(max_length=100)
+    
+    # Version control
+    version = models.CharField(max_length=20, default='1.0')
+    parent_document = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True, related_name='versions')
+    
+    # Status and security
+    status = models.CharField(max_length=20, choices=Status.choices, default=Status.FINAL)
+    is_confidential = models.BooleanField(default=False)
+    retention_period_years = models.IntegerField(default=7, help_text="Document retention period in years")
+    
+    # Related entities
+    related_customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True, related_name='documents')
+    related_vendor = models.ForeignKey(Vendor, on_delete=models.SET_NULL, null=True, blank=True, related_name='documents')
+    related_account = models.ForeignKey(Account, on_delete=models.SET_NULL, null=True, blank=True, related_name='documents')
+    related_invoice = models.ForeignKey(Invoice, on_delete=models.SET_NULL, null=True, blank=True, related_name='documents')
+    related_bill = models.ForeignKey(Bill, on_delete=models.SET_NULL, null=True, blank=True, related_name='documents')
+    
+    # Tags and search
+    tags = models.CharField(max_length=500, blank=True, null=True, help_text="Comma-separated tags")
+    
+    # Audit trail
+    uploaded_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='uploaded_documents')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+    last_modified_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='modified_documents')
+    last_modified_at = models.DateTimeField(auto_now=True)
+    
+    # Access control
+    view_permissions = models.ManyToManyField(User, blank=True, related_name='viewable_documents', help_text="Users who can view this document")
+    edit_permissions = models.ManyToManyField(User, blank=True, related_name='editable_documents', help_text="Users who can edit this document")
+    
+    class Meta:
+        ordering = ['-uploaded_at']
+        indexes = [
+            models.Index(fields=['document_type', 'status']),
+            models.Index(fields=['category', 'uploaded_at']),
+            models.Index(fields=['uploaded_by', 'uploaded_at']),
+        ]
+    
+    def __str__(self):
+        return f"{self.document_id} - {self.title}"
+    
+    def get_file_size_display(self):
+        """Return human-readable file size"""
+        size = self.file_size
+        for unit in ['B', 'KB', 'MB', 'GB']:
+            if size < 1024.0:
+                return f"{size:.1f} {unit}"
+            size /= 1024.0
+        return f"{size:.1f} TB"
+    
+    def is_expired(self):
+        """Check if document has expired based on retention period"""
+        from django.utils import timezone
+        expiry_date = self.uploaded_at + timezone.timedelta(days=self.retention_period_years * 365)
+        return timezone.now() > expiry_date
+
+
+class DocumentShare(models.Model):
+    """Document sharing and collaboration"""
+    class AccessLevel(models.TextChoices):
+        VIEW = 'VIEW', 'View Only'
+        COMMENT = 'COMMENT', 'View and Comment'
+        EDIT = 'EDIT', 'Edit'
+        FULL = 'FULL', 'Full Access'
+    
+    document = models.ForeignKey(Document, on_delete=models.CASCADE, related_name='shares')
+    shared_with = models.ForeignKey(User, on_delete=models.CASCADE, related_name='shared_documents')
+    access_level = models.CharField(max_length=20, choices=AccessLevel.choices, default=AccessLevel.VIEW)
+    
+    # Sharing details
+    shared_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='shared_by_documents')
+    shared_at = models.DateTimeField(auto_now_add=True)
+    expires_at = models.DateTimeField(null=True, blank=True)
+    message = models.TextField(blank=True, null=True, help_text="Message from sharer")
+    
+    # Access tracking
+    last_accessed_at = models.DateTimeField(null=True, blank=True)
+    access_count = models.PositiveIntegerField(default=0)
+    
+    class Meta:
+        unique_together = ['document', 'shared_with']
+        ordering = ['-shared_at']
+    
+    def __str__(self):
+        return f"{self.document.title} shared with {self.shared_with.username}"
+    
+    def is_expired(self):
+        """Check if share has expired"""
+        if not self.expires_at:
+            return False
+        from django.utils import timezone
+        return timezone.now() > self.expires_at
+
+
+# ============================================================================
+# PURCHASE ORDERS
+# ============================================================================
+
+class PurchaseOrder(models.Model):
+    """Purchase orders for procurement"""
+    class Status(models.TextChoices):
+        DRAFT = 'DRAFT', 'Draft'
+        PENDING_APPROVAL = 'PENDING_APPROVAL', 'Pending Approval'
+        APPROVED = 'APPROVED', 'Approved'
+        ORDERED = 'ORDERED', 'Ordered'
+        PARTIALLY_RECEIVED = 'PARTIALLY_RECEIVED', 'Partially Received'
+        RECEIVED = 'RECEIVED', 'Received'
+        CANCELLED = 'CANCELLED', 'Cancelled'
+        CLOSED = 'CLOSED', 'Closed'
+    
+    po_number = models.CharField(max_length=50, unique=True, db_index=True)
+    vendor = models.ForeignKey(Vendor, on_delete=models.PROTECT, related_name='purchase_orders')
+    order_date = models.DateField(db_index=True)
+    required_date = models.DateField(null=True, blank=True)
+    status = models.CharField(max_length=20, choices=Status.choices, default=Status.DRAFT)
+    
+    # Financial details
+    subtotal = models.DecimalField(max_digits=15, decimal_places=2, default=Decimal('0.00'))
+    tax_amount = models.DecimalField(max_digits=15, decimal_places=2, default=Decimal('0.00'))
+    discount_amount = models.DecimalField(max_digits=15, decimal_places=2, default=Decimal('0.00'))
+    total_amount = models.DecimalField(max_digits=15, decimal_places=2, default=Decimal('0.00'))
+    
+    # Shipping and delivery
+    ship_to_address = models.TextField(blank=True, null=True)
+    shipping_method = models.CharField(max_length=100, blank=True, null=True)
+    shipping_cost = models.DecimalField(max_digits=12, decimal_places=2, default=Decimal('0.00'))
+    delivery_terms = models.TextField(blank=True, null=True)
+    
+    # Approval workflow
+    requested_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='requested_pos')
+    approved_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='approved_pos')
+    approved_at = models.DateTimeField(null=True, blank=True)
+    
+    # Notes and references
+    notes = models.TextField(blank=True, null=True)
+    vendor_po_number = models.CharField(max_length=100, blank=True, null=True)
+    
+    # Audit trail
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    
+    class Meta:
+        ordering = ['-order_date', '-po_number']
+        indexes = [
+            models.Index(fields=['vendor', 'status']),
+            models.Index(fields=['status', 'order_date']),
+        ]
+    
+    def __str__(self):
+        return f"PO-{self.po_number} - {self.vendor.company_name}"
+
+
+class PurchaseOrderLine(models.Model):
+    """Purchase order line items"""
+    purchase_order = models.ForeignKey(PurchaseOrder, on_delete=models.CASCADE, related_name='lines')
+    item_description = models.CharField(max_length=255)
+    
+    # Item details (can link to inventory or be free-form)
+    inventory_item = models.ForeignKey(InventoryItem, on_delete=models.SET_NULL, null=True, blank=True, related_name='po_lines')
+    
+    # Quantities and pricing
+    quantity_ordered = models.DecimalField(max_digits=12, decimal_places=2)
+    quantity_received = models.DecimalField(max_digits=12, decimal_places=2, default=Decimal('0.00'))
+    unit_price = models.DecimalField(max_digits=12, decimal_places=2)
+    line_total = models.DecimalField(max_digits=12, decimal_places=2)
+    
+    # Delivery tracking
+    expected_delivery_date = models.DateField(null=True, blank=True)
+    actual_delivery_date = models.DateField(null=True, blank=True)
+    
+    # Notes
+    notes = models.TextField(blank=True, null=True)
+    
+    class Meta:
+        ordering = ['id']
+    
+    def __str__(self):
+        return f"{self.purchase_order.po_number} - {self.item_description[:50]}"
+    
+    def get_quantity_remaining(self):
+        """Get remaining quantity to be received"""
+        return self.quantity_ordered - self.quantity_received
+
+
+# ============================================================================
+# AUDIT & COMPLIANCE
+# ============================================================================
+
+class AuditTrail(models.Model):
+    """Comprehensive audit trail for all system activities"""
+    class ActionType(models.TextChoices):
+        CREATE = 'CREATE', 'Create'
+        UPDATE = 'UPDATE', 'Update'
+        DELETE = 'DELETE', 'Delete'
+        VIEW = 'VIEW', 'View'
+        EXPORT = 'EXPORT', 'Export'
+        IMPORT = 'IMPORT', 'Import'
+        APPROVE = 'APPROVE', 'Approve'
+        REJECT = 'REJECT', 'Reject'
+        LOGIN = 'LOGIN', 'Login'
+        LOGOUT = 'LOGOUT', 'Logout'
+    
+    class EntityType(models.TextChoices):
+        ACCOUNT = 'ACCOUNT', 'Account'
+        JOURNAL_ENTRY = 'JOURNAL_ENTRY', 'Journal Entry'
+        INVOICE = 'INVOICE', 'Invoice'
+        BILL = 'BILL', 'Bill'
+        CUSTOMER = 'CUSTOMER', 'Customer'
+        VENDOR = 'VENDOR', 'Vendor'
+        USER = 'USER', 'User'
+        FIXED_ASSET = 'FIXED_ASSET', 'Fixed Asset'
+        BUDGET = 'BUDGET', 'Budget'
+        EXPENSE = 'EXPENSE', 'Expense'
+        TAX_RETURN = 'TAX_RETURN', 'Tax Return'
+        DOCUMENT = 'DOCUMENT', 'Document'
+        INVENTORY = 'INVENTORY', 'Inventory'
+        PURCHASE_ORDER = 'PURCHASE_ORDER', 'Purchase Order'
+        OTHER = 'OTHER', 'Other'
+    
+    # Audit details
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='audit_actions')
+    action_type = models.CharField(max_length=20, choices=ActionType.choices)
+    entity_type = models.CharField(max_length=20, choices=EntityType.choices)
+    entity_id = models.CharField(max_length=100, db_index=True)
+    entity_name = models.CharField(max_length=255, blank=True, null=True)
+    
+    # Change details
+    old_values = models.JSONField(null=True, blank=True, help_text="Previous values (JSON)")
+    new_values = models.JSONField(null=True, blank=True, help_text="New values (JSON)")
+    changes_description = models.TextField(blank=True, null=True)
+    
+    # Context
+    ip_address = models.GenericIPAddressField(null=True, blank=True)
+    user_agent = models.TextField(blank=True, null=True)
+    session_id = models.CharField(max_length=100, blank=True, null=True)
+    
+    # Metadata
+    timestamp = models.DateTimeField(auto_now_add=True, db_index=True)
+    success = models.BooleanField(default=True)
+    error_message = models.TextField(blank=True, null=True)
+    
+    class Meta:
+        ordering = ['-timestamp']
+        indexes = [
+            models.Index(fields=['user', 'timestamp']),
+            models.Index(fields=['entity_type', 'entity_id']),
+            models.Index(fields=['action_type', 'timestamp']),
+        ]
+    
+    def __str__(self):
+        return f"{self.user.username if self.user else 'System'} - {self.action_type} - {self.entity_type} - {self.timestamp}"
+
+
+class ComplianceCheck(models.Model):
+    """Compliance checks and regulatory requirements"""
+    class ComplianceType(models.TextChoices):
+        SOX = 'SOX', 'Sarbanes-Oxley Act'
+        IFRS = 'IFRS', 'International Financial Reporting Standards'
+        GAAP = 'GAAP', 'Generally Accepted Accounting Principles'
+        TAX_COMPLIANCE = 'TAX_COMPLIANCE', 'Tax Compliance'
+        DATA_PRIVACY = 'DATA_PRIVACY', 'Data Privacy (GDPR/CCPA)'
+        INTERNAL_CONTROLS = 'INTERNAL_CONTROLS', 'Internal Controls'
+        INDUSTRY_SPECIFIC = 'INDUSTRY_SPECIFIC', 'Industry Specific'
+    
+    class Status(models.TextChoices):
+        PENDING = 'PENDING', 'Pending'
+        IN_PROGRESS = 'IN_PROGRESS', 'In Progress'
+        COMPLIANT = 'COMPLIANT', 'Compliant'
+        NON_COMPLIANT = 'NON_COMPLIANT', 'Non-Compliant'
+        EXEMPT = 'EXEMPT', 'Exempt'
+    
+    check_id = models.CharField(max_length=50, unique=True, db_index=True)
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+    compliance_type = models.CharField(max_length=20, choices=ComplianceType.choices)
+    status = models.CharField(max_length=20, choices=Status.choices, default=Status.PENDING)
+    
+    # Requirements and deadlines
+    requirement_details = models.TextField(blank=True, null=True)
+    due_date = models.DateField(null=True, blank=True)
+    frequency = models.CharField(max_length=50, blank=True, null=True, help_text="Monthly, Quarterly, Annual, etc.")
+    
+    # Assessment details
+    risk_level = models.CharField(max_length=20, choices=[('LOW', 'Low'), ('MEDIUM', 'Medium'), ('HIGH', 'High'), ('CRITICAL', 'Critical')], default='MEDIUM')
+    last_assessed_at = models.DateTimeField(null=True, blank=True)
+    assessed_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='compliance_assessments')
+    assessment_notes = models.TextField(blank=True, null=True)
+    
+    # Remediation
+    remediation_required = models.BooleanField(default=False)
+    remediation_plan = models.TextField(blank=True, null=True)
+    remediation_due_date = models.DateField(null=True, blank=True)
+    remediation_completed_at = models.DateTimeField(null=True, blank=True)
+    
+    # Related entities
+    related_accounts = models.ManyToManyField(Account, blank=True, related_name='compliance_checks')
+    related_documents = models.ManyToManyField(Document, blank=True, related_name='compliance_checks')
+    
+    # Metadata
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    
+    class Meta:
+        ordering = ['-due_date', '-created_at']
+        indexes = [
+            models.Index(fields=['compliance_type', 'status']),
+            models.Index(fields=['due_date', 'status']),
+        ]
+    
+    def __str__(self):
+        return f"{self.check_id} - {self.title}"
+    
+    def is_overdue(self):
+        """Check if compliance check is overdue"""
+        if not self.due_date:
+            return False
+        from django.utils import timezone
+        return timezone.now().date() > self.due_date and self.status not in [self.Status.COMPLIANT, self.Status.EXEMPT]
+
+
+class ComplianceViolation(models.Model):
+    """Compliance violations and issues"""
+    class Severity(models.TextChoices):
+        MINOR = 'MINOR', 'Minor'
+        MODERATE = 'MODERATE', 'Moderate'
+        MAJOR = 'MAJOR', 'Major'
+        CRITICAL = 'CRITICAL', 'Critical'
+    
+    class Status(models.TextChoices):
+        OPEN = 'OPEN', 'Open'
+        INVESTIGATING = 'INVESTIGATING', 'Investigating'
+        REMEDIATED = 'REMEDIATED', 'Remediated'
+        CLOSED = 'CLOSED', 'Closed'
+        DISMISSED = 'DISMISSED', 'Dismissed'
+    
+    violation_id = models.CharField(max_length=50, unique=True, db_index=True)
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+    severity = models.CharField(max_length=20, choices=Severity.choices, default=Severity.MODERATE)
+    status = models.CharField(max_length=20, choices=Status.choices, default=Status.OPEN)
+    
+    # Related compliance check
+    compliance_check = models.ForeignKey(ComplianceCheck, on_delete=models.SET_NULL, null=True, blank=True, related_name='violations')
+    
+    # Violation details
+    detected_at = models.DateTimeField(auto_now_add=True)
+    reported_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='reported_violations')
+    
+    # Investigation and resolution
+    investigation_notes = models.TextField(blank=True, null=True)
+    root_cause = models.TextField(blank=True, null=True)
+    remediation_actions = models.TextField(blank=True, null=True)
+    preventive_measures = models.TextField(blank=True, null=True)
+    
+    # Resolution tracking
+    assigned_to = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='assigned_violations')
+    resolved_at = models.DateTimeField(null=True, blank=True)
+    resolved_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='resolved_violations')
+    
+    # Financial impact
+    financial_impact = models.DecimalField(max_digits=15, decimal_places=2, null=True, blank=True)
+    regulatory_fine = models.DecimalField(max_digits=15, decimal_places=2, null=True, blank=True)
+    
+    # Related entities
+    related_accounts = models.ManyToManyField(Account, blank=True, related_name='compliance_violations')
+    related_documents = models.ManyToManyField(Document, blank=True, related_name='compliance_violations')
+    
+    class Meta:
+        ordering = ['-detected_at', '-severity']
+        indexes = [
+            models.Index(fields=['status', 'severity']),
+            models.Index(fields=['compliance_check', 'status']),
+        ]
+    
+    def __str__(self):
+        return f"{self.violation_id} - {self.title}"

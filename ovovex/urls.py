@@ -109,4 +109,30 @@ urlpatterns = [
     
     # Settings
     path('settings/', views.settings_view, name='settings'),
+    
+    # Settings API endpoints
+    path('api/settings/export-users/', views.export_users_api, name='export_users_api'),
+    path('api/settings/add-user/', views.add_user_api, name='add_user_api'),
+    path('api/settings/edit-user/', views.edit_user_api, name='edit_user_api'),
+    path('api/settings/disable-user/', views.disable_user_api, name='disable_user_api'),
+    path('api/settings/save/', views.save_settings_api, name='save_settings_api'),
+    path('api/settings/security-audit/', views.security_audit_api, name='security_audit_api'),
+    path('api/settings/add-integration/', views.add_integration_api, name='add_integration_api'),
+    path('api/settings/connect-integration/', views.connect_integration_api, name='connect_integration_api'),
+    path('api/settings/regenerate-key/', views.regenerate_key_api, name='regenerate_key_api'),
+    path('api/settings/delete-all-data/', views.delete_all_data_api, name='delete_all_data_api'),
+    path('api/settings/delete-account/', views.delete_account_api, name='delete_account_api'),
+    
+    # Public Pages
+    path('small-business/', views.small_business_view, name='small_business'),
+    path('enterprise/', views.enterprise_view, name='enterprise'),
+    path('accounting-firms/', views.accounting_firms_view, name='accounting_firms'),
+    path('retail-ecommerce/', views.retail_ecommerce_view, name='retail_ecommerce'),
+    path('manufacturing/', views.manufacturing_view, name='manufacturing'),
+    path('smart-invoicing/', views.smart_invoicing_view, name='smart_invoicing'),
+    path('ai-bookkeeping/', views.ai_bookkeeping_view, name='ai_bookkeeping'),
+    path('real-time-analytics/', views.real_time_analytics_view, name='real_time_analytics'),
+    path('ifrs-compliance/', views.ifrs_compliance_view, name='ifrs_compliance'),
+    path('bank-grade-security/', views.bank_grade_security_view, name='bank_grade_security'),
+    path('pricing/', views.pricing_view, name='pricing'),
 ]

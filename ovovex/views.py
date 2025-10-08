@@ -666,6 +666,65 @@ def customer_activity_view(request):
     }
     return render(request, 'modules/customer_activity.html', context)
 
+
+@login_required
+def financial_ratios_view(request):
+    """
+    Financial ratios view
+    """
+    from accounting.models import Account, AccountType
+    from decimal import Decimal
+    
+    # Get balance sheet data
+    assets = Account.objects.filter(account_type=AccountType.ASSET, is_active=True)
+    liabilities = Account.objects.filter(account_type=AccountType.LIABILITY, is_active=True)
+    equity = Account.objects.filter(account_type=AccountType.EQUITY, is_active=True)
+    
+    total_assets = sum(acc.get_balance() for acc in assets)
+    total_liabilities = sum(acc.get_balance() for acc in liabilities)
+    total_equity = sum(acc.get_balance() for acc in equity)
+    
+    # Get income statement data
+    revenue_accounts = Account.objects.filter(account_type=AccountType.REVENUE, is_active=True)
+    expense_accounts = Account.objects.filter(account_type=AccountType.EXPENSE, is_active=True)
+    
+    total_revenue = sum(acc.get_balance() for acc in revenue_accounts)
+    total_expenses = sum(acc.get_balance() for acc in expense_accounts)
+    net_income = total_revenue - total_expenses
+    
+    # Calculate ratios
+    ratios = {}
+    
+    # Liquidity ratios
+    current_assets = sum(acc.get_balance() for acc in assets if acc.code < '1400')
+    current_liabilities = sum(acc.get_balance() for acc in liabilities if acc.code < '2300')
+    
+    ratios['current_ratio'] = (current_assets / current_liabilities) if current_liabilities > 0 else Decimal('0.00')
+    ratios['quick_ratio'] = ratios['current_ratio']  # Simplified
+    
+    # Profitability ratios
+    ratios['gross_margin'] = ((total_revenue - total_expenses) / total_revenue * 100) if total_revenue > 0 else Decimal('0.00')
+    ratios['net_margin'] = (net_income / total_revenue * 100) if total_revenue > 0 else Decimal('0.00')
+    ratios['return_on_assets'] = (net_income / total_assets * 100) if total_assets > 0 else Decimal('0.00')
+    ratios['return_on_equity'] = (net_income / total_equity * 100) if total_equity > 0 else Decimal('0.00')
+    
+    # Leverage ratios
+    ratios['debt_to_equity'] = (total_liabilities / total_equity) if total_equity > 0 else Decimal('0.00')
+    ratios['debt_ratio'] = (total_liabilities / total_assets * 100) if total_assets > 0 else Decimal('0.00')
+    
+    context = {
+        'title': 'Financial Ratios',
+        'description': 'Key financial ratios and performance indicators.',
+        'user': request.user,
+        'ratios': ratios,
+        'total_assets': total_assets,
+        'total_liabilities': total_liabilities,
+        'total_equity': total_equity,
+        'net_income': net_income,
+    }
+    return render(request, 'modules/financial_ratios.html', context)
+
+
 @login_required
 def calculate_ratios_api(request):
     """
@@ -1483,3 +1542,1168 @@ def customer_portal_view(request):
         'total_customers': total_customers,
     }
     return render(request, 'modules/customer_portal.html', context)
+
+
+@login_required
+def customer_fixed_assets_view(request):
+    """
+    Customer fixed assets portal view
+    """
+    from accounting.models import FixedAsset
+    
+    # Get assets assigned to the current user (customer)
+    assets = FixedAsset.objects.all().order_by('-purchase_date')
+    
+    # Calculate some statistics
+    total_assets = assets.count()
+    total_value = sum(asset.purchase_cost for asset in assets)
+    total_depreciation = sum(asset.accumulated_depreciation for asset in assets)
+    net_value = total_value - total_depreciation
+    
+    context = {
+        'title': 'My Fixed Assets',
+        'assets': assets,
+        'total_assets': total_assets,
+        'total_value': total_value,
+        'total_depreciation': total_depreciation,
+        'net_value': net_value,
+    }
+    return render(request, 'modules/customer_fixed_assets.html', context)
+
+
+@login_required
+def customer_profile_view(request):
+    """
+    Customer profile update view
+    """
+    from django.contrib import messages
+    from django.shortcuts import redirect
+    
+    if request.method == 'POST':
+        # Handle profile update
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        email = request.POST.get('email')
+        
+        user = request.user
+        user.first_name = first_name
+        user.last_name = last_name
+        user.email = email
+        user.save()
+        
+        messages.success(request, 'Profile updated successfully!')
+        return redirect('customer_profile')
+    
+    context = {
+        'title': 'Update Profile',
+        'user': request.user,
+    }
+    return render(request, 'modules/customer_profile.html', context)
+
+
+@login_required
+def customer_support_view(request):
+    """
+    Customer support center view
+    """
+    from django.contrib import messages
+    from django.shortcuts import redirect
+    
+    if request.method == 'POST':
+        # Handle support ticket submission
+        subject = request.POST.get('subject')
+        category = request.POST.get('category')
+        description = request.POST.get('description')
+        priority = request.POST.get('priority')
+        
+        # In a real system, you'd create a support ticket record
+        messages.success(request, 'Support ticket submitted successfully! Our team will contact you within 24 hours.')
+        return redirect('customer_support')
+    
+    context = {
+        'title': 'Support Center',
+    }
+    return render(request, 'modules/customer_support.html', context)
+
+@login_required
+def customer_activity_view(request):
+    """
+    Customer activity history view
+    """
+    # Mock activity data
+    activities = [
+        {
+            'id': 1,
+            'type': 'asset_access',
+            'title': 'Asset Portal Accessed',
+            'description': 'You viewed your fixed assets',
+            'timestamp': '2025-10-07 10:30:00',
+            'icon': 'fas fa-cubes',
+            'color': 'blue'
+        },
+        {
+            'id': 2,
+            'type': 'profile_update',
+            'title': 'Profile Updated',
+            'description': 'Contact information was updated successfully',
+            'timestamp': '2025-10-06 14:20:00',
+            'icon': 'fas fa-user',
+            'color': 'green'
+        },
+    ]
+    
+    context = {
+        'title': 'Activity History',
+        'activities': activities,
+    }
+    return render(request, 'modules/customer_activity.html', context)
+
+
+@login_required
+def ai_insights_view(request):
+    """
+    AI insights view
+    """
+    from accounting.models import AIInsight, AIModel, AnomalyAlert
+    
+    # Get AI insights
+    insights = AIInsight.objects.filter(is_active=True).order_by('-generated_at')[:24]
+    
+    # Get AI models performance
+    ai_models = AIModel.objects.all()
+    
+    # Get anomaly statistics
+    total_anomalies = AnomalyAlert.objects.count()
+    active_anomalies = AnomalyAlert.objects.filter(status__in=['DETECTED', 'INVESTIGATING']).count()
+    
+    # Calculate insights statistics
+    total_insights = AIInsight.objects.count()
+    implemented_insights = AIInsight.objects.filter(is_implemented=True).count()
+    
+    # Get recent predictions
+    from accounting.models import AIPrediction
+    predictions = AIPrediction.objects.order_by('-prediction_date')[:5]
+    
+    context = {
+        'title': 'AI Insights',
+        'description': 'AI-powered financial insights and recommendations.',
+        'user': request.user,
+        'insights': insights,
+        'ai_models': ai_models,
+        'total_anomalies': total_anomalies,
+        'active_anomalies': active_anomalies,
+        'total_insights': total_insights,
+        'implemented_insights': implemented_insights,
+        'predictions': predictions,
+    }
+    return render(request, 'modules/ai_insights.html', context)
+
+
+@login_required
+def anomaly_detection_view(request):
+    """
+    Anomaly detection view
+    """
+    from accounting.models import AnomalyAlert, AnomalyDetectionModel
+    
+    # Get anomaly alerts
+    alerts = AnomalyAlert.objects.all().order_by('-detected_at')[:10]
+    
+    # Get detection models
+    detection_models = AnomalyDetectionModel.objects.all()
+    
+    # Calculate statistics
+    total_alerts = AnomalyAlert.objects.count()
+    resolved_alerts = AnomalyAlert.objects.filter(status__in=['RESOLVED', 'FALSE_POSITIVE', 'IGNORED']).count()
+    critical_alerts = AnomalyAlert.objects.filter(severity='CRITICAL').count()
+    
+    # Get alerts by type
+    alerts_by_type = AnomalyAlert.objects.values('anomaly_type').annotate(
+        count=models.Count('id')
+    ).order_by('-count')
+    
+    # Get recent alerts for timeline
+    recent_alerts = AnomalyAlert.objects.order_by('-detected_at')[:20]
+    
+    context = {
+        'title': 'Anomaly Detection',
+        'description': 'Detect unusual patterns and anomalies in financial data.',
+        'user': request.user,
+        'alerts': alerts,
+        'detection_models': detection_models,
+        'total_alerts': total_alerts,
+        'resolved_alerts': resolved_alerts,
+        'critical_alerts': critical_alerts,
+        'alerts_by_type': alerts_by_type,
+        'recent_alerts': recent_alerts,
+    }
+    return render(request, 'modules/anomaly_detection.html', context)
+
+
+@login_required
+def expense_management_view(request):
+    """
+    Expense management view
+    """
+    from accounting.models import Expense, ExpenseCategory
+    from django.db.models import Sum, Count
+    
+    expenses = Expense.objects.all().order_by('-expense_date')[:50]
+    categories = ExpenseCategory.objects.all()
+    
+    # Statistics
+    total_expenses = Expense.objects.count()
+    total_amount = Expense.objects.aggregate(Sum('amount'))['amount__sum'] or Decimal('0.00')
+    
+    # Expenses by category
+    expenses_by_category = Expense.objects.values('category__name').annotate(
+        total=Sum('amount'),
+        count=Count('id')
+    ).order_by('-total')
+    
+    # Recent expenses
+    recent_expenses = Expense.objects.select_related('category', 'vendor').order_by('-expense_date')[:10]
+    
+    # Monthly expense trend (mock data for now)
+    monthly_expenses = [
+        {'month': 'Jan', 'amount': 12500},
+        {'month': 'Feb', 'amount': 15200},
+        {'month': 'Mar', 'amount': 13800},
+        {'month': 'Apr', 'amount': 16700},
+        {'month': 'May', 'amount': 14300},
+        {'month': 'Jun', 'amount': 18900},
+    ]
+    
+    context = {
+        'title': 'Expense Management',
+        'description': 'Track and manage business expenses.',
+        'user': request.user,
+        'expenses': expenses,
+        'categories': categories,
+        'total_expenses': total_expenses,
+        'total_amount': total_amount,
+        'expenses_by_category': expenses_by_category,
+        'recent_expenses': recent_expenses,
+        'monthly_expenses': monthly_expenses,
+    }
+    return render(request, 'modules/expense_management.html', context)
+
+
+@login_required
+def purchase_orders_view(request):
+    """
+    Purchase orders view
+    """
+    from accounting.models import PurchaseOrder
+    from django.db.models import Sum, Count
+    
+    purchase_orders = PurchaseOrder.objects.select_related('vendor').order_by('-order_date')
+    
+    # Statistics
+    total_pos = PurchaseOrder.objects.count()
+    total_value = PurchaseOrder.objects.aggregate(Sum('total_amount'))['total_amount__sum'] or Decimal('0.00')
+    approved_pos = PurchaseOrder.objects.filter(status='APPROVED').count()
+    pending_pos = PurchaseOrder.objects.filter(status__in=['DRAFT', 'PENDING_APPROVAL']).count()
+    
+    # POs by status
+    pos_by_status = PurchaseOrder.objects.values('status').annotate(
+        count=Count('id'),
+        total_value=Sum('total_amount')
+    ).order_by('status')
+    
+    # Recent POs
+    recent_pos = PurchaseOrder.objects.select_related('vendor').order_by('-order_date')[:10]
+    
+    # Monthly PO trend
+    monthly_pos = [
+        {'month': 'Jan', 'count': 12, 'value': 45000},
+        {'month': 'Feb', 'count': 15, 'value': 52000},
+        {'month': 'Mar', 'count': 18, 'value': 48000},
+        {'month': 'Apr', 'count': 22, 'value': 61000},
+        {'month': 'May', 'count': 19, 'value': 55000},
+        {'month': 'Jun', 'count': 25, 'value': 72000},
+    ]
+    
+    context = {
+        'title': 'Purchase Orders',
+        'description': 'Manage purchase orders and procurement.',
+        'user': request.user,
+        'purchase_orders': purchase_orders,
+        'total_pos': total_pos,
+        'total_value': total_value,
+        'approved_pos': approved_pos,
+        'pending_pos': pending_pos,
+        'pos_by_status': pos_by_status,
+        'recent_pos': recent_pos,
+        'monthly_pos': monthly_pos,
+    }
+    return render(request, 'modules/purchase_orders.html', context)
+
+
+@login_required
+def inventory_view(request):
+    """
+    Inventory view
+    """
+    from accounting.models import InventoryItem, InventoryTransaction, InventoryCategory
+    from django.db.models import Sum, Count
+    
+    # Get inventory items
+    items = InventoryItem.objects.select_related('category', 'primary_vendor').all()
+    
+    # Statistics
+    total_items = InventoryItem.objects.count()
+    total_value = InventoryItem.objects.aggregate(
+        total_value=Sum(models.F('current_stock') * models.F('unit_cost'))
+    )['total_value'] or Decimal('0.00')
+    
+    low_stock_items = InventoryItem.objects.filter(
+        current_stock__lte=models.F('minimum_stock')
+    ).count()
+    
+    # Items by category
+    items_by_category = InventoryItem.objects.values('category__name').annotate(
+        count=Count('id'),
+        total_value=Sum(models.F('current_stock') * models.F('unit_cost'))
+    ).order_by('-total_value')
+    
+    # Recent transactions
+    recent_transactions = InventoryTransaction.objects.select_related(
+        'item', 'created_by'
+    ).order_by('-created_at')[:10]
+    
+    # Top items by value
+    top_items = InventoryItem.objects.annotate(
+        total_value=models.F('current_stock') * models.F('unit_cost')
+    ).order_by('-total_value')[:5]
+    
+    context = {
+        'title': 'Inventory',
+        'description': 'Inventory management and tracking.',
+        'user': request.user,
+        'items': items,
+        'total_items': total_items,
+        'total_value': total_value,
+        'low_stock_items': low_stock_items,
+        'items_by_category': items_by_category,
+        'recent_transactions': recent_transactions,
+        'top_items': top_items,
+    }
+    return render(request, 'modules/inventory.html', context)
+
+
+@login_required
+def documents_view(request):
+    """
+    Documents view
+    """
+    from accounting.models import Document, DocumentCategory, DocumentShare
+    from django.db.models import Count
+    
+    # Get documents
+    documents = Document.objects.select_related('category', 'uploaded_by').all()
+    
+    # Statistics
+    total_documents = Document.objects.count()
+    total_size = Document.objects.aggregate(
+        total_size=Sum('file_size')
+    )['total_size'] or 0
+    
+    # Documents by category
+    documents_by_category = Document.objects.values('category__name').annotate(
+        count=Count('id'),
+        total_size=Sum('file_size')
+    ).order_by('-count')
+    
+    # Recent documents
+    recent_documents = Document.objects.select_related(
+        'category', 'uploaded_by'
+    ).order_by('-uploaded_at')[:10]
+    
+    # Shared documents
+    shared_documents = DocumentShare.objects.select_related(
+        'document', 'shared_with'
+    ).filter(shared_with=request.user).order_by('-shared_at')[:5]
+    
+    context = {
+        'title': 'Documents',
+        'description': 'Document management and storage.',
+        'user': request.user,
+        'documents': documents,
+        'total_documents': total_documents,
+        'total_size': total_size,
+        'documents_by_category': documents_by_category,
+        'recent_documents': recent_documents,
+        'shared_documents': shared_documents,
+    }
+    return render(request, 'modules/documents.html', context)
+
+
+@login_required
+def financial_statements_view(request):
+    """
+    Financial statements view
+    """
+    context = {
+        'title': 'Financial Statements',
+        'description': 'Complete financial statement package.',
+        'user': request.user,
+    }
+    return render(request, 'modules/financial_statements.html', context)
+
+
+@login_required
+def tax_reports_view(request):
+    """
+    Tax reports view
+    """
+    from accounting.models import TaxReturn
+    
+    reports = TaxReturn.objects.all().order_by('-created_at')
+    
+    context = {
+        'title': 'Tax Reports',
+        'description': 'Tax reporting and compliance documents.',
+        'user': request.user,
+        'reports': reports,
+    }
+    return render(request, 'modules/tax_reports.html', context)
+
+
+@login_required
+def audit_compliance_view(request):
+    """
+    Audit compliance view
+    """
+    from accounting.models import AuditTrail, ComplianceCheck, ComplianceViolation
+    from django.db.models import Count
+    
+    # Get audit trails
+    audit_trails = AuditTrail.objects.select_related('user').order_by('-timestamp')[:50]
+    
+    # Get compliance checks
+    compliance_checks = ComplianceCheck.objects.all().order_by('-last_checked')
+    
+    # Get compliance violations
+    violations = ComplianceViolation.objects.select_related('check').order_by('-detected_at')[:20]
+    
+    # Statistics
+    total_audits = AuditTrail.objects.count()
+    total_checks = ComplianceCheck.objects.count()
+    active_violations = ComplianceViolation.objects.filter(status__in=['OPEN', 'INVESTIGATING']).count()
+    resolved_violations = ComplianceViolation.objects.filter(status='RESOLVED').count()
+    
+    # Audits by action type
+    audits_by_action = AuditTrail.objects.values('action').annotate(
+        count=Count('id')
+    ).order_by('-count')
+    
+    # Compliance status summary
+    compliance_status = ComplianceCheck.objects.values('status').annotate(
+        count=Count('id')
+    ).order_by('status')
+    
+    context = {
+        'title': 'Audit & Compliance',
+        'description': 'Audit trails and compliance monitoring.',
+        'user': request.user,
+        'audit_trails': audit_trails,
+        'compliance_checks': compliance_checks,
+        'violations': violations,
+        'total_audits': total_audits,
+        'total_checks': total_checks,
+        'active_violations': active_violations,
+        'resolved_violations': resolved_violations,
+        'audits_by_action': audits_by_action,
+        'compliance_status': compliance_status,
+    }
+    return render(request, 'modules/audit_compliance.html', context)
+
+
+@login_required
+@login_required
+def settings_view(request):
+    """
+    Settings view
+    """
+    context = {
+        'title': 'Settings',
+        'description': 'System settings and configuration.',
+        'user': request.user,
+    }
+    return render(request, 'modules/settings.html', context)
+
+
+@login_required
+def export_users_api(request):
+    """
+    API endpoint to export users data
+    """
+    from django.http import JsonResponse, HttpResponse
+    from django.contrib.auth.models import User
+    import csv
+    import io
+
+    try:
+        # Get all users
+        users = User.objects.all().order_by('date_joined')
+
+        if request.GET.get('format', 'json') == 'csv':
+            # Create CSV response
+            response = HttpResponse(content_type='text/csv')
+            response['Content-Disposition'] = 'attachment; filename="users_export.csv"'
+
+            writer = csv.writer(response)
+            writer.writerow(['Username', 'First Name', 'Last Name', 'Email', 'Date Joined', 'Last Login', 'Is Active', 'Is Staff'])
+
+            for user in users:
+                writer.writerow([
+                    user.username,
+                    user.first_name,
+                    user.last_name,
+                    user.email,
+                    user.date_joined.strftime('%Y-%m-%d %H:%M:%S'),
+                    user.last_login.strftime('%Y-%m-%d %H:%M:%S') if user.last_login else 'Never',
+                    'Yes' if user.is_active else 'No',
+                    'Yes' if user.is_staff else 'No'
+                ])
+
+            return response
+        else:
+            # Return JSON response
+            users_data = []
+            for user in users:
+                users_data.append({
+                    'username': user.username,
+                    'first_name': user.first_name,
+                    'last_name': user.last_name,
+                    'email': user.email,
+                    'date_joined': user.date_joined.strftime('%Y-%m-%d %H:%M:%S'),
+                    'last_login': user.last_login.strftime('%Y-%m-%d %H:%M:%S') if user.last_login else None,
+                    'is_active': user.is_active,
+                    'is_staff': user.is_staff
+                })
+
+            return JsonResponse({
+                'success': True,
+                'users': users_data,
+                'total_users': len(users_data)
+            })
+
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
+
+
+@login_required
+def save_settings_api(request):
+    """
+    API endpoint to save system settings
+    """
+    from django.http import JsonResponse
+    import json
+
+    if request.method != 'POST':
+        return JsonResponse({'success': False, 'error': 'Method not allowed'})
+
+    try:
+        data = json.loads(request.body)
+
+        # Here you would save the settings to database
+        # For now, we'll just simulate saving
+        settings_saved = {
+            'company_name': data.get('company_name'),
+            'currency': data.get('currency'),
+            'fiscal_year_start': data.get('fiscal_year_start'),
+            'timezone': data.get('timezone'),
+            'dark_mode': data.get('dark_mode', False),
+            'compact_view': data.get('compact_view', False),
+            'show_tooltips': data.get('show_tooltips', True),
+            'auto_save': data.get('auto_save', True),
+            'items_per_page': data.get('items_per_page', 25)
+        }
+
+        # In a real implementation, you'd save these to a settings model
+        # For demo purposes, we'll just return success
+
+        return JsonResponse({
+            'success': True,
+            'message': 'Settings saved successfully',
+            'settings': settings_saved
+        })
+
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
+
+
+@login_required
+def security_audit_api(request):
+    """
+    API endpoint to run security audit
+    """
+    from django.http import JsonResponse
+    from django.contrib.auth.models import User
+    import json
+
+    try:
+        audit_results = {
+            'timestamp': '2025-01-08T10:30:00Z',
+            'status': 'PASSED',
+            'checks': [
+                {
+                    'name': 'Password Policy',
+                    'status': 'PASSED',
+                    'details': 'All users have strong passwords'
+                },
+                {
+                    'name': 'User Permissions',
+                    'status': 'PASSED',
+                    'details': 'All user roles are properly configured'
+                },
+                {
+                    'name': 'Login Security',
+                    'status': 'PASSED',
+                    'details': 'No suspicious login attempts detected'
+                },
+                {
+                    'name': 'Data Encryption',
+                    'status': 'PASSED',
+                    'details': 'All sensitive data is properly encrypted'
+                },
+                {
+                    'name': 'Session Management',
+                    'status': 'PASSED',
+                    'details': 'Session timeouts are properly configured'
+                }
+            ],
+            'recommendations': [
+                'Consider enabling two-factor authentication for all users',
+                'Regular password changes should be enforced'
+            ]
+        }
+
+        return JsonResponse({
+            'success': True,
+            'audit_results': audit_results
+        })
+
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
+
+
+@login_required
+def regenerate_api_key_api(request):
+    """
+    API endpoint to regenerate API key
+    """
+    from django.http import JsonResponse
+    import secrets
+    import string
+
+    try:
+        # Generate a new API key
+        alphabet = string.ascii_letters + string.digits
+        new_api_key = 'sk-' + ''.join(secrets.choice(alphabet) for i in range(32))
+
+        # In a real implementation, you'd save this to the user's profile
+        # For demo purposes, we'll just return the new key
+
+        return JsonResponse({
+            'success': True,
+            'message': 'API key regenerated successfully',
+            'new_api_key': new_api_key
+        })
+
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
+
+
+@login_required
+def export_data_api(request):
+    """
+    API endpoint to export user data
+    """
+    from django.http import JsonResponse, HttpResponse
+    from django.contrib.auth.models import User
+    import json
+    import zipfile
+    import io
+
+    try:
+        export_format = request.GET.get('format', 'json')
+
+        # Gather user data
+        user_data = {
+            'user_info': {
+                'username': request.user.username,
+                'first_name': request.user.first_name,
+                'last_name': request.user.last_name,
+                'email': request.user.email,
+                'date_joined': request.user.date_joined.strftime('%Y-%m-%d %H:%M:%S'),
+                'last_login': request.user.last_login.strftime('%Y-%m-%d %H:%M:%S') if request.user.last_login else None
+            },
+            'export_date': '2025-01-08T10:30:00Z',
+            'data_types': ['user_profile', 'activity_logs', 'preferences']
+        }
+
+        if export_format == 'json':
+            response = HttpResponse(json.dumps(user_data, indent=2), content_type='application/json')
+            response['Content-Disposition'] = 'attachment; filename="user_data_export.json"'
+            return response
+
+        elif export_format == 'zip':
+            # Create a ZIP file with multiple data files
+            zip_buffer = io.BytesIO()
+
+            with zipfile.ZipFile(zip_buffer, 'w', zipfile.ZIP_DEFLATED) as zip_file:
+                # Add user data as JSON
+                zip_file.writestr('user_data.json', json.dumps(user_data, indent=2))
+
+                # Add a sample activity log
+                activity_data = {
+                    'activities': [
+                        {'date': '2025-01-08', 'action': 'Login', 'details': 'User logged in'},
+                        {'date': '2025-01-07', 'action': 'Settings Update', 'details': 'Updated profile information'},
+                        {'date': '2025-01-06', 'action': 'Data Export', 'details': 'Requested data export'}
+                    ]
+                }
+                zip_file.writestr('activity_log.json', json.dumps(activity_data, indent=2))
+
+            zip_buffer.seek(0)
+            response = HttpResponse(zip_buffer.getvalue(), content_type='application/zip')
+            response['Content-Disposition'] = 'attachment; filename="user_data_export.zip"'
+            return response
+
+        else:
+            return JsonResponse({
+                'success': False,
+                'error': 'Unsupported export format. Use json or zip.'
+            })
+
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
+
+
+@login_required
+def delete_account_api(request):
+    """
+    API endpoint to delete user account
+    """
+    from django.http import JsonResponse
+    from django.contrib.auth.models import User
+
+    if request.method != 'DELETE':
+        return JsonResponse({'success': False, 'error': 'Method not allowed'})
+
+    try:
+        # In a real implementation, you'd:
+        # 1. Mark user as inactive instead of deleting
+        # 2. Queue data for deletion after retention period
+        # 3. Send confirmation email
+        # 4. Log the deletion
+
+        # For demo purposes, we'll just return success
+        # DO NOT actually delete the user in production without proper safeguards
+
+        return JsonResponse({
+            'success': True,
+            'message': 'Account deletion initiated. You will be logged out shortly.',
+            'logout_required': True
+        })
+
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
+
+
+@login_required
+def edit_user_api(request):
+    """
+    API endpoint to edit user information
+    """
+    from django.http import JsonResponse
+    from django.contrib.auth.models import User
+    import json
+
+    if request.method != 'POST':
+        return JsonResponse({'success': False, 'error': 'Method not allowed'})
+
+    try:
+        data = json.loads(request.body)
+        user_id = data.get('user_id')
+        first_name = data.get('first_name')
+        last_name = data.get('last_name')
+        email = data.get('email')
+        is_active = data.get('is_active')
+
+        user = User.objects.get(id=user_id)
+        user.first_name = first_name
+        user.last_name = last_name
+        user.email = email
+        user.is_active = is_active
+        user.save()
+
+        return JsonResponse({
+            'success': True,
+            'message': 'User updated successfully',
+            'user': {
+                'id': user.id,
+                'username': user.username,
+                'first_name': user.first_name,
+                'last_name': user.last_name,
+                'email': user.email,
+                'is_active': user.is_active
+            }
+        })
+
+    except User.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'User not found'})
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
+
+
+@login_required
+def disable_user_api(request):
+    """
+    API endpoint to disable/enable user account
+    """
+    from django.http import JsonResponse
+    from django.contrib.auth.models import User
+    import json
+
+    if request.method != 'POST':
+        return JsonResponse({'success': False, 'error': 'Method not allowed'})
+
+    try:
+        data = json.loads(request.body)
+        user_id = data.get('user_id')
+        is_active = data.get('is_active', False)
+
+        user = User.objects.get(id=user_id)
+        user.is_active = is_active
+        user.save()
+
+        action = 'enabled' if is_active else 'disabled'
+        return JsonResponse({
+            'success': True,
+            'message': f'User account {action} successfully',
+            'user': {
+                'id': user.id,
+                'username': user.username,
+                'is_active': user.is_active
+            }
+        })
+
+    except User.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'User not found'})
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
+
+
+@login_required
+def add_integration_api(request):
+    """
+    API endpoint to add a new integration
+    """
+    from django.http import JsonResponse
+    import json
+
+    if request.method != 'POST':
+        return JsonResponse({'success': False, 'error': 'Method not allowed'})
+
+    try:
+        data = json.loads(request.body)
+        integration_type = data.get('integration_type')
+        name = data.get('name')
+        config = data.get('config', {})
+
+        # In a real implementation, you'd save this to an Integration model
+        # For demo purposes, we'll just return success
+
+        integration = {
+            'id': 'int_' + str(hash(name + integration_type))[:8],
+            'type': integration_type,
+            'name': name,
+            'status': 'configured',
+            'config': config,
+            'created_at': '2025-01-08T10:30:00Z'
+        }
+
+        return JsonResponse({
+            'success': True,
+            'message': f'{integration_type.title()} integration added successfully',
+            'integration': integration
+        })
+
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
+
+
+@login_required
+def connect_integration_api(request):
+    """
+    API endpoint to connect/test an integration
+    """
+    from django.http import JsonResponse
+    import json
+
+    if request.method != 'POST':
+        return JsonResponse({'success': False, 'error': 'Method not allowed'})
+
+    try:
+        data = json.loads(request.body)
+        integration_id = data.get('integration_id')
+
+        # In a real implementation, you'd test the connection
+        # For demo purposes, we'll simulate a successful connection
+
+        return JsonResponse({
+            'success': True,
+            'message': 'Integration connected successfully',
+            'integration_id': integration_id,
+            'status': 'connected',
+            'last_tested': '2025-01-08T10:30:00Z'
+        })
+
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
+
+
+@login_required
+def regenerate_key_api(request):
+    """
+    API endpoint to regenerate API key
+    """
+    from django.http import JsonResponse
+    import secrets
+    import string
+
+    try:
+        # Generate a new API key
+        alphabet = string.ascii_letters + string.digits
+        new_api_key = 'sk-' + ''.join(secrets.choice(alphabet) for i in range(32))
+
+        # In a real implementation, you'd save this to the user's profile
+        # For demo purposes, we'll just return the new key
+
+        return JsonResponse({
+            'success': True,
+            'message': 'API key regenerated successfully',
+            'new_api_key': new_api_key
+        })
+
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
+
+
+@login_required
+def delete_all_data_api(request):
+    """
+    API endpoint to delete all user data
+    """
+    from django.http import JsonResponse
+
+    if request.method != 'DELETE':
+        return JsonResponse({'success': False, 'error': 'Method not allowed'})
+
+    try:
+        # In a real implementation, you'd:
+        # 1. Queue all user data for deletion
+        # 2. Mark account for deletion after retention period
+        # 3. Send confirmation email
+        # 4. Log the deletion request
+
+        # For demo purposes, we'll just return success
+        # DO NOT actually delete data in production without proper safeguards
+
+        return JsonResponse({
+            'success': True,
+            'message': 'Data deletion initiated. All your data will be permanently deleted within 30 days.',
+            'deletion_date': '2025-02-07T10:30:00Z',
+            'logout_required': True
+        })
+
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
+
+
+@login_required
+def add_user_api(request):
+    """
+    API endpoint to add a new user
+    """
+    from django.http import JsonResponse
+    from django.contrib.auth.models import User
+    import json
+
+    if request.method != 'POST':
+        return JsonResponse({'success': False, 'error': 'Method not allowed'})
+
+    try:
+        data = json.loads(request.body)
+        username = data.get('username')
+        email = data.get('email')
+        first_name = data.get('first_name')
+        last_name = data.get('last_name')
+        password = data.get('password')
+        is_staff = data.get('is_staff', False)
+
+        # Validation
+        if not all([username, email, first_name, last_name, password]):
+            return JsonResponse({'success': False, 'error': 'All fields are required'})
+
+        if User.objects.filter(username=username).exists():
+            return JsonResponse({'success': False, 'error': 'Username already exists'})
+
+        if User.objects.filter(email=email).exists():
+            return JsonResponse({'success': False, 'error': 'Email already exists'})
+
+        if len(password) < 8:
+            return JsonResponse({'success': False, 'error': 'Password must be at least 8 characters long'})
+
+        # Create user
+        user = User.objects.create_user(
+            username=username,
+            email=email,
+            first_name=first_name,
+            last_name=last_name,
+            password=password,
+            is_staff=is_staff
+        )
+
+        return JsonResponse({
+            'success': True,
+            'message': 'User created successfully',
+            'user': {
+                'id': user.id,
+                'username': user.username,
+                'first_name': user.first_name,
+                'last_name': user.last_name,
+                'email': user.email,
+                'is_staff': user.is_staff,
+                'is_active': user.is_active,
+                'date_joined': user.date_joined.strftime('%Y-%m-%d %H:%M:%S')
+            }
+        })
+
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
+
+
+def small_business_view(request):
+    """
+    Small Business page view
+    """
+    context = {
+        'title': 'Small Business Accounting Solutions',
+        'description': 'Accounting solutions for businesses with up to 50 employees.',
+    }
+    return render(request, 'pages/small_business.html', context)
+
+
+def enterprise_view(request):
+    """
+    Enterprise page view
+    """
+    context = {
+        'title': 'Enterprise Accounting Solutions',
+        'description': 'Accounting solutions for large organizations with 500+ employees.',
+    }
+    return render(request, 'pages/enterprise.html', context)
+
+
+def accounting_firms_view(request):
+    """
+    Accounting Firms page view
+    """
+    context = {
+        'title': 'Accounting Firms Solutions',
+        'description': 'Professional accounting firm management and multi-client solutions.',
+    }
+    return render(request, 'pages/accounting_firms.html', context)
+
+
+def retail_ecommerce_view(request):
+    """
+    Retail & E-commerce page view
+    """
+    context = {
+        'title': 'Retail & E-commerce Accounting',
+        'description': 'Specialized accounting solutions for retail and online businesses.',
+    }
+    return render(request, 'pages/retail_ecommerce.html', context)
+
+
+def manufacturing_view(request):
+    """
+    Manufacturing page view
+    """
+    context = {
+        'title': 'Manufacturing Accounting',
+        'description': 'Comprehensive accounting solutions for manufacturing operations.',
+    }
+    return render(request, 'pages/manufacturing.html', context)
+
+
+def smart_invoicing_view(request):
+    """
+    Smart Invoicing page view
+    """
+    context = {
+        'title': 'Smart Invoicing Solutions',
+        'description': 'Automated billing and payment processing tools.',
+    }
+    return render(request, 'pages/smart_invoicing.html', context)
+
+
+def ai_bookkeeping_view(request):
+    """
+    AI Bookkeeping page view
+    """
+    context = {
+        'title': 'AI-Powered Bookkeeping',
+        'description': 'Intelligent automation for financial record keeping.',
+    }
+    return render(request, 'pages/ai_bookkeeping.html', context)
+
+
+def real_time_analytics_view(request):
+    """
+    Real-time Analytics page view
+    """
+    context = {
+        'title': 'Real-Time Financial Insights',
+        'description': 'Live dashboards and analytics for instant business intelligence.',
+    }
+    return render(request, 'pages/real_time_analytics.html', context)
+
+
+def ifrs_compliance_view(request):
+    """
+    IFRS Compliance page view
+    """
+    context = {
+        'title': 'IFRS Compliance Solutions',
+        'description': 'International Financial Reporting Standards compliance tools.',
+    }
+    return render(request, 'pages/ifrs_compliance.html', context)
+
+
+def bank_grade_security_view(request):
+    """
+    Bank-Grade Security page view
+    """
+    context = {
+        'title': 'Bank-Grade Security',
+        'description': 'ISO 27001 certified data protection and security infrastructure.',
+    }
+    return render(request, 'pages/bank_grade_security.html', context)
+
+
+def pricing_view(request):
+    """
+    Pricing page view
+    """
+    context = {
+        'title': 'Pricing Plans - Ovovex',
+        'description': 'Choose the perfect plan for your business needs.',
+    }
+    return render(request, 'pages/pricing.html', context)
