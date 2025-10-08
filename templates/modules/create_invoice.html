@@ -1,0 +1,301 @@
+{% extends 'base.html' %} {% load static %} {% block content %} {% include
+'components/sidemenu.html' %}
+
+<div
+  class="min-h-screen bg-gray-50 dark:bg-gray-900 ml-64 transition-colors duration-300"
+>
+  <!-- Header -->
+  <div
+    class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4 transition-colors duration-300"
+  >
+    <div class="flex items-center justify-between">
+      <div class="flex items-center space-x-4">
+        <button
+          onclick="window.history.back()"
+          class="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100"
+        >
+          <i class="fas fa-arrow-left"></i>
+        </button>
+        <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">
+          Create Invoice
+        </h1>
+      </div>
+      <div class="flex items-center space-x-4">
+        <button
+          id="save-draft"
+          class="px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 font-medium"
+        >
+          Save as Draft
+        </button>
+        <button
+          id="create-invoice"
+          class="px-6 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700"
+        >
+          Create Invoice
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-8">
+    <form id="invoice-form" class="space-y-6">
+      <!-- Invoice Header -->
+      <div
+        class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6"
+      >
+        <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">
+          Invoice Details
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+              >Invoice Number</label
+            >
+            <input
+              type="text"
+              id="invoice-number"
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+              placeholder="INV-2025-001"
+            />
+          </div>
+          <div>
+            <label
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+              >Customer</label
+            >
+            <select
+              id="customer-select"
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+            >
+              <option value="">Select Customer</option>
+              {% for customer in customers %}
+              <option value="{{ customer.id }}">
+                {{ customer.customer_code }} - {{ customer.company_name }}
+              </option>
+              {% endfor %}
+            </select>
+          </div>
+          <div>
+            <label
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+              >Invoice Date</label
+            >
+            <input
+              type="date"
+              id="invoice-date"
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+              value="{% now 'Y-m-d' %}"
+            />
+          </div>
+          <div>
+            <label
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+              >Due Date</label
+            >
+            <input
+              type="date"
+              id="due-date"
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+            />
+          </div>
+        </div>
+        <div class="mt-4">
+          <label
+            class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+            >Notes</label
+          >
+          <textarea
+            id="notes"
+            rows="3"
+            class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+            placeholder="Invoice notes..."
+          ></textarea>
+        </div>
+      </div>
+
+      <!-- Invoice Lines -->
+      <div
+        class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6"
+      >
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100">
+            Invoice Lines
+          </h3>
+          <button
+            type="button"
+            id="add-line"
+            class="px-4 py-2 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700"
+          >
+            <i class="fas fa-plus mr-2"></i>Add Line
+          </button>
+        </div>
+
+        <div id="invoice-lines" class="space-y-4">
+          <!-- Line items will be added here -->
+        </div>
+
+        <!-- Totals -->
+        <div class="mt-6 border-t border-gray-200 dark:border-gray-700 pt-4">
+          <div class="flex justify-end">
+            <div class="w-64 space-y-2">
+              <div class="flex justify-between text-sm">
+                <span class="text-gray-600 dark:text-gray-400">Subtotal:</span>
+                <span id="subtotal" class="font-medium">$0.00</span>
+              </div>
+              <div class="flex justify-between text-sm">
+                <span class="text-gray-600 dark:text-gray-400">Tax (10%):</span>
+                <span id="tax-amount" class="font-medium">$0.00</span>
+              </div>
+              <div class="flex justify-between text-lg font-bold">
+                <span class="text-gray-900 dark:text-gray-100">Total:</span>
+                <span id="total-amount" class="text-gray-900 dark:text-gray-100"
+                  >$0.00</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  // Invoice line management
+  let lineCounter = 0;
+
+  function addInvoiceLine(description = "", quantity = 1, unitPrice = 0) {
+    lineCounter++;
+    const lineHtml = `
+        <div class="invoice-line grid grid-cols-12 gap-4 items-end p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+            <div class="col-span-5">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Description</label>
+                <input type="text" class="line-description w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-600 text-gray-900 dark:text-gray-100" value="${description}" placeholder="Item description">
+            </div>
+            <div class="col-span-2">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Quantity</label>
+                <input type="number" class="line-quantity w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-600 text-gray-900 dark:text-gray-100" value="${quantity}" min="0" step="0.01">
+            </div>
+            <div class="col-span-2">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Unit Price</label>
+                <input type="number" class="line-price w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-600 text-gray-900 dark:text-gray-100" value="${unitPrice}" min="0" step="0.01">
+            </div>
+            <div class="col-span-2">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Line Total</label>
+                <input type="text" class="line-total w-full px-3 py-2 bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-gray-100" readonly>
+            </div>
+            <div class="col-span-1">
+                <button type="button" class="remove-line w-full p-2 text-red-600 hover:text-red-800">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+        </div>
+    `;
+    document
+      .getElementById("invoice-lines")
+      .insertAdjacentHTML("beforeend", lineHtml);
+    updateTotals();
+  }
+
+  function updateTotals() {
+    let subtotal = 0;
+    document.querySelectorAll(".invoice-line").forEach((line) => {
+      const quantity =
+        parseFloat(line.querySelector(".line-quantity").value) || 0;
+      const price = parseFloat(line.querySelector(".line-price").value) || 0;
+      const total = quantity * price;
+      line.querySelector(".line-total").value = "$" + total.toFixed(2);
+      subtotal += total;
+    });
+
+    const taxRate = 0.1; // 10%
+    const taxAmount = subtotal * taxRate;
+    const total = subtotal + taxAmount;
+
+    document.getElementById("subtotal").textContent = "$" + subtotal.toFixed(2);
+    document.getElementById("tax-amount").textContent =
+      "$" + taxAmount.toFixed(2);
+    document.getElementById("total-amount").textContent =
+      "$" + total.toFixed(2);
+  }
+
+  function removeLine(button) {
+    button.closest(".invoice-line").remove();
+    updateTotals();
+  }
+
+  // Event listeners
+  document
+    .getElementById("add-line")
+    .addEventListener("click", () => addInvoiceLine());
+
+  // Event delegation for dynamic elements
+  document.addEventListener("click", (e) => {
+    if (
+      e.target.classList.contains("remove-line") ||
+      e.target.closest(".remove-line")
+    ) {
+      removeLine(e.target.closest(".remove-line"));
+    }
+  });
+
+  document.addEventListener("input", (e) => {
+    if (
+      e.target.classList.contains("line-quantity") ||
+      e.target.classList.contains("line-price")
+    ) {
+      updateTotals();
+    }
+  });
+
+  // Add initial line
+  addInvoiceLine();
+
+  // Form submission
+  document
+    .getElementById("create-invoice")
+    .addEventListener("click", async () => {
+      const formData = {
+        invoice_number: document.getElementById("invoice-number").value,
+        customer_id: document.getElementById("customer-select").value,
+        invoice_date: document.getElementById("invoice-date").value,
+        due_date: document.getElementById("due-date").value,
+        notes: document.getElementById("notes").value,
+        lines: [],
+      };
+
+      // Collect line items
+      document.querySelectorAll(".invoice-line").forEach((line, index) => {
+        formData.lines.push({
+          description: line.querySelector(".line-description").value,
+          quantity: parseFloat(line.querySelector(".line-quantity").value) || 0,
+          unit_price: parseFloat(line.querySelector(".line-price").value) || 0,
+        });
+      });
+
+      try {
+        const response = await fetch('{% url "create_invoice" %}', {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]")
+              .value,
+          },
+          body: JSON.stringify(formData),
+        });
+
+        const result = await response.json();
+        if (result.success) {
+          alert("Invoice created successfully!");
+          window.location.href = '{% url "invoices" %}';
+        } else {
+          alert("Error: " + result.error);
+        }
+      } catch (error) {
+        alert("Error creating invoice: " + error.message);
+      }
+    });
+</script>
+
+{% endblock %}

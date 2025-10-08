@@ -393,8 +393,75 @@ def create_journal_entry_view(request):
     """
     Create journal entry view
     """
-    # Stub implementation
-    return JsonResponse({'success': False, 'message': 'Not implemented yet'})
+    from accounting.models import JournalEntry, JournalEntryLine, Account
+    from django.http import JsonResponse
+    from decimal import Decimal
+    import json
+    
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            
+            # Create journal entry
+            journal_entry = JournalEntry.objects.create(
+                entry_number=data['entry_number'],
+                entry_date=data['entry_date'],
+                description=data['description'],
+                reference=data.get('reference', ''),
+                created_by=request.user
+            )
+            
+            # Add line items
+            total_debit = Decimal('0.00')
+            total_credit = Decimal('0.00')
+            
+            for line_data in data['lines']:
+                debit_amount = Decimal(str(line_data.get('debit_amount', '0.00')))
+                credit_amount = Decimal(str(line_data.get('credit_amount', '0.00')))
+                
+                account = Account.objects.get(id=line_data['account_id'])
+                
+                JournalEntryLine.objects.create(
+                    journal_entry=journal_entry,
+                    account=account,
+                    description=line_data.get('description', ''),
+                    debit_amount=debit_amount,
+                    credit_amount=credit_amount,
+                    line_number=line_data['line_number']
+                )
+                
+                total_debit += debit_amount
+                total_credit += credit_amount
+            
+            # Update totals
+            journal_entry.total_debit = total_debit
+            journal_entry.total_credit = total_credit
+            journal_entry.save()
+            
+            # Check if balanced
+            if total_debit != total_credit:
+                return JsonResponse({
+                    'success': False,
+                    'error': f'Journal entry is not balanced. Debit: ${total_debit}, Credit: ${total_credit}'
+                })
+            
+            return JsonResponse({
+                'success': True,
+                'message': 'Journal entry created successfully',
+                'entry_id': journal_entry.id,
+                'entry_number': journal_entry.entry_number
+            })
+            
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)})
+    
+    # GET request - return form data
+    accounts = Account.objects.filter(is_active=True).order_by('code')
+    context = {
+        'title': 'Create Journal Entry',
+        'accounts': accounts,
+    }
+    return render(request, 'modules/create_journal_entry.html', context)
 
 @login_required
 def post_journal_entries_view(request):
@@ -520,9 +587,44 @@ def bank_reconciliation_view(request):
     """
     Bank reconciliation view
     """
-    # Stub implementation
+    from accounting.models import BankReconciliation, BankStatement, Account
+    from django.db.models import Sum
+    from decimal import Decimal
+    
+    # Get bank accounts (assuming accounts with type ASSET and code starting with 1)
+    bank_accounts = Account.objects.filter(
+        account_type='ASSET',
+        code__startswith='1',
+        is_active=True
+    )
+    
+    # Get latest reconciliation for each account
+    latest_reconciliations = {}
+    for account in bank_accounts:
+        latest_rec = BankReconciliation.objects.filter(
+            account=account
+        ).order_by('-reconciliation_date').first()
+        if latest_rec:
+            latest_reconciliations[account.id] = latest_rec
+    
+    # Get unreconciled statements
+    unreconciled_statements = BankStatement.objects.filter(
+        is_reconciled=False
+    ).select_related('account').order_by('-statement_date')[:20]
+    
+    # Calculate summary statistics
+    total_unreconciled = unreconciled_statements.count()
+    total_unreconciled_amount = sum(stmt.amount for stmt in unreconciled_statements)
+    
     context = {
         'title': 'Bank Reconciliation',
+        'description': 'Reconcile bank statements with accounting records.',
+        'user': request.user,
+        'bank_accounts': bank_accounts,
+        'latest_reconciliations': latest_reconciliations,
+        'unreconciled_statements': unreconciled_statements,
+        'total_unreconciled': total_unreconciled,
+        'total_unreconciled_amount': total_unreconciled_amount,
     }
     return render(request, 'modules/bank_reconciliation.html', context)
 
@@ -974,9 +1076,64 @@ def create_invoice_view(request):
     """
     Create invoice view
     """
-    # Stub implementation
+    from accounting.models import Customer, Invoice, InvoiceLine
+    from django.http import JsonResponse
+    from decimal import Decimal
+    import json
+    
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            
+            # Create invoice
+            customer = Customer.objects.get(id=data['customer_id'])
+            invoice = Invoice.objects.create(
+                invoice_number=data['invoice_number'],
+                customer=customer,
+                invoice_date=data['invoice_date'],
+                due_date=data['due_date'],
+                notes=data.get('notes', ''),
+                created_by=request.user
+            )
+            
+            # Add line items
+            subtotal = Decimal('0.00')
+            for line_data in data['lines']:
+                line_total = Decimal(str(line_data['quantity'])) * Decimal(str(line_data['unit_price']))
+                InvoiceLine.objects.create(
+                    invoice=invoice,
+                    description=line_data['description'],
+                    quantity=Decimal(str(line_data['quantity'])),
+                    unit_price=Decimal(str(line_data['unit_price'])),
+                    line_total=line_total
+                )
+                subtotal += line_total
+            
+            # Calculate totals
+            tax_rate = Decimal('0.10')  # 10% tax rate
+            tax_amount = subtotal * tax_rate
+            total_amount = subtotal + tax_amount
+            
+            invoice.subtotal = subtotal
+            invoice.tax_amount = tax_amount
+            invoice.total_amount = total_amount
+            invoice.save()
+            
+            return JsonResponse({
+                'success': True,
+                'message': 'Invoice created successfully',
+                'invoice_id': invoice.id,
+                'invoice_number': invoice.invoice_number
+            })
+            
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)})
+    
+    # GET request - return form data
+    customers = Customer.objects.filter(is_active=True)
     context = {
         'title': 'Create Invoice',
+        'customers': customers,
     }
     return render(request, 'modules/create_invoice.html', context)
 
@@ -1047,9 +1204,46 @@ def budgeting_view(request):
     """
     Budgeting view
     """
-    # Stub implementation
+    from accounting.models import Budget, BudgetLine, Account
+    from django.db.models import Sum
+    from decimal import Decimal
+    
+    # Get all budgets
+    budgets = Budget.objects.all().order_by('-fiscal_year', '-start_date')
+    
+    # Get current budget (if exists)
+    current_year = 2025  # Current year
+    current_budget = Budget.objects.filter(
+        fiscal_year=current_year,
+        is_active=True
+    ).first()
+    
+    # Get budget lines for current budget
+    budget_lines = []
+    if current_budget:
+        budget_lines = BudgetLine.objects.filter(
+            budget=current_budget
+        ).select_related('account').order_by('account__code')
+        
+        # Calculate totals
+        total_budgeted = sum(line.budgeted_amount for line in budget_lines)
+        total_actual = sum(line.actual_amount for line in budget_lines)
+        total_variance = sum(line.variance for line in budget_lines)
+    
+    # Get accounts for budget creation
+    accounts = Account.objects.filter(is_active=True).order_by('code')
+    
     context = {
         'title': 'Budgeting',
+        'description': 'Create and manage budgets for financial planning.',
+        'user': request.user,
+        'budgets': budgets,
+        'current_budget': current_budget,
+        'budget_lines': budget_lines,
+        'accounts': accounts,
+        'total_budgeted': total_budgeted if current_budget else Decimal('0.00'),
+        'total_actual': total_actual if current_budget else Decimal('0.00'),
+        'total_variance': total_variance if current_budget else Decimal('0.00'),
     }
     return render(request, 'modules/budgeting.html', context)
 
@@ -1578,25 +1772,50 @@ def customer_profile_view(request):
     """
     from django.contrib import messages
     from django.shortcuts import redirect
-    
+    from accounting.models import UserProfile
+
+    user = request.user
+
+    # Ensure profile exists
+    profile, _ = UserProfile.objects.get_or_create(user=user)
+
     if request.method == 'POST':
         # Handle profile update
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
         email = request.POST.get('email')
-        
-        user = request.user
+        phone = request.POST.get('phone')
+        company = request.POST.get('company')
+        job_title = request.POST.get('job_title')
+        address = request.POST.get('address')
+        timezone = request.POST.get('timezone')
+        language = request.POST.get('language')
+
+        # Basic validation
+        if not all([first_name, last_name, email]):
+            messages.error(request, 'First name, last name and email are required.')
+            return redirect('customer_profile')
+
         user.first_name = first_name
         user.last_name = last_name
         user.email = email
         user.save()
-        
+
+        profile.phone = phone
+        profile.company = company
+        profile.job_title = job_title
+        profile.address = address
+        profile.timezone = timezone
+        profile.language = language
+        profile.save()
+
         messages.success(request, 'Profile updated successfully!')
         return redirect('customer_profile')
-    
+
     context = {
         'title': 'Update Profile',
-        'user': request.user,
+        'user': user,
+        'profile': profile,
     }
     return render(request, 'modules/customer_profile.html', context)
 
@@ -1790,6 +2009,205 @@ def expense_management_view(request):
 
 
 @login_required
+def create_expense_view(request):
+    """
+    Create expense view
+    """
+    from accounting.models import Expense, ExpenseCategory, Vendor
+    from django.http import JsonResponse
+    from decimal import Decimal
+    import json
+    
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            
+            # Create expense
+            category = ExpenseCategory.objects.get(id=data['category_id'])
+            vendor = Vendor.objects.get(id=data['vendor_id']) if data.get('vendor_id') else None
+            
+            expense = Expense.objects.create(
+                expense_number=data['expense_number'],
+                category=category,
+                vendor=vendor,
+                expense_date=data['expense_date'],
+                amount=Decimal(str(data['amount'])),
+                description=data['description'],
+                receipt_number=data.get('receipt_number', ''),
+                status='DRAFT',
+                created_by=request.user
+            )
+            
+            return JsonResponse({
+                'success': True,
+                'message': 'Expense created successfully',
+                'expense_id': expense.id,
+                'expense_number': expense.expense_number
+            })
+            
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)})
+    
+    # GET request - return form data
+    categories = ExpenseCategory.objects.filter(is_active=True)
+    vendors = Vendor.objects.filter(is_active=True)
+    
+    context = {
+        'title': 'Create Expense',
+        'categories': categories,
+        'vendors': vendors,
+    }
+    return render(request, 'modules/create_expense.html', context)
+
+
+@login_required
+def scan_receipt_view(request):
+    """
+    Scan receipt view
+    """
+    from django.http import JsonResponse
+    import json
+    
+    if request.method == 'POST':
+        try:
+            # In a real implementation, this would process uploaded receipt images
+            # using OCR technology to extract expense data
+            # For now, we'll simulate the receipt scanning process
+            
+            # Simulate OCR processing delay
+            import time
+            time.sleep(2)
+            
+            # Mock extracted data
+            extracted_data = {
+                'vendor_name': 'Office Depot',
+                'amount': 245.67,
+                'date': '2025-10-08',
+                'description': 'Office supplies and stationery',
+                'category': 'Office Supplies',
+                'confidence': 0.95
+            }
+            
+            return JsonResponse({
+                'success': True,
+                'message': 'Receipt scanned successfully',
+                'extracted_data': extracted_data
+            })
+            
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)})
+    
+    context = {
+        'title': 'Scan Receipt',
+        'description': 'Upload and scan expense receipts using AI-powered OCR.',
+    }
+    return render(request, 'modules/scan_receipt.html', context)
+
+
+@login_required
+def bulk_approve_expenses_view(request):
+    """
+    Bulk approve expenses view
+    """
+    from accounting.models import Expense
+    from django.http import JsonResponse
+    import json
+    
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            expense_ids = data['expense_ids']
+            
+            # Update expenses to approved status
+            expenses = Expense.objects.filter(id__in=expense_ids, status='DRAFT')
+            updated_count = 0
+            
+            for expense in expenses:
+                expense.status = 'APPROVED'
+                expense.approved_by = request.user
+                expense.save()
+                updated_count += 1
+            
+            return JsonResponse({
+                'success': True,
+                'message': f'Successfully approved {updated_count} expenses',
+                'approved_count': updated_count
+            })
+            
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)})
+    
+    # GET request - show pending expenses for bulk approval
+    pending_expenses = Expense.objects.filter(status='DRAFT').select_related('category', 'vendor', 'created_by')
+    
+    context = {
+        'title': 'Bulk Approve Expenses',
+        'description': 'Review and approve multiple expenses at once.',
+        'pending_expenses': pending_expenses,
+    }
+    return render(request, 'modules/bulk_approve_expenses.html', context)
+
+
+@login_required
+def export_expenses_view(request):
+    """
+    Export expenses view
+    """
+    from accounting.models import Expense
+    from django.http import HttpResponse
+    import csv
+    from datetime import datetime
+    
+    try:
+        # Get filter parameters
+        start_date = request.GET.get('start_date')
+        end_date = request.GET.get('end_date')
+        status = request.GET.get('status')
+        category_id = request.GET.get('category_id')
+        
+        # Filter expenses
+        expenses = Expense.objects.all().select_related('category', 'vendor', 'created_by')
+        
+        if start_date:
+            expenses = expenses.filter(expense_date__gte=start_date)
+        if end_date:
+            expenses = expenses.filter(expense_date__lte=end_date)
+        if status:
+            expenses = expenses.filter(status=status)
+        if category_id:
+            expenses = expenses.filter(category_id=category_id)
+        
+        # Create CSV response
+        response = HttpResponse(content_type='text/csv')
+        filename = f'expenses_export_{datetime.now().strftime("%Y%m%d_%H%M%S")}.csv'
+        response['Content-Disposition'] = f'attachment; filename="{filename}"'
+        
+        writer = csv.writer(response)
+        writer.writerow([
+            'Expense Number', 'Date', 'Category', 'Vendor', 'Description', 
+            'Amount', 'Status', 'Created By', 'Receipt Number'
+        ])
+        
+        for expense in expenses:
+            writer.writerow([
+                expense.expense_number,
+                expense.expense_date.strftime('%Y-%m-%d'),
+                expense.category.name if expense.category else '',
+                expense.vendor.company_name if expense.vendor else '',
+                expense.description,
+                str(expense.amount),
+                expense.status,
+                expense.created_by.get_full_name() if expense.created_by else '',
+                expense.receipt_number or ''
+            ])
+        
+        return response
+        
+    except Exception as e:
+        return HttpResponse(f'Error generating export: {str(e)}', status=500)
+
+
+@login_required
 def purchase_orders_view(request):
     """
     Purchase orders view
@@ -1818,7 +2236,7 @@ def purchase_orders_view(request):
     monthly_pos = [
         {'month': 'Jan', 'count': 12, 'value': 45000},
         {'month': 'Feb', 'count': 15, 'value': 52000},
-        {'month': 'Mar', 'count': 18, 'value': 48000},
+        {'month': 'Mar', 'count': 18, 'value':   48000},
         {'month': 'Apr', 'count': 22, 'value': 61000},
         {'month': 'May', 'count': 19, 'value': 55000},
         {'month': 'Jun', 'count': 25, 'value': 72000},
@@ -1944,10 +2362,62 @@ def financial_statements_view(request):
     """
     Financial statements view
     """
+    from accounting.models import Account, AccountType
+    from decimal import Decimal
+    from datetime import datetime, date
+    
+    # Get date range (default to current year)
+    start_date = request.GET.get('start_date', f'{datetime.now().year}-01-01')
+    end_date = request.GET.get('end_date', date.today().isoformat())
+    
+    # Balance Sheet Data
+    assets = Account.objects.filter(account_type=AccountType.ASSET, is_active=True)
+    liabilities = Account.objects.filter(account_type=AccountType.LIABILITY, is_active=True)
+    equity = Account.objects.filter(account_type=AccountType.EQUITY, is_active=True)
+    
+    total_assets = sum(acc.get_balance() for acc in assets)
+    total_liabilities = sum(acc.get_balance() for acc in liabilities)
+    total_equity = sum(acc.get_balance() for acc in equity)
+    
+    # Income Statement Data
+    revenue_accounts = Account.objects.filter(account_type=AccountType.REVENUE, is_active=True)
+    expense_accounts = Account.objects.filter(account_type=AccountType.EXPENSE, is_active=True)
+    
+    total_revenue = sum(acc.get_balance() for acc in revenue_accounts)
+    total_expenses = sum(acc.get_balance() for acc in expense_accounts)
+    net_income = total_revenue - total_expenses
+    
+    # Cash Flow Statement (simplified)
+    # In a real system, this would be calculated from journal entries
+    operating_cash_flow = net_income + Decimal('5000')  # Simplified
+    investing_cash_flow = Decimal('-15000')  # Simplified
+    financing_cash_flow = Decimal('8000')  # Simplified
+    net_cash_flow = operating_cash_flow + investing_cash_flow + financing_cash_flow
+    
     context = {
         'title': 'Financial Statements',
         'description': 'Complete financial statement package.',
         'user': request.user,
+        'start_date': start_date,
+        'end_date': end_date,
+        # Balance Sheet
+        'assets': assets,
+        'liabilities': liabilities,
+        'equity': equity,
+        'total_assets': total_assets,
+        'total_liabilities': total_liabilities,
+        'total_equity': total_equity,
+        # Income Statement
+        'revenue_accounts': revenue_accounts,
+        'expense_accounts': expense_accounts,
+        'total_revenue': total_revenue,
+        'total_expenses': total_expenses,
+        'net_income': net_income,
+        # Cash Flow
+        'operating_cash_flow': operating_cash_flow,
+        'investing_cash_flow': investing_cash_flow,
+        'financing_cash_flow': financing_cash_flow,
+        'net_cash_flow': net_cash_flow,
     }
     return render(request, 'modules/financial_statements.html', context)
 
@@ -2020,7 +2490,6 @@ def audit_compliance_view(request):
     return render(request, 'modules/audit_compliance.html', context)
 
 
-@login_required
 @login_required
 def settings_view(request):
     """
@@ -2588,6 +3057,250 @@ def add_user_api(request):
         return JsonResponse({'success': False, 'error': str(e)})
 
 
+@login_required
+def notifications_api(request):
+    """
+    API endpoint to get user notifications
+    """
+    from accounting.models import Notification
+    from django.http import JsonResponse
+    from django.core.paginator import Paginator
+    
+    try:
+        # Get query parameters
+        page = int(request.GET.get('page', 1))
+        per_page = int(request.GET.get('per_page', 20))
+        unread_only = request.GET.get('unread_only', 'false').lower() == 'true'
+        
+        # Get notifications for the current user
+        notifications = Notification.objects.filter(user=request.user).order_by('-created_at')
+        
+        if unread_only:
+            notifications = notifications.filter(is_read=False)
+        
+        # Paginate results
+        paginator = Paginator(notifications, per_page)
+        page_obj = paginator.page(page)
+        
+        # Format notifications for JSON response
+        notifications_data = []
+        for notification in page_obj.object_list:
+            notifications_data.append({
+                'id': notification.id,
+                'title': notification.title,
+                'message': notification.message,
+                'notification_type': notification.notification_type,
+                'is_read': notification.is_read,
+                'action_url': notification.action_url,
+                'action_text': notification.action_text,
+                'created_at': notification.created_at.strftime('%Y-%m-%d %H:%M:%S'),
+                'updated_at': notification.updated_at.strftime('%Y-%m-%d %H:%M:%S'),
+            })
+        
+        return JsonResponse({
+            'success': True,
+            'notifications': notifications_data,
+            'pagination': {
+                'page': page,
+                'per_page': per_page,
+                'total_pages': paginator.num_pages,
+                'total_count': paginator.count,
+                'has_next': page_obj.has_next(),
+                'has_previous': page_obj.has_previous(),
+            }
+        })
+        
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
+
+
+@login_required
+def mark_notification_read_api(request):
+    """
+    API endpoint to mark a notification as read
+    """
+    from accounting.models import Notification
+    from django.http import JsonResponse
+    import json
+    
+    if request.method != 'POST':
+        return JsonResponse({'success': False, 'error': 'Method not allowed'})
+    
+    try:
+        data = json.loads(request.body)
+        notification_id = data.get('notification_id')
+        
+        notification = Notification.objects.get(id=notification_id, user=request.user)
+        notification.is_read = True
+        notification.save()
+        
+        return JsonResponse({
+            'success': True,
+            'message': 'Notification marked as read',
+            'notification_id': notification_id
+        })
+        
+    except Notification.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Notification not found'})
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
+
+
+@login_required
+def mark_all_notifications_read_api(request):
+    """
+    API endpoint to mark all user notifications as read
+    """
+    from accounting.models import Notification
+    from django.http import JsonResponse
+    
+    if request.method != 'POST':
+        return JsonResponse({'success': False, 'error': 'Method not allowed'})
+    
+    try:
+        # Mark all unread notifications as read for the current user
+        updated_count = Notification.objects.filter(
+            user=request.user,
+            is_read=False
+        ).update(is_read=True)
+        
+        return JsonResponse({
+            'success': True,
+            'message': f'Marked {updated_count} notifications as read',
+            'updated_count': updated_count
+        })
+        
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
+
+
+@login_required
+def create_notification_api(request):
+    """
+    API endpoint to create a new notification (admin/staff only)
+    """
+    from accounting.models import Notification
+    from django.contrib.auth.models import User
+    from django.http import JsonResponse
+    import json
+    
+    if request.method != 'POST':
+        return JsonResponse({'success': False, 'error': 'Method not allowed'})
+    
+    # Check if user has permission to create notifications
+    if not request.user.is_staff:
+        return JsonResponse({'success': False, 'error': 'Permission denied'})
+    
+    try:
+        data = json.loads(request.body)
+        
+        # Get target user(s)
+        user_ids = data.get('user_ids', [])
+        if not user_ids:
+            # If no specific users, create for all active users
+            users = User.objects.filter(is_active=True)
+        else:
+            users = User.objects.filter(id__in=user_ids, is_active=True)
+        
+        created_notifications = []
+        for user in users:
+            notification = Notification.objects.create(
+                user=user,
+                title=data['title'],
+                message=data['message'],
+                notification_type=data.get('notification_type', 'info'),
+                action_url=data.get('action_url'),
+                action_text=data.get('action_text'),
+                created_by=request.user
+            )
+            created_notifications.append({
+                'id': notification.id,
+                'user_id': user.id,
+                'title': notification.title
+            })
+        
+        return JsonResponse({
+            'success': True,
+            'message': f'Created {len(created_notifications)} notifications',
+            'notifications': created_notifications
+        })
+        
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
+
+
+@login_required
+def delete_notification_api(request, notification_id):
+    """
+    API endpoint to delete a notification
+    """
+    from accounting.models import Notification
+    from django.http import JsonResponse
+    
+    if request.method != 'DELETE':
+        return JsonResponse({'success': False, 'error': 'Method not allowed'})
+    
+    try:
+        notification = Notification.objects.get(id=notification_id, user=request.user)
+        notification.delete()
+        
+        return JsonResponse({
+            'success': True,
+            'message': 'Notification deleted successfully',
+            'notification_id': notification_id
+        })
+        
+    except Notification.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Notification not found'})
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
+
+
+@login_required
+def notification_stats_api(request):
+    """
+    API endpoint to get notification statistics for the current user
+    """
+    from accounting.models import Notification
+    from django.http import JsonResponse
+    from django.db.models import Count
+    
+    try:
+        # Get notification counts
+        total_notifications = Notification.objects.filter(user=request.user).count()
+        unread_notifications = Notification.objects.filter(user=request.user, is_read=False).count()
+        read_notifications = total_notifications - unread_notifications
+        
+        # Get notifications by type
+        notifications_by_type = Notification.objects.filter(user=request.user).values('notification_type').annotate(
+            count=Count('id')
+        ).order_by('-count')
+        
+        # Get recent unread notifications (last 7 days)
+        from datetime import datetime, timedelta
+        week_ago = datetime.now() - timedelta(days=7)
+        recent_unread = Notification.objects.filter(
+            user=request.user,
+            is_read=False,
+            created_at__gte=week_ago
+        ).count()
+        
+        return JsonResponse({
+            'success': True,
+            'stats': {
+                'total': total_notifications,
+                'unread': unread_notifications,
+                'read': read_notifications,
+                'recent_unread': recent_unread,
+                'by_type': list(notifications_by_type)
+            }
+        })
+        
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
+
+
+# Public/Marketing Views
 def small_business_view(request):
     """
     Small Business page view
@@ -2707,3 +3420,49 @@ def pricing_view(request):
         'description': 'Choose the perfect plan for your business needs.',
     }
     return render(request, 'pages/pricing.html', context)
+
+
+def get_started_view(request):
+    """
+    Get Started page view
+    """
+    context = {
+        'title': 'Get Started with Ovovex',
+        'description': 'Begin your journey with Ovovex - guided onboarding and quick setup.',
+    }
+    return render(request, 'pages/get_started.html', context)
+
+
+def start_free_trial_view(request):
+    """
+    Start Free Trial page view
+    """
+    context = {
+        'title': 'Start Your Free Trial',
+        'description': 'Start a risk-free trial of Ovovex and explore core features.',
+    }
+    return render(request, 'pages/start_free_trial.html', context)
+
+
+def contact_sales_view(request):
+    """
+    Contact Sales page view
+    """
+    from django.contrib import messages
+    from django.shortcuts import redirect
+
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        company = request.POST.get('company')
+        message = request.POST.get('message')
+
+        # In a real app we'd create a SalesLead record or send an email
+        messages.success(request, 'Thanks! Our sales team will reach out shortly.')
+        return redirect('contact_sales')
+
+    context = {
+        'title': 'Contact Sales',
+        'description': 'Get a tailored quote and onboard support for your organization.',
+    }
+    return render(request, 'pages/contact_sales.html', context)

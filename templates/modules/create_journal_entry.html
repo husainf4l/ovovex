@@ -1,0 +1,307 @@
+{% extends 'base.html' %} {% load static %} {% block content %} {% include
+'components/sidemenu.html' %}
+
+<div
+  class="min-h-screen bg-gray-50 dark:bg-gray-900 ml-64 transition-colors duration-300"
+>
+  <!-- Header -->
+  <div
+    class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4 transition-colors duration-300"
+  >
+    <div class="flex items-center justify-between">
+      <div class="flex items-center space-x-4">
+        <button
+          onclick="window.history.back()"
+          class="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100"
+        >
+          <i class="fas fa-arrow-left"></i>
+        </button>
+        <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">
+          Create Journal Entry
+        </h1>
+      </div>
+      <div class="flex items-center space-x-4">
+        <button
+          id="save-draft"
+          class="px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 font-medium"
+        >
+          Save as Draft
+        </button>
+        <button
+          id="post-entry"
+          class="px-6 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700"
+        >
+          Post Entry
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-8">
+    <form id="journal-form" class="space-y-6">
+      <!-- Journal Header -->
+      <div
+        class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6"
+      >
+        <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">
+          Journal Entry Details
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div>
+            <label
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+              >Entry Number</label
+            >
+            <input
+              type="text"
+              id="entry-number"
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+              placeholder="JE-2025-001"
+            />
+          </div>
+          <div>
+            <label
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+              >Entry Date</label
+            >
+            <input
+              type="date"
+              id="entry-date"
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+              value="{% now 'Y-m-d' %}"
+            />
+          </div>
+          <div>
+            <label
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+              >Reference</label
+            >
+            <input
+              type="text"
+              id="reference"
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+              placeholder="Optional reference"
+            />
+          </div>
+        </div>
+        <div class="mt-4">
+          <label
+            class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+            >Description</label
+          >
+          <textarea
+            id="description"
+            rows="3"
+            class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+            placeholder="Journal entry description..."
+            required
+          ></textarea>
+        </div>
+      </div>
+
+      <!-- Journal Lines -->
+      <div
+        class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6"
+      >
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100">
+            Journal Lines
+          </h3>
+          <button
+            type="button"
+            id="add-line"
+            class="px-4 py-2 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700"
+          >
+            <i class="fas fa-plus mr-2"></i>Add Line
+          </button>
+        </div>
+
+        <div id="journal-lines" class="space-y-4">
+          <!-- Line items will be added here -->
+        </div>
+
+        <!-- Totals -->
+        <div class="mt-6 border-t border-gray-200 dark:border-gray-700 pt-4">
+          <div class="flex justify-end">
+            <div class="w-64 space-y-2">
+              <div class="flex justify-between text-sm">
+                <span class="text-gray-600 dark:text-gray-400"
+                  >Total Debits:</span
+                >
+                <span id="total-debits" class="font-medium">$0.00</span>
+              </div>
+              <div class="flex justify-between text-sm">
+                <span class="text-gray-600 dark:text-gray-400"
+                  >Total Credits:</span
+                >
+                <span id="total-credits" class="font-medium">$0.00</span>
+              </div>
+              <div class="flex justify-between text-lg font-bold">
+                <span class="text-gray-900 dark:text-gray-100"
+                  >Difference:</span
+                >
+                <span id="difference" class="text-gray-900 dark:text-gray-100"
+                  >$0.00</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  // Journal line management
+  let lineCounter = 0;
+
+  function addJournalLine(accountId = '', description = '', debitAmount = 0, creditAmount = 0) {
+      lineCounter++;
+      const accounts = {{ accounts|safe }};
+      let accountOptions = '<option value="">Select Account</option>';
+      accounts.forEach(account => {
+          const selected = accountId == account.id ? 'selected' : '';
+          accountOptions += `<option value="${account.id}" ${selected}>${account.code} - ${account.name}</option>`;
+      });
+
+      const lineHtml = `
+          <div class="journal-line grid grid-cols-12 gap-4 items-end p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+              <div class="col-span-1 text-center">
+                  <span class="text-sm font-medium text-gray-600 dark:text-gray-400">${lineCounter}</span>
+              </div>
+              <div class="col-span-4">
+                  <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Account</label>
+                  <select class="line-account w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-600 text-gray-900 dark:text-gray-100">
+                      ${accountOptions}
+                  </select>
+              </div>
+              <div class="col-span-3">
+                  <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Description</label>
+                  <input type="text" class="line-description w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-600 text-gray-900 dark:text-gray-100" value="${description}" placeholder="Line description">
+              </div>
+              <div class="col-span-2">
+                  <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Debit</label>
+                  <input type="number" class="line-debit w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-600 text-gray-900 dark:text-gray-100" value="${debitAmount}" min="0" step="0.01">
+              </div>
+              <div class="col-span-2">
+                  <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Credit</label>
+                  <input type="number" class="line-credit w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-600 text-gray-900 dark:text-gray-100" value="${creditAmount}" min="0" step="0.01">
+              </div>
+              <div class="col-span-1">
+                  <button type="button" class="remove-line w-full p-2 text-red-600 hover:text-red-800">
+                      <i class="fas fa-trash"></i>
+                  </button>
+              </div>
+          </div>
+      `;
+      document.getElementById('journal-lines').insertAdjacentHTML('beforeend', lineHtml);
+      updateTotals();
+  }
+
+  function updateTotals() {
+      let totalDebits = 0;
+      let totalCredits = 0;
+
+      document.querySelectorAll('.journal-line').forEach(line => {
+          const debit = parseFloat(line.querySelector('.line-debit').value) || 0;
+          const credit = parseFloat(line.querySelector('.line-credit').value) || 0;
+          totalDebits += debit;
+          totalCredits += credit;
+      });
+
+      const difference = totalDebits - totalCredits;
+
+      document.getElementById('total-debits').textContent = '$' + totalDebits.toFixed(2);
+      document.getElementById('total-credits').textContent = '$' + totalCredits.toFixed(2);
+      document.getElementById('difference').textContent = '$' + difference.toFixed(2);
+
+      // Update difference color
+      const differenceElement = document.getElementById('difference');
+      if (Math.abs(difference) < 0.01) {
+          differenceElement.className = 'text-green-600 dark:text-green-400';
+      } else {
+          differenceElement.className = 'text-red-600 dark:text-red-400';
+      }
+  }
+
+  function removeLine(button) {
+      button.closest('.journal-line').remove();
+      updateTotals();
+      // Renumber lines
+      document.querySelectorAll('.journal-line').forEach((line, index) => {
+          line.querySelector('.text-center span').textContent = index + 1;
+      });
+  }
+
+  // Event listeners
+  document.getElementById('add-line').addEventListener('click', () => addJournalLine());
+
+  // Event delegation for dynamic elements
+  document.addEventListener('click', (e) => {
+      if (e.target.classList.contains('remove-line') || e.target.closest('.remove-line')) {
+          removeLine(e.target.closest('.remove-line'));
+      }
+  });
+
+  document.addEventListener('input', (e) => {
+      if (e.target.classList.contains('line-debit') || e.target.classList.contains('line-credit')) {
+          updateTotals();
+      }
+  });
+
+  // Add initial lines
+  addJournalLine();
+  addJournalLine();
+
+  // Form submission
+  document.getElementById('post-entry').addEventListener('click', async () => {
+      const formData = {
+          entry_number: document.getElementById('entry-number').value,
+          entry_date: document.getElementById('entry-date').value,
+          description: document.getElementById('description').value,
+          reference: document.getElementById('reference').value,
+          lines: []
+      };
+
+      // Collect line items
+      document.querySelectorAll('.journal-line').forEach((line, index) => {
+          const accountId = line.querySelector('.line-account').value;
+          const debitAmount = parseFloat(line.querySelector('.line-debit').value) || 0;
+          const creditAmount = parseFloat(line.querySelector('.line-credit').value) || 0;
+
+          if (accountId && (debitAmount > 0 || creditAmount > 0)) {
+              formData.lines.push({
+                  account_id: accountId,
+                  description: line.querySelector('.line-description').value,
+                  debit_amount: debitAmount.toString(),
+                  credit_amount: creditAmount.toString(),
+                  line_number: index + 1
+              });
+          }
+      });
+
+      try {
+          const response = await fetch('{% url "create_journal_entry" %}', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+              },
+              body: JSON.stringify(formData)
+          });
+
+          const result = await response.json();
+          if (result.success) {
+              alert('Journal entry created successfully!');
+              window.location.href = '{% url "journal_entries" %}';
+          } else {
+              alert('Error: ' + result.error);
+          }
+      } catch (error) {
+          alert('Error creating journal entry: ' + error.message);
+      }
+  });
+</script>
+
+{% endblock %}

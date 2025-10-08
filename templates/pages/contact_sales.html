@@ -1,0 +1,64 @@
+{% extends 'base.html' %} {% block title %}Contact Sales - Ovovex{% endblock %}
+{% block content %} {% include 'components/navbar.html' %}
+
+<div class="min-h-screen bg-gray-50 py-16">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow p-8">
+      <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+        Contact Sales
+      </h1>
+      <p class="text-gray-600 dark:text-gray-300 mb-6">
+        Tell us a bit about your organization and we’ll connect you with a
+        solutions specialist for pricing and onboarding.
+      </p>
+
+      {% if messages %}
+      <div class="mb-4">
+        {% for message in messages %}
+        <div class="px-4 py-3 rounded bg-green-50 text-green-700">
+          {{ message }}
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <form method="post" class="space-y-4">
+        {% csrf_token %}
+        <input
+          name="name"
+          placeholder="Full name"
+          class="w-full px-4 py-2 border rounded-lg"
+          required
+        />
+        <input
+          name="email"
+          type="email"
+          placeholder="Work email"
+          class="w-full px-4 py-2 border rounded-lg"
+          required
+        />
+        <input
+          name="company"
+          placeholder="Company name"
+          class="w-full px-4 py-2 border rounded-lg"
+        />
+        <textarea
+          name="message"
+          rows="5"
+          placeholder="Tell us about your needs"
+          class="w-full px-4 py-2 border rounded-lg"
+        ></textarea>
+        <div class="flex justify-end">
+          <button
+            type="submit"
+            class="px-6 py-3 bg-gray-800 text-white rounded-lg hover:bg-gray-900"
+          >
+            Contact Sales
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

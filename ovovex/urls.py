@@ -98,6 +98,10 @@ urlpatterns = [
     
     # Operations
     path('expense-management/', views.expense_management_view, name='expense_management'),
+    path('expense-management/create/', views.create_expense_view, name='create_expense'),
+    path('expense-management/scan-receipt/', views.scan_receipt_view, name='scan_receipt'),
+    path('expense-management/bulk-approve/', views.bulk_approve_expenses_view, name='bulk_approve_expenses'),
+    path('expense-management/export/', views.export_expenses_view, name='export_expenses'),
     path('purchase-orders/', views.purchase_orders_view, name='purchase_orders'),
     path('inventory/', views.inventory_view, name='inventory'),
     path('documents/', views.documents_view, name='documents'),
@@ -123,6 +127,14 @@ urlpatterns = [
     path('api/settings/delete-all-data/', views.delete_all_data_api, name='delete_all_data_api'),
     path('api/settings/delete-account/', views.delete_account_api, name='delete_account_api'),
     
+    # Notification API endpoints
+    path('api/notifications/', views.notifications_api, name='notifications_api'),
+    path('api/notifications/mark-read/', views.mark_notification_read_api, name='mark_notification_read_api'),
+    path('api/notifications/mark-all-read/', views.mark_all_notifications_read_api, name='mark_all_notifications_read_api'),
+    path('api/notifications/create/', views.create_notification_api, name='create_notification_api'),
+    path('api/notifications/delete/<int:notification_id>/', views.delete_notification_api, name='delete_notification_api'),
+    path('api/notifications/stats/', views.notification_stats_api, name='notification_stats_api'),
+    
     # Public Pages
     path('small-business/', views.small_business_view, name='small_business'),
     path('enterprise/', views.enterprise_view, name='enterprise'),
@@ -135,4 +147,7 @@ urlpatterns = [
     path('ifrs-compliance/', views.ifrs_compliance_view, name='ifrs_compliance'),
     path('bank-grade-security/', views.bank_grade_security_view, name='bank_grade_security'),
     path('pricing/', views.pricing_view, name='pricing'),
+    path('get-started/', views.get_started_view, name='get_started'),
+    path('start-free-trial/', views.start_free_trial_view, name='start_free_trial'),
+    path('contact-sales/', views.contact_sales_view, name='contact_sales'),
 ]

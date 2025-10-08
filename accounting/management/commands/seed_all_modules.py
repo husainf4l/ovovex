@@ -36,9 +36,11 @@ class Command(BaseCommand):
         self.stdout.write('\nClearing existing data...')
         models_to_clear = [
             TaxReturn, TaxRate, Expense, ExpenseCategory,
-            FixedAsset, BudgetLine, Budget, Bill, Vendor,
+            FixedAsset, BudgetLine, Budget, Bill, PurchaseOrderLine, PurchaseOrder, Vendor,
             Payment, InvoiceLine, Invoice, Customer,
-            JournalEntryLine, JournalEntry, Account
+            JournalEntryLine, JournalEntry, Account,
+            DashboardKPIMetric, DashboardWidget, DashboardChartData,
+            DashboardAlert, DashboardActivity, DashboardSettings
         ]
         for model in models_to_clear:
             count = model.objects.count()
@@ -120,6 +122,19 @@ class Command(BaseCommand):
         self.stdout.write(self.style.SUCCESS(f'✓ Created {len(tax_rates)} tax rates'))
         self.stdout.write(self.style.SUCCESS(f'✓ Created {len(tax_returns)} tax returns'))
         
+        # Seed Dashboard Data
+        self.stdout.write('\n' + '='*60)
+        self.stdout.write('SEEDING: Dashboard Data')
+        self.stdout.write('='*60)
+        dashboard_kpis = self._seed_dashboard_kpis(user)
+        dashboard_widgets = self._seed_dashboard_widgets(user)
+        dashboard_alerts = self._seed_dashboard_alerts(user)
+        dashboard_activities = self._seed_dashboard_activities(user)
+        self.stdout.write(self.style.SUCCESS(f'✓ Created {len(dashboard_kpis)} dashboard KPIs'))
+        self.stdout.write(self.style.SUCCESS(f'✓ Created {len(dashboard_widgets)} dashboard widgets'))
+        self.stdout.write(self.style.SUCCESS(f'✓ Created {len(dashboard_alerts)} dashboard alerts'))
+        self.stdout.write(self.style.SUCCESS(f'✓ Created {len(dashboard_activities)} activity records'))
+        
         # Update account balances
         self.stdout.write('\n' + '='*60)
         self.stdout.write('Updating account balances...')
@@ -142,6 +157,10 @@ class Command(BaseCommand):
         self.stdout.write(f'  Fixed Assets: {FixedAsset.objects.count()}')
         self.stdout.write(f'  Expenses: {Expense.objects.count()}')
         self.stdout.write(f'  Budgets: {Budget.objects.count()}')
+        self.stdout.write(f'  Dashboard KPIs: {DashboardKPIMetric.objects.count()}')
+        self.stdout.write(f'  Dashboard Widgets: {DashboardWidget.objects.count()}')
+        self.stdout.write(f'  Dashboard Alerts: {DashboardAlert.objects.count()}')
+        self.stdout.write(f'  Activity Records: {DashboardActivity.objects.count()}')
         self.stdout.write('')
 
     def _seed_accounts(self, user):
@@ -545,3 +564,167 @@ class Command(BaseCommand):
             returns.append(tax_return)
         
         return returns
+
+    def _seed_dashboard_kpis(self, user):
+        """Seed basic dashboard KPIs"""
+        kpi_data = [
+            {
+                'name': 'total_revenue',
+                'display_name': 'Total Revenue',
+                'metric_type': 'CURRENCY',
+                'current_value': Decimal('2456789.50'),
+                'previous_value': Decimal('2189456.75'),
+                'prefix': '$'
+            },
+            {
+                'name': 'net_profit',
+                'display_name': 'Net Profit',
+                'metric_type': 'CURRENCY',
+                'current_value': Decimal('580246.25'),
+                'previous_value': Decimal('266000.00'),
+                'prefix': '$'
+            },
+            {
+                'name': 'accounts_receivable',
+                'display_name': 'Accounts Receivable',
+                'metric_type': 'CURRENCY',
+                'current_value': Decimal('456789.30'),
+                'previous_value': Decimal('523456.75'),
+                'prefix': '$'
+            },
+            {
+                'name': 'accounts_payable',
+                'display_name': 'Accounts Payable',
+                'metric_type': 'CURRENCY',
+                'current_value': Decimal('234567.80'),
+                'previous_value': Decimal('289456.25'),
+                'prefix': '$'
+            }
+        ]
+
+        kpis = []
+        for data in kpi_data:
+            kpi = DashboardKPIMetric.objects.create(
+                name=data['name'],
+                display_name=data['display_name'],
+                metric_type=data['metric_type'],
+                current_value=data['current_value'],
+                previous_value=data['previous_value'],
+                prefix=data.get('prefix')
+            )
+            kpi.calculate_trend()
+            kpi.save()
+            kpis.append(kpi)
+
+        return kpis
+
+    def _seed_dashboard_widgets(self, user):
+        """Seed basic dashboard widgets"""
+        widgets_data = [
+            {
+                'title': 'Revenue Trend',
+                'widget_type': 'CHART',
+                'chart_type': 'LINE',
+                'position_x': 0,
+                'position_y': 0,
+                'width': 2,
+                'height': 1
+            },
+            {
+                'title': 'Key Metrics',
+                'widget_type': 'SUMMARY',
+                'position_x': 2,
+                'position_y': 0,
+                'width': 2,
+                'height': 1
+            },
+            {
+                'title': 'Recent Activity',
+                'widget_type': 'TABLE',
+                'position_x': 0,
+                'position_y': 1,
+                'width': 4,
+                'height': 1
+            }
+        ]
+
+        widgets = []
+        for data in widgets_data:
+            widget = DashboardWidget.objects.create(
+                title=data['title'],
+                widget_type=data['widget_type'],
+                chart_type=data.get('chart_type'),
+                position_x=data['position_x'],
+                position_y=data['position_y'],
+                width=data['width'],
+                height=data['height'],
+                created_by=user
+            )
+            widgets.append(widget)
+
+        return widgets
+
+    def _seed_dashboard_alerts(self, user):
+        """Seed basic dashboard alerts"""
+        alerts_data = [
+            {
+                'title': 'Welcome to Ovovex',
+                'message': 'Your accounting dashboard is now ready with comprehensive financial insights.',
+                'alert_type': 'SUCCESS',
+                'priority': 'LOW'
+            },
+            {
+                'title': 'Invoice Payment Due',
+                'message': 'You have 3 invoices due within the next 7 days.',
+                'alert_type': 'WARNING',
+                'priority': 'MEDIUM'
+            }
+        ]
+
+        alerts = []
+        for data in alerts_data:
+            alert = DashboardAlert.objects.create(
+                title=data['title'],
+                message=data['message'],
+                alert_type=data['alert_type'],
+                priority=data['priority'],
+                user=user
+            )
+            alerts.append(alert)
+
+        return alerts
+
+    def _seed_dashboard_activities(self, user):
+        """Seed basic dashboard activities"""
+        activities_data = [
+            {
+                'activity_type': 'INVOICE_CREATED',
+                'title': 'New invoice created',
+                'description': 'Invoice INV-2025-001 created for $15,750.00'
+            },
+            {
+                'activity_type': 'PAYMENT_RECEIVED',
+                'title': 'Payment received',
+                'description': 'Payment of $25,000.00 received from customer'
+            },
+            {
+                'activity_type': 'BILL_CREATED',
+                'title': 'New bill received',
+                'description': 'Bill BILL-2025-001 received for $12,500.00'
+            }
+        ]
+
+        activities = []
+        base_time = timezone.now()
+        for i, data in enumerate(activities_data):
+            created_at = base_time - timedelta(hours=i+1)
+            activity = DashboardActivity.objects.create(
+                activity_type=data['activity_type'],
+                title=data['title'],
+                description=data['description'],
+                user=user,
+                created_at=created_at
+            )
+            activities.append(activity)
+
+        return activities

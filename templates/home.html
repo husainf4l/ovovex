@@ -1,839 +1,1360 @@
-{% extends 'base.html' %}
-{% load static %}
-
-{% block content %}
-{% include 'components/navbar.html' %}
+{% extends 'base.html' %} {% load static %} {% block content %} {% include
+'components/navbar.html' %}
 
 <!-- Hero Section -->
 <section class="h-[80vh] bg-white flex items-center">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div class="grid lg:grid-cols-2 gap-16 items-center">
-            <!-- Left Column - Main Content -->
-            <div class="space-y-8">
-                <!-- Badge -->
-                <div class="inline-flex items-center px-3 py-1 bg-gray-100 rounded-full text-sm font-medium text-gray-700">
-                    <i class="fas fa-certificate text-gray-600 mr-2"></i>
-                    IFRS Compliant & ISO 27001 Certified
-                </div>
-
-                <!-- Main Heading -->
-                <div class="space-y-6">
-                    <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 leading-tight">
-                        Simplify Your
-                        <br>
-                        <span class="text-gray-600">Accounting.</span>
-                    </h1>
-                    <p class="text-xl text-gray-600 leading-relaxed max-w-lg">
-                        Automated, secure, and IFRS-compliant accounting system made for modern teams.
-                        Transform your financial management with intelligent automation.
-                    </p>
-                </div>
-
-                <!-- Stats -->
-                <div class="grid grid-cols-3 gap-8 py-8 border-t border-gray-200">
-                    <div class="text-center">
-                        <div class="text-3xl font-bold text-gray-900">50K+</div>
-                        <div class="text-sm text-gray-500 mt-1">Businesses</div>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-3xl font-bold text-gray-900">40+</div>
-                        <div class="text-sm text-gray-500 mt-1">Countries</div>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-3xl font-bold text-gray-900">99.9%</div>
-                        <div class="text-sm text-gray-500 mt-1">Uptime</div>
-                    </div>
-                </div>
-
-                <!-- CTA Buttons -->
-                <div class="flex flex-col sm:flex-row gap-4">
-                    <a href="#demo" class="inline-flex items-center justify-center px-8 py-4 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors duration-200 shadow-sm">
-                        <i class="fas fa-rocket mr-2"></i>
-                        Start Free Trial
-                    </a>
-                    <a href="#features" class="inline-flex items-center justify-center px-8 py-4 bg-white text-gray-700 font-semibold rounded-xl border border-gray-300 hover:border-gray-400 transition-colors duration-200">
-                        <i class="fas fa-play mr-2"></i>
-                        Watch Demo
-                    </a>
-                </div>
-            </div>
-
-            <!-- Right Column - Product Showcase -->
-            <div class="relative">
-                <!-- Main Product Image -->
-                <div class="relative bg-gray-50 rounded-2xl p-8 shadow-sm border border-gray-200">
-                    <div class="aspect-video bg-white rounded-xl shadow-sm border border-gray-100 flex items-center justify-center">
-                        <div class="text-center space-y-4">
-                            <div class="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center mx-auto">
-                                <i class="fas fa-chart-line text-white text-2xl"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-lg font-semibold text-gray-900">Financial Dashboard</h3>
-                                <p class="text-sm text-gray-600">Real-time insights at your fingertips</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Floating Elements -->
-                    <div class="absolute -top-4 -right-4 bg-white rounded-xl p-4 shadow-lg border border-gray-200">
-                        <div class="flex items-center space-x-3">
-                            <div class="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
-                                <i class="fas fa-check text-white text-sm"></i>
-                            </div>
-                            <div>
-                                <div class="text-sm font-semibold text-gray-900">$127K</div>
-                                <div class="text-xs text-gray-500">Revenue</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="absolute -bottom-4 -left-4 bg-white rounded-xl p-4 shadow-lg border border-gray-200">
-                        <div class="flex items-center space-x-3">
-                            <div class="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
-                                <i class="fas fa-users text-white text-sm"></i>
-                            </div>
-                            <div>
-                                <div class="text-sm font-semibold text-gray-900">50K+</div>
-                                <div class="text-xs text-gray-500">Users</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Subtle Background Pattern -->
-                <div class="absolute inset-0 -z-10">
-                    <div class="absolute top-10 right-10 w-32 h-32 bg-blue-50 rounded-full opacity-50"></div>
-                    <div class="absolute bottom-10 left-10 w-24 h-24 bg-gray-50 rounded-full opacity-30"></div>
-                </div>
-            </div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+    <div class="grid lg:grid-cols-2 gap-16 items-center">
+      <!-- Left Column - Main Content -->
+      <div class="space-y-8">
+        <!-- Badge -->
+        <div
+          class="inline-flex items-center px-3 py-1 bg-gray-100 rounded-full text-sm font-medium text-gray-700"
+        >
+          <i class="fas fa-certificate text-gray-600 mr-2"></i>
+          IFRS Compliant & ISO 27001 Certified
         </div>
+
+        <!-- Main Heading -->
+        <div class="space-y-6">
+          <h1
+            class="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 leading-tight"
+          >
+            Simplify Your
+            <br />
+            <span class="text-gray-600">Accounting.</span>
+          </h1>
+          <p class="text-xl text-gray-600 leading-relaxed max-w-lg">
+            Automated, secure, and IFRS-compliant accounting system made for
+            modern teams. Transform your financial management with intelligent
+            automation.
+          </p>
+        </div>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-3 gap-8 py-8 border-t border-gray-200">
+          <div class="text-center">
+            <div class="text-3xl font-bold text-gray-900">50K+</div>
+            <div class="text-sm text-gray-500 mt-1">Businesses</div>
+          </div>
+          <div class="text-center">
+            <div class="text-3xl font-bold text-gray-900">40+</div>
+            <div class="text-sm text-gray-500 mt-1">Countries</div>
+          </div>
+          <div class="text-center">
+            <div class="text-3xl font-bold text-gray-900">99.9%</div>
+            <div class="text-sm text-gray-500 mt-1">Uptime</div>
+          </div>
+        </div>
+
+        <!-- CTA Buttons -->
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a
+            href="#demo"
+            class="inline-flex items-center justify-center px-8 py-4 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors duration-200 shadow-sm"
+          >
+            <i class="fas fa-rocket mr-2"></i>
+            Start Free Trial
+          </a>
+          <a
+            href="#features"
+            class="inline-flex items-center justify-center px-8 py-4 bg-white text-gray-700 font-semibold rounded-xl border border-gray-300 hover:border-gray-400 transition-colors duration-200"
+          >
+            <i class="fas fa-play mr-2"></i>
+            Watch Demo
+          </a>
+        </div>
+      </div>
+
+      <!-- Right Column - Product Showcase -->
+      <div class="relative">
+        <!-- Main Product Image -->
+        <div
+          class="relative bg-gray-50 rounded-2xl p-8 shadow-sm border border-gray-200"
+        >
+          <div
+            class="aspect-video bg-white rounded-xl shadow-sm border border-gray-100 flex items-center justify-center"
+          >
+            <div class="text-center space-y-4">
+              <div
+                class="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center mx-auto"
+              >
+                <i class="fas fa-chart-line text-white text-2xl"></i>
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold text-gray-900">
+                  Financial Dashboard
+                </h3>
+                <p class="text-sm text-gray-600">
+                  Real-time insights at your fingertips
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Floating Elements -->
+          <div
+            class="absolute -top-4 -right-4 bg-white rounded-xl p-4 shadow-lg border border-gray-200"
+          >
+            <div class="flex items-center space-x-3">
+              <div
+                class="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center"
+              >
+                <i class="fas fa-check text-white text-sm"></i>
+              </div>
+              <div>
+                <div class="text-sm font-semibold text-gray-900">$127K</div>
+                <div class="text-xs text-gray-500">Revenue</div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="absolute -bottom-4 -left-4 bg-white rounded-xl p-4 shadow-lg border border-gray-200"
+          >
+            <div class="flex items-center space-x-3">
+              <div
+                class="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center"
+              >
+                <i class="fas fa-users text-white text-sm"></i>
+              </div>
+              <div>
+                <div class="text-sm font-semibold text-gray-900">50K+</div>
+                <div class="text-xs text-gray-500">Users</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Subtle Background Pattern -->
+        <div class="absolute inset-0 -z-10">
+          <div
+            class="absolute top-10 right-10 w-32 h-32 bg-blue-50 rounded-full opacity-50"
+          ></div>
+          <div
+            class="absolute bottom-10 left-10 w-24 h-24 bg-gray-50 rounded-full opacity-30"
+          ></div>
+        </div>
+      </div>
     </div>
+  </div>
 </section>
 
+<!-- Site Footer -->
+<footer
+  class="bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div>
+        <a href="/" class="flex items-center space-x-3 mb-4 inline-block">
+          <div
+            class="w-10 h-10 bg-blue-600 text-white rounded-lg flex items-center justify-center"
+          >
+            <i class="fas fa-balance-scale"></i>
+          </div>
+          <span class="text-lg font-semibold text-gray-900 dark:text-gray-100"
+            >Ovovex</span
+          >
+        </a>
+        <p class="text-sm text-gray-600 dark:text-gray-400 max-w-sm">
+          Modern accounting software with IFRS compliance, secure data handling,
+          and AI-powered automation.
+        </p>
+      </div>
 
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <h4
+            class="text-sm font-semibold text-gray-900 dark:text-gray-100 mb-3"
+          >
+            Product
+          </h4>
+          <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+            <li>
+              <a
+                href="#features"
+                class="hover:text-gray-900 dark:hover:text-white"
+                >Features</a
+              >
+            </li>
+            <li>
+              <a href="#demo" class="hover:text-gray-900 dark:hover:text-white"
+                >Live Demo</a
+              >
+            </li>
+            <li>
+              <a href="#" class="hover:text-gray-900 dark:hover:text-white"
+                >Pricing</a
+              >
+            </li>
+            <li>
+              <a href="#" class="hover:text-gray-900 dark:hover:text-white"
+                >Integrations</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h4
+            class="text-sm font-semibold text-gray-900 dark:text-gray-100 mb-3"
+          >
+            Company
+          </h4>
+          <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+            <li>
+              <a href="#" class="hover:text-gray-900 dark:hover:text-white"
+                >About</a
+              >
+            </li>
+            <li>
+              <a href="#" class="hover:text-gray-900 dark:hover:text-white"
+                >Careers</a
+              >
+            </li>
+            <li>
+              <a href="#" class="hover:text-gray-900 dark:hover:text-white"
+                >Blog</a
+              >
+            </li>
+            <li>
+              <a href="#" class="hover:text-gray-900 dark:hover:text-white"
+                >Contact</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
 
+      <div class="md:text-right">
+        <h4 class="text-sm font-semibold text-gray-900 dark:text-gray-100 mb-3">
+          Stay connected
+        </h4>
+        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+          Subscribe for product updates and industry news.
+        </p>
+        <form class="flex max-w-md mx-auto md:ml-auto">
+          <input
+            type="email"
+            placeholder="Your email"
+            class="w-full px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-l-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+          />
+          <button
+            type="submit"
+            class="px-4 py-2 bg-blue-600 text-white rounded-r-md hover:bg-blue-700"
+          >
+            Subscribe
+          </button>
+        </form>
 
+        <div class="flex items-center justify-start md:justify-end gap-3 mt-6">
+          <a
+            href="#"
+            class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
+            ><i class="fab fa-twitter fa-lg"></i
+          ></a>
+          <a
+            href="#"
+            class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
+            ><i class="fab fa-linkedin fa-lg"></i
+          ></a>
+          <a
+            href="#"
+            class="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
+            ><i class="fab fa-github fa-lg"></i
+          ></a>
+        </div>
+      </div>
+    </div>
 
+    <div
+      class="mt-8 border-t border-gray-100 dark:border-gray-800 pt-6 text-sm text-gray-500 dark:text-gray-400 flex flex-col md:flex-row items-center justify-between"
+    >
+      <div>© {{ now|date:"Y" }} Ovovex. All rights reserved.</div>
+      <div class="flex items-center space-x-4 mt-3 md:mt-0">
+        <a href="#" class="hover:text-gray-900 dark:hover:text-white"
+          >Privacy</a
+        >
+        <a href="#" class="hover:text-gray-900 dark:hover:text-white">Terms</a>
+        <a href="#" class="hover:text-gray-900 dark:hover:text-white"
+          >Security</a
+        >
+      </div>
+    </div>
+  </div>
+</footer>
 
 <!-- Interactive Demo Section -->
 <section class="py-20 bg-gray-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16">
-            <div class="inline-flex items-center px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium mb-4">
-                <i class="fas fa-play-circle mr-2"></i>
-                <span>Live Demo</span>
-            </div>
-            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">See Ovovex in Action</h2>
-            <p class="text-xl text-gray-600 max-w-2xl mx-auto">Experience the power of AI-driven accounting automation with our interactive platform demo</p>
-        </div>
-
-        <div class="grid lg:grid-cols-2 gap-12 items-center">
-            <div class="relative">
-                <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
-                    <div class="bg-gray-800 px-6 py-4 flex items-center justify-between">
-                        <div class="flex items-center space-x-3">
-                            <div class="flex space-x-2">
-                                <div class="w-3 h-3 bg-red-500 rounded-full"></div>
-                                <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                                <div class="w-3 h-3 bg-green-500 rounded-full"></div>
-                            </div>
-                            <span class="text-white text-sm font-medium">Ovovex Dashboard</span>
-                        </div>
-                        <div class="bg-green-500 text-white px-3 py-1 rounded-full text-xs font-medium">Live Demo</div>
-                    </div>
-                    <div class="aspect-video bg-gray-100 flex items-center justify-center relative">
-                        <img src="{% static 'images/image1.jpg' %}" alt="Dashboard Demo" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-black/50 flex items-center justify-center">
-                            <div class="text-center text-white">
-                                <div class="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mb-4 mx-auto">
-                                    <i class="fas fa-play text-2xl"></i>
-                                </div>
-                                <p class="text-lg font-medium">Click to start interactive demo</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="space-y-8">
-                <div>
-                    <h3 class="text-2xl font-bold text-gray-900 mb-6">What You'll Experience</h3>
-                    <div class="space-y-4">
-                        <div class="flex items-start space-x-4">
-                            <div class="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-chart-line text-white"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-lg font-semibold text-gray-900 mb-2">Real-time Financial Dashboard</h4>
-                                <p class="text-gray-600">See live cash flow, profit & loss, and key performance indicators</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start space-x-4">
-                            <div class="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-robot text-white"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-lg font-semibold text-gray-900 mb-2">AI-Powered Invoice Generation</h4>
-                                <p class="text-gray-600">Automatically create and send professional invoices with smart automation</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start space-x-4">
-                            <div class="w-12 h-12 bg-purple-500 rounded-xl flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-file-invoice text-white"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-lg font-semibold text-gray-900 mb-2">IFRS Compliant Reporting</h4>
-                                <p class="text-gray-600">Generate audit-ready financial reports that meet international standards</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start space-x-4">
-                            <div class="w-12 h-12 bg-orange-500 rounded-xl flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-mobile-alt text-white"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-lg font-semibold text-gray-900 mb-2">Mobile-First Experience</h4>
-                                <p class="text-gray-600">Manage your accounting on-the-go with our responsive mobile interface</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flex flex-col sm:flex-row gap-4">
-                    <a href="#" class="inline-flex items-center justify-center px-8 py-4 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors duration-200 shadow-sm">
-                        <i class="fas fa-rocket mr-2"></i>Start Free Trial
-                    </a>
-                    <a href="#" class="inline-flex items-center justify-center px-8 py-4 bg-white text-gray-700 font-semibold rounded-xl border border-gray-300 hover:border-gray-400 transition-colors duration-200 shadow-sm">
-                        <i class="fas fa-calendar mr-2"></i>Schedule Demo
-                    </a>
-                </div>
-            </div>
-        </div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <div
+        class="inline-flex items-center px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium mb-4"
+      >
+        <i class="fas fa-play-circle mr-2"></i>
+        <span>Live Demo</span>
+      </div>
+      <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+        See Ovovex in Action
+      </h2>
+      <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+        Experience the power of AI-driven accounting automation with our
+        interactive platform demo
+      </p>
     </div>
+
+    <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <div class="relative">
+        <div
+          class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden"
+        >
+          <div class="bg-gray-800 px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+              <div class="flex space-x-2">
+                <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+                <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+              </div>
+              <span class="text-white text-sm font-medium"
+                >Ovovex Dashboard</span
+              >
+            </div>
+            <div
+              class="bg-green-500 text-white px-3 py-1 rounded-full text-xs font-medium"
+            >
+              Live Demo
+            </div>
+          </div>
+          <div
+            class="aspect-video bg-gray-100 flex items-center justify-center relative"
+          >
+            <img
+              src="{% static 'images/image1.jpg' %}"
+              alt="Dashboard Demo"
+              class="w-full h-full object-cover"
+            />
+            <div
+              class="absolute inset-0 bg-black/50 flex items-center justify-center"
+            >
+              <div class="text-center text-white">
+                <div
+                  class="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mb-4 mx-auto"
+                >
+                  <i class="fas fa-play text-2xl"></i>
+                </div>
+                <p class="text-lg font-medium">
+                  Click to start interactive demo
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="space-y-8">
+        <div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-6">
+            What You'll Experience
+          </h3>
+          <div class="space-y-4">
+            <div class="flex items-start space-x-4">
+              <div
+                class="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center flex-shrink-0"
+              >
+                <i class="fas fa-chart-line text-white"></i>
+              </div>
+              <div>
+                <h4 class="text-lg font-semibold text-gray-900 mb-2">
+                  Real-time Financial Dashboard
+                </h4>
+                <p class="text-gray-600">
+                  See live cash flow, profit & loss, and key performance
+                  indicators
+                </p>
+              </div>
+            </div>
+            <div class="flex items-start space-x-4">
+              <div
+                class="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center flex-shrink-0"
+              >
+                <i class="fas fa-robot text-white"></i>
+              </div>
+              <div>
+                <h4 class="text-lg font-semibold text-gray-900 mb-2">
+                  AI-Powered Invoice Generation
+                </h4>
+                <p class="text-gray-600">
+                  Automatically create and send professional invoices with smart
+                  automation
+                </p>
+              </div>
+            </div>
+            <div class="flex items-start space-x-4">
+              <div
+                class="w-12 h-12 bg-purple-500 rounded-xl flex items-center justify-center flex-shrink-0"
+              >
+                <i class="fas fa-file-invoice text-white"></i>
+              </div>
+              <div>
+                <h4 class="text-lg font-semibold text-gray-900 mb-2">
+                  IFRS Compliant Reporting
+                </h4>
+                <p class="text-gray-600">
+                  Generate audit-ready financial reports that meet international
+                  standards
+                </p>
+              </div>
+            </div>
+            <div class="flex items-start space-x-4">
+              <div
+                class="w-12 h-12 bg-orange-500 rounded-xl flex items-center justify-center flex-shrink-0"
+              >
+                <i class="fas fa-mobile-alt text-white"></i>
+              </div>
+              <div>
+                <h4 class="text-lg font-semibold text-gray-900 mb-2">
+                  Mobile-First Experience
+                </h4>
+                <p class="text-gray-600">
+                  Manage your accounting on-the-go with our responsive mobile
+                  interface
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a
+            href="#"
+            class="inline-flex items-center justify-center px-8 py-4 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors duration-200 shadow-sm"
+          >
+            <i class="fas fa-rocket mr-2"></i>Start Free Trial
+          </a>
+          <a
+            href="#"
+            class="inline-flex items-center justify-center px-8 py-4 bg-white text-gray-700 font-semibold rounded-xl border border-gray-300 hover:border-gray-400 transition-colors duration-200 shadow-sm"
+          >
+            <i class="fas fa-calendar mr-2"></i>Schedule Demo
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- Core Features Section -->
 <section class="py-24 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-20">
-            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Everything You Need to Run Your Business</h2>
-            <p class="text-xl text-gray-600 max-w-3xl mx-auto">From invoicing to financial reporting, Ovovex provides comprehensive accounting tools designed for modern businesses</p>
-        </div>
-
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Smart Invoicing -->
-            <div class="bg-white rounded-2xl p-8 border border-gray-100 hover:border-gray-200 transition-colors duration-300">
-                <div class="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center mb-6">
-                    <i class="fas fa-file-invoice-dollar text-2xl text-gray-700"></i>
-                </div>
-                <h3 class="text-xl font-bold text-gray-900 mb-4">Smart Invoicing</h3>
-                <p class="text-gray-600 mb-6 leading-relaxed">Create professional invoices in seconds with AI-powered templates. Track payment status and send automated reminders.</p>
-                <ul class="space-y-3 mb-6">
-                    <li class="text-sm text-gray-600">Automated invoice generation</li>
-                    <li class="text-sm text-gray-600">Multi-currency support</li>
-                    <li class="text-sm text-gray-600">Payment gateway integration</li>
-                    <li class="text-sm text-gray-600">Recurring billing automation</li>
-                </ul>
-                <a href="#" class="inline-flex items-center text-gray-700 font-semibold hover:text-gray-900 transition-colors">
-                    Learn more
-                    <i class="fas fa-arrow-right ml-2"></i>
-                </a>
-            </div>
-
-            <!-- Financial Analytics -->
-            <div class="bg-white rounded-2xl p-8 border border-gray-100 hover:border-gray-200 transition-colors duration-300">
-                <div class="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center mb-6">
-                    <i class="fas fa-chart-bar text-2xl text-gray-700"></i>
-                </div>
-                <h3 class="text-xl font-bold text-gray-900 mb-4">Financial Analytics</h3>
-                <p class="text-gray-600 mb-6 leading-relaxed">Get real-time insights into your business performance with AI-driven analytics and predictive forecasting.</p>
-                <ul class="space-y-3 mb-6">
-                    <li class="text-sm text-gray-600">Real-time cash flow tracking</li>
-                    <li class="text-sm text-gray-600">Predictive financial modeling</li>
-                    <li class="text-sm text-gray-600">Interactive dashboards</li>
-                    <li class="text-sm text-gray-600">Custom KPI monitoring</li>
-                </ul>
-                <a href="#" class="inline-flex items-center text-gray-700 font-semibold hover:text-gray-900 transition-colors">
-                    Learn more
-                    <i class="fas fa-arrow-right ml-2"></i>
-                </a>
-            </div>
-
-            <!-- Expense Management -->
-            <div class="bg-white rounded-2xl p-8 border border-gray-100 hover:border-gray-200 transition-colors duration-300">
-                <div class="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center mb-6">
-                    <i class="fas fa-receipt text-2xl text-gray-700"></i>
-                </div>
-                <h3 class="text-xl font-bold text-gray-900 mb-4">Expense Management</h3>
-                <p class="text-gray-600 mb-6 leading-relaxed">Capture receipts, categorize expenses automatically, and track spending across projects and departments.</p>
-                <ul class="space-y-3 mb-6">
-                    <li class="text-sm text-gray-600">OCR receipt scanning</li>
-                    <li class="text-sm text-gray-600">Auto expense categorization</li>
-                    <li class="text-sm text-gray-600">Mileage tracking</li>
-                    <li class="text-sm text-gray-600">Expense policy enforcement</li>
-                </ul>
-                <a href="#" class="inline-flex items-center text-gray-700 font-semibold hover:text-gray-900 transition-colors">
-                    Learn more
-                    <i class="fas fa-arrow-right ml-2"></i>
-                </a>
-            </div>
-
-            <!-- Team Collaboration -->
-            <div class="bg-white rounded-2xl p-8 border border-gray-100 hover:border-gray-200 transition-colors duration-300">
-                <div class="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center mb-6">
-                    <i class="fas fa-users-cog text-2xl text-gray-700"></i>
-                </div>
-                <h3 class="text-xl font-bold text-gray-900 mb-4">Team Collaboration</h3>
-                <p class="text-gray-600 mb-6 leading-relaxed">Work seamlessly with your team, accountants, and stakeholders with role-based permissions and real-time collaboration.</p>
-                <ul class="space-y-3 mb-6">
-                    <li class="text-sm text-gray-600">Role-based access control</li>
-                    <li class="text-sm text-gray-600">Real-time collaboration</li>
-                    <li class="text-sm text-gray-600">Audit trails</li>
-                    <li class="text-sm text-gray-600">Multi-user support</li>
-                </ul>
-                <a href="#" class="inline-flex items-center text-gray-700 font-semibold hover:text-gray-900 transition-colors">
-                    Learn more
-                    <i class="fas fa-arrow-right ml-2"></i>
-                </a>
-            </div>
-
-            <!-- Security & Compliance -->
-            <div class="bg-white rounded-2xl p-8 border border-gray-100 hover:border-gray-200 transition-colors duration-300">
-                <div class="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center mb-6">
-                    <i class="fas fa-shield-alt text-2xl text-gray-700"></i>
-                </div>
-                <h3 class="text-xl font-bold text-gray-900 mb-4">Security & Compliance</h3>
-                <p class="text-gray-600 mb-6 leading-relaxed">Bank-level security with IFRS compliance, automated backups, and comprehensive audit capabilities.</p>
-                <ul class="space-y-3 mb-6">
-                    <li class="text-sm text-gray-600">256-bit SSL encryption</li>
-                    <li class="text-sm text-gray-600">IFRS & GAAP compliance</li>
-                    <li class="text-sm text-gray-600">Automated daily backups</li>
-                    <li class="text-sm text-gray-600">SOC 2 Type II certified</li>
-                </ul>
-                <a href="#" class="inline-flex items-center text-gray-700 font-semibold hover:text-gray-900 transition-colors">
-                    Learn more
-                    <i class="fas fa-arrow-right ml-2"></i>
-                </a>
-            </div>
-
-            <!-- Integrations -->
-            <div class="bg-white rounded-2xl p-8 border border-gray-100 hover:border-gray-200 transition-colors duration-300">
-                <div class="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center mb-6">
-                    <i class="fas fa-plug text-2xl text-gray-700"></i>
-                </div>
-                <h3 class="text-xl font-bold text-gray-900 mb-4">Integrations</h3>
-                <p class="text-gray-600 mb-6 leading-relaxed">Connect with 200+ business apps including banks, payment processors, CRMs, and e-commerce platforms.</p>
-                <ul class="space-y-3 mb-6">
-                    <li class="text-sm text-gray-600">Bank account synchronization</li>
-                    <li class="text-sm text-gray-600">Payment gateway integration</li>
-                    <li class="text-sm text-gray-600">CRM & ERP connections</li>
-                    <li class="text-sm text-gray-600">API access</li>
-                </ul>
-                <a href="#" class="inline-flex items-center text-gray-700 font-semibold hover:text-gray-900 transition-colors">
-                    Learn more
-                    <i class="fas fa-arrow-right ml-2"></i>
-                </a>
-            </div>
-        </div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-20">
+      <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+        Everything You Need to Run Your Business
+      </h2>
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+        From invoicing to financial reporting, Ovovex provides comprehensive
+        accounting tools designed for modern businesses
+      </p>
     </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Smart Invoicing -->
+      <div
+        class="bg-white rounded-2xl p-8 border border-gray-100 hover:border-gray-200 transition-colors duration-300"
+      >
+        <div
+          class="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center mb-6"
+        >
+          <i class="fas fa-file-invoice-dollar text-2xl text-gray-700"></i>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-4">Smart Invoicing</h3>
+        <p class="text-gray-600 mb-6 leading-relaxed">
+          Create professional invoices in seconds with AI-powered templates.
+          Track payment status and send automated reminders.
+        </p>
+        <ul class="space-y-3 mb-6">
+          <li class="text-sm text-gray-600">Automated invoice generation</li>
+          <li class="text-sm text-gray-600">Multi-currency support</li>
+          <li class="text-sm text-gray-600">Payment gateway integration</li>
+          <li class="text-sm text-gray-600">Recurring billing automation</li>
+        </ul>
+        <a
+          href="#"
+          class="inline-flex items-center text-gray-700 font-semibold hover:text-gray-900 transition-colors"
+        >
+          Learn more
+          <i class="fas fa-arrow-right ml-2"></i>
+        </a>
+      </div>
+
+      <!-- Financial Analytics -->
+      <div
+        class="bg-white rounded-2xl p-8 border border-gray-100 hover:border-gray-200 transition-colors duration-300"
+      >
+        <div
+          class="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center mb-6"
+        >
+          <i class="fas fa-chart-bar text-2xl text-gray-700"></i>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-4">
+          Financial Analytics
+        </h3>
+        <p class="text-gray-600 mb-6 leading-relaxed">
+          Get real-time insights into your business performance with AI-driven
+          analytics and predictive forecasting.
+        </p>
+        <ul class="space-y-3 mb-6">
+          <li class="text-sm text-gray-600">Real-time cash flow tracking</li>
+          <li class="text-sm text-gray-600">Predictive financial modeling</li>
+          <li class="text-sm text-gray-600">Interactive dashboards</li>
+          <li class="text-sm text-gray-600">Custom KPI monitoring</li>
+        </ul>
+        <a
+          href="#"
+          class="inline-flex items-center text-gray-700 font-semibold hover:text-gray-900 transition-colors"
+        >
+          Learn more
+          <i class="fas fa-arrow-right ml-2"></i>
+        </a>
+      </div>
+
+      <!-- Expense Management -->
+      <div
+        class="bg-white rounded-2xl p-8 border border-gray-100 hover:border-gray-200 transition-colors duration-300"
+      >
+        <div
+          class="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center mb-6"
+        >
+          <i class="fas fa-receipt text-2xl text-gray-700"></i>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-4">Expense Management</h3>
+        <p class="text-gray-600 mb-6 leading-relaxed">
+          Capture receipts, categorize expenses automatically, and track
+          spending across projects and departments.
+        </p>
+        <ul class="space-y-3 mb-6">
+          <li class="text-sm text-gray-600">OCR receipt scanning</li>
+          <li class="text-sm text-gray-600">Auto expense categorization</li>
+          <li class="text-sm text-gray-600">Mileage tracking</li>
+          <li class="text-sm text-gray-600">Expense policy enforcement</li>
+        </ul>
+        <a
+          href="#"
+          class="inline-flex items-center text-gray-700 font-semibold hover:text-gray-900 transition-colors"
+        >
+          Learn more
+          <i class="fas fa-arrow-right ml-2"></i>
+        </a>
+      </div>
+
+      <!-- Team Collaboration -->
+      <div
+        class="bg-white rounded-2xl p-8 border border-gray-100 hover:border-gray-200 transition-colors duration-300"
+      >
+        <div
+          class="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center mb-6"
+        >
+          <i class="fas fa-users-cog text-2xl text-gray-700"></i>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-4">Team Collaboration</h3>
+        <p class="text-gray-600 mb-6 leading-relaxed">
+          Work seamlessly with your team, accountants, and stakeholders with
+          role-based permissions and real-time collaboration.
+        </p>
+        <ul class="space-y-3 mb-6">
+          <li class="text-sm text-gray-600">Role-based access control</li>
+          <li class="text-sm text-gray-600">Real-time collaboration</li>
+          <li class="text-sm text-gray-600">Audit trails</li>
+          <li class="text-sm text-gray-600">Multi-user support</li>
+        </ul>
+        <a
+          href="#"
+          class="inline-flex items-center text-gray-700 font-semibold hover:text-gray-900 transition-colors"
+        >
+          Learn more
+          <i class="fas fa-arrow-right ml-2"></i>
+        </a>
+      </div>
+
+      <!-- Security & Compliance -->
+      <div
+        class="bg-white rounded-2xl p-8 border border-gray-100 hover:border-gray-200 transition-colors duration-300"
+      >
+        <div
+          class="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center mb-6"
+        >
+          <i class="fas fa-shield-alt text-2xl text-gray-700"></i>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-4">
+          Security & Compliance
+        </h3>
+        <p class="text-gray-600 mb-6 leading-relaxed">
+          Bank-level security with IFRS compliance, automated backups, and
+          comprehensive audit capabilities.
+        </p>
+        <ul class="space-y-3 mb-6">
+          <li class="text-sm text-gray-600">256-bit SSL encryption</li>
+          <li class="text-sm text-gray-600">IFRS & GAAP compliance</li>
+          <li class="text-sm text-gray-600">Automated daily backups</li>
+          <li class="text-sm text-gray-600">SOC 2 Type II certified</li>
+        </ul>
+        <a
+          href="#"
+          class="inline-flex items-center text-gray-700 font-semibold hover:text-gray-900 transition-colors"
+        >
+          Learn more
+          <i class="fas fa-arrow-right ml-2"></i>
+        </a>
+      </div>
+
+      <!-- Integrations -->
+      <div
+        class="bg-white rounded-2xl p-8 border border-gray-100 hover:border-gray-200 transition-colors duration-300"
+      >
+        <div
+          class="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center mb-6"
+        >
+          <i class="fas fa-plug text-2xl text-gray-700"></i>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-4">Integrations</h3>
+        <p class="text-gray-600 mb-6 leading-relaxed">
+          Connect with 200+ business apps including banks, payment processors,
+          CRMs, and e-commerce platforms.
+        </p>
+        <ul class="space-y-3 mb-6">
+          <li class="text-sm text-gray-600">Bank account synchronization</li>
+          <li class="text-sm text-gray-600">Payment gateway integration</li>
+          <li class="text-sm text-gray-600">CRM & ERP connections</li>
+          <li class="text-sm text-gray-600">API access</li>
+        </ul>
+        <a
+          href="#"
+          class="inline-flex items-center text-gray-700 font-semibold hover:text-gray-900 transition-colors"
+        >
+          Learn more
+          <i class="fas fa-arrow-right ml-2"></i>
+        </a>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- AI-Powered Features Section -->
 <section class="py-24 bg-gray-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-20">
-            <div class="inline-flex items-center px-4 py-2 bg-blue-50 rounded-full text-sm font-semibold text-blue-700 mb-6">
-                <i class="fas fa-brain mr-2"></i>
-                AI-Powered
-            </div>
-            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Intelligence That Works for You</h2>
-            <p class="text-xl text-gray-600 max-w-3xl mx-auto">Leverage artificial intelligence to automate routine tasks, gain insights, and make smarter financial decisions</p>
-        </div>
-
-        <div class="grid lg:grid-cols-2 gap-16 items-center mb-20">
-            <div class="space-y-8">
-                <div>
-                    <h3 class="text-3xl font-bold text-gray-900 mb-6">Smart Transaction Categorization</h3>
-                    <p class="text-lg text-gray-600 leading-relaxed mb-8">Our AI learns from your business patterns to automatically categorize transactions, saving you hours of manual work each week.</p>
-                </div>
-
-                <!-- Stats Grid -->
-                <div class="grid grid-cols-3 gap-6">
-                    <div class="text-center">
-                        <div class="text-2xl font-bold text-blue-600 mb-1">98.5%</div>
-                        <div class="text-sm text-gray-500">Accuracy Rate</div>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-2xl font-bold text-green-600 mb-1">15hrs</div>
-                        <div class="text-sm text-gray-500">Saved Weekly</div>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-2xl font-bold text-purple-600 mb-1">3sec</div>
-                        <div class="text-sm text-gray-500">Processing Time</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- AI Demo Card -->
-            <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-8">
-                <div class="flex items-center justify-between mb-6">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-3 h-3 bg-red-500 rounded-full"></div>
-                        <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                        <div class="w-3 h-3 bg-green-500 rounded-full"></div>
-                    </div>
-                    <div class="flex items-center space-x-2">
-                        <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                        <span class="text-sm font-medium text-gray-600">AI Processing</span>
-                    </div>
-                </div>
-
-                <div class="space-y-4">
-                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
-                        <div class="flex items-center space-x-4">
-                            <div class="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center">
-                                <i class="fas fa-coffee text-amber-600"></i>
-                            </div>
-                            <div>
-                                <div class="font-medium text-gray-900">Starbucks Coffee #4521</div>
-                                <div class="text-sm text-gray-500">→ Office Supplies</div>
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <div class="font-semibold text-gray-900">$15.67</div>
-                        </div>
-                    </div>
-
-                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
-                        <div class="flex items-center space-x-4">
-                            <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                                <i class="fas fa-car text-blue-600"></i>
-                            </div>
-                            <div>
-                                <div class="font-medium text-gray-900">Uber Ride Downtown</div>
-                                <div class="text-sm text-gray-500">→ Travel Expenses</div>
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <div class="font-semibold text-gray-900">$24.50</div>
-                        </div>
-                    </div>
-
-                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
-                        <div class="flex items-center space-x-4">
-                            <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
-                                <i class="fas fa-desktop text-green-600"></i>
-                            </div>
-                            <div>
-                                <div class="font-medium text-gray-900">Adobe Creative Suite</div>
-                                <div class="text-sm text-gray-500">→ Software & Tools</div>
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <div class="font-semibold text-gray-900">$52.99</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- AI Capabilities -->
-        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 text-center hover:shadow-lg transition-shadow duration-300">
-                <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center mx-auto mb-4">
-                    <i class="fas fa-chart-line text-xl text-blue-600"></i>
-                </div>
-                <h4 class="text-lg font-bold text-gray-900 mb-3">Predictive Analytics</h4>
-                <p class="text-gray-600 text-sm leading-relaxed">Forecast cash flow and identify trends before they impact your business</p>
-            </div>
-
-            <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 text-center hover:shadow-lg transition-shadow duration-300">
-                <div class="w-12 h-12 bg-red-50 rounded-xl flex items-center justify-center mx-auto mb-4">
-                    <i class="fas fa-exclamation-triangle text-xl text-red-600"></i>
-                </div>
-                <h4 class="text-lg font-bold text-gray-900 mb-3">Anomaly Detection</h4>
-                <p class="text-gray-600 text-sm leading-relaxed">Automatically flag unusual transactions and potential fraud attempts</p>
-            </div>
-
-            <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 text-center hover:shadow-lg transition-shadow duration-300">
-                <div class="w-12 h-12 bg-yellow-50 rounded-xl flex items-center justify-center mx-auto mb-4">
-                    <i class="fas fa-lightbulb text-xl text-yellow-600"></i>
-                </div>
-                <h4 class="text-lg font-bold text-gray-900 mb-3">Smart Insights</h4>
-                <p class="text-gray-600 text-sm leading-relaxed">Receive personalized recommendations to optimize your financial performance</p>
-            </div>
-
-            <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 text-center hover:shadow-lg transition-shadow duration-300">
-                <div class="w-12 h-12 bg-purple-50 rounded-xl flex items-center justify-center mx-auto mb-4">
-                    <i class="fas fa-comments text-xl text-purple-600"></i>
-                </div>
-                <h4 class="text-lg font-bold text-gray-900 mb-3">Natural Language</h4>
-                <p class="text-gray-600 text-sm leading-relaxed">Ask questions about your finances in plain English and get instant answers</p>
-            </div>
-        </div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-20">
+      <div
+        class="inline-flex items-center px-4 py-2 bg-blue-50 rounded-full text-sm font-semibold text-blue-700 mb-6"
+      >
+        <i class="fas fa-brain mr-2"></i>
+        AI-Powered
+      </div>
+      <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+        Intelligence That Works for You
+      </h2>
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+        Leverage artificial intelligence to automate routine tasks, gain
+        insights, and make smarter financial decisions
+      </p>
     </div>
+
+    <div class="grid lg:grid-cols-2 gap-16 items-center mb-20">
+      <div class="space-y-8">
+        <div>
+          <h3 class="text-3xl font-bold text-gray-900 mb-6">
+            Smart Transaction Categorization
+          </h3>
+          <p class="text-lg text-gray-600 leading-relaxed mb-8">
+            Our AI learns from your business patterns to automatically
+            categorize transactions, saving you hours of manual work each week.
+          </p>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="grid grid-cols-3 gap-6">
+          <div class="text-center">
+            <div class="text-2xl font-bold text-blue-600 mb-1">98.5%</div>
+            <div class="text-sm text-gray-500">Accuracy Rate</div>
+          </div>
+          <div class="text-center">
+            <div class="text-2xl font-bold text-green-600 mb-1">15hrs</div>
+            <div class="text-sm text-gray-500">Saved Weekly</div>
+          </div>
+          <div class="text-center">
+            <div class="text-2xl font-bold text-purple-600 mb-1">3sec</div>
+            <div class="text-sm text-gray-500">Processing Time</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI Demo Card -->
+      <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-8">
+        <div class="flex items-center justify-between mb-6">
+          <div class="flex items-center space-x-3">
+            <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+            <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+            <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+          </div>
+          <div class="flex items-center space-x-2">
+            <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+            <span class="text-sm font-medium text-gray-600">AI Processing</span>
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          <div
+            class="flex items-center justify-between p-4 bg-gray-50 rounded-xl"
+          >
+            <div class="flex items-center space-x-4">
+              <div
+                class="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center"
+              >
+                <i class="fas fa-coffee text-amber-600"></i>
+              </div>
+              <div>
+                <div class="font-medium text-gray-900">
+                  Starbucks Coffee #4521
+                </div>
+                <div class="text-sm text-gray-500">→ Office Supplies</div>
+              </div>
+            </div>
+            <div class="text-right">
+              <div class="font-semibold text-gray-900">$15.67</div>
+            </div>
+          </div>
+
+          <div
+            class="flex items-center justify-between p-4 bg-gray-50 rounded-xl"
+          >
+            <div class="flex items-center space-x-4">
+              <div
+                class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center"
+              >
+                <i class="fas fa-car text-blue-600"></i>
+              </div>
+              <div>
+                <div class="font-medium text-gray-900">Uber Ride Downtown</div>
+                <div class="text-sm text-gray-500">→ Travel Expenses</div>
+              </div>
+            </div>
+            <div class="text-right">
+              <div class="font-semibold text-gray-900">$24.50</div>
+            </div>
+          </div>
+
+          <div
+            class="flex items-center justify-between p-4 bg-gray-50 rounded-xl"
+          >
+            <div class="flex items-center space-x-4">
+              <div
+                class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center"
+              >
+                <i class="fas fa-desktop text-green-600"></i>
+              </div>
+              <div>
+                <div class="font-medium text-gray-900">
+                  Adobe Creative Suite
+                </div>
+                <div class="text-sm text-gray-500">→ Software & Tools</div>
+              </div>
+            </div>
+            <div class="text-right">
+              <div class="font-semibold text-gray-900">$52.99</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI Capabilities -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div
+        class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 text-center hover:shadow-lg transition-shadow duration-300"
+      >
+        <div
+          class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center mx-auto mb-4"
+        >
+          <i class="fas fa-chart-line text-xl text-blue-600"></i>
+        </div>
+        <h4 class="text-lg font-bold text-gray-900 mb-3">
+          Predictive Analytics
+        </h4>
+        <p class="text-gray-600 text-sm leading-relaxed">
+          Forecast cash flow and identify trends before they impact your
+          business
+        </p>
+      </div>
+
+      <div
+        class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 text-center hover:shadow-lg transition-shadow duration-300"
+      >
+        <div
+          class="w-12 h-12 bg-red-50 rounded-xl flex items-center justify-center mx-auto mb-4"
+        >
+          <i class="fas fa-exclamation-triangle text-xl text-red-600"></i>
+        </div>
+        <h4 class="text-lg font-bold text-gray-900 mb-3">Anomaly Detection</h4>
+        <p class="text-gray-600 text-sm leading-relaxed">
+          Automatically flag unusual transactions and potential fraud attempts
+        </p>
+      </div>
+
+      <div
+        class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 text-center hover:shadow-lg transition-shadow duration-300"
+      >
+        <div
+          class="w-12 h-12 bg-yellow-50 rounded-xl flex items-center justify-center mx-auto mb-4"
+        >
+          <i class="fas fa-lightbulb text-xl text-yellow-600"></i>
+        </div>
+        <h4 class="text-lg font-bold text-gray-900 mb-3">Smart Insights</h4>
+        <p class="text-gray-600 text-sm leading-relaxed">
+          Receive personalized recommendations to optimize your financial
+          performance
+        </p>
+      </div>
+
+      <div
+        class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 text-center hover:shadow-lg transition-shadow duration-300"
+      >
+        <div
+          class="w-12 h-12 bg-purple-50 rounded-xl flex items-center justify-center mx-auto mb-4"
+        >
+          <i class="fas fa-comments text-xl text-purple-600"></i>
+        </div>
+        <h4 class="text-lg font-bold text-gray-900 mb-3">Natural Language</h4>
+        <p class="text-gray-600 text-sm leading-relaxed">
+          Ask questions about your finances in plain English and get instant
+          answers
+        </p>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- Key Features Highlights -->
 <section id="features" class="py-24 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-20">
-            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Core Accounting Features</h2>
-            <p class="text-xl text-gray-600 max-w-2xl mx-auto">Everything you need for complete financial management</p>
-        </div>
-
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-shadow duration-300 text-center">
-                <div class="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                    <i class="fas fa-file-invoice-dollar text-2xl text-blue-600"></i>
-                </div>
-                <h3 class="text-xl font-bold text-gray-900 mb-4">Smart Invoicing & Billing</h3>
-                <p class="text-gray-600 leading-relaxed">Automated recurring invoices, payment reminders, and multi-currency support with IFRS compliance.</p>
-            </div>
-
-            <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-shadow duration-300 text-center">
-                <div class="w-16 h-16 bg-green-50 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                    <i class="fas fa-robot text-2xl text-green-600"></i>
-                </div>
-                <h3 class="text-xl font-bold text-gray-900 mb-4">Automated Bookkeeping</h3>
-                <p class="text-gray-600 leading-relaxed">AI-powered transaction categorization and automated journal entries following IFRS standards.</p>
-            </div>
-
-            <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-shadow duration-300 text-center">
-                <div class="w-16 h-16 bg-purple-50 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                    <i class="fas fa-chart-line text-2xl text-purple-600"></i>
-                </div>
-                <h3 class="text-xl font-bold text-gray-900 mb-4">Real-Time Analytics</h3>
-                <p class="text-gray-600 leading-relaxed">Live financial dashboards, KPI tracking, and predictive analytics for informed decision-making.</p>
-            </div>
-
-            <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-shadow duration-300 text-center">
-                <div class="w-16 h-16 bg-orange-50 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                    <i class="fas fa-globe text-2xl text-orange-600"></i>
-                </div>
-                <h3 class="text-xl font-bold text-gray-900 mb-4">Multi-Currency & Multi-Company</h3>
-                <p class="text-gray-600 leading-relaxed">Handle multiple entities and currencies with automatic consolidation and intercompany transactions.</p>
-            </div>
-
-            <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-shadow duration-300 text-center">
-                <div class="w-16 h-16 bg-red-50 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                    <i class="fas fa-brain text-2xl text-red-600"></i>
-                </div>
-                <h3 class="text-xl font-bold text-gray-900 mb-4">AI-Powered Insights</h3>
-                <p class="text-gray-600 leading-relaxed">Smart forecasting, anomaly detection, and automated financial analysis with machine learning.</p>
-            </div>
-
-            <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-shadow duration-300 text-center">
-                <div class="w-16 h-16 bg-indigo-50 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                    <i class="fas fa-shield-alt text-2xl text-indigo-600"></i>
-                </div>
-                <h3 class="text-xl font-bold text-gray-900 mb-4">Bank-Grade Security</h3>
-                <p class="text-gray-600 leading-relaxed">AES-256 encryption, 2FA, ISO 27001 compliance, and regular security audits for data protection.</p>
-            </div>
-        </div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-20">
+      <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+        Core Accounting Features
+      </h2>
+      <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+        Everything you need for complete financial management
+      </p>
     </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div
+        class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-shadow duration-300 text-center"
+      >
+        <div
+          class="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto mb-6"
+        >
+          <i class="fas fa-file-invoice-dollar text-2xl text-blue-600"></i>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-4">
+          Smart Invoicing & Billing
+        </h3>
+        <p class="text-gray-600 leading-relaxed">
+          Automated recurring invoices, payment reminders, and multi-currency
+          support with IFRS compliance.
+        </p>
+      </div>
+
+      <div
+        class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-shadow duration-300 text-center"
+      >
+        <div
+          class="w-16 h-16 bg-green-50 rounded-2xl flex items-center justify-center mx-auto mb-6"
+        >
+          <i class="fas fa-robot text-2xl text-green-600"></i>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-4">
+          Automated Bookkeeping
+        </h3>
+        <p class="text-gray-600 leading-relaxed">
+          AI-powered transaction categorization and automated journal entries
+          following IFRS standards.
+        </p>
+      </div>
+
+      <div
+        class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-shadow duration-300 text-center"
+      >
+        <div
+          class="w-16 h-16 bg-purple-50 rounded-2xl flex items-center justify-center mx-auto mb-6"
+        >
+          <i class="fas fa-chart-line text-2xl text-purple-600"></i>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-4">
+          Real-Time Analytics
+        </h3>
+        <p class="text-gray-600 leading-relaxed">
+          Live financial dashboards, KPI tracking, and predictive analytics for
+          informed decision-making.
+        </p>
+      </div>
+
+      <div
+        class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-shadow duration-300 text-center"
+      >
+        <div
+          class="w-16 h-16 bg-orange-50 rounded-2xl flex items-center justify-center mx-auto mb-6"
+        >
+          <i class="fas fa-globe text-2xl text-orange-600"></i>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-4">
+          Multi-Currency & Multi-Company
+        </h3>
+        <p class="text-gray-600 leading-relaxed">
+          Handle multiple entities and currencies with automatic consolidation
+          and intercompany transactions.
+        </p>
+      </div>
+
+      <div
+        class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-shadow duration-300 text-center"
+      >
+        <div
+          class="w-16 h-16 bg-red-50 rounded-2xl flex items-center justify-center mx-auto mb-6"
+        >
+          <i class="fas fa-brain text-2xl text-red-600"></i>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-4">
+          AI-Powered Insights
+        </h3>
+        <p class="text-gray-600 leading-relaxed">
+          Smart forecasting, anomaly detection, and automated financial analysis
+          with machine learning.
+        </p>
+      </div>
+
+      <div
+        class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-shadow duration-300 text-center"
+      >
+        <div
+          class="w-16 h-16 bg-indigo-50 rounded-2xl flex items-center justify-center mx-auto mb-6"
+        >
+          <i class="fas fa-shield-alt text-2xl text-indigo-600"></i>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-4">
+          Bank-Grade Security
+        </h3>
+        <p class="text-gray-600 leading-relaxed">
+          AES-256 encryption, 2FA, ISO 27001 compliance, and regular security
+          audits for data protection.
+        </p>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- Interactive Demo Section -->
 <section id="demo" class="py-24 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16">
-            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">See How It Works</h2>
-            <p class="text-xl text-gray-600 max-w-2xl mx-auto">Experience the power of intelligent accounting automation</p>
-        </div>
-
-        <div class="max-w-4xl mx-auto">
-            <div class="bg-white rounded-2xl shadow-lg border border-gray-200 p-8">
-                <div class="flex items-center justify-between mb-8">
-                    <div class="flex items-center space-x-4">
-                        <div class="flex space-x-2">
-                            <div class="w-3 h-3 bg-red-500 rounded-full"></div>
-                            <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                            <div class="w-3 h-3 bg-green-500 rounded-full"></div>
-                        </div>
-                        <h6 class="text-lg font-semibold text-gray-900">Ovovex Accounting Dashboard</h6>
-                    </div>
-                    <div class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-medium">Live Demo</div>
-                </div>
-
-                <div class="grid md:grid-cols-4 gap-6 mb-8">
-                    <div class="bg-blue-600 text-white p-6 rounded-xl">
-                        <div class="text-sm font-medium mb-2">Monthly Revenue</div>
-                        <div class="text-2xl font-bold mb-1" id="revenue-counter">$0</div>
-                        <div class="text-sm opacity-90">+12% from last month</div>
-                    </div>
-                    <div class="bg-cyan-600 text-white p-6 rounded-xl">
-                        <div class="text-sm font-medium mb-2">Outstanding Invoices</div>
-                        <div class="text-2xl font-bold mb-1" id="invoices-counter">0</div>
-                        <div class="text-sm opacity-90">23 pending payments</div>
-                    </div>
-                    <div class="bg-green-600 text-white p-6 rounded-xl">
-                        <div class="text-sm font-medium mb-2">Profit Margin</div>
-                        <div class="text-2xl font-bold mb-1" id="profit-counter">0%</div>
-                        <div class="text-sm opacity-90">Above industry avg</div>
-                    </div>
-                    <div class="bg-yellow-600 text-white p-6 rounded-xl">
-                        <div class="text-sm font-medium mb-2">Time Saved</div>
-                        <div class="text-2xl font-bold mb-1" id="time-counter">0h</div>
-                        <div class="text-sm opacity-90">This month</div>
-                    </div>
-                </div>
-
-                <div class="text-center">
-                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                        <a href="#" class="inline-flex items-center justify-center px-8 py-4 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors duration-200">
-                            Try Demo Now
-                        </a>
-                        <a href="#" class="inline-flex items-center justify-center px-8 py-4 bg-white text-gray-700 font-semibold rounded-xl border border-gray-300 hover:border-gray-400 transition-colors duration-200">
-                            Schedule Demo
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+        See How It Works
+      </h2>
+      <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+        Experience the power of intelligent accounting automation
+      </p>
     </div>
+
+    <div class="max-w-4xl mx-auto">
+      <div class="bg-white rounded-2xl shadow-lg border border-gray-200 p-8">
+        <div class="flex items-center justify-between mb-8">
+          <div class="flex items-center space-x-4">
+            <div class="flex space-x-2">
+              <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+              <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+              <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+            </div>
+            <h6 class="text-lg font-semibold text-gray-900">
+              Ovovex Accounting Dashboard
+            </h6>
+          </div>
+          <div
+            class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-medium"
+          >
+            Live Demo
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-4 gap-6 mb-8">
+          <div class="bg-blue-600 text-white p-6 rounded-xl">
+            <div class="text-sm font-medium mb-2">Monthly Revenue</div>
+            <div class="text-2xl font-bold mb-1" id="revenue-counter">$0</div>
+            <div class="text-sm opacity-90">+12% from last month</div>
+          </div>
+          <div class="bg-cyan-600 text-white p-6 rounded-xl">
+            <div class="text-sm font-medium mb-2">Outstanding Invoices</div>
+            <div class="text-2xl font-bold mb-1" id="invoices-counter">0</div>
+            <div class="text-sm opacity-90">23 pending payments</div>
+          </div>
+          <div class="bg-green-600 text-white p-6 rounded-xl">
+            <div class="text-sm font-medium mb-2">Profit Margin</div>
+            <div class="text-2xl font-bold mb-1" id="profit-counter">0%</div>
+            <div class="text-sm opacity-90">Above industry avg</div>
+          </div>
+          <div class="bg-yellow-600 text-white p-6 rounded-xl">
+            <div class="text-sm font-medium mb-2">Time Saved</div>
+            <div class="text-2xl font-bold mb-1" id="time-counter">0h</div>
+            <div class="text-sm opacity-90">This month</div>
+          </div>
+        </div>
+
+        <div class="text-center">
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href="#"
+              class="inline-flex items-center justify-center px-8 py-4 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors duration-200"
+            >
+              Try Demo Now
+            </a>
+            <a
+              href="#"
+              class="inline-flex items-center justify-center px-8 py-4 bg-white text-gray-700 font-semibold rounded-xl border border-gray-300 hover:border-gray-400 transition-colors duration-200"
+            >
+              Schedule Demo
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- Features by Category -->
 <section class="py-24 bg-gray-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-20">
-            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Complete Accounting Suite</h2>
-            <p class="text-xl text-gray-600 max-w-3xl mx-auto">IFRS-compliant features for every business need</p>
-        </div>
-
-        <div class="grid lg:grid-cols-2 gap-8">
-            <div class="bg-white rounded-2xl p-8 border border-gray-100">
-                <h5 class="text-xl font-bold text-gray-900 mb-6">Accounting Core</h5>
-                <ul class="space-y-4">
-                    <li class="text-gray-600">Journal Entries & General Ledger</li>
-                    <li class="text-gray-600">Chart of Accounts (IFRS)</li>
-                    <li class="text-gray-600">Trial Balance & Reconciliation</li>
-                    <li class="text-gray-600">Financial Statement Generation</li>
-                </ul>
-            </div>
-
-            <div class="bg-white rounded-2xl p-8 border border-gray-100">
-                <h5 class="text-xl font-bold text-gray-900 mb-6">Sales & Invoicing</h5>
-                <ul class="space-y-4">
-                    <li class="text-gray-600">Quotations & Estimates</li>
-                    <li class="text-gray-600">Recurring Invoices & Reminders</li>
-                    <li class="text-gray-600">E-Invoicing & Digital Signatures</li>
-                    <li class="text-gray-600">Payment Gateway Integration</li>
-                </ul>
-            </div>
-
-            <div class="bg-white rounded-2xl p-8 border border-gray-100">
-                <h5 class="text-xl font-bold text-gray-900 mb-6">Banking & Cash Flow</h5>
-                <ul class="space-y-4">
-                    <li class="text-gray-600">Bank Feed Integration</li>
-                    <li class="text-gray-600">Auto Reconciliation</li>
-                    <li class="text-gray-600">Cash Flow Forecasting</li>
-                    <li class="text-gray-600">Multi-Currency Support</li>
-                </ul>
-            </div>
-
-            <div class="bg-white rounded-2xl p-8 border border-gray-100">
-                <h5 class="text-xl font-bold text-gray-900 mb-6">Reporting & Analytics</h5>
-                <ul class="space-y-4">
-                    <li class="text-gray-600">Balance Sheet & P&L (IFRS)</li>
-                    <li class="text-gray-600">Custom Reports & KPIs</li>
-                    <li class="text-gray-600">Real-time Dashboards</li>
-                    <li class="text-gray-600">Predictive Analytics</li>
-                </ul>
-            </div>
-        </div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-20">
+      <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+        Complete Accounting Suite
+      </h2>
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+        IFRS-compliant features for every business need
+      </p>
     </div>
+
+    <div class="grid lg:grid-cols-2 gap-8">
+      <div class="bg-white rounded-2xl p-8 border border-gray-100">
+        <h5 class="text-xl font-bold text-gray-900 mb-6">Accounting Core</h5>
+        <ul class="space-y-4">
+          <li class="text-gray-600">Journal Entries & General Ledger</li>
+          <li class="text-gray-600">Chart of Accounts (IFRS)</li>
+          <li class="text-gray-600">Trial Balance & Reconciliation</li>
+          <li class="text-gray-600">Financial Statement Generation</li>
+        </ul>
+      </div>
+
+      <div class="bg-white rounded-2xl p-8 border border-gray-100">
+        <h5 class="text-xl font-bold text-gray-900 mb-6">Sales & Invoicing</h5>
+        <ul class="space-y-4">
+          <li class="text-gray-600">Quotations & Estimates</li>
+          <li class="text-gray-600">Recurring Invoices & Reminders</li>
+          <li class="text-gray-600">E-Invoicing & Digital Signatures</li>
+          <li class="text-gray-600">Payment Gateway Integration</li>
+        </ul>
+      </div>
+
+      <div class="bg-white rounded-2xl p-8 border border-gray-100">
+        <h5 class="text-xl font-bold text-gray-900 mb-6">
+          Banking & Cash Flow
+        </h5>
+        <ul class="space-y-4">
+          <li class="text-gray-600">Bank Feed Integration</li>
+          <li class="text-gray-600">Auto Reconciliation</li>
+          <li class="text-gray-600">Cash Flow Forecasting</li>
+          <li class="text-gray-600">Multi-Currency Support</li>
+        </ul>
+      </div>
+
+      <div class="bg-white rounded-2xl p-8 border border-gray-100">
+        <h5 class="text-xl font-bold text-gray-900 mb-6">
+          Reporting & Analytics
+        </h5>
+        <ul class="space-y-4">
+          <li class="text-gray-600">Balance Sheet & P&L (IFRS)</li>
+          <li class="text-gray-600">Custom Reports & KPIs</li>
+          <li class="text-gray-600">Real-time Dashboards</li>
+          <li class="text-gray-600">Predictive Analytics</li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- Integrations Section -->
 <section class="py-24 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-20">
-            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Seamless Integrations</h2>
-            <p class="text-xl text-gray-600 max-w-2xl mx-auto">Connect your favorite tools and platforms</p>
-        </div>
-
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 mb-12">
-            <div class="text-center">
-                <div class="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                    <i class="fab fa-microsoft text-2xl text-gray-700"></i>
-                </div>
-                <div class="text-sm font-medium text-gray-600">Microsoft 365</div>
-            </div>
-
-            <div class="text-center">
-                <div class="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                    <i class="fab fa-google text-2xl text-gray-700"></i>
-                </div>
-                <div class="text-sm font-medium text-gray-600">Google Workspace</div>
-            </div>
-
-            <div class="text-center">
-                <div class="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                    <i class="fab fa-shopify text-2xl text-gray-700"></i>
-                </div>
-                <div class="text-sm font-medium text-gray-600">Shopify</div>
-            </div>
-
-            <div class="text-center">
-                <div class="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                    <i class="fab fa-stripe text-2xl text-gray-700"></i>
-                </div>
-                <div class="text-sm font-medium text-gray-600">Stripe</div>
-            </div>
-
-            <div class="text-center">
-                <div class="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                    <i class="fab fa-paypal text-2xl text-gray-700"></i>
-                </div>
-                <div class="text-sm font-medium text-gray-600">PayPal</div>
-            </div>
-
-            <div class="text-center">
-                <div class="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                    <i class="fas fa-plus text-2xl text-gray-700"></i>
-                </div>
-                <div class="text-sm font-medium text-gray-600">50+ More</div>
-            </div>
-        </div>
-
-        <div class="text-center">
-            <a href="#" class="inline-flex items-center justify-center px-8 py-4 bg-white text-gray-700 font-semibold rounded-xl border border-gray-300 hover:border-gray-400 transition-colors duration-200">
-                Explore All Integrations
-            </a>
-        </div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-20">
+      <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+        Seamless Integrations
+      </h2>
+      <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+        Connect your favorite tools and platforms
+      </p>
     </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 mb-12">
+      <div class="text-center">
+        <div
+          class="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center mx-auto mb-4"
+        >
+          <i class="fab fa-microsoft text-2xl text-gray-700"></i>
+        </div>
+        <div class="text-sm font-medium text-gray-600">Microsoft 365</div>
+      </div>
+
+      <div class="text-center">
+        <div
+          class="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center mx-auto mb-4"
+        >
+          <i class="fab fa-google text-2xl text-gray-700"></i>
+        </div>
+        <div class="text-sm font-medium text-gray-600">Google Workspace</div>
+      </div>
+
+      <div class="text-center">
+        <div
+          class="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center mx-auto mb-4"
+        >
+          <i class="fab fa-shopify text-2xl text-gray-700"></i>
+        </div>
+        <div class="text-sm font-medium text-gray-600">Shopify</div>
+      </div>
+
+      <div class="text-center">
+        <div
+          class="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center mx-auto mb-4"
+        >
+          <i class="fab fa-stripe text-2xl text-gray-700"></i>
+        </div>
+        <div class="text-sm font-medium text-gray-600">Stripe</div>
+      </div>
+
+      <div class="text-center">
+        <div
+          class="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center mx-auto mb-4"
+        >
+          <i class="fab fa-paypal text-2xl text-gray-700"></i>
+        </div>
+        <div class="text-sm font-medium text-gray-600">PayPal</div>
+      </div>
+
+      <div class="text-center">
+        <div
+          class="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center mx-auto mb-4"
+        >
+          <i class="fas fa-plus text-2xl text-gray-700"></i>
+        </div>
+        <div class="text-sm font-medium text-gray-600">50+ More</div>
+      </div>
+    </div>
+
+    <div class="text-center">
+      <a
+        href="#"
+        class="inline-flex items-center justify-center px-8 py-4 bg-white text-gray-700 font-semibold rounded-xl border border-gray-300 hover:border-gray-400 transition-colors duration-200"
+      >
+        Explore All Integrations
+      </a>
+    </div>
+  </div>
 </section>
 
 <!-- Security & Compliance -->
 <section id="security" class="py-24 bg-gray-900 text-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid lg:grid-cols-2 gap-16 items-center">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid lg:grid-cols-2 gap-16 items-center">
+      <div>
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">
+          Enterprise-Grade Security
+        </h2>
+        <p class="text-xl text-gray-300 mb-12 leading-relaxed">
+          Your financial data is protected with bank-level security and
+          international compliance standards.
+        </p>
+
+        <div class="grid grid-cols-2 gap-8">
+          <div class="flex items-center space-x-4">
+            <div
+              class="w-12 h-12 bg-gray-800 rounded-xl flex items-center justify-center"
+            >
+              <i class="fas fa-shield-alt text-2xl text-gray-300"></i>
+            </div>
             <div>
-                <h2 class="text-4xl md:text-5xl font-bold mb-6">Enterprise-Grade Security</h2>
-                <p class="text-xl text-gray-300 mb-12 leading-relaxed">Your financial data is protected with bank-level security and international compliance standards.</p>
-
-                <div class="grid grid-cols-2 gap-8">
-                    <div class="flex items-center space-x-4">
-                        <div class="w-12 h-12 bg-gray-800 rounded-xl flex items-center justify-center">
-                            <i class="fas fa-shield-alt text-2xl text-gray-300"></i>
-                        </div>
-                        <div>
-                            <div class="font-bold text-white">AES-256</div>
-                            <div class="text-gray-400 text-sm">Encryption</div>
-                        </div>
-                    </div>
-
-                    <div class="flex items-center space-x-4">
-                        <div class="w-12 h-12 bg-gray-800 rounded-xl flex items-center justify-center">
-                            <i class="fas fa-certificate text-2xl text-gray-300"></i>
-                        </div>
-                        <div>
-                            <div class="font-bold text-white">ISO 27001</div>
-                            <div class="text-gray-400 text-sm">Compliant</div>
-                        </div>
-                    </div>
-
-                    <div class="flex items-center space-x-4">
-                        <div class="w-12 h-12 bg-gray-800 rounded-xl flex items-center justify-center">
-                            <i class="fas fa-lock text-2xl text-gray-300"></i>
-                        </div>
-                        <div>
-                            <div class="font-bold text-white">2FA</div>
-                            <div class="text-gray-400 text-sm">Security</div>
-                        </div>
-                    </div>
-
-                    <div class="flex items-center space-x-4">
-                        <div class="w-12 h-12 bg-gray-800 rounded-xl flex items-center justify-center">
-                            <i class="fas fa-gavel text-2xl text-gray-300"></i>
-                        </div>
-                        <div>
-                            <div class="font-bold text-white">GDPR</div>
-                            <div class="text-gray-400 text-sm">Compliant</div>
-                        </div>
-                    </div>
-                </div>
+              <div class="font-bold text-white">AES-256</div>
+              <div class="text-gray-400 text-sm">Encryption</div>
             </div>
+          </div>
 
-            <div class="text-center">
-                <div class="flex flex-wrap justify-center gap-4">
-                    <div class="bg-white text-gray-900 px-6 py-3 rounded-full text-sm font-semibold">IFRS Compliant</div>
-                    <div class="bg-white text-gray-900 px-6 py-3 rounded-full text-sm font-semibold">SOC 2 Type II</div>
-                    <div class="bg-white text-gray-900 px-6 py-3 rounded-full text-sm font-semibold">Regular Backups</div>
-                    <div class="bg-white text-gray-900 px-6 py-3 rounded-full text-sm font-semibold">99.9% Uptime</div>
-                </div>
+          <div class="flex items-center space-x-4">
+            <div
+              class="w-12 h-12 bg-gray-800 rounded-xl flex items-center justify-center"
+            >
+              <i class="fas fa-certificate text-2xl text-gray-300"></i>
             </div>
+            <div>
+              <div class="font-bold text-white">ISO 27001</div>
+              <div class="text-gray-400 text-sm">Compliant</div>
+            </div>
+          </div>
+
+          <div class="flex items-center space-x-4">
+            <div
+              class="w-12 h-12 bg-gray-800 rounded-xl flex items-center justify-center"
+            >
+              <i class="fas fa-lock text-2xl text-gray-300"></i>
+            </div>
+            <div>
+              <div class="font-bold text-white">2FA</div>
+              <div class="text-gray-400 text-sm">Security</div>
+            </div>
+          </div>
+
+          <div class="flex items-center space-x-4">
+            <div
+              class="w-12 h-12 bg-gray-800 rounded-xl flex items-center justify-center"
+            >
+              <i class="fas fa-gavel text-2xl text-gray-300"></i>
+            </div>
+            <div>
+              <div class="font-bold text-white">GDPR</div>
+              <div class="text-gray-400 text-sm">Compliant</div>
+            </div>
+          </div>
         </div>
+      </div>
+
+      <div class="text-center">
+        <div class="flex flex-wrap justify-center gap-4">
+          <div
+            class="bg-white text-gray-900 px-6 py-3 rounded-full text-sm font-semibold"
+          >
+            IFRS Compliant
+          </div>
+          <div
+            class="bg-white text-gray-900 px-6 py-3 rounded-full text-sm font-semibold"
+          >
+            SOC 2 Type II
+          </div>
+          <div
+            class="bg-white text-gray-900 px-6 py-3 rounded-full text-sm font-semibold"
+          >
+            Regular Backups
+          </div>
+          <div
+            class="bg-white text-gray-900 px-6 py-3 rounded-full text-sm font-semibold"
+          >
+            99.9% Uptime
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </section>
 
 <!-- Pricing Preview -->
 <section id="pricing" class="py-24 bg-gray-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-20">
-            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Simple, Transparent Pricing</h2>
-            <p class="text-xl text-gray-600 max-w-2xl mx-auto">Choose the plan that fits your business needs</p>
-        </div>
-
-        <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            <div class="bg-white rounded-2xl p-8 border border-gray-100 text-center">
-                <h5 class="text-xl font-bold text-gray-900 mb-4">Starter</h5>
-                <div class="text-5xl font-bold text-gray-900 mb-2">Free</div>
-                <div class="text-gray-600 mb-8">Perfect for freelancers</div>
-                <a href="#" class="inline-flex items-center justify-center w-full px-8 py-4 bg-white text-gray-700 font-semibold rounded-xl border border-gray-300 hover:border-gray-400 transition-colors duration-200">
-                    Get Started
-                </a>
-            </div>
-
-            <div class="bg-white rounded-2xl p-8 border-2 border-blue-500 text-center relative">
-                <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-blue-500 text-white px-4 py-2 rounded-full text-sm font-semibold">Most Popular</div>
-                <h5 class="text-xl font-bold text-gray-900 mb-4">Professional</h5>
-                <div class="text-5xl font-bold text-gray-900 mb-2">$19</div>
-                <div class="text-gray-600 mb-8">per month, per user</div>
-                <a href="#" class="inline-flex items-center justify-center w-full px-8 py-4 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors duration-200">
-                    Start Trial
-                </a>
-            </div>
-
-            <div class="bg-white rounded-2xl p-8 border border-gray-100 text-center">
-                <h5 class="text-xl font-bold text-gray-900 mb-4">Enterprise</h5>
-                <div class="text-5xl font-bold text-gray-900 mb-2">Custom</div>
-                <div class="text-gray-600 mb-8">For large organizations</div>
-                <a href="#" class="inline-flex items-center justify-center w-full px-8 py-4 bg-white text-gray-700 font-semibold rounded-xl border border-gray-300 hover:border-gray-400 transition-colors duration-200">
-                    Contact Sales
-                </a>
-            </div>
-        </div>
-
-        <div class="text-center mt-12">
-            <a href="#" class="inline-flex items-center justify-center px-8 py-4 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors duration-200">
-                Compare All Plans
-            </a>
-        </div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-20">
+      <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+        Simple, Transparent Pricing
+      </h2>
+      <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+        Choose the plan that fits your business needs
+      </p>
     </div>
+
+    <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+      <div class="bg-white rounded-2xl p-8 border border-gray-100 text-center">
+        <h5 class="text-xl font-bold text-gray-900 mb-4">Starter</h5>
+        <div class="text-5xl font-bold text-gray-900 mb-2">Free</div>
+        <div class="text-gray-600 mb-8">Perfect for freelancers</div>
+        <a
+          href="#"
+          class="inline-flex items-center justify-center w-full px-8 py-4 bg-white text-gray-700 font-semibold rounded-xl border border-gray-300 hover:border-gray-400 transition-colors duration-200"
+        >
+          Get Started
+        </a>
+      </div>
+
+      <div
+        class="bg-white rounded-2xl p-8 border-2 border-blue-500 text-center relative"
+      >
+        <div
+          class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-blue-500 text-white px-4 py-2 rounded-full text-sm font-semibold"
+        >
+          Most Popular
+        </div>
+        <h5 class="text-xl font-bold text-gray-900 mb-4">Professional</h5>
+        <div class="text-5xl font-bold text-gray-900 mb-2">$19</div>
+        <div class="text-gray-600 mb-8">per month, per user</div>
+        <a
+          href="#"
+          class="inline-flex items-center justify-center w-full px-8 py-4 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors duration-200"
+        >
+          Start Trial
+        </a>
+      </div>
+
+      <div class="bg-white rounded-2xl p-8 border border-gray-100 text-center">
+        <h5 class="text-xl font-bold text-gray-900 mb-4">Enterprise</h5>
+        <div class="text-5xl font-bold text-gray-900 mb-2">Custom</div>
+        <div class="text-gray-600 mb-8">For large organizations</div>
+        <a
+          href="#"
+          class="inline-flex items-center justify-center w-full px-8 py-4 bg-white text-gray-700 font-semibold rounded-xl border border-gray-300 hover:border-gray-400 transition-colors duration-200"
+        >
+          Contact Sales
+        </a>
+      </div>
+    </div>
+
+    <div class="text-center mt-12">
+      <a
+        href="#"
+        class="inline-flex items-center justify-center px-8 py-4 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors duration-200"
+      >
+        Compare All Plans
+      </a>
+    </div>
+  </div>
 </section>
 
 <!-- Final CTA Section -->
 <section id="trial" class="py-24 bg-gray-900 text-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-                <h2 class="text-4xl md:text-5xl font-bold mb-6">Ready to Transform Your Accounting?</h2>
-                <p class="text-xl text-gray-300 leading-relaxed">Join 10,000+ businesses already using Ovovex for smarter financial management</p>
-            </div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <div>
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">
+          Ready to Transform Your Accounting?
+        </h2>
+        <p class="text-xl text-gray-300 leading-relaxed">
+          Join 10,000+ businesses already using Ovovex for smarter financial
+          management
+        </p>
+      </div>
 
-            <div class="lg:text-right">
-                <div class="flex flex-col gap-4">
-                    <a href="#" class="inline-flex items-center justify-center px-8 py-4 bg-white text-gray-900 font-semibold rounded-xl hover:bg-gray-100 transition-colors duration-200">
-                        Start Free Trial
-                    </a>
-                    <a href="#" class="inline-flex items-center justify-center px-8 py-4 bg-transparent text-white font-semibold rounded-xl border-2 border-white hover:bg-white hover:text-gray-900 transition-colors duration-200">
-                        Schedule a Demo
-                    </a>
-                </div>
-            </div>
+      <div class="lg:text-right">
+        <div class="flex flex-col gap-4">
+          <a
+            href="#"
+            class="inline-flex items-center justify-center px-8 py-4 bg-white text-gray-900 font-semibold rounded-xl hover:bg-gray-100 transition-colors duration-200"
+          >
+            Start Free Trial
+          </a>
+          <a
+            href="#"
+            class="inline-flex items-center justify-center px-8 py-4 bg-transparent text-white font-semibold rounded-xl border-2 border-white hover:bg-white hover:text-gray-900 transition-colors duration-200"
+          >
+            Schedule a Demo
+          </a>
         </div>
+      </div>
     </div>
+  </div>
 </section>
 {% endblock %}

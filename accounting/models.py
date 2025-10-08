@@ -225,6 +225,35 @@ class Customer(models.Model):
         )['total'] or Decimal('0.00')
 
 
+# Extend the built-in User with a lightweight profile model to store extra details
+class UserProfile(models.Model):
+    user = models.OneToOneField('auth.User', on_delete=models.CASCADE, related_name='profile')
+    phone = models.CharField(max_length=50, blank=True, null=True)
+    company = models.CharField(max_length=255, blank=True, null=True)
+    job_title = models.CharField(max_length=255, blank=True, null=True)
+    address = models.TextField(blank=True, null=True)
+    timezone = models.CharField(max_length=64, blank=True, null=True)
+    language = models.CharField(max_length=16, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"Profile: {self.user.username}"
+
+
+# Automatically create profile when a User is created
+from django.db.models.signals import post_save
+from django.contrib.auth.models import User
+
+
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        UserProfile.objects.create(user=instance)
+
+
+post_save.connect(create_user_profile, sender=User)
+
+
 class Invoice(models.Model):
     """Sales Invoices"""
     class Status(models.TextChoices):
@@ -1400,149 +1429,50 @@ class AnomalyDetectionModel(models.Model):
 
 
 # ============================================================================
-# INVENTORY MANAGEMENT
+# NOTIFICATIONS
 # ============================================================================
 
-class InventoryCategory(models.Model):
-    """Inventory item categories"""
-    name = models.CharField(max_length=255, unique=True)
-    description = models.TextField(blank=True, null=True)
-    parent_category = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True, related_name='subcategories')
-    is_active = models.BooleanField(default=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+class Notification(models.Model):
+    """System notifications for users"""
+    class NotificationType(models.TextChoices):
+        CRITICAL = 'CRITICAL', 'Critical'
+        WARNING = 'WARNING', 'Warning'
+        INFO = 'INFO', 'Info'
+        SUCCESS = 'SUCCESS', 'Success'
+        AI_INSIGHT = 'AI_INSIGHT', 'AI Insight'
+        SYSTEM = 'SYSTEM', 'System'
     
-    class Meta:
-        ordering = ['name']
-        verbose_name_plural = 'Inventory Categories'
-    
-    def __str__(self):
-        return self.name
-
-
-class InventoryItem(models.Model):
-    """Inventory items tracking"""
-    class UnitOfMeasure(models.TextChoices):
-        EACH = 'EACH', 'Each'
-        KG = 'KG', 'Kilogram'
-        LB = 'LB', 'Pound'
-        LITER = 'LITER', 'Liter'
-        GALLON = 'GALLON', 'Gallon'
-        METER = 'METER', 'Meter'
-        FOOT = 'FOOT', 'Foot'
-        SQUARE_METER = 'SQUARE_METER', 'Square Meter'
-        CUBIC_METER = 'CUBIC_METER', 'Cubic Meter'
-        BOX = 'BOX', 'Box'
-        CASE = 'CASE', 'Case'
-        PALLET = 'PALLET', 'Pallet'
-    
-    item_code = models.CharField(max_length=50, unique=True, db_index=True)
-    name = models.CharField(max_length=255)
-    description = models.TextField(blank=True, null=True)
-    category = models.ForeignKey(InventoryCategory, on_delete=models.SET_NULL, null=True, blank=True, related_name='items')
-    
-    # Stock levels
-    current_stock = models.DecimalField(max_digits=12, decimal_places=2, default=Decimal('0.00'))
-    minimum_stock = models.DecimalField(max_digits=12, decimal_places=2, default=Decimal('0.00'))
-    maximum_stock = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
-    reorder_point = models.DecimalField(max_digits=12, decimal_places=2, default=Decimal('0.00'))
-    
-    # Pricing
-    unit_cost = models.DecimalField(max_digits=12, decimal_places=2, default=Decimal('0.00'))
-    selling_price = models.DecimalField(max_digits=12, decimal_places=2, default=Decimal('0.00'))
-    unit_of_measure = models.CharField(max_length=20, choices=UnitOfMeasure.choices, default=UnitOfMeasure.EACH)
-    
-    # Supplier information
-    primary_vendor = models.ForeignKey(Vendor, on_delete=models.SET_NULL, null=True, blank=True, related_name='supplied_items')
-    vendor_item_code = models.CharField(max_length=50, blank=True, null=True)
-    
-    # Location and tracking
-    location = models.CharField(max_length=255, blank=True, null=True)
-    barcode = models.CharField(max_length=100, blank=True, null=True, unique=True)
-    serial_number_required = models.BooleanField(default=False)
-    
-    # Status
-    is_active = models.BooleanField(default=True)
-    is_taxable = models.BooleanField(default=True)
-    
-    # Financial tracking
-    total_value = models.DecimalField(max_digits=15, decimal_places=2, default=Decimal('0.00'))
-    
-    # Metadata
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='notifications')
+    title = models.CharField(max_length=255)
+    message = models.TextField()
+    notification_type = models.CharField(
+        max_length=20,
+        choices=NotificationType.choices,
+        default=NotificationType.INFO
+    )
+    is_read = models.BooleanField(default=False)
+    action_url = models.CharField(max_length=500, blank=True, null=True)
+    action_text = models.CharField(max_length=100, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    
-    class Meta:
-        ordering = ['item_code']
-        indexes = [
-            models.Index(fields=['category', 'is_active']),
-            models.Index(fields=['current_stock', 'minimum_stock']),
-        ]
-    
-    def __str__(self):
-        return f"{self.item_code} - {self.name}"
-    
-    def get_stock_status(self):
-        """Get stock status based on current levels"""
-        if self.current_stock <= 0:
-            return "Out of Stock"
-        elif self.current_stock <= self.reorder_point:
-            return "Low Stock"
-        elif self.maximum_stock and self.current_stock >= self.maximum_stock:
-            return "Overstock"
-        else:
-            return "In Stock"
-    
-    def get_total_value(self):
-        """Calculate total inventory value"""
-        return self.current_stock * self.unit_cost
-    
-    def needs_reorder(self):
-        """Check if item needs reordering"""
-        return self.current_stock <= self.reorder_point
-
-
-class InventoryTransaction(models.Model):
-    """Inventory transactions (in/out/adjustments)"""
-    class TransactionType(models.TextChoices):
-        RECEIPT = 'RECEIPT', 'Stock Receipt'
-        ISSUE = 'ISSUE', 'Stock Issue'
-        ADJUSTMENT = 'ADJUSTMENT', 'Stock Adjustment'
-        TRANSFER = 'TRANSFER', 'Stock Transfer'
-        RETURN = 'RETURN', 'Stock Return'
-        DAMAGE = 'DAMAGE', 'Damage/Loss'
-    
-    item = models.ForeignKey(InventoryItem, on_delete=models.PROTECT, related_name='transactions')
-    transaction_type = models.CharField(max_length=20, choices=TransactionType.choices)
-    quantity = models.DecimalField(max_digits=12, decimal_places=2)
-    unit_cost = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
-    
-    # References
-    reference_number = models.CharField(max_length=100, blank=True, null=True)
-    related_bill = models.ForeignKey(Bill, on_delete=models.SET_NULL, null=True, blank=True, related_name='inventory_transactions')
-    related_invoice = models.ForeignKey(Invoice, on_delete=models.SET_NULL, null=True, blank=True, related_name='inventory_transactions')
-    
-    # Location tracking
-    from_location = models.CharField(max_length=255, blank=True, null=True)
-    to_location = models.CharField(max_length=255, blank=True, null=True)
-    
-    # Notes
-    notes = models.TextField(blank=True, null=True)
-    
-    # Audit trail
-    created_at = models.DateTimeField(auto_now_add=True)
-    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    read_at = models.DateTimeField(null=True, blank=True)
     
     class Meta:
         ordering = ['-created_at']
         indexes = [
-            models.Index(fields=['item', 'created_at']),
-            models.Index(fields=['transaction_type', 'created_at']),
+            models.Index(fields=['user', 'is_read', 'created_at']),
+            models.Index(fields=['notification_type', 'created_at']),
         ]
     
     def __str__(self):
-        return f"{self.item.item_code} - {self.transaction_type} - {self.quantity}"
-
+        return f"{self.user.username} - {self.title}"
+    
+    def mark_as_read(self):
+        """Mark notification as read"""
+        if not self.is_read:
+            self.is_read = True
+            self.read_at = timezone.now()
+            self.save()
 
 # ============================================================================
 # DOCUMENT MANAGEMENT
@@ -1754,7 +1684,7 @@ class PurchaseOrderLine(models.Model):
     item_description = models.CharField(max_length=255)
     
     # Item details (can link to inventory or be free-form)
-    inventory_item = models.ForeignKey(InventoryItem, on_delete=models.SET_NULL, null=True, blank=True, related_name='po_lines')
+    inventory_item = models.ForeignKey('InventoryItem', on_delete=models.SET_NULL, null=True, blank=True, related_name='po_lines')
     
     # Quantities and pricing
     quantity_ordered = models.DecimalField(max_digits=12, decimal_places=2)
@@ -1973,3 +1903,432 @@ class ComplianceViolation(models.Model):
     
     def __str__(self):
         return f"{self.violation_id} - {self.title}"
+
+
+# ============================================================================
+# INVENTORY MANAGEMENT
+# ============================================================================
+
+class InventoryCategory(models.Model):
+    """Inventory item categories"""
+    name = models.CharField(max_length=255, unique=True)
+    description = models.TextField(blank=True, null=True)
+    parent_category = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True, related_name='subcategories')
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        ordering = ['name']
+        verbose_name_plural = 'Inventory Categories'
+    
+    def __str__(self):
+        return self.name
+
+
+class InventoryItem(models.Model):
+    """Inventory items tracking"""
+    class UnitOfMeasure(models.TextChoices):
+        EACH = 'EACH', 'Each'
+        KG = 'KG', 'Kilogram'
+        LB = 'LB', 'Pound'
+        LITER = 'LITER', 'Liter'
+        GALLON = 'GALLON', 'Gallon'
+        METER = 'METER', 'Meter'
+        FOOT = 'FOOT', 'Foot'
+        SQUARE_METER = 'SQUARE_METER', 'Square Meter'
+        CUBIC_METER = 'CUBIC_METER', 'Cubic Meter'
+        BOX = 'BOX', 'Box'
+        CASE = 'CASE', 'Case'
+        PALLET = 'PALLET', 'Pallet'
+    
+    item_code = models.CharField(max_length=50, unique=True, db_index=True)
+    name = models.CharField(max_length=255)
+    description = models.TextField(blank=True, null=True)
+    category = models.ForeignKey(InventoryCategory, on_delete=models.SET_NULL, null=True, blank=True, related_name='items')
+    
+    # Stock levels
+    current_stock = models.DecimalField(max_digits=12, decimal_places=2, default=Decimal('0.00'))
+    minimum_stock = models.DecimalField(max_digits=12, decimal_places=2, default=Decimal('0.00'))
+    maximum_stock = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
+    reorder_point = models.DecimalField(max_digits=12, decimal_places=2, default=Decimal('0.00'))
+    
+    # Pricing
+    unit_cost = models.DecimalField(max_digits=12, decimal_places=2, default=Decimal('0.00'))
+    selling_price = models.DecimalField(max_digits=12, decimal_places=2, default=Decimal('0.00'))
+    unit_of_measure = models.CharField(max_length=20, choices=UnitOfMeasure.choices, default=UnitOfMeasure.EACH)
+    
+    # Supplier information
+    primary_vendor = models.ForeignKey(Vendor, on_delete=models.SET_NULL, null=True, blank=True, related_name='supplied_items')
+    vendor_item_code = models.CharField(max_length=50, blank=True, null=True)
+    
+    # Location and tracking
+    location = models.CharField(max_length=255, blank=True, null=True)
+    barcode = models.CharField(max_length=100, blank=True, null=True, unique=True)
+    serial_number_required = models.BooleanField(default=False)
+    
+    # Status
+    is_active = models.BooleanField(default=True)
+    is_taxable = models.BooleanField(default=True)
+    
+    # Financial tracking
+    total_value = models.DecimalField(max_digits=15, decimal_places=2, default=Decimal('0.00'))
+    
+    # Metadata
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    
+    class Meta:
+        ordering = ['item_code']
+        indexes = [
+            models.Index(fields=['category', 'is_active']),
+            models.Index(fields=['current_stock', 'minimum_stock']),
+        ]
+    
+    def __str__(self):
+        return f"{self.item_code} - {self.name}"
+    
+    def get_stock_status(self):
+        """Get stock status based on current levels"""
+        if self.current_stock <= 0:
+            return "Out of Stock"
+        elif self.current_stock <= self.reorder_point:
+            return "Low Stock"
+        elif self.maximum_stock and self.current_stock >= self.maximum_stock:
+            return "Overstock"
+        else:
+            return "In Stock"
+    
+    def get_total_value(self):
+        """Calculate total inventory value"""
+        return self.current_stock * self.unit_cost
+    
+    def needs_reorder(self):
+        """Check if item needs reordering"""
+        return self.current_stock <= self.reorder_point
+
+
+class InventoryTransaction(models.Model):
+    """Inventory transactions (in/out/adjustments)"""
+    class TransactionType(models.TextChoices):
+        RECEIPT = 'RECEIPT', 'Stock Receipt'
+        ISSUE = 'ISSUE', 'Stock Issue'
+        ADJUSTMENT = 'ADJUSTMENT', 'Stock Adjustment'
+        TRANSFER = 'TRANSFER', 'Stock Transfer'
+        RETURN = 'RETURN', 'Stock Return'
+        DAMAGE = 'DAMAGE', 'Damage/Loss'
+    
+    item = models.ForeignKey(InventoryItem, on_delete=models.PROTECT, related_name='transactions')
+    transaction_type = models.CharField(max_length=20, choices=TransactionType.choices)
+    quantity = models.DecimalField(max_digits=12, decimal_places=2)
+    unit_cost = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
+    
+    # References
+    reference_number = models.CharField(max_length=100, blank=True, null=True)
+    related_bill = models.ForeignKey(Bill, on_delete=models.SET_NULL, null=True, blank=True, related_name='inventory_transactions')
+    related_invoice = models.ForeignKey(Invoice, on_delete=models.SET_NULL, null=True, blank=True, related_name='inventory_transactions')
+    
+    # Location tracking
+    from_location = models.CharField(max_length=255, blank=True, null=True)
+    to_location = models.CharField(max_length=255, blank=True, null=True)
+    
+    # Notes
+    notes = models.TextField(blank=True, null=True)
+    
+    # Audit trail
+    created_at = models.DateTimeField(auto_now_add=True)
+    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    
+    class Meta:
+        ordering = ['-created_at']
+        indexes = [
+            models.Index(fields=['item', 'created_at']),
+            models.Index(fields=['transaction_type', 'created_at']),
+        ]
+    
+    def __str__(self):
+        return f"{self.item.item_code} - {self.transaction_type} - {self.quantity}"
+
+
+# Dashboard Models
+class DashboardKPIMetric(models.Model):
+    """Key Performance Indicators for dashboard"""
+    class MetricType(models.TextChoices):
+        CURRENCY = 'CURRENCY', 'Currency'
+        PERCENTAGE = 'PERCENTAGE', 'Percentage'
+        NUMBER = 'NUMBER', 'Number'
+        RATIO = 'RATIO', 'Ratio'
+    
+    class TrendDirection(models.TextChoices):
+        UP = 'UP', 'Increasing'
+        DOWN = 'DOWN', 'Decreasing'
+        STABLE = 'STABLE', 'Stable'
+    
+    name = models.CharField(max_length=100, unique=True)
+    display_name = models.CharField(max_length=200)
+    description = models.TextField(blank=True, null=True)
+    metric_type = models.CharField(max_length=20, choices=MetricType.choices, default=MetricType.CURRENCY)
+    
+    # Current values
+    current_value = models.DecimalField(max_digits=15, decimal_places=2, default=Decimal('0.00'))
+    previous_value = models.DecimalField(max_digits=15, decimal_places=2, default=Decimal('0.00'))
+    
+    # Trend calculation
+    trend_direction = models.CharField(max_length=10, choices=TrendDirection.choices, default=TrendDirection.STABLE)
+    trend_percentage = models.DecimalField(max_digits=8, decimal_places=2, default=Decimal('0.00'))
+    
+    # Formatting
+    prefix = models.CharField(max_length=10, blank=True, null=True)  # e.g., "$", "€"
+    suffix = models.CharField(max_length=10, blank=True, null=True)  # e.g., "%", "units"
+    
+    # Update settings
+    auto_update = models.BooleanField(default=True)
+    last_updated = models.DateTimeField(auto_now=True)
+    
+    # Display settings
+    is_active = models.BooleanField(default=True)
+    display_order = models.PositiveIntegerField(default=0)
+    
+    class Meta:
+        ordering = ['display_order', 'name']
+        verbose_name = 'Dashboard KPI Metric'
+        verbose_name_plural = 'Dashboard KPI Metrics'
+    
+    def __str__(self):
+        return self.display_name
+    
+    def calculate_trend(self):
+        """Calculate trend direction and percentage"""
+        if self.previous_value == 0:
+            self.trend_percentage = Decimal('0.00')
+            self.trend_direction = self.TrendDirection.STABLE
+        else:
+            change = ((self.current_value - self.previous_value) / self.previous_value) * 100
+            self.trend_percentage = change
+            
+            if change > 5:
+                self.trend_direction = self.TrendDirection.UP
+            elif change < -5:
+                self.trend_direction = self.TrendDirection.DOWN
+            else:
+                self.trend_direction = self.TrendDirection.STABLE
+    
+    def get_formatted_value(self):
+        """Return formatted value with prefix/suffix"""
+        if self.metric_type == self.MetricType.CURRENCY:
+            formatted = f"{self.prefix or '$'}{self.current_value:,.2f}{self.suffix or ''}"
+        elif self.metric_type == self.MetricType.PERCENTAGE:
+            formatted = f"{self.current_value:.1f}{self.suffix or '%'}"
+        elif self.metric_type == self.MetricType.RATIO:
+            formatted = f"{self.current_value:.2f}{self.suffix or ''}"
+        else:
+            formatted = f"{self.prefix or ''}{int(self.current_value)}{self.suffix or ''}"
+        
+        return formatted
+
+
+class DashboardWidget(models.Model):
+    """Dashboard widgets/cards"""
+    class WidgetType(models.TextChoices):
+        KPI_CARD = 'KPI_CARD', 'KPI Card'
+        CHART = 'CHART', 'Chart'
+        TABLE = 'TABLE', 'Data Table'
+        SUMMARY = 'SUMMARY', 'Summary Card'
+        ALERT = 'ALERT', 'Alert/Notification'
+    
+    class ChartType(models.TextChoices):
+        LINE = 'LINE', 'Line Chart'
+        BAR = 'BAR', 'Bar Chart'
+        PIE = 'PIE', 'Pie Chart'
+        AREA = 'AREA', 'Area Chart'
+        DONUT = 'DONUT', 'Donut Chart'
+    
+    title = models.CharField(max_length=200)
+    widget_type = models.CharField(max_length=20, choices=WidgetType.choices)
+    chart_type = models.CharField(max_length=10, choices=ChartType.choices, blank=True, null=True)
+    
+    # Position and layout
+    position_x = models.PositiveIntegerField(default=0)
+    position_y = models.PositiveIntegerField(default=0)
+    width = models.PositiveIntegerField(default=1)  # Grid columns
+    height = models.PositiveIntegerField(default=1)  # Grid rows
+    
+    # Data source
+    data_source = models.CharField(max_length=100, blank=True, null=True)  # Model or API endpoint
+    data_filter = models.JSONField(blank=True, null=True)  # Filter parameters
+    
+    # Configuration
+    config = models.JSONField(blank=True, null=True)  # Widget-specific settings
+    refresh_interval = models.PositiveIntegerField(default=300)  # seconds
+    
+    # Status
+    is_active = models.BooleanField(default=True)
+    is_visible = models.BooleanField(default=True)
+    
+    # Audit
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    
+    class Meta:
+        ordering = ['position_y', 'position_x']
+        verbose_name = 'Dashboard Widget'
+        verbose_name_plural = 'Dashboard Widgets'
+    
+    def __str__(self):
+        return f"{self.title} ({self.widget_type})"
+
+
+class DashboardChartData(models.Model):
+    """Chart data points for dashboard charts"""
+    widget = models.ForeignKey(DashboardWidget, on_delete=models.CASCADE, related_name='chart_data')
+    
+    # Data point
+    label = models.CharField(max_length=100)
+    value = models.DecimalField(max_digits=15, decimal_places=2)
+    category = models.CharField(max_length=100, blank=True, null=True)
+    
+    # Time series data
+    date = models.DateField(blank=True, null=True)
+    period = models.CharField(max_length=20, blank=True, null=True)  # 'daily', 'weekly', 'monthly'
+    
+    # Additional metadata
+    color = models.CharField(max_length=7, blank=True, null=True)  # Hex color
+    metadata = models.JSONField(blank=True, null=True)
+    
+    # Ordering
+    sort_order = models.PositiveIntegerField(default=0)
+    
+    class Meta:
+        ordering = ['sort_order', 'date', 'label']
+        unique_together = ['widget', 'label', 'date']
+        verbose_name = 'Dashboard Chart Data'
+        verbose_name_plural = 'Dashboard Chart Data'
+    
+    def __str__(self):
+        return f"{self.widget.title} - {self.label}: {self.value}"
+
+
+class DashboardAlert(models.Model):
+    """Dashboard alerts and notifications"""
+    class AlertType(models.TextChoices):
+        INFO = 'INFO', 'Information'
+        WARNING = 'WARNING', 'Warning'
+        ERROR = 'ERROR', 'Error'
+        SUCCESS = 'SUCCESS', 'Success'
+    
+    class Priority(models.TextChoices):
+        LOW = 'LOW', 'Low'
+        MEDIUM = 'MEDIUM', 'Medium'
+        HIGH = 'HIGH', 'High'
+        CRITICAL = 'CRITICAL', 'Critical'
+    
+    title = models.CharField(max_length=200)
+    message = models.TextField()
+    alert_type = models.CharField(max_length=10, choices=AlertType.choices, default=AlertType.INFO)
+    priority = models.CharField(max_length=10, choices=Priority.choices, default=Priority.MEDIUM)
+    
+    # Related data
+    related_model = models.CharField(max_length=100, blank=True, null=True)  # e.g., 'Invoice', 'Bill'
+    related_id = models.PositiveIntegerField(blank=True, null=True)
+    
+    # Status
+    is_read = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
+    
+    # Auto-dismiss
+    auto_dismiss = models.BooleanField(default=False)
+    dismiss_after_hours = models.PositiveIntegerField(default=24)
+    
+    # Recipients
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='dashboard_alerts')
+    
+    # Timestamps
+    created_at = models.DateTimeField(auto_now_add=True)
+    read_at = models.DateTimeField(blank=True, null=True)
+    dismissed_at = models.DateTimeField(blank=True, null=True)
+    
+    class Meta:
+        ordering = ['-created_at']
+        verbose_name = 'Dashboard Alert'
+        verbose_name_plural = 'Dashboard Alerts'
+    
+    def __str__(self):
+        return f"{self.alert_type} - {self.title}"
+
+
+class DashboardActivity(models.Model):
+    """Recent activity feed for dashboard"""
+    class ActivityType(models.TextChoices):
+        INVOICE_CREATED = 'INVOICE_CREATED', 'Invoice Created'
+        INVOICE_PAID = 'INVOICE_PAID', 'Invoice Paid'
+        BILL_CREATED = 'BILL_CREATED', 'Bill Created'
+        BILL_PAID = 'BILL_PAID', 'Bill Paid'
+        PAYMENT_RECEIVED = 'PAYMENT_RECEIVED', 'Payment Received'
+        PAYMENT_MADE = 'PAYMENT_MADE', 'Payment Made'
+        JOURNAL_POSTED = 'JOURNAL_POSTED', 'Journal Entry Posted'
+        EXPENSE_APPROVED = 'EXPENSE_APPROVED', 'Expense Approved'
+        ASSET_ADDED = 'ASSET_ADDED', 'Asset Added'
+        BUDGET_CREATED = 'BUDGET_CREATED', 'Budget Created'
+        TAX_RETURN_FILED = 'TAX_RETURN_FILED', 'Tax Return Filed'
+    
+    activity_type = models.CharField(max_length=30, choices=ActivityType.choices)
+    title = models.CharField(max_length=200)
+    description = models.TextField(blank=True, null=True)
+    
+    # Related objects
+    related_model = models.CharField(max_length=100, blank=True, null=True)
+    related_id = models.PositiveIntegerField(blank=True, null=True)
+    
+    # Amounts (if applicable)
+    amount = models.DecimalField(max_digits=15, decimal_places=2, blank=True, null=True)
+    currency = models.CharField(max_length=3, default='USD')
+    
+    # User who performed the activity
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='dashboard_activities')
+    
+    # Timestamps
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        ordering = ['-created_at']
+        verbose_name = 'Dashboard Activity'
+        verbose_name_plural = 'Dashboard Activities'
+    
+    def __str__(self):
+        return f"{self.activity_type} - {self.title}"
+
+
+class DashboardSettings(models.Model):
+    """User-specific dashboard settings"""
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='dashboard_settings')
+    
+    # Layout preferences
+    layout_columns = models.PositiveIntegerField(default=4)
+    theme = models.CharField(max_length=20, default='light')
+    
+    # Widget visibility
+    visible_widgets = models.JSONField(default=list)  # List of widget IDs
+    hidden_widgets = models.JSONField(default=list)  # List of hidden widget IDs
+    
+    # Refresh settings
+    auto_refresh = models.BooleanField(default=True)
+    refresh_interval = models.PositiveIntegerField(default=300)  # seconds
+    
+    # Notification preferences
+    email_alerts = models.BooleanField(default=True)
+    browser_notifications = models.BooleanField(default=True)
+    
+    # Date range preferences
+    default_date_range = models.CharField(max_length=20, default='last_30_days')
+    
+    # Timestamps
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        verbose_name = 'Dashboard Settings'
+        verbose_name_plural = 'Dashboard Settings'
+    
+    def __str__(self):
+        return f"Dashboard settings for {self.user.username}"

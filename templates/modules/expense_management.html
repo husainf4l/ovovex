@@ -18,10 +18,10 @@
                     <i class="fas fa-search absolute left-3 top-3 text-gray-400 dark:text-gray-500"></i>
                 </div>
                 <!-- Export -->
-                <button class="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200">
+                <a href="{% url 'export_expenses' %}" class="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200">
                     <i class="fas fa-download mr-2"></i>
                     Export
-                </button>
+                </a>
                 <!-- Theme Toggle -->
                 <button id="theme-toggle" class="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-300">
                     <i class="fas fa-moon text-xl dark:hidden"></i>
@@ -143,22 +143,22 @@
 
         <!-- Quick Actions -->
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-            <button class="flex items-center justify-center px-4 py-3 bg-blue-600 text-white font-medium rounded-xl hover:bg-blue-700 transition-colors duration-200">
+            <a href="{% url 'create_expense' %}" class="flex items-center justify-center px-4 py-3 bg-blue-600 text-white font-medium rounded-xl hover:bg-blue-700 transition-colors duration-200">
                 <i class="fas fa-plus mr-2"></i>
                 New Expense
-            </button>
-            <button class="flex items-center justify-center px-4 py-3 bg-green-600 text-white font-medium rounded-xl hover:bg-green-700 transition-colors duration-200">
+            </a>
+            <a href="{% url 'scan_receipt' %}" class="flex items-center justify-center px-4 py-3 bg-green-600 text-white font-medium rounded-xl hover:bg-green-700 transition-colors duration-200">
                 <i class="fas fa-camera mr-2"></i>
                 Scan Receipt
-            </button>
-            <button class="flex items-center justify-center px-4 py-3 bg-purple-600 text-white font-medium rounded-xl hover:bg-purple-700 transition-colors duration-200">
+            </a>
+            <a href="{% url 'bulk_approve_expenses' %}" class="flex items-center justify-center px-4 py-3 bg-purple-600 text-white font-medium rounded-xl hover:bg-purple-700 transition-colors duration-200">
                 <i class="fas fa-check mr-2"></i>
                 Bulk Approve
-            </button>
-            <button class="flex items-center justify-center px-4 py-3 bg-gray-600 dark:bg-gray-700 text-white font-medium rounded-xl hover:bg-gray-700 dark:hover:bg-gray-600 transition-colors duration-200">
+            </a>
+            <a href="{% url 'expense_management' %}" class="flex items-center justify-center px-4 py-3 bg-gray-600 dark:bg-gray-700 text-white font-medium rounded-xl hover:bg-gray-700 dark:hover:bg-gray-600 transition-colors duration-200">
                 <i class="fas fa-chart-bar mr-2"></i>
                 Expense Report
-            </button>
+            </a>
         </div>
 
         <!-- Main Content Grid -->
@@ -393,24 +393,24 @@
                 <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
                     <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">Quick Actions</h3>
                     <div class="space-y-2">
-                        <button class="w-full text-left px-4 py-3 bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-100 dark:hover:bg-blue-900/30 rounded-lg transition-colors duration-200">
+                        <a href="{% url 'create_expense' %}" class="w-full text-left px-4 py-3 bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-100 dark:hover:bg-blue-900/30 rounded-lg transition-colors duration-200">
                             <div class="flex items-center space-x-3">
                                 <i class="fas fa-plus text-blue-600 dark:text-blue-400"></i>
                                 <span class="text-sm font-medium text-gray-900 dark:text-gray-100">Submit Expense</span>
                             </div>
-                        </button>
-                        <button class="w-full text-left px-4 py-3 bg-green-50 dark:bg-green-900/20 hover:bg-green-100 dark:hover:bg-green-900/30 rounded-lg transition-colors duration-200">
+                        </a>
+                        <a href="{% url 'bulk_approve_expenses' %}" class="w-full text-left px-4 py-3 bg-green-50 dark:bg-green-900/20 hover:bg-green-100 dark:hover:bg-green-900/30 rounded-lg transition-colors duration-200">
                             <div class="flex items-center space-x-3">
                                 <i class="fas fa-check text-green-600 dark:text-green-400"></i>
                                 <span class="text-sm font-medium text-gray-900 dark:text-gray-100">Approve Expenses</span>
                             </div>
-                        </button>
-                        <button class="w-full text-left px-4 py-3 bg-purple-50 dark:bg-purple-900/20 hover:bg-purple-100 dark:hover:bg-purple-900/30 rounded-lg transition-colors duration-200">
+                        </a>
+                        <a href="{% url 'expense_management' %}" class="w-full text-left px-4 py-3 bg-purple-50 dark:bg-purple-900/20 hover:bg-purple-100 dark:hover:bg-purple-900/30 rounded-lg transition-colors duration-200">
                             <div class="flex items-center space-x-3">
                                 <i class="fas fa-file-invoice-dollar text-purple-600 dark:text-purple-400"></i>
                                 <span class="text-sm font-medium text-gray-900 dark:text-gray-100">Generate Report</span>
                             </div>
-                        </button>
+                        </a>
                         <button class="w-full text-left px-4 py-3 bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded-lg transition-colors duration-200">
                             <div class="flex items-center space-x-3">
                                 <i class="fas fa-cog text-gray-600 dark:text-gray-400"></i>
