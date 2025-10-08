@@ -158,10 +158,10 @@
 <script>
   // Journal line management
   let lineCounter = 0;
+  const accounts = {{ accounts|safe }};
 
   function addJournalLine(accountId = '', description = '', debitAmount = 0, creditAmount = 0) {
       lineCounter++;
-      const accounts = {{ accounts|safe }};
       let accountOptions = '<option value="">Select Account</option>';
       accounts.forEach(account => {
           const selected = accountId == account.id ? 'selected' : '';
