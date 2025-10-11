@@ -1,0 +1,337 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'components/sidemenu.html' %}
+
+<div
+  class="min-h-screen bg-gray-50 dark:bg-gray-900 ml-64 transition-colors duration-300"
+>
+  <!-- Header -->
+  <div
+    class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4 transition-colors duration-300"
+  >
+    <div class="flex items-center justify-between">
+      <div class="flex items-center space-x-4">
+        <button
+          onclick="window.history.back()"
+          class="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100"
+        >
+          <i class="fas fa-arrow-left"></i>
+        </button>
+        <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">
+          Create Purchase Order
+        </h1>
+      </div>
+      <div class="flex items-center space-x-4">
+        <button
+          id="save-draft"
+          class="px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 font-medium"
+        >
+          Save as Draft
+        </button>
+        <button
+          id="create-po"
+          class="px-6 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700"
+        >
+          <i class="fas fa-plus mr-2"></i>Create Purchase Order
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-8">
+    <form id="po-form" class="space-y-6">
+      <!-- PO Header -->
+      <div
+        class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6"
+      >
+        <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">
+          Purchase Order Details
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+              >Vendor *</label
+            >
+            <select
+              id="vendor-select"
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+              required
+            >
+              <option value="">Select Vendor</option>
+              {% for vendor in vendors %}
+              <option value="{{ vendor.id }}">
+                {{ vendor.company_name }}
+              </option>
+              {% endfor %}
+            </select>
+          </div>
+          <div>
+            <label
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+              >Order Date</label
+            >
+            <input
+              type="date"
+              id="order-date"
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+              value="{% now 'Y-m-d' %}"
+            />
+          </div>
+          <div>
+            <label
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+              >Required Date</label
+            >
+            <input
+              type="date"
+              id="required-date"
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+            />
+          </div>
+          <div>
+            <label
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+              >Vendor PO Number</label
+            >
+            <input
+              type="text"
+              id="vendor-po-number"
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+              placeholder="Vendor's reference number"
+            />
+          </div>
+        </div>
+        <div class="mt-4">
+          <label
+            class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+            >Notes</label
+          >
+          <textarea
+            id="notes"
+            rows="3"
+            class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+            placeholder="Purchase order notes..."
+          ></textarea>
+        </div>
+      </div>
+
+      <!-- PO Lines -->
+      <div
+        class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6"
+      >
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100">
+            Order Lines
+          </h3>
+          <button
+            type="button"
+            id="add-line"
+            class="px-4 py-2 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700"
+          >
+            <i class="fas fa-plus mr-2"></i>Add Line
+          </button>
+        </div>
+
+        <div id="po-lines" class="space-y-4">
+          <!-- Line items will be added here -->
+        </div>
+
+        <!-- Totals -->
+        <div class="mt-6 border-t border-gray-200 dark:border-gray-700 pt-4">
+          <div class="flex justify-end">
+            <div class="w-64 space-y-2">
+              <div class="flex justify-between text-lg font-bold">
+                <span class="text-gray-900 dark:text-gray-100">Total:</span>
+                <span id="total-amount" class="text-gray-900 dark:text-gray-100"
+                  >$0.00</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  // PO line management
+  let lineCounter = 0;
+  const availableItems = [
+    {% for item in items %}
+    {
+      id: {{ item.id }},
+      code: "{{ item.item_code }}",
+      name: "{{ item.name }}",
+      unit_cost: {{ item.unit_cost|default:0 }}
+    }{% if not forloop.last %},{% endif %}
+    {% endfor %}
+  ];
+
+  function addPOLine(itemId = "", quantity = 1, unitPrice = 0) {
+    lineCounter++;
+    const lineHtml = `
+        <div class="po-line grid grid-cols-12 gap-4 items-end p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+            <div class="col-span-4">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Item *</label>
+                <select class="line-item w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-600 text-gray-900 dark:text-gray-100" required>
+                    <option value="">Select Item</option>
+                    ${availableItems.map(item => `
+                        <option value="${item.id}" data-unit-cost="${item.unit_cost}" ${itemId == item.id ? 'selected' : ''}>
+                            ${item.code} - ${item.name}
+                        </option>
+                    `).join('')}
+                </select>
+            </div>
+            <div class="col-span-2">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Quantity *</label>
+                <input type="number" class="line-quantity w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-600 text-gray-900 dark:text-gray-100" value="${quantity}" min="1" step="0.01" required>
+            </div>
+            <div class="col-span-2">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Unit Price *</label>
+                <input type="number" class="line-price w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-600 text-gray-900 dark:text-gray-100" value="${unitPrice}" min="0" step="0.01" required>
+            </div>
+            <div class="col-span-2">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Line Total</label>
+                <input type="text" class="line-total w-full px-3 py-2 bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-gray-100" readonly>
+            </div>
+            <div class="col-span-1">
+                <button type="button" class="remove-line w-full p-2 text-red-600 hover:text-red-800">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+        </div>
+    `;
+    document
+      .getElementById("po-lines")
+      .insertAdjacentHTML("beforeend", lineHtml);
+    updateTotals();
+  }
+
+  function updateTotals() {
+    let total = 0;
+    document.querySelectorAll(".po-line").forEach((line) => {
+      const quantity =
+        parseFloat(line.querySelector(".line-quantity").value) || 0;
+      const price = parseFloat(line.querySelector(".line-price").value) || 0;
+      const lineTotal = quantity * price;
+      line.querySelector(".line-total").value = "$" + lineTotal.toFixed(2);
+      total += lineTotal;
+    });
+
+    document.getElementById("total-amount").textContent = "$" + total.toFixed(2);
+  }
+
+  function removeLine(button) {
+    button.closest(".po-line").remove();
+    updateTotals();
+  }
+
+  // Auto-fill unit price when item is selected
+  document.addEventListener("change", (e) => {
+    if (e.target.classList.contains("line-item")) {
+      const selectedOption = e.target.options[e.target.selectedIndex];
+      const unitCost = selectedOption.getAttribute("data-unit-cost") || 0;
+      const priceInput = e.target.closest(".po-line").querySelector(".line-price");
+      if (unitCost && !priceInput.value) {
+        priceInput.value = unitCost;
+        updateTotals();
+      }
+    }
+  });
+
+  // Event listeners
+  document
+    .getElementById("add-line")
+    .addEventListener("click", () => addPOLine());
+
+  // Event delegation for dynamic elements
+  document.addEventListener("click", (e) => {
+    if (
+      e.target.classList.contains("remove-line") ||
+      e.target.closest(".remove-line")
+    ) {
+      removeLine(e.target.closest(".remove-line"));
+    }
+  });
+
+  document.addEventListener("input", (e) => {
+    if (
+      e.target.classList.contains("line-quantity") ||
+      e.target.classList.contains("line-price")
+    ) {
+      updateTotals();
+    }
+  });
+
+  // Add initial line
+  addPOLine();
+
+  // Form submission
+  document
+    .getElementById("create-po")
+    .addEventListener("click", async () => {
+      const formData = {
+        vendor_id: document.getElementById("vendor-select").value,
+        order_date: document.getElementById("order-date").value,
+        required_date: document.getElementById("required-date").value,
+        vendor_po_number: document.getElementById("vendor-po-number").value,
+        notes: document.getElementById("notes").value,
+      };
+
+      // Collect line items
+      const lines = [];
+      document.querySelectorAll(".po-line").forEach((line, index) => {
+        const itemId = line.querySelector(".line-item").value;
+        const quantity = parseFloat(line.querySelector(".line-quantity").value) || 0;
+        const unitPrice = parseFloat(line.querySelector(".line-price").value) || 0;
+
+        if (itemId && quantity > 0 && unitPrice >= 0) {
+          lines.push({
+            item_id: itemId,
+            quantity: quantity,
+            unit_price: unitPrice,
+          });
+        }
+      });
+
+      if (lines.length === 0) {
+        alert("Please add at least one line item");
+        return;
+      }
+
+      // Add lines to form data
+      lines.forEach((line, index) => {
+        formData[`item_id[${index}]`] = line.item_id;
+        formData[`quantity[${index}]`] = line.quantity;
+        formData[`unit_price[${index}]`] = line.unit_price;
+      });
+
+      try {
+        const response = await fetch("{% url 'create_po' %}", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]")
+              .value,
+          },
+          body: new URLSearchParams(formData),
+        });
+
+        const result = await response.json();
+        if (result.success) {
+          alert(result.message);
+          window.location.href = "{% url 'purchase_orders' %}";
+        } else {
+          alert("Error: " + result.error);
+        }
+      } catch (error) {
+        alert("Error creating purchase order: " + error.message);
+      }
+    });
+</script>
+
+{% endblock %}

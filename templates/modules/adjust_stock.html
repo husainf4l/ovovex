@@ -1,0 +1,318 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'components/sidemenu.html' %}
+
+<div
+  class="min-h-screen bg-gray-50 dark:bg-gray-900 ml-64 transition-colors duration-300"
+>
+  <!-- Header -->
+  <div
+    class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4 transition-colors duration-300"
+  >
+    <div class="flex items-center justify-between">
+      <div class="flex items-center space-x-4">
+        <button
+          onclick="window.history.back()"
+          class="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100"
+        >
+          <i class="fas fa-arrow-left"></i>
+        </button>
+        <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">
+          Adjust Stock
+        </h1>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-8">
+    <form id="adjust-stock-form" class="space-y-6">
+      <!-- Stock Adjustment Details -->
+      <div
+        class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6"
+      >
+        <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">
+          Stock Adjustment Details
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+              >Select Item *</label
+            >
+            <select
+              id="item-select"
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+              required
+            >
+              <option value="">Select Item</option>
+              {% for item in items %}
+              <option value="{{ item.id }}" data-current-stock="{{ item.current_stock }}">
+                {{ item.item_code }} - {{ item.name }} (Current: {{ item.current_stock }})
+              </option>
+              {% endfor %}
+            </select>
+          </div>
+          <div>
+            <label
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+              >Adjustment Type *</label
+            >
+            <select
+              id="adjustment-type"
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+              required
+            >
+              <option value="">Select Type</option>
+              <option value="increase">Increase Stock (+)</option>
+              <option value="decrease">Decrease Stock (-)</option>
+            </select>
+          </div>
+          <div>
+            <label
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+              >Quantity *</label
+            >
+            <input
+              type="number"
+              id="quantity"
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+              placeholder="0.00"
+              step="0.01"
+              min="0.01"
+              required
+            />
+          </div>
+          <div>
+            <label
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+              >Reason *</label
+            >
+            <select
+              id="reason"
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+              required
+            >
+              <option value="">Select Reason</option>
+              <option value="damaged">Damaged/Lost</option>
+              <option value="returned">Customer Return</option>
+              <option value="correction">Inventory Correction</option>
+              <option value="theft">Theft</option>
+              <option value="expired">Expired</option>
+              <option value="found">Found/Miscounted</option>
+              <option value="transfer">Transfer</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="mt-4">
+          <label
+            class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+            >Additional Notes</label
+          >
+          <textarea
+            id="notes"
+            rows="3"
+            class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+            placeholder="Provide additional details about this stock adjustment..."
+          ></textarea>
+        </div>
+      </div>
+
+      <!-- Stock Summary -->
+      <div
+        class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6"
+      >
+        <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">
+          Stock Adjustment Summary
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="text-center">
+            <div class="text-2xl font-bold text-gray-900 dark:text-gray-100" id="current-stock">
+              --
+            </div>
+            <div class="text-sm text-gray-600 dark:text-gray-400">
+              Current Stock
+            </div>
+          </div>
+          <div class="text-center">
+            <div class="text-2xl font-bold text-blue-600" id="adjustment-amount">
+              --
+            </div>
+            <div class="text-sm text-gray-600 dark:text-gray-400" id="adjustment-label">
+              Adjustment Amount
+            </div>
+          </div>
+          <div class="text-center">
+            <div class="text-2xl font-bold text-green-600" id="new-stock">
+              --
+            </div>
+            <div class="text-sm text-gray-600 dark:text-gray-400">
+              New Stock Level
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Warning for Decreases -->
+      <div
+        id="warning-message"
+        class="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-2xl p-6 hidden"
+      >
+        <div class="flex items-center">
+          <i class="fas fa-exclamation-triangle text-yellow-500 text-xl mr-3"></i>
+          <div>
+            <h4 class="text-lg font-bold text-yellow-800 dark:text-yellow-200">
+              Stock Decrease Warning
+            </h4>
+            <p class="text-yellow-700 dark:text-yellow-300 mt-1">
+              You are about to decrease stock below the reorder point. This may trigger a reorder alert.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex justify-end space-x-4">
+        <button
+          type="button"
+          onclick="window.history.back()"
+          class="px-6 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700"
+        >
+          Cancel
+        </button>
+        <button
+          type="button"
+          id="adjust-stock"
+          class="px-6 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700"
+        >
+          <i class="fas fa-adjust mr-2"></i>Adjust Stock
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  let selectedItem = null;
+
+  // Update stock summary when item is selected
+  document.getElementById("item-select").addEventListener("change", (e) => {
+    const selectedOption = e.target.options[e.target.selectedIndex];
+    const currentStock = parseFloat(selectedOption.getAttribute("data-current-stock")) || 0;
+
+    selectedItem = {
+      id: e.target.value,
+      currentStock: currentStock
+    };
+
+    document.getElementById("current-stock").textContent = currentStock.toFixed(2);
+    updateSummary();
+  });
+
+  // Update summary when quantity or type changes
+  document.getElementById("quantity").addEventListener("input", updateSummary);
+  document.getElementById("adjustment-type").addEventListener("change", updateSummary);
+
+  function updateSummary() {
+    if (!selectedItem) return;
+
+    const quantity = parseFloat(document.getElementById("quantity").value) || 0;
+    const adjustmentType = document.getElementById("adjustment-type").value;
+
+    let adjustmentAmount = quantity;
+    let newStock = selectedItem.currentStock;
+
+    if (adjustmentType === "increase") {
+      newStock += quantity;
+      document.getElementById("adjustment-amount").textContent = "+" + quantity.toFixed(2);
+      document.getElementById("adjustment-label").textContent = "Increase Amount";
+      document.getElementById("adjustment-amount").className = "text-2xl font-bold text-green-600";
+    } else if (adjustmentType === "decrease") {
+      newStock -= quantity;
+      adjustmentAmount = -quantity;
+      document.getElementById("adjustment-amount").textContent = "-" + quantity.toFixed(2);
+      document.getElementById("adjustment-label").textContent = "Decrease Amount";
+      document.getElementById("adjustment-amount").className = "text-2xl font-bold text-red-600";
+    } else {
+      document.getElementById("adjustment-amount").textContent = "--";
+      document.getElementById("adjustment-label").textContent = "Adjustment Amount";
+      document.getElementById("adjustment-amount").className = "text-2xl font-bold text-blue-600";
+    }
+
+    document.getElementById("new-stock").textContent = newStock.toFixed(2);
+
+    // Show warning if stock will go below reorder point
+    const warningDiv = document.getElementById("warning-message");
+    if (adjustmentType === "decrease" && newStock < 0) {
+      warningDiv.classList.remove("hidden");
+    } else {
+      warningDiv.classList.add("hidden");
+    }
+  }
+
+  // Form submission
+  document
+    .getElementById("adjust-stock")
+    .addEventListener("click", async () => {
+      const formData = {
+        item_id: document.getElementById("item-select").value,
+        adjustment_type: document.getElementById("adjustment-type").value,
+        quantity: document.getElementById("quantity").value,
+        reason: document.getElementById("reason").value,
+        notes: document.getElementById("notes").value,
+      };
+
+      // Validation
+      if (!formData.item_id) {
+        alert("Please select an item");
+        return;
+      }
+
+      if (!formData.adjustment_type) {
+        alert("Please select an adjustment type");
+        return;
+      }
+
+      if (!formData.quantity || parseFloat(formData.quantity) <= 0) {
+        alert("Please enter a valid quantity");
+        return;
+      }
+
+      if (!formData.reason) {
+        alert("Please select a reason for the adjustment");
+        return;
+      }
+
+      // Confirm decrease if it will result in negative stock
+      const newStock = parseFloat(document.getElementById("new-stock").textContent);
+      if (newStock < 0 && !confirm("This adjustment will result in negative stock. Are you sure you want to continue?")) {
+        return;
+      }
+
+      try {
+        const response = await fetch("{% url 'adjust_stock' %}", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]")
+              .value,
+          },
+          body: new URLSearchParams(formData),
+        });
+
+        const result = await response.json();
+        if (result.success) {
+          alert(result.message);
+          window.location.href = "{% url 'inventory' %}";
+        } else {
+          alert("Error: " + result.error);
+        }
+      } catch (error) {
+        alert("Error adjusting stock: " + error.message);
+      }
+    });
+</script>
+
+{% endblock %}

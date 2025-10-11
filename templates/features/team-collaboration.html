@@ -1,0 +1,559 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'components/navbar.html' %}
+
+<!-- Hero Section -->
+<section class="pt-24 pb-16 bg-gradient-to-br from-blue-50 to-indigo-100">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center">
+      <div class="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold mb-6">
+        <i class="fas fa-users mr-2"></i>
+        Team Collaboration
+      </div>
+      <h1 class="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+        Work Together,
+        <span class="text-blue-600">Achieve More</span>
+      </h1>
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+        Break down silos with seamless collaboration tools. Share insights, coordinate workflows, and make decisions faster with real-time communication and shared workspaces.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#workspace" class="inline-flex items-center px-8 py-4 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors">
+          <i class="fas fa-share-alt mr-2"></i>Explore Workspace
+        </a>
+        <a href="#features" class="inline-flex items-center px-8 py-4 bg-white text-gray-700 font-semibold rounded-xl border border-gray-300 hover:border-gray-400 transition-colors">
+          <i class="fas fa-cog mr-2"></i>View Features
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Key Metrics -->
+<section class="py-24 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid md:grid-cols-4 gap-8">
+      <div class="text-center">
+        <div class="text-4xl font-bold text-blue-600 mb-2">75%</div>
+        <div class="text-gray-600">Faster Decisions</div>
+      </div>
+      <div class="text-center">
+        <div class="text-4xl font-bold text-green-600 mb-2">50%</div>
+        <div class="text-gray-600">Reduced Meetings</div>
+      </div>
+      <div class="text-center">
+        <div class="text-4xl font-bold text-purple-600 mb-2">24/7</div>
+        <div class="text-gray-600">Global Access</div>
+      </div>
+      <div class="text-center">
+        <div class="text-4xl font-bold text-orange-600 mb-2">99%</div>
+        <div class="text-gray-600">Uptime</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Shared Workspace Demo -->
+<section id="workspace" class="py-24 bg-gray-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-bold text-gray-900 mb-6">Collaborative Workspace</h2>
+      <p class="text-xl text-gray-600 max-w-2xl mx-auto">Real-time collaboration with live editing and instant communication</p>
+    </div>
+
+    <!-- Workspace Mockup -->
+    <div class="max-w-6xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
+      <div class="bg-gray-800 px-6 py-4 flex items-center justify-between">
+        <div class="flex items-center space-x-4">
+          <div class="flex space-x-2">
+            <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+            <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+            <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+          </div>
+          <span class="text-white font-medium">Q4 Budget Planning - Team Workspace</span>
+        </div>
+        <div class="flex items-center space-x-4">
+          <div class="flex -space-x-2">
+            <div class="w-8 h-8 bg-blue-500 rounded-full border-2 border-white flex items-center justify-center text-xs font-bold text-white">JD</div>
+            <div class="w-8 h-8 bg-green-500 rounded-full border-2 border-white flex items-center justify-center text-xs font-bold text-white">SM</div>
+            <div class="w-8 h-8 bg-purple-500 rounded-full border-2 border-white flex items-center justify-center text-xs font-bold text-white">AR</div>
+          </div>
+          <span class="text-green-400 text-sm font-medium">3 online</span>
+        </div>
+      </div>
+
+      <div class="flex">
+        <!-- Sidebar -->
+        <div class="w-80 bg-gray-50 p-6 border-r border-gray-200">
+          <h4 class="font-bold text-gray-900 mb-4">Team Members</h4>
+          <div class="space-y-3">
+            <div class="flex items-center space-x-3">
+              <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-sm font-bold text-white">JD</div>
+              <div>
+                <div class="font-medium text-gray-900">John Doe</div>
+                <div class="text-sm text-green-600">Online</div>
+              </div>
+            </div>
+            <div class="flex items-center space-x-3">
+              <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-sm font-bold text-white">SM</div>
+              <div>
+                <div class="font-medium text-gray-900">Sarah Miller</div>
+                <div class="text-sm text-green-600">Online</div>
+              </div>
+            </div>
+            <div class="flex items-center space-x-3">
+              <div class="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center text-sm font-bold text-white">AR</div>
+              <div>
+                <div class="font-medium text-gray-900">Alex Rodriguez</div>
+                <div class="text-sm text-green-600">Online</div>
+              </div>
+            </div>
+          </div>
+
+          <h4 class="font-bold text-gray-900 mb-4 mt-8">Recent Activity</h4>
+          <div class="space-y-3">
+            <div class="flex items-start space-x-3">
+              <div class="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
+              <div>
+                <div class="text-sm text-gray-900">John updated budget forecast</div>
+                <div class="text-xs text-gray-500">2 minutes ago</div>
+              </div>
+            </div>
+            <div class="flex items-start space-x-3">
+              <div class="w-2 h-2 bg-green-500 rounded-full mt-2"></div>
+              <div>
+                <div class="text-sm text-gray-900">Sarah commented on expense report</div>
+                <div class="text-xs text-gray-500">5 minutes ago</div>
+              </div>
+            </div>
+            <div class="flex items-start space-x-3">
+              <div class="w-2 h-2 bg-purple-500 rounded-full mt-2"></div>
+              <div>
+                <div class="text-sm text-gray-900">Alex shared new analytics report</div>
+                <div class="text-xs text-gray-500">10 minutes ago</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 p-6">
+          <!-- Budget Table -->
+          <div class="bg-white border border-gray-200 rounded-xl p-6 mb-6">
+            <h3 class="text-xl font-bold text-gray-900 mb-4">Q4 Budget Allocation</h3>
+            <div class="overflow-x-auto">
+              <table class="w-full">
+                <thead>
+                  <tr class="border-b border-gray-200">
+                    <th class="text-left py-3 px-4 font-medium text-gray-700">Department</th>
+                    <th class="text-right py-3 px-4 font-medium text-gray-700">Budget</th>
+                    <th class="text-right py-3 px-4 font-medium text-gray-700">Spent</th>
+                    <th class="text-right py-3 px-4 font-medium text-gray-700">Remaining</th>
+                    <th class="text-center py-3 px-4 font-medium text-gray-700">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="border-b border-gray-100">
+                    <td class="py-3 px-4 font-medium text-gray-900">Marketing</td>
+                    <td class="py-3 px-4 text-right">$50,000</td>
+                    <td class="py-3 px-4 text-right">$32,450</td>
+                    <td class="py-3 px-4 text-right">$17,550</td>
+                    <td class="py-3 px-4 text-center"><span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">On Track</span></td>
+                  </tr>
+                  <tr class="border-b border-gray-100">
+                    <td class="py-3 px-4 font-medium text-gray-900">Operations</td>
+                    <td class="py-3 px-4 text-right">$75,000</td>
+                    <td class="py-3 px-4 text-right">$68,200</td>
+                    <td class="py-3 px-4 text-right">$6,800</td>
+                    <td class="py-3 px-4 text-center"><span class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs">Warning</span></td>
+                  </tr>
+                  <tr class="border-b border-gray-100">
+                    <td class="py-3 px-4 font-medium text-gray-900">Technology</td>
+                    <td class="py-3 px-4 text-right">$100,000</td>
+                    <td class="py-3 px-4 text-right">$45,750</td>
+                    <td class="py-3 px-4 text-right">$54,250</td>
+                    <td class="py-3 px-4 text-center"><span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">On Track</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Comments Section -->
+          <div class="bg-gray-50 rounded-xl p-6">
+            <h4 class="font-bold text-gray-900 mb-4">Comments & Discussion</h4>
+            <div class="space-y-4">
+              <div class="flex space-x-3">
+                <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-sm font-bold text-white">JD</div>
+                <div class="flex-1">
+                  <div class="bg-white rounded-lg p-3">
+                    <div class="font-medium text-gray-900 text-sm">John Doe</div>
+                    <div class="text-gray-700 text-sm">Operations budget is getting tight. Should we reallocate from Technology?</div>
+                    <div class="text-xs text-gray-500 mt-1">2 minutes ago</div>
+                  </div>
+                </div>
+              </div>
+              <div class="flex space-x-3">
+                <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-sm font-bold text-white">SM</div>
+                <div class="flex-1">
+                  <div class="bg-white rounded-lg p-3">
+                    <div class="font-medium text-gray-900 text-sm">Sarah Miller</div>
+                    <div class="text-gray-700 text-sm">I agree. The new CRM project is delayed, so we could move $10k to Operations.</div>
+                    <div class="text-xs text-gray-500 mt-1">1 minute ago</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Comment Input -->
+            <div class="mt-4 flex space-x-3">
+              <div class="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center text-sm font-bold text-white">AR</div>
+              <div class="flex-1">
+                <input type="text" placeholder="Add a comment..." class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section id="features" class="py-24 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-bold text-gray-900 mb-6">Collaboration Features</h2>
+      <p class="text-xl text-gray-600 max-w-2xl mx-auto">Tools designed to bring your finance team together</p>
+    </div>
+
+    <div class="grid lg:grid-cols-3 gap-8">
+      <!-- Real-Time Editing -->
+      <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-100">
+        <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-6">
+          <i class="fas fa-edit text-2xl text-blue-600"></i>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-900 mb-4">Real-Time Editing</h3>
+        <p class="text-gray-600 mb-6">Collaborate on budgets, reports, and documents simultaneously with live updates.</p>
+        <ul class="space-y-2 text-sm text-gray-600">
+          <li>• Live document editing</li>
+          <li>• Version control</li>
+          <li>• Change tracking</li>
+          <li>• Conflict resolution</li>
+        </ul>
+      </div>
+
+      <!-- Team Chat -->
+      <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-100">
+        <div class="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mb-6">
+          <i class="fas fa-comments text-2xl text-green-600"></i>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-900 mb-4">Integrated Chat</h3>
+        <p class="text-gray-600 mb-6">Contextual communication with threaded conversations and file sharing.</p>
+        <ul class="space-y-2 text-sm text-gray-600">
+          <li>• Threaded discussions</li>
+          <li>• File sharing</li>
+          <li>• Voice messages</li>
+          <li>• Video calls</li>
+        </ul>
+      </div>
+
+      <!-- Task Management -->
+      <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-100">
+        <div class="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mb-6">
+          <i class="fas fa-tasks text-2xl text-purple-600"></i>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-900 mb-4">Task Coordination</h3>
+        <p class="text-gray-600 mb-6">Assign tasks, track progress, and manage deadlines across your team.</p>
+        <ul class="space-y-2 text-sm text-gray-600">
+          <li>• Task assignment</li>
+          <li>• Progress tracking</li>
+          <li>• Deadline management</li>
+          <li>• Workflow automation</li>
+        </ul>
+      </div>
+
+      <!-- Shared Dashboards -->
+      <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-100">
+        <div class="w-16 h-16 bg-orange-100 rounded-2xl flex items-center justify-center mb-6">
+          <i class="fas fa-chart-line text-2xl text-orange-600"></i>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-900 mb-4">Shared Analytics</h3>
+        <p class="text-gray-600 mb-6">Collaborate on financial analysis with shared dashboards and reports.</p>
+        <ul class="space-y-2 text-sm text-gray-600">
+          <li>• Shared dashboards</li>
+          <li>• Collaborative analysis</li>
+          <li>• Report sharing</li>
+          <li>• Data annotations</li>
+        </ul>
+      </div>
+
+      <!-- Approval Workflows -->
+      <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-100">
+        <div class="w-16 h-16 bg-red-100 rounded-2xl flex items-center justify-center mb-6">
+          <i class="fas fa-check-circle text-2xl text-red-600"></i>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-900 mb-4">Approval Workflows</h3>
+        <p class="text-gray-600 mb-6">Streamlined approval processes with multi-level authorization and notifications.</p>
+        <ul class="space-y-2 text-sm text-gray-600">
+          <li>• Multi-level approvals</li>
+          <li>• Automated routing</li>
+          <li>• Approval history</li>
+          <li>• Escalation rules</li>
+        </ul>
+      </div>
+
+      <!-- Access Control -->
+      <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-100">
+        <div class="w-16 h-16 bg-indigo-100 rounded-2xl flex items-center justify-center mb-6">
+          <i class="fas fa-lock text-2xl text-indigo-600"></i>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-900 mb-4">Role-Based Access</h3>
+        <p class="text-gray-600 mb-6">Granular permissions ensure team members see only what they need to access.</p>
+        <ul class="space-y-2 text-sm text-gray-600">
+          <li>• Role-based permissions</li>
+          <li>• Data segregation</li>
+          <li>• Audit trails</li>
+          <li>• Compliance controls</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Demo Video -->
+<section class="py-24 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <div
+        class="inline-flex items-center px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium mb-4"
+      >
+        <i class="fas fa-play-circle mr-2"></i>
+        <span>Video Demo</span>
+      </div>
+      <h2 class="text-4xl md-text-5xl font-bold text-gray-900 mb-4">
+        See Team Collaboration in Action
+      </h2>
+      <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+        Watch our comprehensive video demo to see how Ovovex enables seamless team collaboration and real-time financial workflows
+      </p>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <div class="relative">
+        <div
+          class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden demo-video"
+        >
+          <!-- Video Embed -->
+          <div class="aspect-video bg-gray-900 relative rounded-lg overflow-hidden demo-video">
+            <video
+              class="w-full h-full object-cover"
+              controls
+              preload="metadata"
+              poster="{% static 'images/image3.jpg' %}"
+              playsinline
+              autoplay
+              muted
+              loop
+              id="demo-video"
+            >
+              <source src="{% static 'images/7078918_Graphs_Charts_1920x1080.mp4' %}" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+            <!-- Video overlay for better UX -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none video-overlay"></div>
+            <!-- Auto-play indicator -->
+            <div class="absolute top-4 right-4 bg-black/70 text-white px-3 py-1 rounded-full text-xs font-medium flex items-center space-x-2 auto-play-indicator">
+              <i class="fas fa-play text-green-400"></i>
+              <span>Auto-playing</span>
+            </div>
+            <!-- Unmute hint -->
+            <div class="absolute bottom-20 left-4 bg-black/70 text-white px-3 py-2 rounded-lg text-xs max-w-xs unmute-hint">
+              <i class="fas fa-volume-mute mr-1"></i>
+              Video is muted for auto-play. Click to unmute.
+            </div>
+            <!-- Loading indicator -->
+            <div id="video-loading" class="absolute inset-0 bg-gray-900 flex items-center justify-center">
+              <div class="text-center text-white">
+                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto mb-4"></div>
+                <p class="text-sm">Loading video...</p>
+              </div>
+            </div>
+          </div>
+
+          <script>
+            document.addEventListener('DOMContentLoaded', function() {
+              const video = document.getElementById('demo-video');
+              const loading = document.getElementById('video-loading');
+
+              // Hide loading when video can play
+              video.addEventListener('canplay', function() {
+                loading.style.display = 'none';
+              });
+
+              // Hide loading when video starts playing
+              video.addEventListener('play', function() {
+                loading.style.display = 'none';
+              });
+
+              // Show loading on video load start
+              video.addEventListener('loadstart', function() {
+                loading.style.display = 'flex';
+              });
+
+              // Error handling
+              video.addEventListener('error', function() {
+                loading.innerHTML = `
+                  <div class="text-center text-white">
+                    <i class="fas fa-exclamation-triangle text-2xl mb-2"></i>
+                    <p class="text-sm">Video failed to load</p>
+                  </div>
+                `;
+              });
+
+              // Auto-play handling
+              video.addEventListener('loadeddata', function() {
+                // Try to play (will work since muted)
+                const playPromise = video.play();
+                if (playPromise !== undefined) {
+                  playPromise.then(function() {
+                    console.log('Video auto-playing successfully');
+                  }).catch(function(error) {
+                    console.log('Auto-play failed:', error);
+                  });
+                }
+              });
+
+              // Add click to unmute functionality
+              video.addEventListener('click', function() {
+                if (video.muted) {
+                  video.muted = false;
+                  // Hide the unmute hint
+                  const unmuteHint = document.querySelector('.absolute.bottom-20');
+                  if (unmuteHint) {
+                    unmuteHint.style.display = 'none';
+                  }
+                }
+              });
+
+              // Loop indicator (video will loop automatically due to loop attribute)
+              video.addEventListener('ended', function() {
+                console.log('Video ended and will loop');
+              });
+            });
+          </script>
+        </div>
+      </div>
+
+      <div class="space-y-8">
+        <div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-6">
+            What You'll See in the Demo
+          </h3>
+          <p class="text-lg text-gray-600 leading-relaxed mb-8">
+            Watch our comprehensive video walkthrough to see how Ovovex enables real-time collaboration across your financial teams.
+          </p>
+        </div>
+
+        <!-- Video Highlights -->
+        <div class="space-y-4">
+          <div class="flex items-start space-x-4">
+            <div
+              class="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center flex-shrink-0"
+            >
+              <i class="fas fa-play text-white"></i>
+            </div>
+            <div>
+              <h4 class="text-lg font-semibold text-gray-900 mb-2">
+                Real-Time Collaboration
+              </h4>
+              <p class="text-gray-600">
+                See multiple users working together on invoices, budgets, and financial reports simultaneously
+              </p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-4">
+            <div
+              class="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center flex-shrink-0"
+            >
+              <i class="fas fa-comments text-white"></i>
+            </div>
+            <div>
+              <h4 class="text-lg font-semibold text-gray-900 mb-2">
+                In-App Communication
+              </h4>
+              <p class="text-gray-600">
+                Watch integrated chat and commenting features for seamless team communication
+              </p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-4">
+            <div
+              class="w-12 h-12 bg-purple-500 rounded-xl flex items-center justify-center flex-shrink-0"
+            >
+              <i class="fas fa-user-shield text-white"></i>
+            </div>
+            <div>
+              <h4 class="text-lg font-semibold text-gray-900 mb-2">
+                Role-Based Access
+              </h4>
+              <p class="text-gray-600">
+                Experience granular permissions and approval workflows for different team roles
+              </p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-4">
+            <div
+              class="w-12 h-12 bg-orange-500 rounded-xl flex items-center justify-center flex-shrink-0"
+            >
+              <i class="fas fa-history text-white"></i>
+            </div>
+            <div>
+              <h4 class="text-lg font-semibold text-gray-900 mb-2">
+                Audit Trails
+              </h4>
+              <p class="text-gray-600">
+                See comprehensive activity logs and change tracking for full transparency
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a
+            href="#"
+            class="inline-flex items-center justify-center px-8 py-4 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors duration-200 shadow-sm"
+          >
+            <i class="fas fa-rocket mr-2"></i>Start Free Trial
+          </a>
+          <a
+            href="#"
+            class="inline-flex items-center justify-center px-8 py-4 bg-white text-gray-700 font-semibold rounded-xl border border-gray-300 hover:border-gray-400 transition-colors duration-200 shadow-sm"
+          >
+            <i class="fas fa-calendar mr-2"></i>Schedule Live Demo
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-24 bg-blue-600">
+  <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+    <h2 class="text-4xl font-bold text-white mb-6">Bring Your Team Together</h2>
+    <p class="text-xl text-blue-100 mb-8">Foster collaboration and accelerate decision-making across your organization</p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="/" class="inline-flex items-center px-8 py-4 bg-white text-blue-600 font-semibold rounded-xl hover:bg-gray-50 transition-colors">
+        <i class="fas fa-users mr-2"></i>Start Free Trial
+      </a>
+      <a href="/features/security-compliance/" class="inline-flex items-center px-8 py-4 bg-blue-500 text-white font-semibold rounded-xl hover:bg-blue-400 transition-colors">
+        <i class="fas fa-arrow-right mr-2"></i>Next: Security & Compliance
+      </a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

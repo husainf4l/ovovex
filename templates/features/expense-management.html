@@ -1,0 +1,484 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'components/navbar.html' %}
+
+<!-- Hero Section -->
+<section class="pt-24 pb-16 bg-gradient-to-br from-red-50 to-pink-100">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center">
+      <div class="inline-flex items-center px-4 py-2 bg-red-100 text-red-800 rounded-full text-sm font-semibold mb-6">
+        <i class="fas fa-receipt mr-2"></i>
+        Expense Management
+      </div>
+      <h1 class="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+        Control Costs,
+        <span class="text-red-600">Maximize Savings</span>
+      </h1>
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+        Streamline expense tracking, automate approvals, and gain complete visibility into your business spending with intelligent categorization and policy enforcement.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#expense-form" class="inline-flex items-center px-8 py-4 bg-red-600 text-white font-semibold rounded-xl hover:bg-red-700 transition-colors">
+          <i class="fas fa-plus-circle mr-2"></i>Create Expense Report
+        </a>
+        <a href="#features" class="inline-flex items-center px-8 py-4 bg-white text-gray-700 font-semibold rounded-xl border border-gray-300 hover:border-gray-400 transition-colors">
+          <i class="fas fa-cog mr-2"></i>Explore Features
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Key Metrics -->
+<section class="py-24 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid md:grid-cols-4 gap-8">
+      <div class="text-center">
+        <div class="text-4xl font-bold text-red-600 mb-2">85%</div>
+        <div class="text-gray-600">Cost Reduction</div>
+      </div>
+      <div class="text-center">
+        <div class="text-4xl font-bold text-blue-600 mb-2">2min</div>
+        <div class="text-gray-600">Expense Approval</div>
+      </div>
+      <div class="text-center">
+        <div class="text-4xl font-bold text-green-600 mb-2">99%</div>
+        <div class="text-gray-600">Policy Compliance</div>
+      </div>
+      <div class="text-center">
+        <div class="text-4xl font-bold text-purple-600 mb-2">24/7</div>
+        <div class="text-gray-600">Mobile Access</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Expense Form Demo -->
+<section id="expense-form" class="py-24 bg-gray-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-bold text-gray-900 mb-6">Smart Expense Creation</h2>
+      <p class="text-xl text-gray-600 max-w-2xl mx-auto">Intuitive forms with auto-categorization and receipt scanning</p>
+    </div>
+
+    <!-- Expense Form Mockup -->
+    <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
+      <div class="bg-gray-800 px-6 py-4 flex items-center justify-between">
+        <div class="flex items-center space-x-4">
+          <div class="flex space-x-2">
+            <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+            <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+            <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+          </div>
+          <span class="text-white font-medium">New Expense Report</span>
+        </div>
+        <div class="text-green-400 text-sm font-medium">Auto-save enabled</div>
+      </div>
+
+      <div class="p-8">
+        <form class="space-y-6">
+          <!-- Basic Info -->
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Expense Type</label>
+              <select class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent">
+                <option>Travel & Transportation</option>
+                <option>Meals & Entertainment</option>
+                <option>Office Supplies</option>
+                <option>Software & Tools</option>
+                <option>Marketing</option>
+                <option>Training & Development</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Amount</label>
+              <div class="relative">
+                <span class="absolute left-4 top-3 text-gray-500">$</span>
+                <input type="number" placeholder="0.00" class="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent">
+              </div>
+            </div>
+          </div>
+
+          <!-- Description -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
+            <textarea rows="3" placeholder="Describe the expense..." class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent"></textarea>
+          </div>
+
+          <!-- Receipt Upload -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Receipt Upload</label>
+            <div class="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center hover:border-red-400 transition-colors">
+              <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-4"></i>
+              <p class="text-gray-600 mb-2">Drag & drop receipt or click to browse</p>
+              <p class="text-sm text-gray-500">Supports PDF, JPG, PNG up to 10MB</p>
+              <button type="button" class="mt-4 px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">
+                Choose File
+              </button>
+            </div>
+          </div>
+
+          <!-- Auto-categorization -->
+          <div class="bg-green-50 border border-green-200 rounded-xl p-4">
+            <div class="flex items-center space-x-3">
+              <i class="fas fa-magic text-green-600"></i>
+              <div>
+                <div class="font-medium text-green-800">Auto-categorized as "Travel & Transportation"</div>
+                <div class="text-sm text-green-600">Based on receipt analysis and expense history</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Submit -->
+          <div class="flex justify-end space-x-4">
+            <button type="button" class="px-6 py-3 bg-gray-200 text-gray-700 rounded-xl hover:bg-gray-300 transition-colors">
+              Save Draft
+            </button>
+            <button type="submit" class="px-8 py-3 bg-red-600 text-white rounded-xl hover:bg-red-700 transition-colors">
+              Submit for Approval
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section id="features" class="py-24 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-bold text-gray-900 mb-6">Complete Expense Control</h2>
+      <p class="text-xl text-gray-600 max-w-2xl mx-auto">From capture to reimbursement, manage every aspect of business spending</p>
+    </div>
+
+    <div class="grid lg:grid-cols-3 gap-8">
+      <!-- Receipt Scanning -->
+      <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-100">
+        <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-6">
+          <i class="fas fa-camera text-2xl text-blue-600"></i>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-900 mb-4">Smart Receipt Scanning</h3>
+        <p class="text-gray-600 mb-6">OCR technology automatically extracts data from receipts with 99% accuracy.</p>
+        <ul class="space-y-2 text-sm text-gray-600">
+          <li>• Automatic data extraction</li>
+          <li>• Multi-language support</li>
+          <li>• Digital receipt storage</li>
+          <li>• Duplicate detection</li>
+        </ul>
+      </div>
+
+      <!-- Policy Enforcement -->
+      <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-100">
+        <div class="w-16 h-16 bg-red-100 rounded-2xl flex items-center justify-center mb-6">
+          <i class="fas fa-shield-alt text-2xl text-red-600"></i>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-900 mb-4">Policy Automation</h3>
+        <p class="text-gray-600 mb-6">Real-time policy checking prevents violations before they occur.</p>
+        <ul class="space-y-2 text-sm text-gray-600">
+          <li>• Real-time validation</li>
+          <li>• Custom policy rules</li>
+          <li>• Automated approvals</li>
+          <li>• Compliance reporting</li>
+        </ul>
+      </div>
+
+      <!-- Budget Tracking -->
+      <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-100">
+        <div class="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mb-6">
+          <i class="fas fa-chart-pie text-2xl text-green-600"></i>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-900 mb-4">Budget Monitoring</h3>
+        <p class="text-gray-600 mb-6">Track spending against budgets with alerts and forecasting.</p>
+        <ul class="space-y-2 text-sm text-gray-600">
+          <li>• Real-time budget tracking</li>
+          <li>• Spending alerts</li>
+          <li>• Budget forecasting</li>
+          <li>• Variance analysis</li>
+        </ul>
+      </div>
+
+      <!-- Mobile App -->
+      <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-100">
+        <div class="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mb-6">
+          <i class="fas fa-mobile-alt text-2xl text-purple-600"></i>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-900 mb-4">Mobile Expense Capture</h3>
+        <p class="text-gray-600 mb-6">Capture expenses on-the-go with our intuitive mobile app.</p>
+        <ul class="space-y-2 text-sm text-gray-600">
+          <li>• Camera receipt scanning</li>
+          <li>• Offline mode</li>
+          <li>• GPS location tagging</li>
+          <li>• Voice notes</li>
+        </ul>
+      </div>
+
+      <!-- Multi-Currency -->
+      <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-100">
+        <div class="w-16 h-16 bg-orange-100 rounded-2xl flex items-center justify-center mb-6">
+          <i class="fas fa-globe text-2xl text-orange-600"></i>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-900 mb-4">Multi-Currency Support</h3>
+        <p class="text-gray-600 mb-6">Handle international expenses with automatic currency conversion.</p>
+        <ul class="space-y-2 text-sm text-gray-600">
+          <li>• 150+ currencies</li>
+          <li>• Real-time exchange rates</li>
+          <li>• Tax calculation</li>
+          <li>• Currency risk management</li>
+        </ul>
+      </div>
+
+      <!-- Analytics & Reporting -->
+      <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-100">
+        <div class="w-16 h-16 bg-indigo-100 rounded-2xl flex items-center justify-center mb-6">
+          <i class="fas fa-chart-bar text-2xl text-indigo-600"></i>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-900 mb-4">Spending Analytics</h3>
+        <p class="text-gray-600 mb-6">Detailed insights into spending patterns and cost optimization opportunities.</p>
+        <ul class="space-y-2 text-sm text-gray-600">
+          <li>• Category analysis</li>
+          <li>• Trend identification</li>
+          <li>• Cost optimization</li>
+          <li>• Benchmarking</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Demo Video -->
+<section class="py-24 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <div
+        class="inline-flex items-center px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium mb-4"
+      >
+        <i class="fas fa-play-circle mr-2"></i>
+        <span>Video Demo</span>
+      </div>
+      <h2 class="text-4xl md-text-5xl font-bold text-gray-900 mb-4">
+        See Expense Management in Action
+      </h2>
+      <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+        Watch our comprehensive video demo to see how Ovovex streamlines expense tracking and approval workflows
+      </p>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <div class="relative">
+        <div
+          class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden demo-video"
+        >
+          <!-- Video Embed -->
+          <div class="aspect-video bg-gray-900 relative rounded-lg overflow-hidden demo-video">
+            <video
+              class="w-full h-full object-cover"
+              controls
+              preload="metadata"
+              poster="{% static 'images/image2.jpg' %}"
+              playsinline
+              autoplay
+              muted
+              loop
+              id="demo-video"
+            >
+              <source src="{% static 'images/7078918_Graphs_Charts_1920x1080.mp4' %}" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+            <!-- Video overlay for better UX -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none video-overlay"></div>
+            <!-- Auto-play indicator -->
+            <div class="absolute top-4 right-4 bg-black/70 text-white px-3 py-1 rounded-full text-xs font-medium flex items-center space-x-2 auto-play-indicator">
+              <i class="fas fa-play text-green-400"></i>
+              <span>Auto-playing</span>
+            </div>
+            <!-- Unmute hint -->
+            <div class="absolute bottom-20 left-4 bg-black/70 text-white px-3 py-2 rounded-lg text-xs max-w-xs unmute-hint">
+              <i class="fas fa-volume-mute mr-1"></i>
+              Video is muted for auto-play. Click to unmute.
+            </div>
+            <!-- Loading indicator -->
+            <div id="video-loading" class="absolute inset-0 bg-gray-900 flex items-center justify-center">
+              <div class="text-center text-white">
+                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto mb-4"></div>
+                <p class="text-sm">Loading video...</p>
+              </div>
+            </div>
+          </div>
+
+          <script>
+            document.addEventListener('DOMContentLoaded', function() {
+              const video = document.getElementById('demo-video');
+              const loading = document.getElementById('video-loading');
+
+              // Hide loading when video can play
+              video.addEventListener('canplay', function() {
+                loading.style.display = 'none';
+              });
+
+              // Hide loading when video starts playing
+              video.addEventListener('play', function() {
+                loading.style.display = 'none';
+              });
+
+              // Show loading on video load start
+              video.addEventListener('loadstart', function() {
+                loading.style.display = 'flex';
+              });
+
+              // Error handling
+              video.addEventListener('error', function() {
+                loading.innerHTML = `
+                  <div class="text-center text-white">
+                    <i class="fas fa-exclamation-triangle text-2xl mb-2"></i>
+                    <p class="text-sm">Video failed to load</p>
+                  </div>
+                `;
+              });
+
+              // Auto-play handling
+              video.addEventListener('loadeddata', function() {
+                // Try to play (will work since muted)
+                const playPromise = video.play();
+                if (playPromise !== undefined) {
+                  playPromise.then(function() {
+                    console.log('Video auto-playing successfully');
+                  }).catch(function(error) {
+                    console.log('Auto-play failed:', error);
+                  });
+                }
+              });
+
+              // Add click to unmute functionality
+              video.addEventListener('click', function() {
+                if (video.muted) {
+                  video.muted = false;
+                  // Hide the unmute hint
+                  const unmuteHint = document.querySelector('.absolute.bottom-20');
+                  if (unmuteHint) {
+                    unmuteHint.style.display = 'none';
+                  }
+                }
+              });
+
+              // Loop indicator (video will loop automatically due to loop attribute)
+              video.addEventListener('ended', function() {
+                console.log('Video ended and will loop');
+              });
+            });
+          </script>
+        </div>
+      </div>
+
+      <div class="space-y-8">
+        <div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-6">
+            What You'll See in the Demo
+          </h3>
+          <p class="text-lg text-gray-600 leading-relaxed mb-8">
+            Watch our comprehensive video walkthrough to see how Ovovex automates expense tracking from receipt to reimbursement.
+          </p>
+        </div>
+
+        <!-- Video Highlights -->
+        <div class="space-y-4">
+          <div class="flex items-start space-x-4">
+            <div
+              class="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center flex-shrink-0"
+            >
+              <i class="fas fa-play text-white"></i>
+            </div>
+            <div>
+              <h4 class="text-lg font-semibold text-gray-900 mb-2">
+                Receipt Scanning
+              </h4>
+              <p class="text-gray-600">
+                See OCR technology automatically extract data from receipts and categorize expenses
+              </p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-4">
+            <div
+              class="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center flex-shrink-0"
+            >
+              <i class="fas fa-brain text-white"></i>
+            </div>
+            <div>
+              <h4 class="text-lg font-semibold text-gray-900 mb-2">
+                Smart Categorization
+              </h4>
+              <p class="text-gray-600">
+                Watch AI automatically categorize expenses and flag policy violations
+              </p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-4">
+            <div
+              class="w-12 h-12 bg-purple-500 rounded-xl flex items-center justify-center flex-shrink-0"
+            >
+              <i class="fas fa-users text-white"></i>
+            </div>
+            <div>
+              <h4 class="text-lg font-semibold text-gray-900 mb-2">
+                Approval Workflows
+              </h4>
+              <p class="text-gray-600">
+                Experience streamlined approval processes with automated routing and notifications
+              </p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-4">
+            <div
+              class="w-12 h-12 bg-orange-500 rounded-xl flex items-center justify-center flex-shrink-0"
+            >
+              <i class="fas fa-chart-line text-white"></i>
+            </div>
+            <div>
+              <h4 class="text-lg font-semibold text-gray-900 mb-2">
+                Expense Analytics
+              </h4>
+              <p class="text-gray-600">
+                See real-time expense reporting and budget tracking with detailed analytics
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a
+            href="#"
+            class="inline-flex items-center justify-center px-8 py-4 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors duration-200 shadow-sm"
+          >
+            <i class="fas fa-rocket mr-2"></i>Start Free Trial
+          </a>
+          <a
+            href="#"
+            class="inline-flex items-center justify-center px-8 py-4 bg-white text-gray-700 font-semibold rounded-xl border border-gray-300 hover:border-gray-400 transition-colors duration-200 shadow-sm"
+          >
+            <i class="fas fa-calendar mr-2"></i>Schedule Live Demo
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-24 bg-red-600">
+  <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+    <h2 class="text-4xl font-bold text-white mb-6">Take Control of Your Expenses</h2>
+    <p class="text-xl text-red-100 mb-8">Reduce costs and improve compliance with intelligent expense management</p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="/" class="inline-flex items-center px-8 py-4 bg-white text-red-600 font-semibold rounded-xl hover:bg-gray-50 transition-colors">
+        <i class="fas fa-receipt mr-2"></i>Start Free Trial
+      </a>
+      <a href="/features/team-collaboration/" class="inline-flex items-center px-8 py-4 bg-red-500 text-white font-semibold rounded-xl hover:bg-red-400 transition-colors">
+        <i class="fas fa-arrow-right mr-2"></i>Next: Team Collaboration
+      </a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

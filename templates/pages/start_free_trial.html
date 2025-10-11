@@ -1,5 +1,10 @@
-{% extends 'base.html' %} {% block title %}Start Free Trial - Ovovex{% endblock
-%} {% block content %} {% include 'components/navbar.html' %}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Start Free Trial - Ovovex{% endblock %}
+
+{% block content %}
+{% include 'components/navbar.html' %}
 
 <div class="min-h-screen bg-gray-50 py-16">
   <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -45,6 +50,13 @@
           name="password"
           type="password"
           placeholder="Password"
+          class="w-full px-4 py-2 border rounded-lg"
+          required
+        />
+        <input
+          name="password_confirm"
+          type="password"
+          placeholder="Confirm Password"
           class="w-full px-4 py-2 border rounded-lg"
           required
         />

@@ -57,6 +57,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',  # Language middleware - must be after SessionMiddleware
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -76,6 +77,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.i18n',  # Internationalization context processor
             ],
         },
     },
@@ -121,11 +123,25 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+# Enable internationalization
+USE_I18N = True  # Enable Django's translation system
+USE_L10N = True  # Enable localized formatting of numbers and dates
+
+# Default language
+LANGUAGE_CODE = 'en'  # Default language is English
+
+# Supported languages: English and Arabic only
+LANGUAGES = [
+    ('en', 'English'),
+    ('ar', 'العربية'),  # Arabic
+]
+
+# Path where Django will look for translation files
+LOCALE_PATHS = [
+    BASE_DIR / 'locale',
+]
 
 TIME_ZONE = 'UTC'
-
-USE_I18N = True
 
 USE_TZ = True
 

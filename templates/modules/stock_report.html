@@ -1,0 +1,336 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'components/sidemenu.html' %}
+
+<div
+  class="min-h-screen bg-gray-50 dark:bg-gray-900 ml-64 transition-colors duration-300"
+>
+  <!-- Header -->
+  <div
+    class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4 transition-colors duration-300"
+  >
+    <div class="flex items-center justify-between">
+      <div class="flex items-center space-x-4">
+        <button
+          onclick="window.history.back()"
+          class="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100"
+        >
+          <i class="fas fa-arrow-left"></i>
+        </button>
+        <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">
+          Stock Report
+        </h1>
+      </div>
+      <div class="flex items-center space-x-4">
+        <button
+          id="export-report"
+          class="px-4 py-2 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700"
+        >
+          <i class="fas fa-download mr-2"></i>Export CSV
+        </button>
+        <button
+          id="print-report"
+          class="px-4 py-2 bg-gray-600 text-white font-medium rounded-lg hover:bg-gray-700"
+        >
+          <i class="fas fa-print mr-2"></i>Print
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-8">
+    <!-- Filters -->
+    <div
+      class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 mb-6"
+    >
+      <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">
+        Report Filters
+      </h3>
+      <form id="filter-form" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div>
+          <label
+            class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+            >Category</label
+          >
+          <select
+            id="category-filter"
+            class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+          >
+            <option value="">All Categories</option>
+            {% for category in categories %}
+            <option value="{{ category.id }}" {% if category_id == category.id|stringformat:"s" %}selected{% endif %}>
+              {{ category.name }}
+            </option>
+            {% endfor %}
+          </select>
+        </div>
+        <div>
+          <label
+            class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+            >Status</label
+          >
+          <select
+            id="status-filter"
+            class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+          >
+            <option value="">All Items</option>
+            <option value="low_stock" {% if status_filter == 'low_stock' %}selected{% endif %}>Low Stock</option>
+            <option value="out_of_stock" {% if status_filter == 'out_of_stock' %}selected{% endif %}>Out of Stock</option>
+            <option value="overstock" {% if status_filter == 'overstock' %}selected{% endif %}>Overstock</option>
+            <option value="in_stock" {% if status_filter == 'in_stock' %}selected{% endif %}>In Stock</option>
+          </select>
+        </div>
+        <div>
+          <label
+            class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+            >Date From</label
+          >
+          <input
+            type="date"
+            id="date-from"
+            value="{{ date_from|default:'' }}"
+            class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+          />
+        </div>
+        <div>
+          <label
+            class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+            >Date To</label
+          >
+          <input
+            type="date"
+            id="date-to"
+            value="{{ date_to|default:'' }}"
+            class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+          />
+        </div>
+        <div class="md:col-span-4 flex justify-end space-x-4">
+          <button
+            type="button"
+            id="apply-filters"
+            class="px-6 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700"
+          >
+            <i class="fas fa-filter mr-2"></i>Apply Filters
+          </button>
+          <button
+            type="button"
+            id="clear-filters"
+            class="px-6 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700"
+          >
+            Clear Filters
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Summary Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+      <div
+        class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6"
+      >
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <i class="fas fa-boxes text-blue-500 text-2xl"></i>
+          </div>
+          <div class="ml-4">
+            <div class="text-2xl font-bold text-gray-900 dark:text-gray-100">
+              {{ total_items }}
+            </div>
+            <div class="text-sm text-gray-600 dark:text-gray-400">
+              Total Items
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6"
+      >
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <i class="fas fa-dollar-sign text-green-500 text-2xl"></i>
+          </div>
+          <div class="ml-4">
+            <div class="text-2xl font-bold text-gray-900 dark:text-gray-100">
+              ${{ total_value|floatformat:2 }}
+            </div>
+            <div class="text-sm text-gray-600 dark:text-gray-400">
+              Total Value
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6"
+      >
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <i class="fas fa-exclamation-triangle text-yellow-500 text-2xl"></i>
+          </div>
+          <div class="ml-4">
+            <div class="text-2xl font-bold text-gray-900 dark:text-gray-100">
+              {{ low_stock_count }}
+            </div>
+            <div class="text-sm text-gray-600 dark:text-gray-400">
+              Low Stock Items
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6"
+      >
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <i class="fas fa-times-circle text-red-500 text-2xl"></i>
+          </div>
+          <div class="ml-4">
+            <div class="text-2xl font-bold text-gray-900 dark:text-gray-100">
+              {{ out_of_stock_count }}
+            </div>
+            <div class="text-sm text-gray-600 dark:text-gray-400">
+              Out of Stock
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Report Table -->
+    <div
+      class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden"
+    >
+      <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+        <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100">
+          Inventory Report
+        </h3>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full">
+          <thead class="bg-gray-50 dark:bg-gray-700">
+            <tr>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                Item Code
+              </th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                Name
+              </th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                Category
+              </th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                Current Stock
+              </th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                Unit Cost
+              </th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                Total Value
+              </th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                Min Stock
+              </th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                Reorder Point
+              </th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                Status
+              </th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                Vendor
+              </th>
+            </tr>
+          </thead>
+          <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+            {% for item in report_data %}
+            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">
+                {{ item.item_code }}
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
+                {{ item.name }}
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                {{ item.category }}
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
+                {{ item.current_stock }}
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
+                ${{ item.unit_cost }}
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
+                ${{ item.total_value }}
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                {{ item.minimum_stock }}
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                {{ item.reorder_point }}
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full {{ item.status_class }}">
+                  {{ item.status }}
+                </span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                {{ item.vendor }}
+              </td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="10" class="px-6 py-4 text-center text-gray-500 dark:text-gray-400">
+                No inventory items found matching the current filters.
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Apply filters
+  document.getElementById("apply-filters").addEventListener("click", () => {
+    const params = new URLSearchParams();
+
+    const category = document.getElementById("category-filter").value;
+    const status = document.getElementById("status-filter").value;
+    const dateFrom = document.getElementById("date-from").value;
+    const dateTo = document.getElementById("date-to").value;
+
+    if (category) params.append("category", category);
+    if (status) params.append("status", status);
+    if (dateFrom) params.append("date_from", dateFrom);
+    if (dateTo) params.append("date_to", dateTo);
+
+    const url = "{% url 'stock_report' %}" + (params.toString() ? "?" + params.toString() : "");
+    window.location.href = url;
+  });
+
+  // Clear filters
+  document.getElementById("clear-filters").addEventListener("click", () => {
+    document.getElementById("category-filter").value = "";
+    document.getElementById("status-filter").value = "";
+    document.getElementById("date-from").value = "";
+    document.getElementById("date-to").value = "";
+    window.location.href = "{% url 'stock_report' %}";
+  });
+
+  // Export report
+  document.getElementById("export-report").addEventListener("click", () => {
+    const params = new URLSearchParams(window.location.search);
+    const url = "{% url 'export_inventory' %}" + (params.toString() ? "?" + params.toString() : "");
+    window.open(url, "_blank");
+  });
+
+  // Print report
+  document.getElementById("print-report").addEventListener("click", () => {
+    window.print();
+  });
+</script>
+
+{% endblock %}

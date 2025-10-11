@@ -1,0 +1,1166 @@
+{
+  "project_name": "Ovovex Accounting Platform",
+  "version": "2.0",
+  "architecture_type": "Modular Django Multi-App SaaS",
+  
+  "public_navbar": {
+    "solutions": {
+      "label": "Solutions",
+      "dropdown": true,
+      "items": [
+        {
+          "name": "Small Business",
+          "url": "small-business",
+          "description": "For businesses with 1-50 employees",
+          "icon": "fa-store"
+        },
+        {
+          "name": "Mid-Market",
+          "url": "mid-market",
+          "description": "For growing companies with 50-500 employees",
+          "icon": "fa-building"
+        },
+        {
+          "name": "Enterprise",
+          "url": "enterprise",
+          "description": "For large organizations 500+ employees",
+          "icon": "fa-city"
+        },
+        {
+          "name": "Accounting Firms",
+          "url": "accounting-firms",
+          "description": "Multi-client practice management",
+          "icon": "fa-users-cog"
+        },
+        {
+          "name": "Startups & Ventures",
+          "url": "startups",
+          "description": "Fast-growing tech companies",
+          "icon": "fa-rocket"
+        }
+      ]
+    },
+    "industries": {
+      "label": "Industries",
+      "dropdown": true,
+      "items": [
+        {
+          "name": "Retail & E-commerce",
+          "url": "retail-ecommerce",
+          "icon": "fa-shopping-cart"
+        },
+        {
+          "name": "Manufacturing",
+          "url": "manufacturing",
+          "icon": "fa-industry"
+        },
+        {
+          "name": "Professional Services",
+          "url": "professional-services",
+          "icon": "fa-briefcase"
+        },
+        {
+          "name": "Healthcare & Medical",
+          "url": "healthcare",
+          "icon": "fa-heartbeat"
+        },
+        {
+          "name": "Real Estate & Property",
+          "url": "real-estate",
+          "icon": "fa-home"
+        },
+        {
+          "name": "Technology & SaaS",
+          "url": "technology-saas",
+          "icon": "fa-laptop-code"
+        },
+        {
+          "name": "Non-Profit Organizations",
+          "url": "non-profit",
+          "icon": "fa-hand-holding-heart"
+        }
+      ]
+    },
+    "features": {
+      "label": "Features",
+      "dropdown": true,
+      "items": [
+        {
+          "name": "Smart Invoicing",
+          "url": "smart-invoicing",
+          "icon": "fa-file-invoice-dollar"
+        },
+        {
+          "name": "AI Bookkeeping",
+          "url": "ai-bookkeeping",
+          "icon": "fa-robot"
+        },
+        {
+          "name": "Expense Management",
+          "url": "expense-management-feature",
+          "icon": "fa-receipt"
+        },
+        {
+          "name": "Real-time Analytics",
+          "url": "real-time-analytics",
+          "icon": "fa-chart-line"
+        },
+        {
+          "name": "Multi-Currency Support",
+          "url": "multi-currency",
+          "icon": "fa-globe"
+        },
+        {
+          "name": "Bank Integrations",
+          "url": "bank-integrations",
+          "icon": "fa-university"
+        },
+        {
+          "name": "IFRS & GAAP Compliance",
+          "url": "ifrs-compliance",
+          "icon": "fa-shield-alt"
+        },
+        {
+          "name": "Bank-Grade Security",
+          "url": "bank-grade-security",
+          "icon": "fa-lock"
+        },
+        {
+          "name": "API & Integrations",
+          "url": "api-integrations",
+          "icon": "fa-plug"
+        }
+      ]
+    },
+    "resources": {
+      "label": "Resources",
+      "dropdown": true,
+      "items": [
+        {
+          "name": "Documentation",
+          "url": "documentation",
+          "icon": "fa-book"
+        },
+        {
+          "name": "API Reference",
+          "url": "api-reference",
+          "icon": "fa-code"
+        },
+        {
+          "name": "Blog & Updates",
+          "url": "blog",
+          "icon": "fa-newspaper"
+        },
+        {
+          "name": "Case Studies",
+          "url": "case-studies",
+          "icon": "fa-award"
+        },
+        {
+          "name": "Webinars & Training",
+          "url": "training",
+          "icon": "fa-graduation-cap"
+        },
+        {
+          "name": "Community Forum",
+          "url": "community",
+          "icon": "fa-comments"
+        },
+        {
+          "name": "Help Center",
+          "url": "help-center",
+          "icon": "fa-question-circle"
+        }
+      ]
+    },
+    "pricing": {
+      "label": "Pricing",
+      "url": "pricing",
+      "dropdown": false
+    },
+    "cta_buttons": [
+      {
+        "label": "Start Free Trial",
+        "url": "start-free-trial",
+        "type": "primary"
+      },
+      {
+        "label": "Request Demo",
+        "url": "request-demo",
+        "type": "secondary"
+      },
+      {
+        "label": "Login",
+        "url": "login",
+        "type": "link"
+      }
+    ]
+  },
+
+  "dashboard_sidebar": {
+    "sections": [
+      {
+        "name": "Overview",
+        "icon": "fa-th-large",
+        "collapsed": false,
+        "items": [
+          {
+            "name": "Dashboard Home",
+            "url": "dashboard",
+            "icon": "fa-home",
+            "badge": null
+          },
+          {
+            "name": "Quick Actions",
+            "url": "quick-actions",
+            "icon": "fa-bolt",
+            "badge": null
+          },
+          {
+            "name": "Recent Activity",
+            "url": "recent-activity",
+            "icon": "fa-history",
+            "badge": null
+          }
+        ]
+      },
+      {
+        "name": "Core Accounting",
+        "icon": "fa-book",
+        "collapsed": false,
+        "items": [
+          {
+            "name": "General Ledger",
+            "url": "general-ledger",
+            "icon": "fa-book-open",
+            "badge": null
+          },
+          {
+            "name": "Chart of Accounts",
+            "url": "chart-of-accounts",
+            "icon": "fa-list",
+            "badge": null
+          },
+          {
+            "name": "Journal Entries",
+            "url": "journal-entries",
+            "icon": "fa-pen",
+            "badge": null
+          },
+          {
+            "name": "Trial Balance",
+            "url": "trial-balance",
+            "icon": "fa-balance-scale",
+            "badge": null
+          },
+          {
+            "name": "Reconciliation",
+            "url": "reconciliation",
+            "icon": "fa-check-double",
+            "badge": null
+          }
+        ]
+      },
+      {
+        "name": "Invoicing & Billing",
+        "icon": "fa-file-invoice-dollar",
+        "collapsed": false,
+        "items": [
+          {
+            "name": "Invoices",
+            "url": "invoices",
+            "icon": "fa-file-invoice",
+            "badge": null
+          },
+          {
+            "name": "Create Invoice",
+            "url": "invoices-create",
+            "icon": "fa-plus-circle",
+            "badge": null
+          },
+          {
+            "name": "Recurring Invoices",
+            "url": "recurring-invoices",
+            "icon": "fa-sync",
+            "badge": null
+          },
+          {
+            "name": "Quotes & Estimates",
+            "url": "quotes-estimates",
+            "icon": "fa-calculator",
+            "badge": null
+          },
+          {
+            "name": "Credit Notes",
+            "url": "credit-notes",
+            "icon": "fa-undo",
+            "badge": null
+          },
+          {
+            "name": "Payment Links",
+            "url": "payment-links",
+            "icon": "fa-link",
+            "badge": null
+          }
+        ]
+      },
+      {
+        "name": "Receivables & Payables",
+        "icon": "fa-exchange-alt",
+        "collapsed": true,
+        "items": [
+          {
+            "name": "Accounts Receivable",
+            "url": "accounts-receivable",
+            "icon": "fa-arrow-down",
+            "badge": null
+          },
+          {
+            "name": "Accounts Payable",
+            "url": "accounts-payable",
+            "icon": "fa-arrow-up",
+            "badge": null
+          },
+          {
+            "name": "Customer Management",
+            "url": "customers",
+            "icon": "fa-users",
+            "badge": null
+          },
+          {
+            "name": "Vendor Management",
+            "url": "vendors",
+            "icon": "fa-truck",
+            "badge": null
+          },
+          {
+            "name": "Payment Processing",
+            "url": "payment-processing",
+            "icon": "fa-credit-card",
+            "badge": null
+          },
+          {
+            "name": "Collections",
+            "url": "collections",
+            "icon": "fa-hand-holding-usd",
+            "badge": "alert"
+          }
+        ]
+      },
+      {
+        "name": "Financial Management",
+        "icon": "fa-chart-pie",
+        "collapsed": true,
+        "items": [
+          {
+            "name": "Balance Sheet",
+            "url": "balance-sheet",
+            "icon": "fa-table",
+            "badge": null
+          },
+          {
+            "name": "Income Statement (P&L)",
+            "url": "pnl-statement",
+            "icon": "fa-chart-bar",
+            "badge": null
+          },
+          {
+            "name": "Cash Flow Statement",
+            "url": "cash-flow",
+            "icon": "fa-water",
+            "badge": null
+          },
+          {
+            "name": "Cash Flow Forecasting",
+            "url": "cash-flow-forecast",
+            "icon": "fa-crystal-ball",
+            "badge": "ai"
+          },
+          {
+            "name": "Budgeting & Planning",
+            "url": "budgeting",
+            "icon": "fa-clipboard-list",
+            "badge": null
+          },
+          {
+            "name": "Scenario Planning",
+            "url": "scenario-planning",
+            "icon": "fa-project-diagram",
+            "badge": "new"
+          },
+          {
+            "name": "Fixed Assets",
+            "url": "fixed-assets",
+            "icon": "fa-cubes",
+            "badge": null
+          },
+          {
+            "name": "Depreciation",
+            "url": "depreciation",
+            "icon": "fa-chart-line-down",
+            "badge": null
+          }
+        ]
+      },
+      {
+        "name": "Banking & Treasury",
+        "icon": "fa-university",
+        "collapsed": true,
+        "items": [
+          {
+            "name": "Bank Accounts",
+            "url": "bank-accounts",
+            "icon": "fa-piggy-bank",
+            "badge": null
+          },
+          {
+            "name": "Bank Reconciliation",
+            "url": "bank-reconciliation",
+            "icon": "fa-check-circle",
+            "badge": null
+          },
+          {
+            "name": "Bank Feeds",
+            "url": "bank-feeds",
+            "icon": "fa-rss",
+            "badge": "auto"
+          },
+          {
+            "name": "Treasury Management",
+            "url": "treasury-management",
+            "icon": "fa-vault",
+            "badge": null
+          },
+          {
+            "name": "Multi-Currency",
+            "url": "multi-currency",
+            "icon": "fa-globe-americas",
+            "badge": null
+          },
+          {
+            "name": "Payment Gateway",
+            "url": "payment-gateway",
+            "icon": "fa-credit-card",
+            "badge": null
+          }
+        ]
+      },
+      {
+        "name": "Operations",
+        "icon": "fa-cogs",
+        "collapsed": true,
+        "items": [
+          {
+            "name": "Expense Management",
+            "url": "expense-management",
+            "icon": "fa-receipt",
+            "badge": null
+          },
+          {
+            "name": "Receipt Scanner (OCR)",
+            "url": "receipt-scanner",
+            "icon": "fa-camera",
+            "badge": "ai"
+          },
+          {
+            "name": "Purchase Orders",
+            "url": "purchase-orders",
+            "icon": "fa-shopping-cart",
+            "badge": null
+          },
+          {
+            "name": "Inventory Management",
+            "url": "inventory",
+            "icon": "fa-boxes",
+            "badge": null
+          },
+          {
+            "name": "Projects & Jobs",
+            "url": "projects-jobs",
+            "icon": "fa-tasks",
+            "badge": null
+          },
+          {
+            "name": "Time Tracking",
+            "url": "time-tracking",
+            "icon": "fa-clock",
+            "badge": null
+          },
+          {
+            "name": "Document Management",
+            "url": "documents",
+            "icon": "fa-folder-open",
+            "badge": null
+          }
+        ]
+      },
+      {
+        "name": "Tax & Compliance",
+        "icon": "fa-shield-alt",
+        "collapsed": true,
+        "items": [
+          {
+            "name": "Tax Center",
+            "url": "tax-center",
+            "icon": "fa-percentage",
+            "badge": null
+          },
+          {
+            "name": "Tax Reports",
+            "url": "tax-reports",
+            "icon": "fa-file-alt",
+            "badge": null
+          },
+          {
+            "name": "VAT/GST Returns",
+            "url": "vat-gst-returns",
+            "icon": "fa-file-invoice",
+            "badge": null
+          },
+          {
+            "name": "Tax Compliance",
+            "url": "tax-compliance",
+            "icon": "fa-gavel",
+            "badge": null
+          },
+          {
+            "name": "Audit Trail",
+            "url": "audit-trail",
+            "icon": "fa-history",
+            "badge": null
+          },
+          {
+            "name": "Compliance Dashboard",
+            "url": "audit-compliance",
+            "icon": "fa-clipboard-check",
+            "badge": null
+          },
+          {
+            "name": "Regulatory Filing",
+            "url": "regulatory-filing",
+            "icon": "fa-landmark",
+            "badge": null
+          }
+        ]
+      },
+      {
+        "name": "Analytics & Insights",
+        "icon": "fa-chart-line",
+        "collapsed": true,
+        "items": [
+          {
+            "name": "Financial Dashboard",
+            "url": "financial-dashboard",
+            "icon": "fa-tachometer-alt",
+            "badge": null
+          },
+          {
+            "name": "Financial Ratios",
+            "url": "financial-ratios",
+            "icon": "fa-percentage",
+            "badge": null
+          },
+          {
+            "name": "KPI Tracking",
+            "url": "kpi-tracking",
+            "icon": "fa-bullseye",
+            "badge": null
+          },
+          {
+            "name": "Custom Reports",
+            "url": "custom-reports",
+            "icon": "fa-file-chart-line",
+            "badge": null
+          },
+          {
+            "name": "AI Insights",
+            "url": "ai-insights",
+            "icon": "fa-brain",
+            "badge": "ai"
+          },
+          {
+            "name": "Anomaly Detection",
+            "url": "anomaly-detection",
+            "icon": "fa-exclamation-triangle",
+            "badge": "beta"
+          },
+          {
+            "name": "Predictive Analytics",
+            "url": "predictive-analytics",
+            "icon": "fa-crystal-ball",
+            "badge": "ai"
+          },
+          {
+            "name": "Benchmarking",
+            "url": "benchmarking",
+            "icon": "fa-chart-area",
+            "badge": null
+          }
+        ]
+      },
+      {
+        "name": "AI Assistant",
+        "icon": "fa-robot",
+        "collapsed": true,
+        "items": [
+          {
+            "name": "AI Chat Assistant",
+            "url": "ai-chat",
+            "icon": "fa-comment-dots",
+            "badge": "ai"
+          },
+          {
+            "name": "Smart Categorization",
+            "url": "smart-categorization",
+            "icon": "fa-tags",
+            "badge": "auto"
+          },
+          {
+            "name": "AI Report Generator",
+            "url": "ai-report-generator",
+            "icon": "fa-file-signature",
+            "badge": "ai"
+          },
+          {
+            "name": "Forecasting Models",
+            "url": "forecasting-models",
+            "icon": "fa-chart-line",
+            "badge": "ai"
+          },
+          {
+            "name": "Smart Recommendations",
+            "url": "smart-recommendations",
+            "icon": "fa-lightbulb",
+            "badge": "ai"
+          }
+        ]
+      },
+      {
+        "name": "Workflows & Automation",
+        "icon": "fa-network-wired",
+        "collapsed": true,
+        "items": [
+          {
+            "name": "Approval Workflows",
+            "url": "approval-workflows",
+            "icon": "fa-clipboard-check",
+            "badge": null
+          },
+          {
+            "name": "Automated Rules",
+            "url": "automated-rules",
+            "icon": "fa-magic",
+            "badge": null
+          },
+          {
+            "name": "Email Templates",
+            "url": "email-templates",
+            "icon": "fa-envelope",
+            "badge": null
+          },
+          {
+            "name": "Scheduled Reports",
+            "url": "scheduled-reports",
+            "icon": "fa-calendar-alt",
+            "badge": null
+          },
+          {
+            "name": "Notifications",
+            "url": "notifications",
+            "icon": "fa-bell",
+            "badge": "3"
+          }
+        ]
+      },
+      {
+        "name": "Multi-Company",
+        "icon": "fa-building",
+        "collapsed": true,
+        "items": [
+          {
+            "name": "Company Selector",
+            "url": "company-selector",
+            "icon": "fa-sitemap",
+            "badge": null
+          },
+          {
+            "name": "Consolidation",
+            "url": "consolidation",
+            "icon": "fa-compress",
+            "badge": null
+          },
+          {
+            "name": "Inter-Company Transactions",
+            "url": "inter-company",
+            "icon": "fa-random",
+            "badge": null
+          },
+          {
+            "name": "Group Reporting",
+            "url": "group-reporting",
+            "icon": "fa-layer-group",
+            "badge": null
+          }
+        ]
+      },
+      {
+        "name": "Integrations",
+        "icon": "fa-plug",
+        "collapsed": true,
+        "items": [
+          {
+            "name": "Integration Hub",
+            "url": "integrations-hub",
+            "icon": "fa-th",
+            "badge": null
+          },
+          {
+            "name": "Bank Connections",
+            "url": "bank-connections",
+            "icon": "fa-university",
+            "badge": null
+          },
+          {
+            "name": "Payment Processors",
+            "url": "payment-processors",
+            "icon": "fa-credit-card",
+            "badge": null
+          },
+          {
+            "name": "E-commerce Platforms",
+            "url": "ecommerce-integrations",
+            "icon": "fa-shopping-cart",
+            "badge": null
+          },
+          {
+            "name": "Payroll Systems",
+            "url": "payroll-integrations",
+            "icon": "fa-money-check",
+            "badge": null
+          },
+          {
+            "name": "CRM Systems",
+            "url": "crm-integrations",
+            "icon": "fa-handshake",
+            "badge": null
+          },
+          {
+            "name": "ERP Systems",
+            "url": "erp-integrations",
+            "icon": "fa-server",
+            "badge": null
+          },
+          {
+            "name": "API & Webhooks",
+            "url": "api-webhooks",
+            "icon": "fa-code",
+            "badge": null
+          },
+          {
+            "name": "Zapier & Make",
+            "url": "automation-tools",
+            "icon": "fa-bolt",
+            "badge": null
+          }
+        ]
+      },
+      {
+        "name": "Customer Portal",
+        "icon": "fa-user-circle",
+        "collapsed": true,
+        "items": [
+          {
+            "name": "Portal Dashboard",
+            "url": "customer-portal",
+            "icon": "fa-home",
+            "badge": null
+          },
+          {
+            "name": "My Invoices",
+            "url": "portal-invoices",
+            "icon": "fa-file-invoice",
+            "badge": null
+          },
+          {
+            "name": "Payment History",
+            "url": "portal-payments",
+            "icon": "fa-history",
+            "badge": null
+          },
+          {
+            "name": "My Documents",
+            "url": "portal-documents",
+            "icon": "fa-folder",
+            "badge": null
+          },
+          {
+            "name": "Support Tickets",
+            "url": "customer-support",
+            "icon": "fa-life-ring",
+            "badge": null
+          }
+        ]
+      },
+      {
+        "name": "Settings & Admin",
+        "icon": "fa-cog",
+        "collapsed": true,
+        "items": [
+          {
+            "name": "Company Settings",
+            "url": "company-settings",
+            "icon": "fa-building",
+            "badge": null
+          },
+          {
+            "name": "User Management",
+            "url": "user-management",
+            "icon": "fa-users",
+            "badge": null
+          },
+          {
+            "name": "Roles & Permissions",
+            "url": "roles-permissions",
+            "icon": "fa-user-shield",
+            "badge": null
+          },
+          {
+            "name": "Security Settings",
+            "url": "security-settings",
+            "icon": "fa-lock",
+            "badge": null
+          },
+          {
+            "name": "Two-Factor Auth (2FA)",
+            "url": "two-factor-auth",
+            "icon": "fa-mobile-alt",
+            "badge": null
+          },
+          {
+            "name": "Audit Logs",
+            "url": "audit-logs",
+            "icon": "fa-clipboard-list",
+            "badge": null
+          },
+          {
+            "name": "Backup & Recovery",
+            "url": "backup-recovery",
+            "icon": "fa-database",
+            "badge": null
+          },
+          {
+            "name": "Data Export",
+            "url": "data-export",
+            "icon": "fa-download",
+            "badge": null
+          },
+          {
+            "name": "Billing & Subscription",
+            "url": "billing-subscription",
+            "icon": "fa-credit-card",
+            "badge": null
+          },
+          {
+            "name": "Preferences",
+            "url": "settings",
+            "icon": "fa-sliders-h",
+            "badge": null
+          }
+        ]
+      },
+      {
+        "name": "Help & Support",
+        "icon": "fa-question-circle",
+        "collapsed": true,
+        "items": [
+          {
+            "name": "Help Center",
+            "url": "help-center",
+            "icon": "fa-book",
+            "badge": null
+          },
+          {
+            "name": "Video Tutorials",
+            "url": "video-tutorials",
+            "icon": "fa-video",
+            "badge": null
+          },
+          {
+            "name": "Contact Support",
+            "url": "contact-support",
+            "icon": "fa-headset",
+            "badge": null
+          },
+          {
+            "name": "Submit Feedback",
+            "url": "submit-feedback",
+            "icon": "fa-comment-dots",
+            "badge": null
+          },
+          {
+            "name": "What's New",
+            "url": "whats-new",
+            "icon": "fa-newspaper",
+            "badge": "new"
+          }
+        ]
+      }
+    ]
+  },
+
+  "django_apps": {
+    "core_apps": [
+      {
+        "name": "core",
+        "description": "Core functionality, base models, utilities",
+        "models": ["Company", "UserProfile", "Settings", "Currency"]
+      },
+      {
+        "name": "accounts",
+        "description": "Authentication, users, roles, permissions",
+        "models": ["User", "Role", "Permission", "Team", "InvitedUser"]
+      },
+      {
+        "name": "accounting",
+        "description": "Chart of accounts, journal entries, ledger",
+        "models": ["Account", "JournalEntry", "JournalLine", "AccountType", "FiscalYear"]
+      },
+      {
+        "name": "invoicing",
+        "description": "Invoices, quotes, credit notes, payment links",
+        "models": ["Invoice", "InvoiceLine", "Quote", "CreditNote", "PaymentLink", "RecurringInvoice"]
+      },
+      {
+        "name": "receivables",
+        "description": "AR management, customer payments, collections",
+        "models": ["Customer", "CustomerPayment", "CollectionNotice", "AgingReport"]
+      },
+      {
+        "name": "payables",
+        "description": "AP management, vendor bills, payments",
+        "models": ["Vendor", "Bill", "BillLine", "VendorPayment", "PaymentRun"]
+      },
+      {
+        "name": "banking",
+        "description": "Bank accounts, reconciliation, treasury",
+        "models": ["BankAccount", "BankTransaction", "BankReconciliation", "BankFeed"]
+      },
+      {
+        "name": "financials",
+        "description": "Financial statements, budgets, forecasts",
+        "models": ["Budget", "BudgetLine", "Forecast", "FinancialStatement", "CashFlowForecast"]
+      },
+      {
+        "name": "assets",
+        "description": "Fixed assets, depreciation",
+        "models": ["FixedAsset", "AssetCategory", "Depreciation", "AssetDisposal"]
+      },
+      {
+        "name": "operations",
+        "description": "Expenses, POs, inventory, projects",
+        "models": ["Expense", "ExpenseCategory", "PurchaseOrder", "InventoryItem", "Project", "TimeEntry"]
+      },
+      {
+        "name": "tax",
+        "description": "Tax management, returns, compliance",
+        "models": ["TaxRate", "TaxReturn", "TaxPayment", "VATReturn", "TaxJurisdiction"]
+      },
+      {
+        "name": "compliance",
+        "description": "Audit trails, regulatory compliance",
+        "models": ["AuditLog", "ComplianceReport", "RegulatoryFiling", "ControlTest"]
+      },
+      {
+        "name": "analytics",
+        "description": "Reports, dashboards, KPIs",
+        "models": ["Report", "Dashboard", "KPI", "Metric", "Chart"]
+      },
+      {
+        "name": "ai_engine",
+        "description": "AI/ML models, predictions, insights",
+        "models": ["AIModel", "Prediction", "Insight", "Anomaly", "Recommendation"]
+      },
+      {
+        "name": "workflows",
+        "description": "Approval workflows, automation rules",
+        "models": ["Workflow", "WorkflowStep", "Approval", "AutomationRule", "Trigger"]
+      },
+      {
+        "name": "integrations",
+        "description": "Third-party integrations, APIs, webhooks",
+        "models": ["Integration", "APIKey", "Webhook", "SyncLog", "ConnectedAccount"]
+      },
+      {
+        "name": "documents",
+        "description": "Document management, file storage",
+        "models": ["Document", "DocumentCategory", "DocumentVersion", "DocumentShare"]
+      },
+      {
+        "name": "notifications",
+        "description": "Alerts, notifications, messaging",
+        "models": ["Notification", "Alert", "EmailTemplate", "ScheduledReport"]
+      },
+      {
+        "name": "portal",
+        "description": "Customer/client portal",
+        "models": ["PortalUser", "PortalAccess", "PortalSettings"]
+      },
+      {
+        "name": "multicompany",
+        "description": "Multi-entity management, consolidation",
+        "models": ["CompanyGroup", "Consolidation", "InterCompanyTransaction"]
+      }
+    ]
+  },
+
+  "ai_features": {
+    "intelligent_automation": [
+      {
+        "name": "AI Chat Assistant",
+        "description": "Conversational AI for accounting queries",
+        "technology": "GPT-4, LangChain",
+        "url": "ai-chat"
+      },
+      {
+        "name": "Smart Receipt Scanner (OCR)",
+        "description": "Extract data from receipts and invoices",
+        "technology": "Tesseract, AWS Textract",
+        "url": "receipt-scanner"
+      },
+      {
+        "name": "Auto-Categorization",
+        "description": "ML-powered transaction categorization",
+        "technology": "Scikit-learn, TensorFlow",
+        "url": "smart-categorization"
+      },
+      {
+        "name": "Cash Flow Forecasting",
+        "description": "Predict future cash positions",
+        "technology": "Prophet, LSTM",
+        "url": "cash-flow-forecast"
+      },
+      {
+        "name": "Scenario Planning",
+        "description": "What-if analysis and modeling",
+        "technology": "Monte Carlo, SimPy",
+        "url": "scenario-planning"
+      },
+      {
+        "name": "Anomaly Detection",
+        "description": "Detect unusual transactions and fraud",
+        "technology": "Isolation Forest, Autoencoders",
+        "url": "anomaly-detection"
+      },
+      {
+        "name": "AI Report Generator",
+        "description": "Natural language report generation",
+        "technology": "GPT-4, Plotly",
+        "url": "ai-report-generator"
+      },
+      {
+        "name": "Predictive Analytics",
+        "description": "Revenue, expense, and KPI predictions",
+        "technology": "XGBoost, Neural Networks",
+        "url": "predictive-analytics"
+      },
+      {
+        "name": "Smart Recommendations",
+        "description": "Personalized action recommendations",
+        "technology": "Collaborative Filtering, RL",
+        "url": "smart-recommendations"
+      },
+      {
+        "name": "Invoice Matching",
+        "description": "Auto-match invoices with POs and receipts",
+        "technology": "Fuzzy Matching, NLP",
+        "url": "invoice-matching"
+      }
+    ]
+  },
+
+  "url_structure": {
+    "public_site": {
+      "base": "/",
+      "patterns": [
+        "/<solution-slug>/",
+        "/industries/<industry-slug>/",
+        "/features/<feature-slug>/",
+        "/pricing/",
+        "/resources/<resource-slug>/",
+        "/blog/",
+        "/case-studies/",
+        "/api-reference/",
+        "/documentation/"
+      ]
+    },
+    "dashboard": {
+      "base": "/dashboard/",
+      "patterns": [
+        "/dashboard/<section>/<subsection>/",
+        "/api/<app>/<endpoint>/",
+        "/webhooks/<event>/",
+        "/integrations/<provider>/"
+      ]
+    }
+  },
+
+  "technology_stack": {
+    "backend": {
+      "framework": "Django 5.2+",
+      "database": "PostgreSQL 15+",
+      "cache": "Redis 7+",
+      "task_queue": "Celery + Redis",
+      "api": "Django REST Framework",
+      "auth": "JWT, OAuth2, SAML"
+    },
+    "frontend": {
+      "framework": "Alpine.js / HTMX (for simplicity) or Vue.js/React",
+      "css": "TailwindCSS",
+      "charts": "Chart.js, Plotly",
+      "tables": "DataTables, AG-Grid"
+    },
+    "ai_ml": {
+      "nlp": "OpenAI GPT-4, LangChain",
+      "ml": "Scikit-learn, TensorFlow, PyTorch",
+      "ocr": "Tesseract, AWS Textract, Google Vision",
+      "forecasting": "Prophet, statsmodels"
+    },
+    "infrastructure": {
+      "hosting": "AWS / Azure / GCP",
+      "cdn": "CloudFlare",
+      "storage": "S3-compatible",
+      "monitoring": "Sentry, DataDog",
+      "ci_cd": "GitHub Actions, GitLab CI"
+    }
+  },
+
+  "security_compliance": {
+    "standards": [
+      "SOC 2 Type II",
+      "ISO 27001",
+      "PCI DSS Level 1",
+      "GDPR Compliant",
+      "CCPA Compliant"
+    ],
+    "features": [
+      "256-bit AES Encryption",
+      "TLS 1.3",
+      "Two-Factor Authentication (TOTP, SMS, Biometric)",
+      "Role-Based Access Control (RBAC)",
+      "IP Whitelisting",
+      "Session Management",
+      "Audit Logging",
+      "Data Anonymization",
+      "Automated Backups",
+      "Disaster Recovery"
+    ]
+  },
+
+  "deployment_architecture": {
+    "environments": ["Development", "Staging", "Production"],
+    "scaling": "Horizontal (Kubernetes, Docker)",
+    "database_replication": "Primary-Replica (Read replicas)",
+    "cdn_strategy": "Static assets on CDN, dynamic content cached",
+    "monitoring": "Real-time alerts, APM, Error tracking"
+  }
+}

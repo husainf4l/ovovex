@@ -2332,3 +2332,245 @@ class DashboardSettings(models.Model):
     
     def __str__(self):
         return f"Dashboard settings for {self.user.username}"
+
+
+# Pricing and Billing Models
+
+class PricingPlan(models.Model):
+    """
+    Defines pricing plans available to users
+    """
+    PLAN_TYPES = [
+        ('free', 'Free'),
+        ('starter', 'Starter'),
+        ('professional', 'Professional'),
+        ('enterprise', 'Enterprise'),
+    ]
+
+    BILLING_CYCLE_CHOICES = [
+        ('monthly', 'Monthly'),
+        ('yearly', 'Yearly'),
+    ]
+
+    name = models.CharField(max_length=50, unique=True)
+    plan_type = models.CharField(max_length=20, choices=PLAN_TYPES, unique=True)
+    display_name = models.CharField(max_length=100)
+    description = models.TextField()
+    price_monthly = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    price_yearly = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    billing_cycle = models.CharField(max_length=20, choices=BILLING_CYCLE_CHOICES, default='monthly')
+
+    # Plan limits
+    max_users = models.PositiveIntegerField(default=1)
+    max_invoices_per_month = models.PositiveIntegerField(default=5)
+    max_storage_gb = models.PositiveIntegerField(default=1)
+    api_access = models.BooleanField(default=False)
+    priority_support = models.BooleanField(default=False)
+    advanced_analytics = models.BooleanField(default=False)
+    custom_integrations = models.BooleanField(default=False)
+
+    # Features
+    features = models.JSONField(default=dict, help_text="JSON object containing plan features")
+
+    # Trial settings
+    trial_days = models.PositiveIntegerField(default=14)
+    is_active = models.BooleanField(default=True)
+
+    # Metadata
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['price_monthly']
+        verbose_name = 'Pricing Plan'
+        verbose_name_plural = 'Pricing Plans'
+
+    def __str__(self):
+        return f"{self.display_name} (${self.price_monthly}/month)"
+
+    def get_yearly_price(self):
+        """Calculate yearly price with discount"""
+        if self.price_yearly > 0:
+            return self.price_yearly
+        # 20% discount for yearly billing
+        return self.price_monthly * 12 * Decimal('0.8')
+
+    @property
+    def is_free_plan(self):
+        return self.plan_type == 'free'
+
+
+class Subscription(models.Model):
+    """
+    Tracks user subscriptions to pricing plans
+    """
+    STATUS_CHOICES = [
+        ('trial', 'Trial'),
+        ('active', 'Active'),
+        ('past_due', 'Past Due'),
+        ('canceled', 'Canceled'),
+        ('expired', 'Expired'),
+    ]
+
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='subscription')
+    plan = models.ForeignKey(PricingPlan, on_delete=models.PROTECT, related_name='subscriptions')
+
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='trial')
+    billing_cycle = models.CharField(max_length=20, choices=PricingPlan.BILLING_CYCLE_CHOICES, default='monthly')
+
+    # Trial tracking
+    trial_start_date = models.DateTimeField(auto_now_add=True)
+    trial_end_date = models.DateTimeField(null=True, blank=True)
+
+    # Subscription dates
+    current_period_start = models.DateTimeField(null=True, blank=True)
+    current_period_end = models.DateTimeField(null=True, blank=True)
+    cancel_at_period_end = models.BooleanField(default=False)
+
+    # Usage tracking
+    invoices_used_this_month = models.PositiveIntegerField(default=0)
+    storage_used_gb = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+
+    # Metadata
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    canceled_at = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        verbose_name = 'Subscription'
+        verbose_name_plural = 'Subscriptions'
+
+    def __str__(self):
+        return f"{self.user.username} - {self.plan.display_name} ({self.status})"
+
+    def is_trial_active(self):
+        """Check if trial is still active"""
+        if self.status != 'trial':
+            return False
+        return self.trial_end_date > models.timezone.now() if self.trial_end_date else False
+
+    def days_left_in_trial(self):
+        """Return days left in trial"""
+        if not self.is_trial_active():
+            return 0
+        return (self.trial_end_date - models.timezone.now()).days
+
+    def can_create_invoice(self):
+        """Check if user can create more invoices this month"""
+        if self.plan.max_invoices_per_month == 0:  # Unlimited
+            return True
+        return self.invoices_used_this_month < self.plan.max_invoices_per_month
+
+
+class PaymentMethod(models.Model):
+    """
+    Stores user payment methods
+    """
+    PAYMENT_TYPES = [
+        ('card', 'Credit/Debit Card'),
+        ('paypal', 'PayPal'),
+        ('bank', 'Bank Transfer'),
+    ]
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='payment_methods')
+    payment_type = models.CharField(max_length=20, choices=PAYMENT_TYPES)
+
+    # Card details (encrypted in production)
+    card_last4 = models.CharField(max_length=4, blank=True, null=True)
+    card_brand = models.CharField(max_length=20, blank=True, null=True)
+    card_exp_month = models.PositiveIntegerField(null=True, blank=True)
+    card_exp_year = models.PositiveIntegerField(null=True, blank=True)
+
+    # PayPal details
+    paypal_email = models.EmailField(blank=True, null=True)
+
+    # Bank details
+    bank_name = models.CharField(max_length=100, blank=True, null=True)
+    account_last4 = models.CharField(max_length=4, blank=True, null=True)
+
+    # Stripe/Payment processor IDs
+    payment_processor_id = models.CharField(max_length=100, unique=True)
+    is_default = models.BooleanField(default=False)
+
+    # Metadata
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = 'Payment Method'
+        verbose_name_plural = 'Payment Methods'
+
+    def __str__(self):
+        if self.payment_type == 'card':
+            return f"{self.card_brand} ****{self.card_last4}"
+        elif self.payment_type == 'paypal':
+            return f"PayPal ({self.paypal_email})"
+        else:
+            return f"Bank ****{self.account_last4}"
+
+
+class BillingHistory(models.Model):
+    """
+    Tracks all billing transactions and invoices
+    """
+    TRANSACTION_TYPES = [
+        ('subscription', 'Subscription Payment'),
+        ('upgrade', 'Plan Upgrade'),
+        ('downgrade', 'Plan Downgrade'),
+        ('addon', 'Add-on Purchase'),
+        ('refund', 'Refund'),
+    ]
+
+    STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('paid', 'Paid'),
+        ('failed', 'Failed'),
+        ('refunded', 'Refunded'),
+        ('disputed', 'Disputed'),
+    ]
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='billing_history')
+    subscription = models.ForeignKey(Subscription, on_delete=models.SET_NULL, null=True, blank=True)
+
+    transaction_type = models.CharField(max_length=20, choices=TRANSACTION_TYPES)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+
+    # Amounts
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    currency = models.CharField(max_length=3, default='USD')
+    tax_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    discount_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+
+    # Payment details
+    payment_method = models.ForeignKey(PaymentMethod, on_delete=models.SET_NULL, null=True, blank=True)
+    payment_processor_transaction_id = models.CharField(max_length=100, blank=True, null=True)
+
+    # Billing period
+    billing_period_start = models.DateTimeField(null=True, blank=True)
+    billing_period_end = models.DateTimeField(null=True, blank=True)
+
+    # Invoice details
+    invoice_number = models.CharField(max_length=50, unique=True)
+    invoice_pdf_url = models.URLField(blank=True, null=True)
+
+    # Description and notes
+    description = models.TextField(blank=True, null=True)
+    notes = models.TextField(blank=True, null=True)
+
+    # Metadata
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    paid_at = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        ordering = ['-created_at']
+        verbose_name = 'Billing History'
+        verbose_name_plural = 'Billing History'
+
+    def __str__(self):
+        return f"{self.user.username} - {self.transaction_type} - ${self.amount} ({self.status})"
+
+    @property
+    def total_amount(self):
+        """Calculate total amount including tax and discount"""
+        return self.amount + self.tax_amount - self.discount_amount

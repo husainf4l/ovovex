@@ -1,0 +1,348 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Billing History - Ovovex{% endblock %}
+
+{% block content %}
+{% include 'components/navbar.html' %}
+
+<!-- Header Section -->
+<section class="pt-24 pb-16 bg-gradient-to-br from-purple-50 to-pink-100">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <div class="inline-flex items-center px-4 py-2 bg-purple-100 text-purple-800 rounded-full text-sm font-semibold mb-6">
+      <i class="fas fa-receipt mr-2"></i>
+      Billing History
+    </div>
+    <h1 class="text-4xl font-bold text-gray-900 mb-6">Your Billing History</h1>
+    <p class="text-xl text-gray-600">View and download all your invoices and payment records.</p>
+  </div>
+</section>
+
+<!-- Billing Overview Cards -->
+<section class="py-16 bg-white">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid md:grid-cols-4 gap-6 mb-8">
+      <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <div class="text-sm font-medium text-blue-600">Total Billed</div>
+            <div class="text-2xl font-bold text-blue-900">$1,264.00</div>
+          </div>
+          <div class="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center">
+            <i class="fas fa-dollar-sign text-white"></i>
+          </div>
+        </div>
+        <div class="text-sm text-blue-600">Last 12 months</div>
+      </div>
+
+      <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-6">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <div class="text-sm font-medium text-green-600">Paid Invoices</div>
+            <div class="text-2xl font-bold text-green-900">16</div>
+          </div>
+          <div class="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center">
+            <i class="fas fa-check-circle text-white"></i>
+          </div>
+        </div>
+        <div class="text-sm text-green-600">All payments successful</div>
+      </div>
+
+      <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-xl p-6">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <div class="text-sm font-medium text-yellow-600">Next Payment</div>
+            <div class="text-2xl font-bold text-yellow-900">$79.00</div>
+          </div>
+          <div class="w-12 h-12 bg-yellow-500 rounded-xl flex items-center justify-center">
+            <i class="fas fa-calendar text-white"></i>
+          </div>
+        </div>
+        <div class="text-sm text-yellow-600">Due Dec 15, 2024</div>
+      </div>
+
+      <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-6">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <div class="text-sm font-medium text-purple-600">Payment Method</div>
+            <div class="text-lg font-bold text-purple-900">•••• 4242</div>
+          </div>
+          <div class="w-12 h-12 bg-purple-500 rounded-xl flex items-center justify-center">
+            <i class="fas fa-credit-card text-white"></i>
+          </div>
+        </div>
+        <div class="text-sm text-purple-600">Visa ending in 4242</div>
+      </div>
+    </div>
+
+    <!-- Filters and Search -->
+    <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm mb-6">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div class="flex items-center space-x-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Date Range</label>
+            <select class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+              <option>Last 3 months</option>
+              <option>Last 6 months</option>
+              <option>Last 12 months</option>
+              <option>All time</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+            <select class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+              <option>All</option>
+              <option>Paid</option>
+              <option>Pending</option>
+              <option>Failed</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="flex items-center space-x-4">
+          <div class="relative">
+            <input type="text" placeholder="Search invoices..." class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            <div class="absolute left-3 top-2.5">
+              <i class="fas fa-search text-gray-400"></i>
+            </div>
+          </div>
+          <button class="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors">
+            <i class="fas fa-download mr-2"></i>Export
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Billing History Table -->
+    <div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full">
+          <thead class="bg-gray-50">
+            <tr>
+              <th class="text-left py-4 px-6 font-medium text-gray-900">Invoice #</th>
+              <th class="text-left py-4 px-6 font-medium text-gray-900">Date</th>
+              <th class="text-left py-4 px-6 font-medium text-gray-900">Description</th>
+              <th class="text-left py-4 px-6 font-medium text-gray-900">Amount</th>
+              <th class="text-left py-4 px-6 font-medium text-gray-900">Status</th>
+              <th class="text-left py-4 px-6 font-medium text-gray-900">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-200">
+            <tr class="hover:bg-gray-50">
+              <td class="py-4 px-6">
+                <div class="font-medium text-gray-900">#INV-2024-0016</div>
+                <div class="text-sm text-gray-600">Professional Plan</div>
+              </td>
+              <td class="py-4 px-6 text-sm text-gray-900">Dec 15, 2024</td>
+              <td class="py-4 px-6 text-sm text-gray-900">Monthly subscription - Professional Plan</td>
+              <td class="py-4 px-6">
+                <div class="font-medium text-gray-900">$79.00</div>
+                <div class="text-sm text-gray-600">USD</div>
+              </td>
+              <td class="py-4 px-6">
+                <span class="inline-flex items-center px-2.5 py-0.5 bg-yellow-100 text-yellow-800 rounded-full text-xs font-medium">
+                  <i class="fas fa-clock mr-1"></i>Pending
+                </span>
+              </td>
+              <td class="py-4 px-6">
+                <div class="flex items-center space-x-2">
+                  <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                    <i class="fas fa-eye mr-1"></i>View
+                  </button>
+                  <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                    <i class="fas fa-download mr-1"></i>PDF
+                  </button>
+                </div>
+              </td>
+            </tr>
+
+            <tr class="hover:bg-gray-50">
+              <td class="py-4 px-6">
+                <div class="font-medium text-gray-900">#INV-2024-0015</div>
+                <div class="text-sm text-gray-600">Professional Plan</div>
+              </td>
+              <td class="py-4 px-6 text-sm text-gray-900">Nov 15, 2024</td>
+              <td class="py-4 px-6 text-sm text-gray-900">Monthly subscription - Professional Plan</td>
+              <td class="py-4 px-6">
+                <div class="font-medium text-gray-900">$79.00</div>
+                <div class="text-sm text-gray-600">USD</div>
+              </td>
+              <td class="py-4 px-6">
+                <span class="inline-flex items-center px-2.5 py-0.5 bg-green-100 text-green-800 rounded-full text-xs font-medium">
+                  <i class="fas fa-check mr-1"></i>Paid
+                </span>
+              </td>
+              <td class="py-4 px-6">
+                <div class="flex items-center space-x-2">
+                  <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                    <i class="fas fa-eye mr-1"></i>View
+                  </button>
+                  <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                    <i class="fas fa-download mr-1"></i>PDF
+                  </button>
+                </div>
+              </td>
+            </tr>
+
+            <tr class="hover:bg-gray-50">
+              <td class="py-4 px-6">
+                <div class="font-medium text-gray-900">#INV-2024-0014</div>
+                <div class="text-sm text-gray-600">Professional Plan</div>
+              </td>
+              <td class="py-4 px-6 text-sm text-gray-900">Oct 15, 2024</td>
+              <td class="py-4 px-6 text-sm text-gray-900">Monthly subscription - Professional Plan</td>
+              <td class="py-4 px-6">
+                <div class="font-medium text-gray-900">$79.00</div>
+                <div class="text-sm text-gray-600">USD</div>
+              </td>
+              <td class="py-4 px-6">
+                <span class="inline-flex items-center px-2.5 py-0.5 bg-green-100 text-green-800 rounded-full text-xs font-medium">
+                  <i class="fas fa-check mr-1"></i>Paid
+                </span>
+              </td>
+              <td class="py-4 px-6">
+                <div class="flex items-center space-x-2">
+                  <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                    <i class="fas fa-eye mr-1"></i>View
+                  </button>
+                  <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                    <i class="fas fa-download mr-1"></i>PDF
+                  </button>
+                </div>
+              </td>
+            </tr>
+
+            <tr class="hover:bg-gray-50">
+              <td class="py-4 px-6">
+                <div class="font-medium text-gray-900">#INV-2024-0013</div>
+                <div class="text-sm text-gray-600">Professional Plan</div>
+              </td>
+              <td class="py-4 px-6 text-sm text-gray-900">Sep 15, 2024</td>
+              <td class="py-4 px-6 text-sm text-gray-900">Monthly subscription - Professional Plan</td>
+              <td class="py-4 px-6">
+                <div class="font-medium text-gray-900">$79.00</div>
+                <div class="text-sm text-gray-600">USD</div>
+              </td>
+              <td class="py-4 px-6">
+                <span class="inline-flex items-center px-2.5 py-0.5 bg-green-100 text-green-800 rounded-full text-xs font-medium">
+                  <i class="fas fa-check mr-1"></i>Paid
+                </span>
+              </td>
+              <td class="py-4 px-6">
+                <div class="flex items-center space-x-2">
+                  <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                    <i class="fas fa-eye mr-1"></i>View
+                  </button>
+                  <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                    <i class="fas fa-download mr-1"></i>PDF
+                  </button>
+                </div>
+              </td>
+            </tr>
+
+            <tr class="hover:bg-gray-50">
+              <td class="py-4 px-6">
+                <div class="font-medium text-gray-900">#INV-2024-0012</div>
+                <div class="text-sm text-gray-600">Professional Plan</div>
+              </td>
+              <td class="py-4 px-6 text-sm text-gray-900">Aug 15, 2024</td>
+              <td class="py-4 px-6 text-sm text-gray-900">Monthly subscription - Professional Plan</td>
+              <td class="py-4 px-6">
+                <div class="font-medium text-gray-900">$79.00</div>
+                <div class="text-sm text-gray-600">USD</div>
+              </td>
+              <td class="py-4 px-6">
+                <span class="inline-flex items-center px-2.5 py-0.5 bg-green-100 text-green-800 rounded-full text-xs font-medium">
+                  <i class="fas fa-check mr-1"></i>Paid
+                </span>
+              </td>
+              <td class="py-4 px-6">
+                <div class="flex items-center space-x-2">
+                  <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                    <i class="fas fa-eye mr-1"></i>View
+                  </button>
+                  <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                    <i class="fas fa-download mr-1"></i>PDF
+                  </button>
+                </div>
+              </td>
+            </tr>
+
+            <tr class="hover:bg-gray-50">
+              <td class="py-4 px-6">
+                <div class="font-medium text-gray-900">#INV-2024-0011</div>
+                <div class="text-sm text-gray-600">Professional Plan</div>
+              </td>
+              <td class="py-4 px-6 text-sm text-gray-900">Jul 15, 2024</td>
+              <td class="py-4 px-6 text-sm text-gray-900">Monthly subscription - Professional Plan</td>
+              <td class="py-4 px-6">
+                <div class="font-medium text-gray-900">$79.00</div>
+                <div class="text-sm text-gray-600">USD</div>
+              </td>
+              <td class="py-4 px-6">
+                <span class="inline-flex items-center px-2.5 py-0.5 bg-green-100 text-green-800 rounded-full text-xs font-medium">
+                  <i class="fas fa-check mr-1"></i>Paid
+                </span>
+              </td>
+              <td class="py-4 px-6">
+                <div class="flex items-center space-x-2">
+                  <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                    <i class="fas fa-eye mr-1"></i>View
+                  </button>
+                  <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                    <i class="fas fa-download mr-1"></i>PDF
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination -->
+      <div class="bg-gray-50 px-6 py-4 border-t border-gray-200">
+        <div class="flex items-center justify-between">
+          <div class="text-sm text-gray-700">
+            Showing <span class="font-medium">1</span> to <span class="font-medium">6</span> of <span class="font-medium">16</span> results
+          </div>
+          <div class="flex items-center space-x-2">
+            <button class="px-3 py-1 border border-gray-300 rounded text-sm hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+              <i class="fas fa-chevron-left mr-1"></i>Previous
+            </button>
+            <button class="px-3 py-1 bg-blue-600 text-white border border-blue-600 rounded text-sm hover:bg-blue-700">
+              1
+            </button>
+            <button class="px-3 py-1 border border-gray-300 rounded text-sm hover:bg-gray-50">
+              2
+            </button>
+            <button class="px-3 py-1 border border-gray-300 rounded text-sm hover:bg-gray-50">
+              3
+            </button>
+            <button class="px-3 py-1 border border-gray-300 rounded text-sm hover:bg-gray-50">
+              Next<i class="fas fa-chevron-right ml-1"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Help Section -->
+<section class="py-16 bg-gray-50">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <h2 class="text-2xl font-bold text-gray-900 mb-4">Need Help with Billing?</h2>
+    <p class="text-gray-600 mb-8">Our support team is here to help with any billing questions or concerns.</p>
+
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="mailto:billing@ovovex.com" class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors">
+        <i class="fas fa-envelope mr-2"></i>Email Billing Support
+      </a>
+      <a href="tel:+1-555-0123" class="inline-flex items-center px-6 py-3 bg-white text-gray-700 font-semibold rounded-lg border border-gray-300 hover:border-gray-400 transition-colors">
+        <i class="fas fa-phone mr-2"></i>Call +1 (555) 012-3456
+      </a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

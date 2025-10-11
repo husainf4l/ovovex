@@ -1,0 +1,279 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'components/sidemenu.html' %}
+
+<div
+  class="min-h-screen bg-gray-50 dark:bg-gray-900 ml-64 transition-colors duration-300"
+>
+  <!-- Header -->
+  <div
+    class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4 transition-colors duration-300"
+  >
+    <div class="flex items-center justify-between">
+      <div class="flex items-center space-x-4">
+        <button
+          onclick="window.history.back()"
+          class="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100"
+        >
+          <i class="fas fa-arrow-left"></i>
+        </button>
+        <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">
+          Import Items
+        </h1>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-8">
+    <div class="space-y-6">
+      <!-- Instructions -->
+      <div
+        class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-2xl p-6"
+      >
+        <h3 class="text-lg font-bold text-blue-900 dark:text-blue-100 mb-2">
+          CSV Import Instructions
+        </h3>
+        <div class="text-sm text-blue-800 dark:text-blue-200 space-y-1">
+          <p>• Download the sample CSV template below</p>
+          <p>• Fill in your inventory data following the column format</p>
+          <p>• Upload the completed CSV file</p>
+          <p>• Review and confirm the import</p>
+        </div>
+        <div class="mt-4">
+          <a
+            href="#"
+            onclick="downloadTemplate()"
+            class="inline-flex items-center px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700"
+          >
+            <i class="fas fa-download mr-2"></i>Download CSV Template
+          </a>
+        </div>
+      </div>
+
+      <!-- Upload Form -->
+      <div
+        class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6"
+      >
+        <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">
+          Upload CSV File
+        </h3>
+        <form id="import-form" enctype="multipart/form-data">
+          <div class="space-y-4">
+            <div>
+              <label
+                class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                >Select CSV File</label
+              >
+              <input
+                type="file"
+                id="csv-file"
+                accept=".csv"
+                class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+                required
+              />
+              <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                Only CSV files are supported. Maximum file size: 10MB
+              </p>
+            </div>
+            <div class="flex items-center">
+              <input
+                type="checkbox"
+                id="skip-duplicates"
+                class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                checked
+              />
+              <label
+                for="skip-duplicates"
+                class="ml-2 block text-sm text-gray-900 dark:text-gray-100"
+              >
+                Skip duplicate items (recommended)
+              </label>
+            </div>
+            <div class="flex space-x-4">
+              <button
+                type="button"
+                id="preview-import"
+                class="px-6 py-2 bg-gray-600 text-white font-medium rounded-lg hover:bg-gray-700"
+              >
+                <i class="fas fa-eye mr-2"></i>Preview Import
+              </button>
+              <button
+                type="button"
+                id="import-items"
+                class="px-6 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700"
+              >
+                <i class="fas fa-upload mr-2"></i>Import Items
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- Import Results -->
+      <div
+        id="import-results"
+        class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 hidden"
+      >
+        <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">
+          Import Results
+        </h3>
+        <div id="results-content"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function downloadTemplate() {
+    // Create sample CSV content
+    const csvContent = `item_code,name,description,category,vendor,unit_cost,selling_price,current_stock,minimum_stock,reorder_point,location
+PRD-001,Office Chair,Ergonomic office chair,Furniture,Office Depot,45.00,89.99,10.00,5.00,10.00,Warehouse A
+PRD-002,Printer Paper,20lb white paper,Supplies,Office Depot,4.50,8.99,50.00,10.00,25.00,Warehouse B`;
+
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'inventory_import_template.csv';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+  }
+
+  // Preview import
+  document
+    .getElementById("preview-import")
+    .addEventListener("click", async () => {
+      const fileInput = document.getElementById("csv-file");
+      if (!fileInput.files[0]) {
+        alert("Please select a CSV file first");
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("file", fileInput.files[0]);
+      formData.append("preview", "true");
+
+      try {
+        const response = await fetch("{% url 'import_items' %}", {
+          method: "POST",
+          body: formData,
+          headers: {
+            "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]")
+              .value,
+          },
+        });
+
+        const result = await response.json();
+        showResults(result, true);
+      } catch (error) {
+        alert("Error previewing import: " + error.message);
+      }
+    });
+
+  // Import items
+  document
+    .getElementById("import-items")
+    .addEventListener("click", async () => {
+      const fileInput = document.getElementById("csv-file");
+      if (!fileInput.files[0]) {
+        alert("Please select a CSV file first");
+        return;
+      }
+
+      if (!confirm("Are you sure you want to import these items?")) {
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("file", fileInput.files[0]);
+
+      try {
+        const response = await fetch("{% url 'import_items' %}", {
+          method: "POST",
+          body: formData,
+          headers: {
+            "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]")
+              .value,
+          },
+        });
+
+        const result = await response.json();
+        showResults(result, false);
+
+        if (result.success) {
+          setTimeout(() => {
+            window.location.href = "{% url 'inventory' %}";
+          }, 3000);
+        }
+      } catch (error) {
+        alert("Error importing items: " + error.message);
+      }
+    });
+
+  function showResults(result, isPreview) {
+    const resultsDiv = document.getElementById("import-results");
+    const contentDiv = document.getElementById("results-content");
+
+    resultsDiv.classList.remove("hidden");
+
+    if (result.success) {
+      let html = `
+        <div class="space-y-4">
+          <div class="flex items-center space-x-2">
+            <i class="fas fa-check-circle text-green-500"></i>
+            <span class="text-green-700 dark:text-green-300 font-medium">
+              ${isPreview ? "Preview" : "Import"} Successful
+            </span>
+          </div>
+          <div class="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-4">
+            <p class="text-green-800 dark:text-green-200">
+              <strong>${result.imported_count || 0}</strong> items ${isPreview ? "would be" : "were"} imported successfully.
+            </p>
+          </div>
+      `;
+
+      if (result.errors && result.errors.length > 0) {
+        html += `
+          <div class="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4">
+            <h4 class="text-yellow-800 dark:text-yellow-200 font-medium mb-2">Errors:</h4>
+            <ul class="text-yellow-700 dark:text-yellow-300 text-sm space-y-1">
+              ${result.errors.map(error => `<li>• ${error}</li>`).join('')}
+            </ul>
+          </div>
+        `;
+      }
+
+      if (!isPreview) {
+        html += `
+          <div class="flex justify-end">
+            <button
+              onclick="window.location.href='{% url 'inventory' %}'"
+              class="px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700"
+            >
+              Return to Inventory
+            </button>
+          </div>
+        `;
+      }
+
+      html += "</div>";
+      contentDiv.innerHTML = html;
+    } else {
+      contentDiv.innerHTML = `
+        <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
+          <div class="flex items-center space-x-2 mb-2">
+            <i class="fas fa-exclamation-triangle text-red-500"></i>
+            <span class="text-red-700 dark:text-red-300 font-medium">Import Failed</span>
+          </div>
+          <p class="text-red-700 dark:text-red-300">${result.error}</p>
+        </div>
+      `;
+    }
+  }
+</script>
+
+{% endblock %}

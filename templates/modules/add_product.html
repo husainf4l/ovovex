@@ -1,0 +1,352 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'components/sidemenu.html' %}
+
+<div
+  class="min-h-screen bg-gray-50 dark:bg-gray-900 ml-64 transition-colors duration-300"
+>
+  <!-- Header -->
+  <div
+    class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4 transition-colors duration-300"
+  >
+    <div class="flex items-center justify-between">
+      <div class="flex items-center space-x-4">
+        <button
+          onclick="window.history.back()"
+          class="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100"
+        >
+          <i class="fas fa-arrow-left"></i>
+        </button>
+        <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">
+          Add New Product
+        </h1>
+      </div>
+      <div class="flex items-center space-x-4">
+        <button
+          id="save-draft"
+          class="px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 font-medium"
+        >
+          Save as Draft
+        </button>
+        <button
+          id="add-product"
+          class="px-6 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700"
+        >
+          <i class="fas fa-plus mr-2"></i>Add Product
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-8">
+    <form id="product-form" class="space-y-6">
+      <!-- Product Information -->
+      <div
+        class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6"
+      >
+        <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">
+          Product Information
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+              >Item Code *</label
+            >
+            <input
+              type="text"
+              id="item-code"
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+              placeholder="PRD-001"
+              required
+            />
+          </div>
+          <div>
+            <label
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+              >Product Name *</label
+            >
+            <input
+              type="text"
+              id="product-name"
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+              placeholder="Office Chair"
+              required
+            />
+          </div>
+          <div>
+            <label
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+              >Category</label
+            >
+            <select
+              id="category-select"
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+            >
+              <option value="">Select Category</option>
+              {% for category in categories %}
+              <option value="{{ category.id }}">
+                {{ category.name }}
+              </option>
+              {% endfor %}
+            </select>
+          </div>
+          <div>
+            <label
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+              >Primary Vendor</label
+            >
+            <select
+              id="vendor-select"
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+            >
+              <option value="">Select Vendor</option>
+              {% for vendor in vendors %}
+              <option value="{{ vendor.id }}">
+                {{ vendor.company_name }}
+              </option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+        <div class="mt-4">
+          <label
+            class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+            >Description</label
+          >
+          <textarea
+            id="description"
+            rows="3"
+            class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+            placeholder="Product description..."
+          ></textarea>
+        </div>
+      </div>
+
+      <!-- Pricing & Stock Information -->
+      <div
+        class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6"
+      >
+        <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">
+          Pricing & Stock Information
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+              >Unit Cost *</label
+            >
+            <input
+              type="number"
+              id="unit-cost"
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+              placeholder="0.00"
+              step="0.01"
+              min="0"
+              required
+            />
+          </div>
+          <div>
+            <label
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+              >Selling Price *</label
+            >
+            <input
+              type="number"
+              id="selling-price"
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+              placeholder="0.00"
+              step="0.01"
+              min="0"
+              required
+            />
+          </div>
+          <div>
+            <label
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+              >Minimum Stock Level</label
+            >
+            <input
+              type="number"
+              id="minimum-stock"
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+              placeholder="0.00"
+              step="0.01"
+              min="0"
+            />
+          </div>
+          <div>
+            <label
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+              >Reorder Point *</label
+            >
+            <input
+              type="number"
+              id="reorder-point"
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+              placeholder="0.00"
+              step="0.01"
+              min="0"
+              required
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Additional Information -->
+      <div
+        class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6"
+      >
+        <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">
+          Additional Information
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+              >Location</label
+            >
+            <input
+              type="text"
+              id="location"
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+              placeholder="Warehouse A, Shelf 3"
+            />
+          </div>
+          <div>
+            <label
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+              >Barcode</label
+            >
+            <input
+              type="text"
+              id="barcode"
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+              placeholder="123456789012"
+            />
+          </div>
+          <div>
+            <label
+              class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+              >Unit of Measure</label
+            >
+            <select
+              id="unit-of-measure"
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+            >
+              <option value="EACH">Each</option>
+              <option value="KG">Kilogram</option>
+              <option value="LB">Pound</option>
+              <option value="LITER">Liter</option>
+              <option value="GALLON">Gallon</option>
+              <option value="METER">Meter</option>
+              <option value="FOOT">Foot</option>
+              <option value="BOX">Box</option>
+              <option value="CASE">Case</option>
+            </select>
+          </div>
+          <div class="flex items-center">
+            <input
+              type="checkbox"
+              id="serial-required"
+              class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+            />
+            <label
+              for="serial-required"
+              class="ml-2 block text-sm text-gray-900 dark:text-gray-100"
+            >
+              Serial Number Required
+            </label>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  // Form validation and submission
+  document
+    .getElementById("add-product")
+    .addEventListener("click", async () => {
+      // Get form data
+      const formData = {
+        item_code: document.getElementById("item-code").value.trim(),
+        name: document.getElementById("product-name").value.trim(),
+        category: document.getElementById("category-select").value,
+        primary_vendor: document.getElementById("vendor-select").value,
+        description: document.getElementById("description").value.trim(),
+        unit_cost: parseFloat(document.getElementById("unit-cost").value) || 0,
+        selling_price: parseFloat(document.getElementById("selling-price").value) || 0,
+        minimum_stock: parseFloat(document.getElementById("minimum-stock").value) || 0,
+        reorder_point: parseFloat(document.getElementById("reorder-point").value) || 0,
+        location: document.getElementById("location").value.trim(),
+        barcode: document.getElementById("barcode").value.trim(),
+        unit_of_measure: document.getElementById("unit-of-measure").value,
+        serial_number_required: document.getElementById("serial-required").checked,
+      };
+
+      // Basic validation
+      if (!formData.item_code) {
+        alert("Please enter an item code");
+        return;
+      }
+
+      if (!formData.name) {
+        alert("Please enter a product name");
+        return;
+      }
+
+      if (formData.unit_cost <= 0) {
+        alert("Please enter a valid unit cost");
+        return;
+      }
+
+      if (formData.selling_price <= 0) {
+        alert("Please enter a valid selling price");
+        return;
+      }
+
+      if (formData.reorder_point < 0) {
+        alert("Reorder point cannot be negative");
+        return;
+      }
+
+      try {
+        const response = await fetch("{% url 'add_product' %}", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]")
+              .value,
+          },
+          body: new URLSearchParams(formData),
+        });
+
+        const result = await response.json();
+        if (result.success) {
+          alert(result.message);
+          window.location.href = "{% url 'inventory' %}";
+        } else {
+          alert("Error: " + result.error);
+        }
+      } catch (error) {
+        alert("Error adding product: " + error.message);
+      }
+    });
+
+  // Auto-generate item code suggestion
+  document.getElementById("product-name").addEventListener("input", (e) => {
+    const name = e.target.value.trim();
+    if (name && !document.getElementById("item-code").value) {
+      // Generate a simple code from the name
+      const code = "PRD-" + name.substring(0, 3).toUpperCase() + "-" +
+                   Math.floor(Math.random() * 1000).toString().padStart(3, '0');
+      document.getElementById("item-code").value = code;
+    }
+  });
+</script>
+
+{% endblock %}

@@ -1,0 +1,557 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'components/navbar.html' %}
+
+<!-- Hero Section -->
+<section class="pt-24 pb-16 bg-gradient-to-br from-indigo-50 to-purple-100">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center">
+      <div class="inline-flex items-center px-4 py-2 bg-indigo-100 text-indigo-800 rounded-full text-sm font-semibold mb-6">
+        <i class="fas fa-plug mr-2"></i>
+        Integrations
+      </div>
+      <h1 class="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+        Connect Everything,
+        <span class="text-indigo-600">Work Seamlessly</span>
+      </h1>
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+        Integrate with 200+ business applications. Sync data automatically, eliminate manual entry, and create a unified financial ecosystem that works for your entire organization.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#integrations" class="inline-flex items-center px-8 py-4 bg-indigo-600 text-white font-semibold rounded-xl hover:bg-indigo-700 transition-colors">
+          <i class="fas fa-link mr-2"></i>Explore Integrations
+        </a>
+        <a href="#api" class="inline-flex items-center px-8 py-4 bg-white text-gray-700 font-semibold rounded-xl border border-gray-300 hover:border-gray-400 transition-colors">
+          <i class="fas fa-code mr-2"></i>View API Docs
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Integration Stats -->
+<section class="py-24 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid md:grid-cols-4 gap-8">
+      <div class="text-center">
+        <div class="text-4xl font-bold text-indigo-600 mb-2">200+</div>
+        <div class="text-gray-600">Integrations</div>
+      </div>
+      <div class="text-center">
+        <div class="text-4xl font-bold text-blue-600 mb-2">99.9%</div>
+        <div class="text-gray-600">Sync Reliability</div>
+      </div>
+      <div class="text-center">
+        <div class="text-4xl font-bold text-green-600 mb-2">5min</div>
+        <div class="text-gray-600">Setup Time</div>
+      </div>
+      <div class="text-center">
+        <div class="text-4xl font-bold text-purple-600 mb-2">24/7</div>
+        <div class="text-gray-600">Auto-Sync</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Popular Integrations -->
+<section id="integrations" class="py-24 bg-gray-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-bold text-gray-900 mb-6">Popular Integrations</h2>
+      <p class="text-xl text-gray-600 max-w-2xl mx-auto">Connect with the tools your business already uses</p>
+    </div>
+
+    <!-- Integration Grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+      <!-- QuickBooks -->
+      <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-shadow">
+        <div class="flex items-center space-x-4 mb-6">
+          <div class="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center">
+            <i class="fas fa-calculator text-2xl text-green-600"></i>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-gray-900">QuickBooks</h3>
+            <div class="text-sm text-green-600 font-medium">Accounting Software</div>
+          </div>
+        </div>
+        <p class="text-gray-600 mb-4">Seamlessly sync invoices, expenses, and financial data with QuickBooks Online and Desktop.</p>
+        <div class="flex items-center justify-between">
+          <span class="text-sm text-gray-500">Bidirectional sync</span>
+          <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-medium">Connected</span>
+        </div>
+      </div>
+
+      <!-- Xero -->
+      <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-shadow">
+        <div class="flex items-center space-x-4 mb-6">
+          <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center">
+            <i class="fas fa-chart-line text-2xl text-blue-600"></i>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-gray-900">Xero</h3>
+            <div class="text-sm text-blue-600 font-medium">Cloud Accounting</div>
+          </div>
+        </div>
+        <p class="text-gray-600 mb-4">Real-time synchronization with Xero's cloud accounting platform for global businesses.</p>
+        <div class="flex items-center justify-between">
+          <span class="text-sm text-gray-500">Real-time sync</span>
+          <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-medium">Connected</span>
+        </div>
+      </div>
+
+      <!-- Stripe -->
+      <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-shadow">
+        <div class="flex items-center space-x-4 mb-6">
+          <div class="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center">
+            <i class="fas fa-credit-card text-2xl text-purple-600"></i>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-gray-900">Stripe</h3>
+            <div class="text-sm text-purple-600 font-medium">Payment Processing</div>
+          </div>
+        </div>
+        <p class="text-gray-600 mb-4">Automatically reconcile payments, track subscriptions, and manage revenue recognition.</p>
+        <div class="flex items-center justify-between">
+          <span class="text-sm text-gray-500">Webhook integration</span>
+          <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-medium">Connected</span>
+        </div>
+      </div>
+
+      <!-- Salesforce -->
+      <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-shadow">
+        <div class="flex items-center space-x-4 mb-6">
+          <div class="w-16 h-16 bg-indigo-100 rounded-2xl flex items-center justify-center">
+            <i class="fas fa-cloud text-2xl text-indigo-600"></i>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-gray-900">Salesforce</h3>
+            <div class="text-sm text-indigo-600 font-medium">CRM Platform</div>
+          </div>
+        </div>
+        <p class="text-gray-600 mb-4">Link customer data with financial transactions for complete revenue attribution.</p>
+        <div class="flex items-center justify-between">
+          <span class="text-sm text-gray-500">API integration</span>
+          <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-medium">Connected</span>
+        </div>
+      </div>
+
+      <!-- Slack -->
+      <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-shadow">
+        <div class="flex items-center space-x-4 mb-6">
+          <div class="w-16 h-16 bg-orange-100 rounded-2xl flex items-center justify-center">
+            <i class="fab fa-slack text-2xl text-orange-600"></i>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-gray-900">Slack</h3>
+            <div class="text-sm text-orange-600 font-medium">Team Communication</div>
+          </div>
+        </div>
+        <p class="text-gray-600 mb-4">Get financial alerts, approval notifications, and budget updates directly in Slack.</p>
+        <div class="flex items-center justify-between">
+          <span class="text-sm text-gray-500">Bot integration</span>
+          <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-medium">Connected</span>
+        </div>
+      </div>
+
+      <!-- Zapier -->
+      <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-shadow">
+        <div class="flex items-center space-x-4 mb-6">
+          <div class="w-16 h-16 bg-yellow-100 rounded-2xl flex items-center justify-center">
+            <i class="fas fa-bolt text-2xl text-yellow-600"></i>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-gray-900">Zapier</h3>
+            <div class="text-sm text-yellow-600 font-medium">Automation Platform</div>
+          </div>
+        </div>
+        <p class="text-gray-600 mb-4">Connect Ovovex with 3,000+ apps through Zapier's no-code automation platform.</p>
+        <div class="flex items-center justify-between">
+          <span class="text-sm text-gray-500">3,000+ apps</span>
+          <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-medium">Connected</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Integration Categories -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="text-center">
+        <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+          <i class="fas fa-calculator text-2xl text-blue-600"></i>
+        </div>
+        <h4 class="font-bold text-gray-900 mb-2">Accounting</h4>
+        <p class="text-sm text-gray-600">QuickBooks, Xero, FreshBooks, Wave</p>
+      </div>
+
+      <div class="text-center">
+        <div class="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+          <i class="fas fa-credit-card text-2xl text-green-600"></i>
+        </div>
+        <h4 class="font-bold text-gray-900 mb-2">Payments</h4>
+        <p class="text-sm text-gray-600">Stripe, PayPal, Square, Authorize.net</p>
+      </div>
+
+      <div class="text-center">
+        <div class="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+          <i class="fas fa-users text-2xl text-purple-600"></i>
+        </div>
+        <h4 class="font-bold text-gray-900 mb-2">CRM</h4>
+        <p class="text-sm text-gray-600">Salesforce, HubSpot, Pipedrive, Zoho</p>
+      </div>
+
+      <div class="text-center">
+        <div class="w-16 h-16 bg-orange-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+          <i class="fas fa-cogs text-2xl text-orange-600"></i>
+        </div>
+        <h4 class="font-bold text-gray-900 mb-2">Productivity</h4>
+        <p class="text-sm text-gray-600">Slack, Microsoft Teams, Google Workspace</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- API Section -->
+<section id="api" class="py-24 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-bold text-gray-900 mb-6">Developer-Friendly API</h2>
+      <p class="text-xl text-gray-600 max-w-2xl mx-auto">Build custom integrations with our comprehensive REST API</p>
+    </div>
+
+    <!-- API Features -->
+    <div class="grid lg:grid-cols-3 gap-8 mb-16">
+      <!-- REST API -->
+      <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-100">
+        <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-6">
+          <i class="fas fa-code text-2xl text-blue-600"></i>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-900 mb-4">REST API</h3>
+        <p class="text-gray-600 mb-6">Full REST API with JSON responses, OAuth 2.0 authentication, and comprehensive documentation.</p>
+        <ul class="space-y-2 text-sm text-gray-600">
+          <li>• 50+ endpoints</li>
+          <li>• OAuth 2.0 & API keys</li>
+          <li>• Rate limiting</li>
+          <li>• Webhook support</li>
+        </ul>
+      </div>
+
+      <!-- SDKs -->
+      <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-100">
+        <div class="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mb-6">
+          <i class="fas fa-tools text-2xl text-green-600"></i>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-900 mb-4">SDK Libraries</h3>
+        <p class="text-gray-600 mb-6">Official SDKs for Python, JavaScript, PHP, and .NET with code examples and quick starts.</p>
+        <ul class="space-y-2 text-sm text-gray-600">
+          <li>• Python SDK</li>
+          <li>• JavaScript/Node.js</li>
+          <li>• PHP & Laravel</li>
+          <li>• .NET & C#</li>
+        </ul>
+      </div>
+
+      <!-- Webhooks -->
+      <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-100">
+        <div class="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mb-6">
+          <i class="fas fa-bell text-2xl text-purple-600"></i>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-900 mb-4">Real-Time Webhooks</h3>
+        <p class="text-gray-600 mb-6">Instant notifications for events like new transactions, approvals, and system updates.</p>
+        <ul class="space-y-2 text-sm text-gray-600">
+          <li>• Event-driven</li>
+          <li>• Configurable endpoints</li>
+          <li>• Retry logic</li>
+          <li>• Signature verification</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- API Code Example -->
+    <div class="bg-gray-900 rounded-2xl p-8 text-white">
+      <div class="flex items-center justify-between mb-6">
+        <h4 class="text-xl font-bold">API Integration Example</h4>
+        <div class="flex space-x-2">
+          <span class="px-3 py-1 bg-blue-600 rounded-full text-xs font-medium">Python</span>
+          <span class="px-3 py-1 bg-gray-700 rounded-full text-xs font-medium">REST API</span>
+        </div>
+      </div>
+
+      <div class="bg-gray-800 rounded-lg p-6 font-mono text-sm overflow-x-auto">
+        <pre class="text-green-400"><code>import requests
+
+# Initialize API client
+api_key = 'your_api_key_here'
+headers = {
+    'Authorization': f'Bearer {api_key}',
+    'Content-Type': 'application/json'
+}
+
+# Create a new invoice
+invoice_data = {
+    'customer_id': 'CUST-001',
+    'amount': 1500.00,
+    'description': 'Consulting Services',
+    'due_date': '2024-02-15'
+}
+
+response = requests.post(
+    'https://api.ovovex.com/v1/invoices',
+    json=invoice_data,
+    headers=headers
+)
+
+if response.status_code == 201:
+    invoice = response.json()
+    print(f"Invoice created: {invoice['id']}")
+else:
+    print(f"Error: {response.text}")</code></pre>
+      </div>
+
+      <div class="mt-6 flex items-center justify-between">
+        <div class="text-sm text-gray-400">
+          <i class="fas fa-copy mr-2"></i>
+          Copy this example to get started
+        </div>
+        <a href="#" class="text-indigo-400 hover:text-indigo-300 text-sm font-medium">
+          View Full Documentation →
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Demo Video -->
+<section class="py-24 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <div
+        class="inline-flex items-center px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium mb-4"
+      >
+        <i class="fas fa-play-circle mr-2"></i>
+        <span>Video Demo</span>
+      </div>
+      <h2 class="text-4xl md-text-5xl font-bold text-gray-900 mb-4">
+        See Integrations in Action
+      </h2>
+      <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+        Watch our comprehensive video demo to see how Ovovex seamlessly connects with your existing business tools
+      </p>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <div class="relative">
+        <div
+          class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden demo-video"
+        >
+          <!-- Video Embed -->
+          <div class="aspect-video bg-gray-900 relative rounded-lg overflow-hidden demo-video">
+            <video
+              class="w-full h-full object-cover"
+              controls
+              preload="metadata"
+              poster="{% static 'images/image2.jpg' %}"
+              playsinline
+              autoplay
+              muted
+              loop
+              id="demo-video"
+            >
+              <source src="{% static 'images/7078918_Graphs_Charts_1920x1080.mp4' %}" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+            <!-- Video overlay for better UX -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none video-overlay"></div>
+            <!-- Auto-play indicator -->
+            <div class="absolute top-4 right-4 bg-black/70 text-white px-3 py-1 rounded-full text-xs font-medium flex items-center space-x-2 auto-play-indicator">
+              <i class="fas fa-play text-green-400"></i>
+              <span>Auto-playing</span>
+            </div>
+            <!-- Unmute hint -->
+            <div class="absolute bottom-20 left-4 bg-black/70 text-white px-3 py-2 rounded-lg text-xs max-w-xs unmute-hint">
+              <i class="fas fa-volume-mute mr-1"></i>
+              Video is muted for auto-play. Click to unmute.
+            </div>
+            <!-- Loading indicator -->
+            <div id="video-loading" class="absolute inset-0 bg-gray-900 flex items-center justify-center">
+              <div class="text-center text-white">
+                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto mb-4"></div>
+                <p class="text-sm">Loading video...</p>
+              </div>
+            </div>
+          </div>
+
+          <script>
+            document.addEventListener('DOMContentLoaded', function() {
+              const video = document.getElementById('demo-video');
+              const loading = document.getElementById('video-loading');
+
+              // Hide loading when video can play
+              video.addEventListener('canplay', function() {
+                loading.style.display = 'none';
+              });
+
+              // Hide loading when video starts playing
+              video.addEventListener('play', function() {
+                loading.style.display = 'none';
+              });
+
+              // Show loading on video load start
+              video.addEventListener('loadstart', function() {
+                loading.style.display = 'flex';
+              });
+
+              // Error handling
+              video.addEventListener('error', function() {
+                loading.innerHTML = `
+                  <div class="text-center text-white">
+                    <i class="fas fa-exclamation-triangle text-2xl mb-2"></i>
+                    <p class="text-sm">Video failed to load</p>
+                  </div>
+                `;
+              });
+
+              // Auto-play handling
+              video.addEventListener('loadeddata', function() {
+                // Try to play (will work since muted)
+                const playPromise = video.play();
+                if (playPromise !== undefined) {
+                  playPromise.then(function() {
+                    console.log('Video auto-playing successfully');
+                  }).catch(function(error) {
+                    console.log('Auto-play failed:', error);
+                  });
+                }
+              });
+
+              // Add click to unmute functionality
+              video.addEventListener('click', function() {
+                if (video.muted) {
+                  video.muted = false;
+                  // Hide the unmute hint
+                  const unmuteHint = document.querySelector('.absolute.bottom-20');
+                  if (unmuteHint) {
+                    unmuteHint.style.display = 'none';
+                  }
+                }
+              });
+
+              // Loop indicator (video will loop automatically due to loop attribute)
+              video.addEventListener('ended', function() {
+                console.log('Video ended and will loop');
+              });
+            });
+          </script>
+        </div>
+      </div>
+
+      <div class="space-y-8">
+        <div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-6">
+            What You'll See in the Demo
+          </h3>
+          <p class="text-lg text-gray-600 leading-relaxed mb-8">
+            Watch our comprehensive video walkthrough to see how Ovovex integrates seamlessly with your existing business ecosystem.
+          </p>
+        </div>
+
+        <!-- Video Highlights -->
+        <div class="space-y-4">
+          <div class="flex items-start space-x-4">
+            <div
+              class="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center flex-shrink-0"
+            >
+              <i class="fas fa-play text-white"></i>
+            </div>
+            <div>
+              <h4 class="text-lg font-semibold text-gray-900 mb-2">
+                Bank Synchronization
+              </h4>
+              <p class="text-gray-600">
+                See automatic bank feed integration pulling transactions in real-time from multiple accounts
+              </p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-4">
+            <div
+              class="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center flex-shrink-0"
+            >
+              <i class="fas fa-credit-card text-white"></i>
+            </div>
+            <div>
+              <h4 class="text-lg font-semibold text-gray-900 mb-2">
+                Payment Processing
+              </h4>
+              <p class="text-gray-600">
+                Watch Stripe and PayPal integrations processing payments and updating records automatically
+              </p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-4">
+            <div
+              class="w-12 h-12 bg-purple-500 rounded-xl flex items-center justify-center flex-shrink-0"
+            >
+              <i class="fas fa-shopping-cart text-white"></i>
+            </div>
+            <div>
+              <h4 class="text-lg font-semibold text-gray-900 mb-2">
+                E-commerce Sync
+              </h4>
+              <p class="text-gray-600">
+                Experience Shopify and WooCommerce integrations syncing orders, inventory, and sales data
+              </p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-4">
+            <div
+              class="w-12 h-12 bg-orange-500 rounded-xl flex items-center justify-center flex-shrink-0"
+            >
+              <i class="fas fa-plug text-white"></i>
+            </div>
+            <div>
+              <h4 class="text-lg font-semibold text-gray-900 mb-2">
+                API Connectivity
+              </h4>
+              <p class="text-gray-600">
+                See RESTful API integrations connecting with CRMs, ERPs, and custom business applications
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a
+            href="#"
+            class="inline-flex items-center justify-center px-8 py-4 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors duration-200 shadow-sm"
+          >
+            <i class="fas fa-rocket mr-2"></i>Start Free Trial
+          </a>
+          <a
+            href="#"
+            class="inline-flex items-center justify-center px-8 py-4 bg-white text-gray-700 font-semibold rounded-xl border border-gray-300 hover:border-gray-400 transition-colors duration-200 shadow-sm"
+          >
+            <i class="fas fa-calendar mr-2"></i>Schedule Live Demo
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-24 bg-indigo-600">
+  <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+    <h2 class="text-4xl font-bold text-white mb-6">Connect Your Entire Stack</h2>
+    <p class="text-xl text-indigo-100 mb-8">200+ integrations to eliminate data silos and streamline your financial operations</p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="/" class="inline-flex items-center px-8 py-4 bg-white text-indigo-600 font-semibold rounded-xl hover:bg-gray-50 transition-colors">
+        <i class="fas fa-plug mr-2"></i>Start Free Trial
+      </a>
+      <a href="/features/smart-invoicing/" class="inline-flex items-center px-8 py-4 bg-indigo-500 text-white font-semibold rounded-xl hover:bg-indigo-400 transition-colors">
+        <i class="fas fa-arrow-left mr-2"></i>Back to Smart Invoicing
+      </a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

@@ -1,511 +1,999 @@
-{% extends 'modules/base_module.html' %}
+{% extends 'modules/base_module.html' %} {% block content %} {% include
+'components/sidemenu.html' %}
 
-{% block content %}
-{% include 'components/sidemenu.html' %}
-
-<div class="min-h-screen bg-gray-50 dark:bg-gray-900 ml-64 transition-colors duration-300">
-    <!-- Top Navigation Bar -->
-    <div class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4 transition-colors duration-300">
-        <div class="flex items-center justify-between">
-            <div class="flex items-center space-x-4">
-                <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Purchase Orders</h1>
-                <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-sm font-medium rounded-full">8 Active</span>
-            </div>
-            <div class="flex items-center space-x-4">
-                <!-- Quick Search -->
-                <div class="relative">
-                    <input type="text" placeholder="Search POs..." class="w-64 pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-300">
-                    <i class="fas fa-search absolute left-3 top-3 text-gray-400 dark:text-gray-500"></i>
-                </div>
-                <!-- Export -->
-                <button class="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200">
-                    <i class="fas fa-download mr-2"></i>
-                    Export
-                </button>
-                <!-- Theme Toggle -->
-                <button id="theme-toggle" class="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-300">
-                    <i class="fas fa-moon text-xl dark:hidden"></i>
-                    <i class="fas fa-sun text-xl hidden dark:inline"></i>
-                </button>
-            </div>
+<div
+  class="min-h-screen bg-gray-50 dark:bg-gray-900 ml-64 transition-colors duration-300"
+>
+  <!-- Top Navigation Bar -->
+  <div
+    class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4 transition-colors duration-300"
+  >
+    <div class="flex items-center justify-between">
+      <div class="flex items-center space-x-4">
+        <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">
+          Purchase Orders
+        </h1>
+        <span
+          class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-sm font-medium rounded-full"
+          >8 Active</span
+        >
+      </div>
+      <div class="flex items-center space-x-4">
+        <!-- Quick Search -->
+        <div class="relative">
+          <input
+            type="text"
+            placeholder="Search POs..."
+            class="w-64 pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-300"
+          />
+          <i
+            class="fas fa-search absolute left-3 top-3 text-gray-400 dark:text-gray-500"
+          ></i>
         </div>
+        <!-- Export -->
+        <button
+          onclick="exportPurchaseOrders()"
+          class="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200"
+        >
+          <i class="fas fa-download mr-2"></i>
+          Export
+        </button>
+        <!-- Theme Toggle -->
+        <button
+          id="theme-toggle"
+          class="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-300"
+        >
+          <i class="fas fa-moon text-xl dark:hidden"></i>
+          <i class="fas fa-sun text-xl hidden dark:inline"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-8">
+    <!-- Breadcrumb -->
+    <nav class="flex mb-6" aria-label="Breadcrumb">
+      <ol class="inline-flex items-center space-x-1 md:space-x-3">
+        <li class="inline-flex items-center">
+          <a
+            href="{% url 'dashboard' %}"
+            class="inline-flex items-center text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+          >
+            <i class="fas fa-home mr-2"></i>
+            Dashboard
+          </a>
+        </li>
+        <li>
+          <div class="flex items-center">
+            <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+            <span class="text-sm font-medium text-gray-500 dark:text-gray-400"
+              >Purchase Orders</span
+            >
+          </div>
+        </li>
+      </ol>
+    </nav>
+
+    <!-- Purchase Orders Overview -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+      <div
+        class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6"
+      >
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm font-medium text-gray-600 dark:text-gray-400">
+              Total PO Value
+            </p>
+            <p class="text-2xl font-bold text-gray-900 dark:text-gray-100">
+              $127,450
+            </p>
+          </div>
+          <div
+            class="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center"
+          >
+            <i
+              class="fas fa-shopping-cart text-blue-600 dark:text-blue-400"
+            ></i>
+          </div>
+        </div>
+        <div class="mt-4">
+          <div class="flex items-center text-sm">
+            <span class="text-green-600 dark:text-green-400 font-medium"
+              >+12.5%</span
+            >
+            <span class="text-gray-600 dark:text-gray-400 ml-2"
+              >from last month</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6"
+      >
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm font-medium text-gray-600 dark:text-gray-400">
+              Active Orders
+            </p>
+            <p class="text-2xl font-bold text-gray-900 dark:text-gray-100">8</p>
+          </div>
+          <div
+            class="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center"
+          >
+            <i class="fas fa-clock text-green-600 dark:text-green-400"></i>
+          </div>
+        </div>
+        <div class="mt-4">
+          <div class="flex items-center text-sm">
+            <span class="text-green-600 dark:text-green-400 font-medium"
+              >3</span
+            >
+            <span class="text-gray-600 dark:text-gray-400 ml-2"
+              >due this week</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6"
+      >
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm font-medium text-gray-600 dark:text-gray-400">
+              Completed This Month
+            </p>
+            <p class="text-2xl font-bold text-gray-900 dark:text-gray-100">
+              23
+            </p>
+          </div>
+          <div
+            class="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center"
+          >
+            <i
+              class="fas fa-check-circle text-purple-600 dark:text-purple-400"
+            ></i>
+          </div>
+        </div>
+        <div class="mt-4">
+          <div class="flex items-center text-sm">
+            <span class="text-purple-600 dark:text-purple-400 font-medium"
+              >+5</span
+            >
+            <span class="text-gray-600 dark:text-gray-400 ml-2"
+              >from last month</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6"
+      >
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm font-medium text-gray-600 dark:text-gray-400">
+              Avg. Processing Time
+            </p>
+            <p class="text-2xl font-bold text-gray-900 dark:text-gray-100">
+              4.2 days
+            </p>
+          </div>
+          <div
+            class="w-12 h-12 bg-orange-100 dark:bg-orange-900 rounded-lg flex items-center justify-center"
+          >
+            <i
+              class="fas fa-hourglass-half text-orange-600 dark:text-orange-400"
+            ></i>
+          </div>
+        </div>
+        <div class="mt-4">
+          <div class="flex items-center text-sm">
+            <span class="text-green-600 dark:text-green-400 font-medium"
+              >-1.1 days</span
+            >
+            <span class="text-gray-600 dark:text-gray-400 ml-2"
+              >improvement</span
+            >
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-8">
-        <!-- Breadcrumb -->
-        <nav class="flex mb-6" aria-label="Breadcrumb">
-            <ol class="inline-flex items-center space-x-1 md:space-x-3">
-                <li class="inline-flex items-center">
-                    <a href="{% url 'dashboard' %}" class="inline-flex items-center text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
-                        <i class="fas fa-home mr-2"></i>
-                        Dashboard
-                    </a>
-                </li>
-                <li>
-                    <div class="flex items-center">
-                        <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
-                        <span class="text-sm font-medium text-gray-500 dark:text-gray-400">Purchase Orders</span>
-                    </div>
-                </li>
-            </ol>
-        </nav>
+    <!-- Purchase Orders Description -->
+    <div
+      class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 mb-6"
+    >
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">
+            Purchase Order Management
+          </h2>
+          <p class="text-gray-600 dark:text-gray-400">
+            Streamline procurement processes with automated purchase orders,
+            vendor management, approval workflows, and comprehensive tracking
+            from requisition to delivery.
+          </p>
+        </div>
+        <div class="flex items-center space-x-3">
+          <div class="text-right">
+            <div class="text-2xl font-bold text-gray-900 dark:text-gray-100">
+              31
+            </div>
+            <div class="text-sm text-gray-600 dark:text-gray-400">
+              POs This Month
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-        <!-- Purchase Orders Overview -->
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
-            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Total PO Value</p>
-                        <p class="text-2xl font-bold text-gray-900 dark:text-gray-100">$127,450</p>
-                    </div>
-                    <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
-                        <i class="fas fa-shopping-cart text-blue-600 dark:text-blue-400"></i>
-                    </div>
+    <!-- Quick Actions -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+      <button
+        onclick="createNewPO()"
+        class="flex items-center justify-center px-4 py-3 bg-blue-600 text-white font-medium rounded-xl hover:bg-blue-700 transition-colors duration-200"
+      >
+        <i class="fas fa-plus mr-2"></i>
+        New PO
+      </button>
+      <button
+        onclick="receiveGoods()"
+        class="flex items-center justify-center px-4 py-3 bg-green-600 text-white font-medium rounded-xl hover:bg-green-700 transition-colors duration-200"
+      >
+        <i class="fas fa-truck mr-2"></i>
+        Receive Goods
+      </button>
+      <button
+        onclick="manageVendors()"
+        class="flex items-center justify-center px-4 py-3 bg-purple-600 text-white font-medium rounded-xl hover:bg-purple-700 transition-colors duration-200"
+      >
+        <i class="fas fa-users mr-2"></i>
+        Manage Vendors
+      </button>
+      <button
+        onclick="viewPOAnalytics()"
+        class="flex items-center justify-center px-4 py-3 bg-gray-600 dark:bg-gray-700 text-white font-medium rounded-xl hover:bg-gray-700 dark:hover:bg-gray-600 transition-colors duration-200"
+      >
+        <i class="fas fa-chart-bar mr-2"></i>
+        PO Analytics
+      </button>
+    </div>
+
+    <!-- Main Content Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- Recent Purchase Orders -->
+      <div class="lg:col-span-2">
+        <div
+          class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700"
+        >
+          <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+            <div class="flex items-center justify-between">
+              <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100">
+                Recent Purchase Orders
+              </h3>
+              <div class="flex items-center space-x-2">
+                <select
+                  class="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-300"
+                >
+                  <option>All Orders</option>
+                  <option>Pending</option>
+                  <option>Approved</option>
+                  <option>Completed</option>
+                  <option>Overdue</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-6 space-y-4">
+            <!-- PO 1 -->
+            <div
+              class="border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4"
+            >
+              <div class="flex items-start space-x-3">
+                <div
+                  class="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center flex-shrink-0"
+                >
+                  <i
+                    class="fas fa-shopping-cart text-blue-600 dark:text-blue-400"
+                  ></i>
                 </div>
-                <div class="mt-4">
-                    <div class="flex items-center text-sm">
-                        <span class="text-green-600 dark:text-green-400 font-medium">+12.5%</span>
-                        <span class="text-gray-600 dark:text-gray-400 ml-2">from last month</span>
+                <div class="flex-1">
+                  <div class="flex items-center justify-between mb-2">
+                    <h4 class="font-semibold text-gray-900 dark:text-gray-100">
+                      PO-2025-00123 - Office Supplies
+                    </h4>
+                    <span
+                      class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs font-medium rounded-full"
+                      >Approved</span
+                    >
+                  </div>
+                  <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                    Office supplies and stationery for Q1 requirements from
+                    Office Depot.
+                  </p>
+                  <div
+                    class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400"
+                  >
+                    <span>Vendor: Office Depot • Due: Dec 15, 2025</span>
+                    <div class="flex items-center space-x-2">
+                      <span class="font-medium text-gray-900 dark:text-gray-100"
+                        >$3,450</span
+                      >
+                      <button
+                        class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300"
+                      >
+                        View Details
+                      </button>
                     </div>
+                  </div>
                 </div>
+              </div>
             </div>
 
-            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Active Orders</p>
-                        <p class="text-2xl font-bold text-gray-900 dark:text-gray-100">8</p>
-                    </div>
-                    <div class="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
-                        <i class="fas fa-clock text-green-600 dark:text-green-400"></i>
-                    </div>
+            <!-- PO 2 -->
+            <div
+              class="border border-yellow-200 dark:border-yellow-800 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg p-4"
+            >
+              <div class="flex items-start space-x-3">
+                <div
+                  class="w-10 h-10 bg-yellow-100 dark:bg-yellow-900 rounded-lg flex items-center justify-center flex-shrink-0"
+                >
+                  <i
+                    class="fas fa-laptop text-yellow-600 dark:text-yellow-400"
+                  ></i>
                 </div>
-                <div class="mt-4">
-                    <div class="flex items-center text-sm">
-                        <span class="text-green-600 dark:text-green-400 font-medium">3</span>
-                        <span class="text-gray-600 dark:text-gray-400 ml-2">due this week</span>
+                <div class="flex-1">
+                  <div class="flex items-center justify-between mb-2">
+                    <h4 class="font-semibold text-gray-900 dark:text-gray-100">
+                      PO-2025-00124 - IT Equipment
+                    </h4>
+                    <span
+                      class="px-2 py-1 bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 text-xs font-medium rounded-full"
+                      >Pending</span
+                    >
+                  </div>
+                  <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                    New laptops and monitors for expanding development team.
+                  </p>
+                  <div
+                    class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400"
+                  >
+                    <span>Vendor: Tech Solutions Inc • Due: Dec 20, 2025</span>
+                    <div class="flex items-center space-x-2">
+                      <span class="font-medium text-gray-900 dark:text-gray-100"
+                        >$18,750</span
+                      >
+                      <button
+                        class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300"
+                      >
+                        Review
+                      </button>
                     </div>
+                  </div>
                 </div>
+              </div>
             </div>
 
-            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Completed This Month</p>
-                        <p class="text-2xl font-bold text-gray-900 dark:text-gray-100">23</p>
-                    </div>
-                    <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center">
-                        <i class="fas fa-check-circle text-purple-600 dark:text-purple-400"></i>
-                    </div>
+            <!-- PO 3 -->
+            <div
+              class="border border-green-200 dark:border-green-800 bg-green-50 dark:bg-green-900/20 rounded-lg p-4"
+            >
+              <div class="flex items-start space-x-3">
+                <div
+                  class="w-10 h-10 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center flex-shrink-0"
+                >
+                  <i
+                    class="fas fa-tools text-green-600 dark:text-green-400"
+                  ></i>
                 </div>
-                <div class="mt-4">
-                    <div class="flex items-center text-sm">
-                        <span class="text-purple-600 dark:text-purple-400 font-medium">+5</span>
-                        <span class="text-gray-600 dark:text-gray-400 ml-2">from last month</span>
+                <div class="flex-1">
+                  <div class="flex items-center justify-between mb-2">
+                    <h4 class="font-semibold text-gray-900 dark:text-gray-100">
+                      PO-2025-00122 - Maintenance Supplies
+                    </h4>
+                    <span
+                      class="px-2 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 text-xs font-medium rounded-full"
+                      >Completed</span
+                    >
+                  </div>
+                  <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                    Facility maintenance supplies and equipment for quarterly
+                    upkeep.
+                  </p>
+                  <div
+                    class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400"
+                  >
+                    <span
+                      >Vendor: Maintenance Pro • Completed: Dec 8, 2025</span
+                    >
+                    <div class="flex items-center space-x-2">
+                      <span class="font-medium text-gray-900 dark:text-gray-100"
+                        >$2,890</span
+                      >
+                      <button
+                        class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300"
+                      >
+                        View Receipt
+                      </button>
                     </div>
+                  </div>
                 </div>
+              </div>
             </div>
 
-            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-sm font-medium text-gray-600 dark:text-gray-400">Avg. Processing Time</p>
-                        <p class="text-2xl font-bold text-gray-900 dark:text-gray-100">4.2 days</p>
-                    </div>
-                    <div class="w-12 h-12 bg-orange-100 dark:bg-orange-900 rounded-lg flex items-center justify-center">
-                        <i class="fas fa-hourglass-half text-orange-600 dark:text-orange-400"></i>
-                    </div>
+            <!-- PO 4 -->
+            <div
+              class="border border-orange-200 dark:border-orange-800 bg-orange-50 dark:bg-orange-900/20 rounded-lg p-4"
+            >
+              <div class="flex items-start space-x-3">
+                <div
+                  class="w-10 h-10 bg-orange-100 dark:bg-orange-900 rounded-lg flex items-center justify-center flex-shrink-0"
+                >
+                  <i
+                    class="fas fa-building text-orange-600 dark:text-orange-400"
+                  ></i>
                 </div>
-                <div class="mt-4">
-                    <div class="flex items-center text-sm">
-                        <span class="text-green-600 dark:text-green-400 font-medium">-1.1 days</span>
-                        <span class="text-gray-600 dark:text-gray-400 ml-2">improvement</span>
+                <div class="flex-1">
+                  <div class="flex items-center justify-between mb-2">
+                    <h4 class="font-semibold text-gray-900 dark:text-gray-100">
+                      PO-2025-00121 - Facility Services
+                    </h4>
+                    <span
+                      class="px-2 py-1 bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 text-xs font-medium rounded-full"
+                      >Overdue</span
+                    >
+                  </div>
+                  <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                    Quarterly cleaning and janitorial services contract.
+                  </p>
+                  <div
+                    class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400"
+                  >
+                    <span>Vendor: CleanCorp • Due: Dec 10, 2025</span>
+                    <div class="flex items-center space-x-2">
+                      <span class="font-medium text-gray-900 dark:text-gray-100"
+                        >$4,200</span
+                      >
+                      <button
+                        class="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300"
+                      >
+                        Follow Up
+                      </button>
                     </div>
+                  </div>
                 </div>
+              </div>
             </div>
+
+            <!-- PO 5 -->
+            <div
+              class="border border-purple-200 dark:border-purple-800 bg-purple-50 dark:bg-purple-900/20 rounded-lg p-4"
+            >
+              <div class="flex items-start space-x-3">
+                <div
+                  class="w-10 h-10 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center flex-shrink-0"
+                >
+                  <i
+                    class="fas fa-print text-purple-600 dark:text-purple-400"
+                  ></i>
+                </div>
+                <div class="flex-1">
+                  <div class="flex items-center justify-between mb-2">
+                    <h4 class="font-semibold text-gray-900 dark:text-gray-100">
+                      PO-2025-00120 - Printing Services
+                    </h4>
+                    <span
+                      class="px-2 py-1 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 text-xs font-medium rounded-full"
+                      >In Transit</span
+                    >
+                  </div>
+                  <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                    Business cards, letterhead, and marketing materials
+                    printing.
+                  </p>
+                  <div
+                    class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400"
+                  >
+                    <span>Vendor: PrintMasters • Expected: Dec 18, 2025</span>
+                    <div class="flex items-center space-x-2">
+                      <span class="font-medium text-gray-900 dark:text-gray-100"
+                        >$1,650</span
+                      >
+                      <button
+                        class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300"
+                      >
+                        Track Shipment
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="space-y-6">
+        <!-- PO Status Overview -->
+        <div
+          class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6"
+        >
+          <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">
+            Order Status
+          </h3>
+          <div class="space-y-4">
+            <div>
+              <div class="flex justify-between text-sm mb-1">
+                <span class="text-gray-600 dark:text-gray-400">Approved</span>
+                <span class="font-medium text-gray-900 dark:text-gray-100"
+                  >18</span
+                >
+              </div>
+              <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                <div
+                  class="bg-green-600 h-2 rounded-full"
+                  style="width: 58%"
+                ></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm mb-1">
+                <span class="text-gray-600 dark:text-gray-400"
+                  >Pending Approval</span
+                >
+                <span class="font-medium text-gray-900 dark:text-gray-100"
+                  >8</span
+                >
+              </div>
+              <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                <div
+                  class="bg-yellow-600 h-2 rounded-full"
+                  style="width: 26%"
+                ></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm mb-1">
+                <span class="text-gray-600 dark:text-gray-400">Completed</span>
+                <span class="font-medium text-gray-900 dark:text-gray-100"
+                  >23</span
+                >
+              </div>
+              <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                <div
+                  class="bg-blue-600 h-2 rounded-full"
+                  style="width: 74%"
+                ></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm mb-1">
+                <span class="text-gray-600 dark:text-gray-400">Overdue</span>
+                <span class="font-medium text-gray-900 dark:text-gray-100"
+                  >3</span
+                >
+              </div>
+              <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                <div
+                  class="bg-red-600 h-2 rounded-full"
+                  style="width: 10%"
+                ></div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <!-- Purchase Orders Description -->
-        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 mb-6">
-            <div class="flex items-center justify-between">
+        <!-- Top Vendors -->
+        <div
+          class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6"
+        >
+          <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">
+            Top Vendors
+          </h3>
+          <div class="space-y-3">
+            <div
+              class="flex items-center justify-between p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg"
+            >
+              <div class="flex items-center space-x-3">
+                <div
+                  class="w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center"
+                >
+                  <i
+                    class="fas fa-building text-blue-600 dark:text-blue-400 text-sm"
+                  ></i>
+                </div>
                 <div>
-                    <h2 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">Purchase Order Management</h2>
-                    <p class="text-gray-600 dark:text-gray-400">Streamline procurement processes with automated purchase orders, vendor management, approval workflows, and comprehensive tracking from requisition to delivery.</p>
+                  <p
+                    class="font-medium text-gray-900 dark:text-gray-100 text-sm"
+                  >
+                    Office Depot
+                  </p>
+                  <p class="text-xs text-gray-600 dark:text-gray-400">
+                    15 orders
+                  </p>
                 </div>
-                <div class="flex items-center space-x-3">
-                    <div class="text-right">
-                        <div class="text-2xl font-bold text-gray-900 dark:text-gray-100">31</div>
-                        <div class="text-sm text-gray-600 dark:text-gray-400">POs This Month</div>
-                    </div>
-                </div>
+              </div>
+              <span
+                class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs font-medium rounded-full"
+                >$45,230</span
+              >
             </div>
+
+            <div
+              class="flex items-center justify-between p-3 bg-green-50 dark:bg-green-900/20 rounded-lg"
+            >
+              <div class="flex items-center space-x-3">
+                <div
+                  class="w-8 h-8 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center"
+                >
+                  <i
+                    class="fas fa-laptop text-green-600 dark:text-green-400 text-sm"
+                  ></i>
+                </div>
+                <div>
+                  <p
+                    class="font-medium text-gray-900 dark:text-gray-100 text-sm"
+                  >
+                    Tech Solutions Inc
+                  </p>
+                  <p class="text-xs text-gray-600 dark:text-gray-400">
+                    8 orders
+                  </p>
+                </div>
+              </div>
+              <span
+                class="px-2 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 text-xs font-medium rounded-full"
+                >$32,450</span
+              >
+            </div>
+
+            <div
+              class="flex items-center justify-between p-3 bg-purple-50 dark:bg-purple-900/20 rounded-lg"
+            >
+              <div class="flex items-center space-x-3">
+                <div
+                  class="w-8 h-8 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center"
+                >
+                  <i
+                    class="fas fa-tools text-purple-600 dark:text-purple-400 text-sm"
+                  ></i>
+                </div>
+                <div>
+                  <p
+                    class="font-medium text-gray-900 dark:text-gray-100 text-sm"
+                  >
+                    Maintenance Pro
+                  </p>
+                  <p class="text-xs text-gray-600 dark:text-gray-400">
+                    12 orders
+                  </p>
+                </div>
+              </div>
+              <span
+                class="px-2 py-1 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 text-xs font-medium rounded-full"
+                >$28,900</span
+              >
+            </div>
+          </div>
         </div>
 
         <!-- Quick Actions -->
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-            <button class="flex items-center justify-center px-4 py-3 bg-blue-600 text-white font-medium rounded-xl hover:bg-blue-700 transition-colors duration-200">
-                <i class="fas fa-plus mr-2"></i>
-                New PO
+        <div
+          class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6"
+        >
+          <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">
+            Quick Actions
+          </h3>
+          <div class="space-y-2">
+            <button
+              onclick="createPO()"
+              class="w-full text-left px-4 py-3 bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-100 dark:hover:bg-blue-900/30 rounded-lg transition-colors duration-200"
+            >
+              <div class="flex items-center space-x-3">
+                <i class="fas fa-plus text-blue-600 dark:text-blue-400"></i>
+                <span
+                  class="text-sm font-medium text-gray-900 dark:text-gray-100"
+                  >Create PO</span
+                >
+              </div>
             </button>
-            <button class="flex items-center justify-center px-4 py-3 bg-green-600 text-white font-medium rounded-xl hover:bg-green-700 transition-colors duration-200">
-                <i class="fas fa-truck mr-2"></i>
-                Receive Goods
+            <button
+              onclick="receiveDelivery()"
+              class="w-full text-left px-4 py-3 bg-green-50 dark:bg-green-900/20 hover:bg-green-100 dark:hover:bg-green-900/30 rounded-lg transition-colors duration-200"
+            >
+              <div class="flex items-center space-x-3">
+                <i class="fas fa-truck text-green-600 dark:text-green-400"></i>
+                <span
+                  class="text-sm font-medium text-gray-900 dark:text-gray-100"
+                  >Receive Delivery</span
+                >
+              </div>
             </button>
-            <button class="flex items-center justify-center px-4 py-3 bg-purple-600 text-white font-medium rounded-xl hover:bg-purple-700 transition-colors duration-200">
-                <i class="fas fa-users mr-2"></i>
-                Manage Vendors
+            <button
+              onclick="openVendorPortal()"
+              class="w-full text-left px-4 py-3 bg-purple-50 dark:bg-purple-900/20 hover:bg-purple-100 dark:hover:bg-purple-900/30 rounded-lg transition-colors duration-200"
+            >
+              <div class="flex items-center space-x-3">
+                <i
+                  class="fas fa-users text-purple-600 dark:text-purple-400"
+                ></i>
+                <span
+                  class="text-sm font-medium text-gray-900 dark:text-gray-100"
+                  >Vendor Portal</span
+                >
+              </div>
             </button>
-            <button class="flex items-center justify-center px-4 py-3 bg-gray-600 dark:bg-gray-700 text-white font-medium rounded-xl hover:bg-gray-700 dark:hover:bg-gray-600 transition-colors duration-200">
-                <i class="fas fa-chart-bar mr-2"></i>
-                PO Analytics
+            <button
+              onclick="viewSpendingAnalytics()"
+              class="w-full text-left px-4 py-3 bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded-lg transition-colors duration-200"
+            >
+              <div class="flex items-center space-x-3">
+                <i
+                  class="fas fa-chart-line text-gray-600 dark:text-gray-400"
+                ></i>
+                <span
+                  class="text-sm font-medium text-gray-900 dark:text-gray-100"
+                  >Spending Analytics</span
+                >
+              </div>
             </button>
+          </div>
         </div>
-
-        <!-- Main Content Grid -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <!-- Recent Purchase Orders -->
-            <div class="lg:col-span-2">
-                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700">
-                    <div class="p-6 border-b border-gray-200 dark:border-gray-700">
-                        <div class="flex items-center justify-between">
-                            <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100">Recent Purchase Orders</h3>
-                            <div class="flex items-center space-x-2">
-                                <select class="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-300">
-                                    <option>All Orders</option>
-                                    <option>Pending</option>
-                                    <option>Approved</option>
-                                    <option>Completed</option>
-                                    <option>Overdue</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="p-6 space-y-4">
-                        <!-- PO 1 -->
-                        <div class="border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4">
-                            <div class="flex items-start space-x-3">
-                                <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center flex-shrink-0">
-                                    <i class="fas fa-shopping-cart text-blue-600 dark:text-blue-400"></i>
-                                </div>
-                                <div class="flex-1">
-                                    <div class="flex items-center justify-between mb-2">
-                                        <h4 class="font-semibold text-gray-900 dark:text-gray-100">PO-2025-00123 - Office Supplies</h4>
-                                        <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs font-medium rounded-full">Approved</span>
-                                    </div>
-                                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Office supplies and stationery for Q1 requirements from Office Depot.</p>
-                                    <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
-                                        <span>Vendor: Office Depot • Due: Dec 15, 2025</span>
-                                        <div class="flex items-center space-x-2">
-                                            <span class="font-medium text-gray-900 dark:text-gray-100">$3,450</span>
-                                            <button class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300">View Details</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- PO 2 -->
-                        <div class="border border-yellow-200 dark:border-yellow-800 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg p-4">
-                            <div class="flex items-start space-x-3">
-                                <div class="w-10 h-10 bg-yellow-100 dark:bg-yellow-900 rounded-lg flex items-center justify-center flex-shrink-0">
-                                    <i class="fas fa-laptop text-yellow-600 dark:text-yellow-400"></i>
-                                </div>
-                                <div class="flex-1">
-                                    <div class="flex items-center justify-between mb-2">
-                                        <h4 class="font-semibold text-gray-900 dark:text-gray-100">PO-2025-00124 - IT Equipment</h4>
-                                        <span class="px-2 py-1 bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 text-xs font-medium rounded-full">Pending</span>
-                                    </div>
-                                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">New laptops and monitors for expanding development team.</p>
-                                    <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
-                                        <span>Vendor: Tech Solutions Inc • Due: Dec 20, 2025</span>
-                                        <div class="flex items-center space-x-2">
-                                            <span class="font-medium text-gray-900 dark:text-gray-100">$18,750</span>
-                                            <button class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300">Review</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- PO 3 -->
-                        <div class="border border-green-200 dark:border-green-800 bg-green-50 dark:bg-green-900/20 rounded-lg p-4">
-                            <div class="flex items-start space-x-3">
-                                <div class="w-10 h-10 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center flex-shrink-0">
-                                    <i class="fas fa-tools text-green-600 dark:text-green-400"></i>
-                                </div>
-                                <div class="flex-1">
-                                    <div class="flex items-center justify-between mb-2">
-                                        <h4 class="font-semibold text-gray-900 dark:text-gray-100">PO-2025-00122 - Maintenance Supplies</h4>
-                                        <span class="px-2 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 text-xs font-medium rounded-full">Completed</span>
-                                    </div>
-                                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Facility maintenance supplies and equipment for quarterly upkeep.</p>
-                                    <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
-                                        <span>Vendor: Maintenance Pro • Completed: Dec 8, 2025</span>
-                                        <div class="flex items-center space-x-2">
-                                            <span class="font-medium text-gray-900 dark:text-gray-100">$2,890</span>
-                                            <button class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300">View Receipt</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- PO 4 -->
-                        <div class="border border-orange-200 dark:border-orange-800 bg-orange-50 dark:bg-orange-900/20 rounded-lg p-4">
-                            <div class="flex items-start space-x-3">
-                                <div class="w-10 h-10 bg-orange-100 dark:bg-orange-900 rounded-lg flex items-center justify-center flex-shrink-0">
-                                    <i class="fas fa-building text-orange-600 dark:text-orange-400"></i>
-                                </div>
-                                <div class="flex-1">
-                                    <div class="flex items-center justify-between mb-2">
-                                        <h4 class="font-semibold text-gray-900 dark:text-gray-100">PO-2025-00121 - Facility Services</h4>
-                                        <span class="px-2 py-1 bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 text-xs font-medium rounded-full">Overdue</span>
-                                    </div>
-                                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Quarterly cleaning and janitorial services contract.</p>
-                                    <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
-                                        <span>Vendor: CleanCorp • Due: Dec 10, 2025</span>
-                                        <div class="flex items-center space-x-2">
-                                            <span class="font-medium text-gray-900 dark:text-gray-100">$4,200</span>
-                                            <button class="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300">Follow Up</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- PO 5 -->
-                        <div class="border border-purple-200 dark:border-purple-800 bg-purple-50 dark:bg-purple-900/20 rounded-lg p-4">
-                            <div class="flex items-start space-x-3">
-                                <div class="w-10 h-10 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center flex-shrink-0">
-                                    <i class="fas fa-print text-purple-600 dark:text-purple-400"></i>
-                                </div>
-                                <div class="flex-1">
-                                    <div class="flex items-center justify-between mb-2">
-                                        <h4 class="font-semibold text-gray-900 dark:text-gray-100">PO-2025-00120 - Printing Services</h4>
-                                        <span class="px-2 py-1 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 text-xs font-medium rounded-full">In Transit</span>
-                                    </div>
-                                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Business cards, letterhead, and marketing materials printing.</p>
-                                    <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
-                                        <span>Vendor: PrintMasters • Expected: Dec 18, 2025</span>
-                                        <div class="flex items-center space-x-2">
-                                            <span class="font-medium text-gray-900 dark:text-gray-100">$1,650</span>
-                                            <button class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300">Track Shipment</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Sidebar -->
-            <div class="space-y-6">
-                <!-- PO Status Overview -->
-                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">Order Status</h3>
-                    <div class="space-y-4">
-                        <div>
-                            <div class="flex justify-between text-sm mb-1">
-                                <span class="text-gray-600 dark:text-gray-400">Approved</span>
-                                <span class="font-medium text-gray-900 dark:text-gray-100">18</span>
-                            </div>
-                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                                <div class="bg-green-600 h-2 rounded-full" style="width: 58%"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between text-sm mb-1">
-                                <span class="text-gray-600 dark:text-gray-400">Pending Approval</span>
-                                <span class="font-medium text-gray-900 dark:text-gray-100">8</span>
-                            </div>
-                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                                <div class="bg-yellow-600 h-2 rounded-full" style="width: 26%"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between text-sm mb-1">
-                                <span class="text-gray-600 dark:text-gray-400">Completed</span>
-                                <span class="font-medium text-gray-900 dark:text-gray-100">23</span>
-                            </div>
-                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                                <div class="bg-blue-600 h-2 rounded-full" style="width: 74%"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between text-sm mb-1">
-                                <span class="text-gray-600 dark:text-gray-400">Overdue</span>
-                                <span class="font-medium text-gray-900 dark:text-gray-100">3</span>
-                            </div>
-                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                                <div class="bg-red-600 h-2 rounded-full" style="width: 10%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Top Vendors -->
-                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">Top Vendors</h3>
-                    <div class="space-y-3">
-                        <div class="flex items-center justify-between p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-                            <div class="flex items-center space-x-3">
-                                <div class="w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
-                                    <i class="fas fa-building text-blue-600 dark:text-blue-400 text-sm"></i>
-                                </div>
-                                <div>
-                                    <p class="font-medium text-gray-900 dark:text-gray-100 text-sm">Office Depot</p>
-                                    <p class="text-xs text-gray-600 dark:text-gray-400">15 orders</p>
-                                </div>
-                            </div>
-                            <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs font-medium rounded-full">$45,230</span>
-                        </div>
-
-                        <div class="flex items-center justify-between p-3 bg-green-50 dark:bg-green-900/20 rounded-lg">
-                            <div class="flex items-center space-x-3">
-                                <div class="w-8 h-8 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
-                                    <i class="fas fa-laptop text-green-600 dark:text-green-400 text-sm"></i>
-                                </div>
-                                <div>
-                                    <p class="font-medium text-gray-900 dark:text-gray-100 text-sm">Tech Solutions Inc</p>
-                                    <p class="text-xs text-gray-600 dark:text-gray-400">8 orders</p>
-                                </div>
-                            </div>
-                            <span class="px-2 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 text-xs font-medium rounded-full">$32,450</span>
-                        </div>
-
-                        <div class="flex items-center justify-between p-3 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
-                            <div class="flex items-center space-x-3">
-                                <div class="w-8 h-8 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center">
-                                    <i class="fas fa-tools text-purple-600 dark:text-purple-400 text-sm"></i>
-                                </div>
-                                <div>
-                                    <p class="font-medium text-gray-900 dark:text-gray-100 text-sm">Maintenance Pro</p>
-                                    <p class="text-xs text-gray-600 dark:text-gray-400">12 orders</p>
-                                </div>
-                            </div>
-                            <span class="px-2 py-1 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 text-xs font-medium rounded-full">$28,900</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Quick Actions -->
-                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">Quick Actions</h3>
-                    <div class="space-y-2">
-                        <button class="w-full text-left px-4 py-3 bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-100 dark:hover:bg-blue-900/30 rounded-lg transition-colors duration-200">
-                            <div class="flex items-center space-x-3">
-                                <i class="fas fa-plus text-blue-600 dark:text-blue-400"></i>
-                                <span class="text-sm font-medium text-gray-900 dark:text-gray-100">Create PO</span>
-                            </div>
-                        </button>
-                        <button class="w-full text-left px-4 py-3 bg-green-50 dark:bg-green-900/20 hover:bg-green-100 dark:hover:bg-green-900/30 rounded-lg transition-colors duration-200">
-                            <div class="flex items-center space-x-3">
-                                <i class="fas fa-truck text-green-600 dark:text-green-400"></i>
-                                <span class="text-sm font-medium text-gray-900 dark:text-gray-100">Receive Delivery</span>
-                            </div>
-                        </button>
-                        <button class="w-full text-left px-4 py-3 bg-purple-50 dark:bg-purple-900/20 hover:bg-purple-100 dark:hover:bg-purple-900/30 rounded-lg transition-colors duration-200">
-                            <div class="flex items-center space-x-3">
-                                <i class="fas fa-users text-purple-600 dark:text-purple-400"></i>
-                                <span class="text-sm font-medium text-gray-900 dark:text-gray-100">Vendor Portal</span>
-                            </div>
-                        </button>
-                        <button class="w-full text-left px-4 py-3 bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 rounded-lg transition-colors duration-200">
-                            <div class="flex items-center space-x-3">
-                                <i class="fas fa-chart-line text-gray-600 dark:text-gray-400"></i>
-                                <span class="text-sm font-medium text-gray-900 dark:text-gray-100">Spending Analytics</span>
-                            </div>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- PO Trends Chart Section -->
-        <div class="mt-6 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-            <div class="flex items-center justify-between mb-6">
-                <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100">Purchase Order Trends</h3>
-                <div class="flex items-center space-x-2">
-                    <select class="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-300">
-                        <option>Last 6 months</option>
-                        <option>Last 12 months</option>
-                        <option>This year</option>
-                        <option>Last year</option>
-                    </select>
-                </div>
-            </div>
-
-            <!-- Chart Placeholder -->
-            <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-8 text-center">
-                <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <i class="fas fa-chart-area text-blue-600 dark:text-blue-400 text-2xl"></i>
-                </div>
-                <h4 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">Purchase Order Analytics</h4>
-                <p class="text-gray-600 dark:text-gray-400 mb-4">Interactive visualization of purchase order volume, spending patterns, and vendor performance over time</p>
-                <div class="flex justify-center space-x-4 text-sm">
-                    <div class="flex items-center">
-                        <div class="w-3 h-3 bg-blue-600 rounded-full mr-2"></div>
-                        <span class="text-gray-600 dark:text-gray-400">Order Volume</span>
-                    </div>
-                    <div class="flex items-center">
-                        <div class="w-3 h-3 bg-green-600 rounded-full mr-2"></div>
-                        <span class="text-gray-600 dark:text-gray-400">Total Value</span>
-                    </div>
-                    <div class="flex items-center">
-                        <div class="w-3 h-3 bg-purple-600 rounded-full mr-2"></div>
-                        <span class="text-gray-600 dark:text-gray-400">Avg Order Value</span>
-                    </div>
-                    <div class="flex items-center">
-                        <div class="w-3 h-3 bg-orange-600 rounded-full mr-2"></div>
-                        <span class="text-gray-600 dark:text-gray-400">Processing Time</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- PO Stats -->
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-6">
-                <div class="text-center">
-                    <div class="text-2xl font-bold text-green-600 dark:text-green-400">$4,180</div>
-                    <div class="text-sm text-gray-600 dark:text-gray-400">Avg Order Value</div>
-                    <div class="text-xs text-green-600 dark:text-green-400 mt-1">↑ 8.5% from last quarter</div>
-                </div>
-                <div class="text-center">
-                    <div class="text-2xl font-bold text-blue-600 dark:text-blue-400">31</div>
-                    <div class="text-sm text-gray-600 dark:text-gray-400">Orders This Month</div>
-                    <div class="text-xs text-blue-600 dark:text-blue-400 mt-1">↑ 12.5% increase</div>
-                </div>
-                <div class="text-center">
-                    <div class="text-2xl font-bold text-purple-600 dark:text-purple-400">96.8%</div>
-                    <div class="text-sm text-gray-600 dark:text-gray-400">On-Time Delivery</div>
-                    <div class="text-xs text-purple-600 dark:text-purple-400 mt-1">↑ 3.2% improvement</div>
-                </div>
-                <div class="text-center">
-                    <div class="text-2xl font-bold text-orange-600 dark:text-orange-400">4.2 days</div>
-                    <div class="text-sm text-gray-600 dark:text-gray-400">Avg Processing Time</div>
-                    <div class="text-xs text-orange-600 dark:text-orange-400 mt-1">↓ 1.1 days faster</div>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
+
+    <!-- PO Trends Chart Section -->
+    <div
+      class="mt-6 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6"
+    >
+      <div class="flex items-center justify-between mb-6">
+        <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100">
+          Purchase Order Trends
+        </h3>
+        <div class="flex items-center space-x-2">
+          <select
+            class="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-300"
+          >
+            <option>Last 6 months</option>
+            <option>Last 12 months</option>
+            <option>This year</option>
+            <option>Last year</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Chart Placeholder -->
+      <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-8 text-center">
+        <div
+          class="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mx-auto mb-4"
+        >
+          <i
+            class="fas fa-chart-area text-blue-600 dark:text-blue-400 text-2xl"
+          ></i>
+        </div>
+        <h4 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">
+          Purchase Order Analytics
+        </h4>
+        <p class="text-gray-600 dark:text-gray-400 mb-4">
+          Interactive visualization of purchase order volume, spending patterns,
+          and vendor performance over time
+        </p>
+        <div class="flex justify-center space-x-4 text-sm">
+          <div class="flex items-center">
+            <div class="w-3 h-3 bg-blue-600 rounded-full mr-2"></div>
+            <span class="text-gray-600 dark:text-gray-400">Order Volume</span>
+          </div>
+          <div class="flex items-center">
+            <div class="w-3 h-3 bg-green-600 rounded-full mr-2"></div>
+            <span class="text-gray-600 dark:text-gray-400">Total Value</span>
+          </div>
+          <div class="flex items-center">
+            <div class="w-3 h-3 bg-purple-600 rounded-full mr-2"></div>
+            <span class="text-gray-600 dark:text-gray-400"
+              >Avg Order Value</span
+            >
+          </div>
+          <div class="flex items-center">
+            <div class="w-3 h-3 bg-orange-600 rounded-full mr-2"></div>
+            <span class="text-gray-600 dark:text-gray-400"
+              >Processing Time</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- PO Stats -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-6">
+        <div class="text-center">
+          <div class="text-2xl font-bold text-green-600 dark:text-green-400">
+            $4,180
+          </div>
+          <div class="text-sm text-gray-600 dark:text-gray-400">
+            Avg Order Value
+          </div>
+          <div class="text-xs text-green-600 dark:text-green-400 mt-1">
+            ↑ 8.5% from last quarter
+          </div>
+        </div>
+        <div class="text-center">
+          <div class="text-2xl font-bold text-blue-600 dark:text-blue-400">
+            31
+          </div>
+          <div class="text-sm text-gray-600 dark:text-gray-400">
+            Orders This Month
+          </div>
+          <div class="text-xs text-blue-600 dark:text-blue-400 mt-1">
+            ↑ 12.5% increase
+          </div>
+        </div>
+        <div class="text-center">
+          <div class="text-2xl font-bold text-purple-600 dark:text-purple-400">
+            96.8%
+          </div>
+          <div class="text-sm text-gray-600 dark:text-gray-400">
+            On-Time Delivery
+          </div>
+          <div class="text-xs text-purple-600 dark:text-purple-400 mt-1">
+            ↑ 3.2% improvement
+          </div>
+        </div>
+        <div class="text-center">
+          <div class="text-2xl font-bold text-orange-600 dark:text-orange-400">
+            4.2 days
+          </div>
+          <div class="text-sm text-gray-600 dark:text-gray-400">
+            Avg Processing Time
+          </div>
+          <div class="text-xs text-orange-600 dark:text-orange-400 mt-1">
+            ↓ 1.1 days faster
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- Theme Toggle Script -->
 <script>
-    // Theme toggle
-    const themeToggle = document.getElementById('theme-toggle');
-    themeToggle.addEventListener('click', () => {
-        const html = document.documentElement;
-        const isDark = html.classList.contains('dark');
-        if (isDark) {
-            html.classList.remove('dark');
-            localStorage.setItem('theme', 'light');
-        } else {
-            html.classList.add('dark');
-            localStorage.setItem('theme', 'dark');
+  // Theme toggle
+  const themeToggle = document.getElementById("theme-toggle");
+  themeToggle.addEventListener("click", () => {
+    const html = document.documentElement;
+    const isDark = html.classList.contains("dark");
+    if (isDark) {
+      html.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    } else {
+      html.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    }
+  });
+
+  // Export functionality
+  function exportPurchaseOrders() {
+    const exportFormat = confirm("Export as PDF? (Cancel for JSON)")
+      ? "pdf"
+      : "json";
+    const reportType = "all-orders"; // Could be made configurable
+
+    const url = `/api/purchase-orders/export/?format=${exportFormat}&type=${reportType}`;
+    window.open(url, "_blank");
+  }
+
+  // New PO functionality
+  function createNewPO() {
+    // In a real implementation, this would redirect to a create PO form
+    alert("Redirecting to Create Purchase Order form...");
+    // window.location.href = '{% url "create_purchase_order" %}';
+  }
+
+  // Receive Goods functionality
+  function receiveGoods() {
+    // In a real implementation, this would open a modal or redirect to receive goods page
+    alert("Opening Receive Goods interface...");
+    // Could open a modal with goods receiving form
+  }
+
+  // Manage Vendors functionality
+  function manageVendors() {
+    // In a real implementation, this would redirect to vendor management page
+    alert("Redirecting to Vendor Management...");
+    // window.location.href = '{% url "manage_vendors" %}';
+  }
+
+  // PO Analytics functionality
+  function viewPOAnalytics() {
+    // In a real implementation, this would redirect to analytics dashboard
+    alert("Loading Purchase Order Analytics...");
+    // Could scroll to analytics section or redirect to dedicated analytics page
+    document
+      .querySelector(".bg-gray-50.dark\\:bg-gray-700")
+      .scrollIntoView({ behavior: "smooth" });
+  }
+
+  // Quick Actions functionality
+  function createPO() {
+    createNewPO();
+  }
+
+  function receiveDelivery() {
+    receiveGoods();
+  }
+
+  function openVendorPortal() {
+    manageVendors();
+  }
+
+  function viewSpendingAnalytics() {
+    viewPOAnalytics();
+  }
+
+  // Add event listeners when DOM is loaded
+  document.addEventListener("DOMContentLoaded", function () {
+    // Top navigation export button
+    const exportBtn = document.querySelector(
+      ".bg-blue-600.text-white.text-sm.font-medium.rounded-lg"
+    );
+    if (exportBtn) {
+      exportBtn.addEventListener("click", exportPurchaseOrders);
+    }
+
+    // Quick Actions buttons (main section)
+    const newPOBtn = document.querySelector(
+      ".bg-blue-600.text-white.font-medium.rounded-xl"
+    );
+    if (newPOBtn && newPOBtn.textContent.includes("New PO")) {
+      newPOBtn.addEventListener("click", createNewPO);
+    }
+
+    const receiveGoodsBtn = document.querySelector(
+      ".bg-green-600.text-white.font-medium.rounded-xl"
+    );
+    if (
+      receiveGoodsBtn &&
+      receiveGoodsBtn.textContent.includes("Receive Goods")
+    ) {
+      receiveGoodsBtn.addEventListener("click", receiveGoods);
+    }
+
+    const manageVendorsBtn = document.querySelector(
+      ".bg-purple-600.text-white.font-medium.rounded-xl"
+    );
+    if (
+      manageVendorsBtn &&
+      manageVendorsBtn.textContent.includes("Manage Vendors")
+    ) {
+      manageVendorsBtn.addEventListener("click", manageVendors);
+    }
+
+    const poAnalyticsBtn = document.querySelector(
+      ".bg-gray-600.dark\\:bg-gray-700.text-white.font-medium.rounded-xl"
+    );
+    if (poAnalyticsBtn && poAnalyticsBtn.textContent.includes("PO Analytics")) {
+      poAnalyticsBtn.addEventListener("click", viewPOAnalytics);
+    }
+
+    // Sidebar Quick Actions buttons
+    const sidebarButtons = document.querySelectorAll(".space-y-2 button");
+    sidebarButtons.forEach((button) => {
+      button.addEventListener("click", function () {
+        const buttonText = this.textContent.trim();
+        if (buttonText.includes("Create PO")) {
+          createPO();
+        } else if (buttonText.includes("Receive Delivery")) {
+          receiveDelivery();
+        } else if (buttonText.includes("Vendor Portal")) {
+          openVendorPortal();
+        } else if (buttonText.includes("Spending Analytics")) {
+          viewSpendingAnalytics();
         }
+      });
     });
+  });
 </script>
 
 {% endblock %}

@@ -2319,8 +2319,9 @@
     <!-- Module Overview Cards -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6 mb-8">
       <!-- General Ledger -->
-      <div
-        class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md transition-shadow duration-200 group cursor-pointer"
+      <a
+        href="{% url 'general_ledger' %}"
+        class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md transition-shadow duration-200 group cursor-pointer block"
       >
         <div class="flex items-center justify-between mb-4">
           <div
@@ -2344,11 +2345,12 @@
           <span>Access Module</span>
           <i class="fas fa-external-link-alt ml-1"></i>
         </div>
-      </div>
+      </a>
 
       <!-- Invoices & Billing -->
-      <div
-        class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md transition-shadow duration-200 group cursor-pointer"
+      <a
+        href="{% url 'invoices' %}"
+        class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md transition-shadow duration-200 group cursor-pointer block"
       >
         <div class="flex items-center justify-between mb-4">
           <div
@@ -2374,11 +2376,12 @@
           <span>42 pending</span>
           <i class="fas fa-external-link-alt ml-1"></i>
         </div>
-      </div>
+      </a>
 
       <!-- Cash Management -->
-      <div
-        class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md transition-shadow duration-200 group cursor-pointer"
+      <a
+        href="{% url 'bank_reconciliation' %}"
+        class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md transition-shadow duration-200 group cursor-pointer block"
       >
         <div class="flex items-center justify-between mb-4">
           <div
@@ -2404,11 +2407,12 @@
           <span>$423K available</span>
           <i class="fas fa-external-link-alt ml-1"></i>
         </div>
-      </div>
+      </a>
 
       <!-- Tax & Compliance -->
-      <div
-        class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md transition-shadow duration-200 group cursor-pointer"
+      <a
+        href="{% url 'tax_center' %}"
+        class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md transition-shadow duration-200 group cursor-pointer block"
       >
         <div class="flex items-center justify-between mb-4">
           <div
@@ -2434,11 +2438,12 @@
           <span>Due in 5 days</span>
           <i class="fas fa-external-link-alt ml-1"></i>
         </div>
-      </div>
+      </a>
 
       <!-- Fixed Assets -->
-      <div
-        class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md transition-shadow duration-200 group cursor-pointer"
+      <a
+        href="{% url 'fixed_assets' %}"
+        class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md transition-shadow duration-200 group cursor-pointer block"
       >
         <div class="flex items-center justify-between mb-4">
           <div
@@ -2464,11 +2469,12 @@
           <span>$2.4M total value</span>
           <i class="fas fa-external-link-alt ml-1"></i>
         </div>
-      </div>
+      </a>
 
       <!-- Inventory -->
-      <div
-        class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md transition-shadow duration-200 group cursor-pointer"
+      <a
+        href="{% url 'inventory' %}"
+        class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md transition-shadow duration-200 group cursor-pointer block"
       >
         <div class="flex items-center justify-between mb-4">
           <div
@@ -2494,7 +2500,7 @@
           <span>1,247 items</span>
           <i class="fas fa-external-link-alt ml-1"></i>
         </div>
-      </div>
+      </a>
     </div>
 
     <!-- Footer Stats -->
@@ -3216,4 +3222,5 @@
     },
   });
 </script>
+{% block footer %}{% endblock %}
 {% endblock %}

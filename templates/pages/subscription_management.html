@@ -1,0 +1,331 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Subscription Management - Ovovex{% endblock %}
+
+{% block content %}
+{% include 'components/navbar.html' %}
+
+<!-- Header Section -->
+<section class="pt-24 pb-16 bg-gradient-to-br from-green-50 to-blue-100">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <div class="inline-flex items-center px-4 py-2 bg-green-100 text-green-800 rounded-full text-sm font-semibold mb-6">
+      <i class="fas fa-cog mr-2"></i>
+      Subscription Management
+    </div>
+    <h1 class="text-4xl font-bold text-gray-900 mb-6">Manage Your Subscription</h1>
+    <p class="text-xl text-gray-600">View your current plan, billing information, and manage your subscription settings.</p>
+  </div>
+</section>
+
+<!-- Current Subscription Overview -->
+<section class="py-16 bg-white">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid lg:grid-cols-3 gap-8">
+      <!-- Current Plan Card -->
+      <div class="lg:col-span-2">
+        <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
+          <div class="flex items-center justify-between mb-6">
+            <h2 class="text-xl font-bold text-gray-900">Current Plan</h2>
+            <span class="inline-flex items-center px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium">
+              <i class="fas fa-check-circle mr-1"></i>Active
+            </span>
+          </div>
+
+          <div class="flex items-center justify-between mb-6">
+            <div>
+              <h3 class="text-2xl font-bold text-gray-900">Professional Plan</h3>
+              <p class="text-gray-600">$79/month • Billed monthly</p>
+            </div>
+            <div class="text-right">
+              <div class="text-sm text-gray-600">Next billing</div>
+              <div class="font-semibold text-gray-900">Dec 15, 2024</div>
+            </div>
+          </div>
+
+          <!-- Plan Features -->
+          <div class="grid md:grid-cols-2 gap-4 mb-6">
+            <div class="flex items-center text-sm text-gray-600">
+              <i class="fas fa-check text-green-500 mr-2"></i>Unlimited invoices & estimates
+            </div>
+            <div class="flex items-center text-sm text-gray-600">
+              <i class="fas fa-check text-green-500 mr-2"></i>Advanced analytics & reporting
+            </div>
+            <div class="flex items-center text-sm text-gray-600">
+              <i class="fas fa-check text-green-500 mr-2"></i>Inventory management
+            </div>
+            <div class="flex items-center text-sm text-gray-600">
+              <i class="fas fa-check text-green-500 mr-2"></i>Bank reconciliation
+            </div>
+            <div class="flex items-center text-sm text-gray-600">
+              <i class="fas fa-check text-green-500 mr-2"></i>Phone & email support
+            </div>
+            <div class="flex items-center text-sm text-gray-600">
+              <i class="fas fa-check text-green-500 mr-2"></i>API access
+            </div>
+          </div>
+
+          <!-- Usage Stats -->
+          <div class="border-t border-gray-200 pt-6">
+            <h4 class="font-medium text-gray-900 mb-4">Current Usage</h4>
+            <div class="grid md:grid-cols-3 gap-4">
+              <div class="text-center">
+                <div class="text-2xl font-bold text-blue-600">247</div>
+                <div class="text-sm text-gray-600">Invoices this month</div>
+              </div>
+              <div class="text-center">
+                <div class="text-2xl font-bold text-green-600">1,429</div>
+                <div class="text-sm text-gray-600">Transactions</div>
+              </div>
+              <div class="text-center">
+                <div class="text-2xl font-bold text-purple-600">89%</div>
+                <div class="text-sm text-gray-600">Storage used</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="space-y-6">
+        <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
+          <h3 class="font-bold text-gray-900 mb-4">Quick Actions</h3>
+          <div class="space-y-3">
+            <button class="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-blue-700 transition-colors">
+              <i class="fas fa-credit-card mr-2"></i>Update Payment Method
+            </button>
+            <button class="w-full bg-gray-100 text-gray-700 py-3 px-4 rounded-lg font-medium hover:bg-gray-200 transition-colors">
+              <i class="fas fa-arrow-up mr-2"></i>Upgrade Plan
+            </button>
+            <button class="w-full bg-gray-100 text-gray-700 py-3 px-4 rounded-lg font-medium hover:bg-gray-200 transition-colors">
+              <i class="fas fa-arrow-down mr-2"></i>Downgrade Plan
+            </button>
+            <button class="w-full bg-red-100 text-red-700 py-3 px-4 rounded-lg font-medium hover:bg-red-200 transition-colors">
+              <i class="fas fa-times mr-2"></i>Cancel Subscription
+            </button>
+          </div>
+        </div>
+
+        <!-- Payment Method -->
+        <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
+          <h3 class="font-bold text-gray-900 mb-4">Payment Method</h3>
+          <div class="flex items-center justify-between">
+            <div class="flex items-center">
+              <div class="w-10 h-6 bg-blue-600 rounded text-white text-xs flex items-center justify-center font-bold mr-3">
+                VISA
+              </div>
+              <div>
+                <div class="font-medium text-gray-900">•••• •••• •••• 4242</div>
+                <div class="text-sm text-gray-600">Expires 12/26</div>
+              </div>
+            </div>
+            <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+              Edit
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Plan Comparison & Upgrade Options -->
+<section class="py-16 bg-gray-50">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl font-bold text-gray-900 mb-4">Explore Plan Options</h2>
+      <p class="text-xl text-gray-600">Compare plans and see what's available for your business</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8">
+      <!-- Starter Plan -->
+      <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+        <div class="text-center mb-6">
+          <h3 class="text-xl font-bold text-gray-900">Starter</h3>
+          <div class="text-3xl font-bold text-gray-900 mt-2">$29<span class="text-lg font-normal text-gray-600">/month</span></div>
+          <div class="text-sm text-gray-600 mt-1">Downgrade available</div>
+        </div>
+
+        <div class="space-y-3 mb-6">
+          <div class="flex items-center text-sm text-gray-600">
+            <i class="fas fa-check text-green-500 mr-2"></i>Unlimited invoices
+          </div>
+          <div class="flex items-center text-sm text-gray-600">
+            <i class="fas fa-check text-green-500 mr-2"></i>3 users
+          </div>
+          <div class="flex items-center text-sm text-gray-600">
+            <i class="fas fa-check text-green-500 mr-2"></i>Bank reconciliation
+          </div>
+          <div class="flex items-center text-sm text-gray-600">
+            <i class="fas fa-times text-gray-400 mr-2"></i>Advanced analytics
+          </div>
+          <div class="flex items-center text-sm text-gray-600">
+            <i class="fas fa-times text-gray-400 mr-2"></i>Inventory management
+          </div>
+        </div>
+
+        <button class="w-full bg-gray-100 text-gray-700 py-3 px-4 rounded-lg font-medium hover:bg-gray-200 transition-colors">
+          Downgrade to Starter
+        </button>
+      </div>
+
+      <!-- Professional Plan (Current) -->
+      <div class="bg-blue-50 border-2 border-blue-500 rounded-xl p-6 shadow-sm relative">
+        <div class="absolute -top-3 left-1/2 transform -translate-x-1/2">
+          <span class="bg-blue-500 text-white px-4 py-1 rounded-full text-sm font-medium">Current Plan</span>
+        </div>
+
+        <div class="text-center mb-6">
+          <h3 class="text-xl font-bold text-blue-900">Professional</h3>
+          <div class="text-3xl font-bold text-blue-900 mt-2">$79<span class="text-lg font-normal text-blue-700">/month</span></div>
+          <div class="text-sm text-blue-700 mt-1">Your current plan</div>
+        </div>
+
+        <div class="space-y-3 mb-6">
+          <div class="flex items-center text-sm text-gray-600">
+            <i class="fas fa-check text-green-500 mr-2"></i>Unlimited invoices
+          </div>
+          <div class="flex items-center text-sm text-gray-600">
+            <i class="fas fa-check text-green-500 mr-2"></i>Unlimited users
+          </div>
+          <div class="flex items-center text-sm text-gray-600">
+            <i class="fas fa-check text-green-500 mr-2"></i>Advanced analytics
+          </div>
+          <div class="flex items-center text-sm text-gray-600">
+            <i class="fas fa-check text-green-500 mr-2"></i>Inventory management
+          </div>
+          <div class="flex items-center text-sm text-gray-600">
+            <i class="fas fa-check text-green-500 mr-2"></i>Phone support
+          </div>
+        </div>
+
+        <button class="w-full bg-blue-100 text-blue-700 py-3 px-4 rounded-lg font-medium cursor-not-allowed" disabled>
+          Current Plan
+        </button>
+      </div>
+
+      <!-- Enterprise Plan -->
+      <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+        <div class="text-center mb-6">
+          <h3 class="text-xl font-bold text-gray-900">Enterprise</h3>
+          <div class="text-3xl font-bold text-gray-900 mt-2">Custom<span class="text-lg font-normal text-gray-600"> pricing</span></div>
+          <div class="text-sm text-gray-600 mt-1">Upgrade available</div>
+        </div>
+
+        <div class="space-y-3 mb-6">
+          <div class="flex items-center text-sm text-gray-600">
+            <i class="fas fa-check text-green-500 mr-2"></i>Everything in Professional
+          </div>
+          <div class="flex items-center text-sm text-gray-600">
+            <i class="fas fa-check text-green-500 mr-2"></i>Unlimited users
+          </div>
+          <div class="flex items-center text-sm text-gray-600">
+            <i class="fas fa-check text-green-500 mr-2"></i>Custom integrations
+          </div>
+          <div class="flex items-center text-sm text-gray-600">
+            <i class="fas fa-check text-green-500 mr-2"></i>Dedicated support
+          </div>
+          <div class="flex items-center text-sm text-gray-600">
+            <i class="fas fa-check text-green-500 mr-2"></i>99.9% SLA guarantee
+          </div>
+        </div>
+
+        <button class="w-full bg-purple-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-purple-700 transition-colors">
+          Contact Sales
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Billing History -->
+<section class="py-16 bg-white">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-xl font-bold text-gray-900">Billing History</h2>
+        <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+          <i class="fas fa-download mr-1"></i>Download All
+        </button>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full">
+          <thead>
+            <tr class="border-b border-gray-200">
+              <th class="text-left py-3 px-4 font-medium text-gray-900">Date</th>
+              <th class="text-left py-3 px-4 font-medium text-gray-900">Description</th>
+              <th class="text-left py-3 px-4 font-medium text-gray-900">Amount</th>
+              <th class="text-left py-3 px-4 font-medium text-gray-900">Status</th>
+              <th class="text-left py-3 px-4 font-medium text-gray-900">Invoice</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100">
+            <tr>
+              <td class="py-4 px-4 text-sm text-gray-900">Dec 15, 2024</td>
+              <td class="py-4 px-4 text-sm text-gray-900">Professional Plan - Monthly</td>
+              <td class="py-4 px-4 text-sm font-medium text-gray-900">$79.00</td>
+              <td class="py-4 px-4">
+                <span class="inline-flex items-center px-2.5 py-0.5 bg-yellow-100 text-yellow-800 rounded-full text-xs font-medium">
+                  Pending
+                </span>
+              </td>
+              <td class="py-4 px-4">
+                <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                  <i class="fas fa-download mr-1"></i>Download
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td class="py-4 px-4 text-sm text-gray-900">Nov 15, 2024</td>
+              <td class="py-4 px-4 text-sm text-gray-900">Professional Plan - Monthly</td>
+              <td class="py-4 px-4 text-sm font-medium text-gray-900">$79.00</td>
+              <td class="py-4 px-4">
+                <span class="inline-flex items-center px-2.5 py-0.5 bg-green-100 text-green-800 rounded-full text-xs font-medium">
+                  Paid
+                </span>
+              </td>
+              <td class="py-4 px-4">
+                <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                  <i class="fas fa-download mr-1"></i>Download
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td class="py-4 px-4 text-sm text-gray-900">Oct 15, 2024</td>
+              <td class="py-4 px-4 text-sm text-gray-900">Professional Plan - Monthly</td>
+              <td class="py-4 px-4 text-sm font-medium text-gray-900">$79.00</td>
+              <td class="py-4 px-4">
+                <span class="inline-flex items-center px-2.5 py-0.5 bg-green-100 text-green-800 rounded-full text-xs font-medium">
+                  Paid
+                </span>
+              </td>
+              <td class="py-4 px-4">
+                <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                  <i class="fas fa-download mr-1"></i>Download
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td class="py-4 px-4 text-sm text-gray-900">Sep 15, 2024</td>
+              <td class="py-4 px-4 text-sm text-gray-900">Professional Plan - Monthly</td>
+              <td class="py-4 px-4 text-sm font-medium text-gray-900">$79.00</td>
+              <td class="py-4 px-4">
+                <span class="inline-flex items-center px-2.5 py-0.5 bg-green-100 text-green-800 rounded-full text-xs font-medium">
+                  Paid
+                </span>
+              </td>
+              <td class="py-4 px-4">
+                <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                  <i class="fas fa-download mr-1"></i>Download
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

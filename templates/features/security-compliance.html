@@ -1,0 +1,559 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'components/navbar.html' %}
+
+<!-- Hero Section -->
+<section class="pt-24 pb-16 bg-gradient-to-br from-gray-50 to-slate-100">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center">
+      <div class="inline-flex items-center px-4 py-2 bg-gray-100 text-gray-800 rounded-full text-sm font-semibold mb-6">
+        <i class="fas fa-shield-alt mr-2"></i>
+        Security & Compliance
+      </div>
+      <h1 class="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+        Bank-Grade Security,
+        <span class="text-gray-600">Complete Compliance</span>
+      </h1>
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+        Enterprise-grade security with comprehensive compliance frameworks. Protect your financial data with military-level encryption, multi-factor authentication, and automated compliance monitoring.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#security" class="inline-flex items-center px-8 py-4 bg-gray-800 text-white font-semibold rounded-xl hover:bg-gray-900 transition-colors">
+          <i class="fas fa-lock mr-2"></i>View Security Features
+        </a>
+        <a href="#compliance" class="inline-flex items-center px-8 py-4 bg-white text-gray-700 font-semibold rounded-xl border border-gray-300 hover:border-gray-400 transition-colors">
+          <i class="fas fa-check-circle mr-2"></i>Check Compliance
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Security Metrics -->
+<section class="py-24 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid md:grid-cols-4 gap-8">
+      <div class="text-center">
+        <div class="text-4xl font-bold text-green-600 mb-2">99.99%</div>
+        <div class="text-gray-600">Uptime SLA</div>
+      </div>
+      <div class="text-center">
+        <div class="text-4xl font-bold text-blue-600 mb-2">256-bit</div>
+        <div class="text-gray-600">AES Encryption</div>
+      </div>
+      <div class="text-center">
+        <div class="text-4xl font-bold text-purple-600 mb-2">SOC 2</div>
+        <div class="text-gray-600">Type II Certified</div>
+      </div>
+      <div class="text-center">
+        <div class="text-4xl font-bold text-orange-600 mb-2">24/7</div>
+        <div class="text-gray-600">Security Monitoring</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Security Dashboard -->
+<section id="security" class="py-24 bg-gray-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-bold text-gray-900 mb-6">Security Control Center</h2>
+      <p class="text-xl text-gray-600 max-w-2xl mx-auto">Real-time monitoring and threat detection</p>
+    </div>
+
+    <!-- Security Dashboard Mockup -->
+    <div class="max-w-6xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
+      <div class="bg-gray-800 px-6 py-4 flex items-center justify-between">
+        <div class="flex items-center space-x-4">
+          <div class="flex space-x-2">
+            <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+            <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+            <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+          </div>
+          <span class="text-white font-medium">Security Operations Center</span>
+        </div>
+        <div class="flex items-center space-x-4">
+          <span class="text-green-400 text-sm font-medium">All Systems Secure</span>
+          <i class="fas fa-shield-alt text-green-400"></i>
+        </div>
+      </div>
+
+      <div class="p-8">
+        <!-- Security Status Cards -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+          <div class="bg-green-50 border border-green-200 rounded-xl p-6">
+            <div class="flex items-center justify-between mb-4">
+              <i class="fas fa-shield-alt text-2xl text-green-600"></i>
+              <span class="text-sm text-green-600 font-medium">Secure</span>
+            </div>
+            <div class="text-2xl font-bold text-green-800 mb-1">Firewall</div>
+            <div class="text-sm text-green-600">Active & Updated</div>
+          </div>
+
+          <div class="bg-blue-50 border border-blue-200 rounded-xl p-6">
+            <div class="flex items-center justify-between mb-4">
+              <i class="fas fa-lock text-2xl text-blue-600"></i>
+              <span class="text-sm text-blue-600 font-medium">Encrypted</span>
+            </div>
+            <div class="text-2xl font-bold text-blue-800 mb-1">Data</div>
+            <div class="text-sm text-blue-600">256-bit AES</div>
+          </div>
+
+          <div class="bg-purple-50 border border-purple-200 rounded-xl p-6">
+            <div class="flex items-center justify-between mb-4">
+              <i class="fas fa-user-check text-2xl text-purple-600"></i>
+              <span class="text-sm text-purple-600 font-medium">Verified</span>
+            </div>
+            <div class="text-2xl font-bold text-purple-800 mb-1">Access</div>
+            <div class="text-sm text-purple-600">MFA Enabled</div>
+          </div>
+
+          <div class="bg-orange-50 border border-orange-200 rounded-xl p-6">
+            <div class="flex items-center justify-between mb-4">
+              <i class="fas fa-eye text-2xl text-orange-600"></i>
+              <span class="text-sm text-orange-600 font-medium">Monitored</span>
+            </div>
+            <div class="text-2xl font-bold text-orange-800 mb-1">Activity</div>
+            <div class="text-sm text-orange-600">24/7 Surveillance</div>
+          </div>
+        </div>
+
+        <!-- Security Events Log -->
+        <div class="bg-gray-50 rounded-xl p-6 mb-8">
+          <h4 class="text-lg font-bold text-gray-900 mb-4">Recent Security Events</h4>
+          <div class="space-y-4">
+            <div class="flex items-center justify-between py-3 border-b border-gray-200">
+              <div class="flex items-center space-x-4">
+                <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                  <i class="fas fa-check-circle text-green-600"></i>
+                </div>
+                <div>
+                  <div class="font-medium text-gray-900">Successful Login</div>
+                  <div class="text-sm text-gray-500">john.doe@company.com - IP: 192.168.1.100</div>
+                </div>
+              </div>
+              <div class="text-sm text-gray-500">2 minutes ago</div>
+            </div>
+
+            <div class="flex items-center justify-between py-3 border-b border-gray-200">
+              <div class="flex items-center justify-between space-x-4">
+                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                  <i class="fas fa-key text-blue-600"></i>
+                </div>
+                <div>
+                  <div class="font-medium text-gray-900">MFA Verification</div>
+                  <div class="text-sm text-gray-500">sarah.miller@company.com - Authenticator App</div>
+                </div>
+              </div>
+              <div class="text-sm text-gray-500">5 minutes ago</div>
+            </div>
+
+            <div class="flex items-center justify-between py-3 border-b border-gray-200">
+              <div class="flex items-center justify-between space-x-4">
+                <div class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center">
+                  <i class="fas fa-exclamation-triangle text-yellow-600"></i>
+                </div>
+                <div>
+                  <div class="font-medium text-gray-900">Unusual Login Attempt</div>
+                  <div class="text-sm text-gray-500">Unknown IP: 203.0.113.45 - Blocked</div>
+                </div>
+              </div>
+              <div class="text-sm text-gray-500">1 hour ago</div>
+            </div>
+
+            <div class="flex items-center justify-between py-3">
+              <div class="flex items-center justify-between space-x-4">
+                <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                  <i class="fas fa-file-export text-green-600"></i>
+                </div>
+                <div>
+                  <div class="font-medium text-gray-900">Data Export</div>
+                  <div class="text-sm text-gray-500">Monthly financial report - Encrypted transfer</div>
+                </div>
+              </div>
+              <div class="text-sm text-gray-500">2 hours ago</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Compliance Status -->
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="bg-white border border-gray-200 rounded-xl p-6">
+            <div class="flex items-center space-x-3 mb-4">
+              <i class="fas fa-certificate text-2xl text-green-600"></i>
+              <div>
+                <div class="font-bold text-gray-900">SOC 2 Type II</div>
+                <div class="text-sm text-gray-600">Security & Privacy</div>
+              </div>
+            </div>
+            <div class="text-green-600 font-medium">Compliant</div>
+            <div class="text-sm text-gray-500 mt-1">Last audit: Dec 2024</div>
+          </div>
+
+          <div class="bg-white border border-gray-200 rounded-xl p-6">
+            <div class="flex items-center space-x-3 mb-4">
+              <i class="fas fa-euro-sign text-2xl text-blue-600"></i>
+              <div>
+                <div class="font-bold text-gray-900">GDPR</div>
+                <div class="text-sm text-gray-600">Data Protection</div>
+              </div>
+            </div>
+            <div class="text-green-600 font-medium">Compliant</div>
+            <div class="text-sm text-gray-500 mt-1">Continuous monitoring</div>
+          </div>
+
+          <div class="bg-white border border-gray-200 rounded-xl p-6">
+            <div class="flex items-center space-x-3 mb-4">
+              <i class="fas fa-file-contract text-2xl text-purple-600"></i>
+              <div>
+                <div class="font-bold text-gray-900">PCI DSS</div>
+                <div class="text-sm text-gray-600">Payment Security</div>
+              </div>
+            </div>
+            <div class="text-green-600 font-medium">Compliant</div>
+            <div class="text-sm text-gray-500 mt-1">Level 1 certified</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section id="compliance" class="py-24 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-bold text-gray-900 mb-6">Security & Compliance Features</h2>
+      <p class="text-xl text-gray-600 max-w-2xl mx-auto">Enterprise-grade protection for your financial data</p>
+    </div>
+
+    <div class="grid lg:grid-cols-3 gap-8">
+      <!-- Data Encryption -->
+      <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-100">
+        <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-6">
+          <i class="fas fa-lock text-2xl text-blue-600"></i>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-900 mb-4">End-to-End Encryption</h3>
+        <p class="text-gray-600 mb-6">Military-grade encryption protects data at rest, in transit, and in use.</p>
+        <ul class="space-y-2 text-sm text-gray-600">
+          <li>• 256-bit AES encryption</li>
+          <li>• TLS 1.3 for data in transit</li>
+          <li>• Encrypted backups</li>
+          <li>• Key rotation policies</li>
+        </ul>
+      </div>
+
+      <!-- Multi-Factor Authentication -->
+      <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-100">
+        <div class="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mb-6">
+          <i class="fas fa-mobile-alt text-2xl text-green-600"></i>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-900 mb-4">Advanced Authentication</h3>
+        <p class="text-gray-600 mb-6">Multi-factor authentication with biometric and hardware security keys.</p>
+        <ul class="space-y-2 text-sm text-gray-600">
+          <li>• MFA for all users</li>
+          <li>• Biometric authentication</li>
+          <li>• Hardware security keys</li>
+          <li>• Adaptive authentication</li>
+        </ul>
+      </div>
+
+      <!-- Threat Detection -->
+      <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-100">
+        <div class="w-16 h-16 bg-red-100 rounded-2xl flex items-center justify-center mb-6">
+          <i class="fas fa-shield-alt text-2xl text-red-600"></i>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-900 mb-4">AI-Powered Security</h3>
+        <p class="text-gray-600 mb-6">Machine learning detects and prevents security threats in real-time.</p>
+        <ul class="space-y-2 text-sm text-gray-600">
+          <li>• Anomaly detection</li>
+          <li>• Fraud prevention</li>
+          <li>• Automated responses</li>
+          <li>• Threat intelligence</li>
+        </ul>
+      </div>
+
+      <!-- Audit & Compliance -->
+      <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-100">
+        <div class="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mb-6">
+          <i class="fas fa-clipboard-check text-2xl text-purple-600"></i>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-900 mb-4">Compliance Automation</h3>
+        <p class="text-gray-600 mb-6">Automated compliance monitoring and reporting for regulatory requirements.</p>
+        <ul class="space-y-2 text-sm text-gray-600">
+          <li>• Automated reporting</li>
+          <li>• Compliance dashboards</li>
+          <li>• Audit trails</li>
+          <li>• Regulatory alerts</li>
+        </ul>
+      </div>
+
+      <!-- Access Control -->
+      <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-100">
+        <div class="w-16 h-16 bg-orange-100 rounded-2xl flex items-center justify-center mb-6">
+          <i class="fas fa-user-shield text-2xl text-orange-600"></i>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-900 mb-4">Granular Access Control</h3>
+        <p class="text-gray-600 mb-6">Role-based and attribute-based access control with least privilege principles.</p>
+        <ul class="space-y-2 text-sm text-gray-600">
+          <li>• Role-based access</li>
+          <li>• Least privilege</li>
+          <li>• Session management</li>
+          <li>• Access reviews</li>
+        </ul>
+      </div>
+
+      <!-- Incident Response -->
+      <div class="bg-white rounded-xl p-8 shadow-sm border border-gray-100">
+        <div class="w-16 h-16 bg-indigo-100 rounded-2xl flex items-center justify-center mb-6">
+          <i class="fas fa-exclamation-triangle text-2xl text-indigo-600"></i>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-900 mb-4">Incident Response</h3>
+        <p class="text-gray-600 mb-6">24/7 security operations center with automated incident response capabilities.</p>
+        <ul class="space-y-2 text-sm text-gray-600">
+          <li>• 24/7 SOC monitoring</li>
+          <li>• Automated response</li>
+          <li>• Incident reporting</li>
+          <li>• Recovery procedures</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Demo Video -->
+<section class="py-24 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <div
+        class="inline-flex items-center px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium mb-4"
+      >
+        <i class="fas fa-play-circle mr-2"></i>
+        <span>Video Demo</span>
+      </div>
+      <h2 class="text-4xl md-text-5xl font-bold text-gray-900 mb-4">
+        See Security & Compliance in Action
+      </h2>
+      <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+        Watch our comprehensive video demo to see how Ovovex protects your financial data with bank-grade security
+      </p>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <div class="relative">
+        <div
+          class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden demo-video"
+        >
+          <!-- Video Embed -->
+          <div class="aspect-video bg-gray-900 relative rounded-lg overflow-hidden demo-video">
+            <video
+              class="w-full h-full object-cover"
+              controls
+              preload="metadata"
+              poster="{% static 'images/image1.jpg' %}"
+              playsinline
+              autoplay
+              muted
+              loop
+              id="demo-video"
+            >
+              <source src="{% static 'images/7078918_Graphs_Charts_1920x1080.mp4' %}" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+            <!-- Video overlay for better UX -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none video-overlay"></div>
+            <!-- Auto-play indicator -->
+            <div class="absolute top-4 right-4 bg-black/70 text-white px-3 py-1 rounded-full text-xs font-medium flex items-center space-x-2 auto-play-indicator">
+              <i class="fas fa-play text-green-400"></i>
+              <span>Auto-playing</span>
+            </div>
+            <!-- Unmute hint -->
+            <div class="absolute bottom-20 left-4 bg-black/70 text-white px-3 py-2 rounded-lg text-xs max-w-xs unmute-hint">
+              <i class="fas fa-volume-mute mr-1"></i>
+              Video is muted for auto-play. Click to unmute.
+            </div>
+            <!-- Loading indicator -->
+            <div id="video-loading" class="absolute inset-0 bg-gray-900 flex items-center justify-center">
+              <div class="text-center text-white">
+                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto mb-4"></div>
+                <p class="text-sm">Loading video...</p>
+              </div>
+            </div>
+          </div>
+
+          <script>
+            document.addEventListener('DOMContentLoaded', function() {
+              const video = document.getElementById('demo-video');
+              const loading = document.getElementById('video-loading');
+
+              // Hide loading when video can play
+              video.addEventListener('canplay', function() {
+                loading.style.display = 'none';
+              });
+
+              // Hide loading when video starts playing
+              video.addEventListener('play', function() {
+                loading.style.display = 'none';
+              });
+
+              // Show loading on video load start
+              video.addEventListener('loadstart', function() {
+                loading.style.display = 'flex';
+              });
+
+              // Error handling
+              video.addEventListener('error', function() {
+                loading.innerHTML = `
+                  <div class="text-center text-white">
+                    <i class="fas fa-exclamation-triangle text-2xl mb-2"></i>
+                    <p class="text-sm">Video failed to load</p>
+                  </div>
+                `;
+              });
+
+              // Auto-play handling
+              video.addEventListener('loadeddata', function() {
+                // Try to play (will work since muted)
+                const playPromise = video.play();
+                if (playPromise !== undefined) {
+                  playPromise.then(function() {
+                    console.log('Video auto-playing successfully');
+                  }).catch(function(error) {
+                    console.log('Auto-play failed:', error);
+                  });
+                }
+              });
+
+              // Add click to unmute functionality
+              video.addEventListener('click', function() {
+                if (video.muted) {
+                  video.muted = false;
+                  // Hide the unmute hint
+                  const unmuteHint = document.querySelector('.absolute.bottom-20');
+                  if (unmuteHint) {
+                    unmuteHint.style.display = 'none';
+                  }
+                }
+              });
+
+              // Loop indicator (video will loop automatically due to loop attribute)
+              video.addEventListener('ended', function() {
+                console.log('Video ended and will loop');
+              });
+            });
+          </script>
+        </div>
+      </div>
+
+      <div class="space-y-8">
+        <div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-6">
+            What You'll See in the Demo
+          </h3>
+          <p class="text-lg text-gray-600 leading-relaxed mb-8">
+            Watch our comprehensive video walkthrough to see how Ovovex implements enterprise-grade security and compliance measures.
+          </p>
+        </div>
+
+        <!-- Video Highlights -->
+        <div class="space-y-4">
+          <div class="flex items-start space-x-4">
+            <div
+              class="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center flex-shrink-0"
+            >
+              <i class="fas fa-play text-white"></i>
+            </div>
+            <div>
+              <h4 class="text-lg font-semibold text-gray-900 mb-2">
+                Data Encryption
+              </h4>
+              <p class="text-gray-600">
+                See AES-256 encryption in action protecting your financial data at rest and in transit
+              </p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-4">
+            <div
+              class="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center flex-shrink-0"
+            >
+              <i class="fas fa-shield-alt text-white"></i>
+            </div>
+            <div>
+              <h4 class="text-lg font-semibold text-gray-900 mb-2">
+                Access Controls
+              </h4>
+              <p class="text-gray-600">
+                Watch role-based permissions and multi-factor authentication protecting sensitive data
+              </p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-4">
+            <div
+              class="w-12 h-12 bg-purple-500 rounded-xl flex items-center justify-center flex-shrink-0"
+            >
+              <i class="fas fa-file-contract text-white"></i>
+            </div>
+            <div>
+              <h4 class="text-lg font-semibold text-gray-900 mb-2">
+                Compliance Monitoring
+              </h4>
+              <p class="text-gray-600">
+                Experience automated IFRS compliance checks and regulatory reporting features
+              </p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-4">
+            <div
+              class="w-12 h-12 bg-orange-500 rounded-xl flex items-center justify-center flex-shrink-0"
+            >
+              <i class="fas fa-history text-white"></i>
+            </div>
+            <div>
+              <h4 class="text-lg font-semibold text-gray-900 mb-2">
+                Audit Trails
+              </h4>
+              <p class="text-gray-600">
+                See comprehensive logging and audit trails for complete transparency and accountability
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a
+            href="#"
+            class="inline-flex items-center justify-center px-8 py-4 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors duration-200 shadow-sm"
+          >
+            <i class="fas fa-rocket mr-2"></i>Start Free Trial
+          </a>
+          <a
+            href="#"
+            class="inline-flex items-center justify-center px-8 py-4 bg-white text-gray-700 font-semibold rounded-xl border border-gray-300 hover:border-gray-400 transition-colors duration-200 shadow-sm"
+          >
+            <i class="fas fa-calendar mr-2"></i>Schedule Live Demo
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-24 bg-gray-800">
+  <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+    <h2 class="text-4xl font-bold text-white mb-6">Secure Your Financial Future</h2>
+    <p class="text-xl text-gray-300 mb-8">Bank-grade security with complete regulatory compliance</p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="/" class="inline-flex items-center px-8 py-4 bg-white text-gray-800 font-semibold rounded-xl hover:bg-gray-50 transition-colors">
+        <i class="fas fa-shield-alt mr-2"></i>Start Free Trial
+      </a>
+      <a href="/features/integrations/" class="inline-flex items-center px-8 py-4 bg-gray-600 text-white font-semibold rounded-xl hover:bg-gray-500 transition-colors">
+        <i class="fas fa-arrow-right mr-2"></i>Next: Integrations
+      </a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
