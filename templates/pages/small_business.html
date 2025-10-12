@@ -1,439 +1,610 @@
-{% extends 'base.html' %}
-{% load i18n %}
-
-{% block title %}{% trans "Small Business Accounting Solutions - Ovovex" %}{% endblock %}
-
-{% block content %}
-{% include 'components/navbar.html' %}
+{% extends 'base.html' %} {% load i18n %} {% block title %}{% trans "Small
+Business Accounting Solutions - Ovovex" %}{% endblock %} {% block content %} {%
+include 'components/navbar.html' %}
 
 <div class="min-h-screen bg-gray-50">
-    <!-- Hero Section -->
-    <section class="text-white py-32 relative overflow-hidden" style="background-image: url('/static/images/digital-composite-image-man-using-laptop.jpg'); background-size: 130%; background-position: center; background-repeat: no-repeat;">
-        <div class="absolute inset-0 bg-black bg-opacity-40"></div>
-        <div class="relative">
-
-            <!-- Hero Content -->
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                <div class="text-center">
-                    <h1 class="text-4xl md:text-6xl font-bold mb-6 text-white">
-                        {% trans "Accounting Made Simple for Small Businesses" %}
-                    </h1>
-                </div>
-            </div>
-
-            <!-- Extended Features Section -->
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
-                <div class="text-center mb-8">
-                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">{% trans "Everything You Need in One Place" %}</h2>
-                    <p class="text-xl text-gray-200 max-w-2xl mx-auto">
-                        {% trans "Complete accounting tools designed specifically for small businesses. Simple, powerful, and affordable." %}
-                    </p>
-                </div>
-            </div>
+  <!-- Hero Section -->
+  <section
+    class="text-white py-32 relative overflow-hidden"
+    style="
+      background-image: url('/static/images/digital-composite-image-man-using-laptop.jpg');
+      background-size: 130%;
+      background-position: center;
+      background-repeat: no-repeat;
+    "
+  >
+    <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+    <div class="relative">
+      <!-- Hero Content -->
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="text-center">
+          <h1 class="text-4xl md:text-6xl font-bold mb-6 text-white">
+            {% trans "Accounting Made Simple for Small Businesses" %}
+          </h1>
         </div>
-    </section>
+      </div>
 
-    <!-- Business Features Section -->
-    <section class="py-20 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                    {% trans "Complete Business Management Suite" %}
-                </h2>
-                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-                    {% trans "Everything you need to run and grow your business, from inventory to customer insights." %}
-                </p>
-            </div>
-
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Inventory Management -->
-                <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
-                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
-                        <i class="fas fa-boxes text-blue-600 text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Inventory Management" %}</h3>
-                    <p class="text-gray-600">
-                        {% trans "Track stock levels, manage suppliers, and automate reordering with smart inventory controls." %}
-                    </p>
-                </div>
-
-                <!-- Multi-Channel Sales -->
-                <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
-                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-6">
-                        <i class="fas fa-store text-green-600 text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Multi-Channel Sales" %}</h3>
-                    <p class="text-gray-600">
-                        {% trans "Sell across multiple platforms including online stores, marketplaces, and social commerce." %}
-                    </p>
-                </div>
-
-                <!-- Point of Sale Integration -->
-                <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
-                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-6">
-                        <i class="fas fa-cash-register text-purple-600 text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Point of Sale Integration" %}</h3>
-                    <p class="text-gray-600">
-                        {% trans "Seamlessly connect your POS system with inventory, sales tracking, and financial reporting." %}
-                    </p>
-                </div>
-
-                <!-- Customer Analytics -->
-                <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
-                    <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-6">
-                        <i class="fas fa-chart-pie text-orange-600 text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Customer Analytics" %}</h3>
-                    <p class="text-gray-600">
-                        {% trans "Understand customer behavior, preferences, and buying patterns with detailed analytics." %}
-                    </p>
-                </div>
-
-                <!-- Shipping & Returns -->
-                <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
-                    <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-6">
-                        <i class="fas fa-truck text-red-600 text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Shipping & Returns" %}</h3>
-                    <p class="text-gray-600">
-                        {% trans "Manage shipping rates, track packages, and handle returns with automated workflows." %}
-                    </p>
-                </div>
-
-                <!-- Pricing & Promotions -->
-                <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
-                    <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-6">
-                        <i class="fas fa-tags text-indigo-600 text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Pricing & Promotions" %}</h3>
-                    <p class="text-gray-600">
-                        {% trans "Create dynamic pricing strategies, run promotions, and manage discounts effectively." %}
-                    </p>
-                </div>
-            </div>
+      <!-- Extended Features Section -->
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+        <div class="text-center mb-8">
+          <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
+            {% trans "Everything You Need in One Place" %}
+          </h2>
+          <p class="text-xl text-gray-200 max-w-2xl mx-auto">
+            {% trans "Complete accounting tools designed specifically for small
+            businesses. Simple, powerful, and affordable." %}
+          </p>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Demo Section -->
-    <section class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                    {% trans "See Ovovex in Action" %}
-                </h2>
-                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-                    {% trans "Watch how easy it is to manage your small business finances with our intuitive platform." %}
-                </p>
-            </div>
+  <!-- Business Features Section -->
+  <section class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          {% trans "Complete Business Management Suite" %}
+        </h2>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+          {% trans "Everything you need to run and grow your business, from
+          inventory to customer insights." %}
+        </p>
+      </div>
 
-            <div class="grid lg:grid-cols-2 gap-12 items-center">
-                <!-- Demo Video Placeholder -->
-                <div class="bg-gray-100 rounded-lg p-8 text-center">
-                    <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <i class="fas fa-play text-white text-2xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-semibold text-gray-900 mb-4">{% trans "Interactive Demo" %}</h3>
-                    <p class="text-gray-600 mb-6">
-                        {% trans "Experience our platform with a guided tour showing invoicing, expense tracking, and financial reporting." %}
-                    </p>
-                    <button class="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition duration-300">
-                        {% trans "Watch Demo" %}
-                    </button>
-                </div>
-
-                <!-- Demo Screenshots -->
-                <div class="space-y-6">
-                    <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
-                        <div class="flex items-center mb-4">
-                            <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mr-4">
-                                <i class="fas fa-mobile-alt text-green-600"></i>
-                            </div>
-                            <h4 class="text-lg font-semibold text-gray-900">{% trans "Mobile App Demo" %}</h4>
-                        </div>
-                        <p class="text-gray-600">{% trans "Capture receipts and track expenses on the go with our mobile app." %}</p>
-                    </div>
-
-                    <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
-                        <div class="flex items-center mb-4">
-                            <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mr-4">
-                                <i class="fas fa-chart-line text-purple-600"></i>
-                            </div>
-                            <h4 class="text-lg font-semibold text-gray-900">{% trans "Dashboard Demo" %}</h4>
-                        </div>
-                        <p class="text-gray-600">{% trans "Get real-time insights into your business performance with interactive dashboards." %}</p>
-                    </div>
-
-                    <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
-                        <div class="flex items-center mb-4">
-                            <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center mr-4">
-                                <i class="fas fa-file-invoice text-orange-600"></i>
-                            </div>
-                            <h4 class="text-lg font-semibold text-gray-900">{% trans "Invoicing Demo" %}</h4>
-                        </div>
-                        <p class="text-gray-600">{% trans "Create and send professional invoices in under 60 seconds." %}</p>
-                    </div>
-                </div>
-            </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Inventory Management -->
+        <div
+          class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300"
+        >
+          <div
+            class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6"
+          >
+            <i class="fas fa-boxes text-blue-600 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-900 mb-4">
+            {% trans "Inventory Management" %}
+          </h3>
+          <p class="text-gray-600">
+            {% trans "Track stock levels, manage suppliers, and automate
+            reordering with smart inventory controls." %}
+          </p>
         </div>
-    </section>
 
-    <!-- Testimonials Section -->
-    <section class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                    {% trans "Trusted by Small Business Owners" %}
-                </h2>
-                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-                    {% trans "See what our customers say about managing their finances with Ovovex." %}
-                </p>
-            </div>
-
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Testimonial 1 -->
-                <div class="bg-gray-50 p-8 rounded-lg">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
-                            <span class="text-blue-600 font-semibold">SM</span>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-gray-900">{% trans "Sarah Martinez" %}</h4>
-                            <p class="text-gray-600 text-sm">{% trans "Owner, Martinez Consulting" %}</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-600 italic">
-                        {% trans "Ovovex saved me 20 hours per month on bookkeeping. The automated invoicing and expense tracking features are game-changers for my small business." %}
-                    </p>
-                    <div class="flex text-yellow-400 mt-4">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                </div>
-
-                <!-- Testimonial 2 -->
-                <div class="bg-gray-50 p-8 rounded-lg">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
-                            <span class="text-green-600 font-semibold">DJ</span>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-gray-900">{% trans "David Johnson" %}</h4>
-                            <p class="text-gray-600 text-sm">{% trans "Owner, Johnson Bakery" %}</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-600 italic">
-                        {% trans "As a bakery owner, I need accurate financial tracking. Ovovex's mobile app lets me capture receipts instantly, and the reports help me make better business decisions." %}
-                    </p>
-                    <div class="flex text-yellow-400 mt-4">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                </div>
-
-                <!-- Testimonial 3 -->
-                <div class="bg-gray-50 p-8 rounded-lg">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mr-4">
-                            <span class="text-purple-600 font-semibold">RL</span>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-gray-900">{% trans "Rachel Lee" %}</h4>
-                            <p class="text-gray-600 text-sm">{% trans "Owner, Lee Design Studio" %}</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-600 italic">
-                        {% trans "The customer support is amazing, and the software is so intuitive. I went from dreading tax season to actually understanding my business finances." %}
-                    </p>
-                    <div class="flex text-yellow-400 mt-4">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                </div>
-            </div>
+        <!-- Multi-Channel Sales -->
+        <div
+          class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300"
+        >
+          <div
+            class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-6"
+          >
+            <i class="fas fa-store text-green-600 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-900 mb-4">
+            {% trans "Multi-Channel Sales" %}
+          </h3>
+          <p class="text-gray-600">
+            {% trans "Sell across multiple platforms including online stores,
+            marketplaces, and social commerce." %}
+          </p>
         </div>
-    </section>
 
-    <!-- Pricing Section -->
-    <section class="py-20 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                    {% trans "Simple, Transparent Pricing" %}
-                </h2>
-                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-                    {% trans "Choose the plan that fits your small business needs. No hidden fees, no surprises." %}
-                </p>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Starter Plan -->
-                <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-gray-200">
-                    <div class="text-center">
-                        <h3 class="text-2xl font-bold text-gray-900 mb-4">{% trans "Starter" %}</h3>
-                        <div class="text-4xl font-bold text-gray-900 mb-2">$9<span class="text-lg font-normal">{% trans "/month" %}</span></div>
-                        <p class="text-gray-600 mb-6">{% trans "Perfect for freelancers and solo entrepreneurs" %}</p>
-                        <ul class="text-left space-y-3 mb-8">
-                            <li class="flex items-center">
-                                <i class="fas fa-check text-green-500 mr-3"></i>
-                                {% trans "Up to 50 invoices per month" %}
-                            </li>
-                            <li class="flex items-center">
-                                <i class="fas fa-check text-green-500 mr-3"></i>
-                                {% trans "Expense tracking" %}
-                            </li>
-                            <li class="flex items-center">
-                                <i class="fas fa-check text-green-500 mr-3"></i>
-                                {% trans "Basic financial reports" %}
-                            </li>
-                            <li class="flex items-center">
-                                <i class="fas fa-check text-green-500 mr-3"></i>
-                                {% trans "Mobile app access" %}
-                            </li>
-                        </ul>
-                        <a href="{% url 'signup' %}" class="block bg-gray-100 text-gray-800 px-6 py-3 rounded-lg font-semibold hover:bg-gray-200 transition duration-300">
-                            {% trans "Start Free Trial" %}
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Professional Plan -->
-                <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-blue-500 relative">
-                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                        <span class="bg-blue-500 text-white px-4 py-1 rounded-full text-sm font-semibold">{% trans "Most Popular" %}</span>
-                    </div>
-                    <div class="text-center">
-                        <h3 class="text-2xl font-bold text-gray-900 mb-4">{% trans "Professional" %}</h3>
-                        <div class="text-4xl font-bold text-gray-900 mb-2">$29<span class="text-lg font-normal">{% trans "/month" %}</span></div>
-                        <p class="text-gray-600 mb-6">{% trans "Ideal for growing small businesses" %}</p>
-                        <ul class="text-left space-y-3 mb-8">
-                            <li class="flex items-center">
-                                <i class="fas fa-check text-green-500 mr-3"></i>
-                                {% trans "Unlimited invoices" %}
-                            </li>
-                            <li class="flex items-center">
-                                <i class="fas fa-check text-green-500 mr-3"></i>
-                                {% trans "Advanced expense tracking" %}
-                            </li>
-                            <li class="flex items-center">
-                                <i class="fas fa-check text-green-500 mr-3"></i>
-                                {% trans "Full financial reporting suite" %}
-                            </li>
-                            <li class="flex items-center">
-                                <i class="fas fa-check text-green-500 mr-3"></i>
-                                {% trans "Multi-user access (up to 3 users)" %}
-                            </li>
-                            <li class="flex items-center">
-                                <i class="fas fa-check text-green-500 mr-3"></i>
-                                {% trans "Priority customer support" %}
-                            </li>
-                        </ul>
-                        <a href="{% url 'signup' %}" class="block bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition duration-300">
-                            {% trans "Start Free Trial" %}
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Premium Plan -->
-                <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-gray-200">
-                    <div class="text-center">
-                        <h3 class="text-2xl font-bold text-gray-900 mb-4">{% trans "Premium" %}</h3>
-                        <div class="text-4xl font-bold text-gray-900 mb-2">$49<span class="text-lg font-normal">{% trans "/month" %}</span></div>
-                        <p class="text-gray-600 mb-6">{% trans "For established businesses with advanced needs" %}</p>
-                        <ul class="text-left space-y-3 mb-8">
-                            <li class="flex items-center">
-                                <i class="fas fa-check text-green-500 mr-3"></i>
-                                {% trans "Everything in Professional" %}
-                            </li>
-                            <li class="flex items-center">
-                                <i class="fas fa-check text-green-500 mr-3"></i>
-                                {% trans "Custom integrations" %}
-                            </li>
-                            <li class="flex items-center">
-                                <i class="fas fa-check text-green-500 mr-3"></i>
-                                {% trans "Advanced analytics & forecasting" %}
-                            </li>
-                            <li class="flex items-center">
-                                <i class="fas fa-check text-green-500 mr-3"></i>
-                                {% trans "Unlimited users" %}
-                            </li>
-                            <li class="flex items-center">
-                                <i class="fas fa-check text-green-500 mr-3"></i>
-                                {% trans "Dedicated account manager" %}
-                            </li>
-                        </ul>
-                        <a href="{% url 'signup' %}" class="block bg-gray-100 text-gray-800 px-6 py-3 rounded-lg font-semibold hover:bg-gray-200 transition duration-300">
-                            {% trans "Start Free Trial" %}
-                        </a>
-                    </div>
-                </div>
-            </div>
+        <!-- Point of Sale Integration -->
+        <div
+          class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300"
+        >
+          <div
+            class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-6"
+          >
+            <i class="fas fa-cash-register text-purple-600 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-900 mb-4">
+            {% trans "Point of Sale Integration" %}
+          </h3>
+          <p class="text-gray-600">
+            {% trans "Seamlessly connect your POS system with inventory, sales
+            tracking, and financial reporting." %}
+          </p>
         </div>
-    </section>
 
-    <!-- FAQ Section -->
-    <section class="py-20 bg-white">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                    {% trans "Frequently Asked Questions" %}
-                </h2>
-                <p class="text-xl text-gray-600">
-                    {% trans "Get answers to common questions about Ovovex for small businesses." %}
-                </p>
-            </div>
-
-            <div class="space-y-6">
-                <div class="bg-gray-50 p-6 rounded-lg">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-3">{% trans "How long does it take to set up Ovovex?" %}</h3>
-                    <p class="text-gray-600">{% trans "Most small businesses can get started in under 30 minutes. We provide guided setup wizards and import tools for your existing data." %}</p>
-                </div>
-
-                <div class="bg-gray-50 p-6 rounded-lg">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-3">{% trans "Can I import my existing financial data?" %}</h3>
-                    <p class="text-gray-600">{% trans "Yes! We support importing from QuickBooks, Xero, Excel spreadsheets, and most accounting software. Our team can help with complex migrations." %}</p>
-                </div>
-
-                <div class="bg-gray-50 p-6 rounded-lg">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-3">{% trans "Is my financial data secure?" %}</h3>
-                    <p class="text-gray-600">{% trans "Absolutely. We use bank-grade 256-bit SSL encryption, regular security audits, and comply with SOC 2 Type II standards. Your data is safer with us than in most banks." %}</p>
-                </div>
-
-                <div class="bg-gray-50 p-6 rounded-lg">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-3">{% trans "What kind of support do you provide?" %}</h3>
-                    <p class="text-gray-600">{% trans "All plans include email support with 24-hour response times. Professional and Premium plans include phone support and priority assistance." %}</p>
-                </div>
-
-                <div class="bg-gray-50 p-6 rounded-lg">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-3">{% trans "Can I cancel my subscription anytime?" %}</h3>
-                    <p class="text-gray-600">{% trans "Yes, you can cancel your subscription at any time with no penalties. Your data remains accessible for 30 days after cancellation for export purposes." %}</p>
-                </div>
-            </div>
+        <!-- Customer Analytics -->
+        <div
+          class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300"
+        >
+          <div
+            class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-6"
+          >
+            <i class="fas fa-chart-pie text-orange-600 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-900 mb-4">
+            {% trans "Customer Analytics" %}
+          </h3>
+          <p class="text-gray-600">
+            {% trans "Understand customer behavior, preferences, and buying
+            patterns with detailed analytics." %}
+          </p>
         </div>
-    </section>
 
-    <!-- CTA Section -->
-    <section class="bg-gray-900 text-white py-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-3xl md:text-4xl font-bold mb-6">
-                {% trans "Ready to Simplify Your Accounting?" %}
-            </h2>
-            <p class="text-xl mb-8 max-w-2xl mx-auto">
-                {% trans "Join thousands of small businesses who trust Ovovex to handle their finances. Start your free trial today." %}
+        <!-- Shipping & Returns -->
+        <div
+          class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300"
+        >
+          <div
+            class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-6"
+          >
+            <i class="fas fa-truck text-red-600 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-900 mb-4">
+            {% trans "Shipping & Returns" %}
+          </h3>
+          <p class="text-gray-600">
+            {% trans "Manage shipping rates, track packages, and handle returns
+            with automated workflows." %}
+          </p>
+        </div>
+
+        <!-- Pricing & Promotions -->
+        <div
+          class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300"
+        >
+          <div
+            class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-6"
+          >
+            <i class="fas fa-tags text-indigo-600 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-900 mb-4">
+            {% trans "Pricing & Promotions" %}
+          </h3>
+          <p class="text-gray-600">
+            {% trans "Create dynamic pricing strategies, run promotions, and
+            manage discounts effectively." %}
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Demo Section -->
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          {% trans "See Ovovex in Action" %}
+        </h2>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+          {% trans "Watch how easy it is to manage your small business finances
+          with our intuitive platform." %}
+        </p>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <!-- Demo Video Placeholder -->
+        <div class="bg-gray-100 rounded-lg p-8 text-center">
+          <div
+            class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-6"
+          >
+            <i class="fas fa-play text-white text-2xl"></i>
+          </div>
+          <h3 class="text-2xl font-semibold text-gray-900 mb-4">
+            {% trans "Interactive Demo" %}
+          </h3>
+          <p class="text-gray-600 mb-6">
+            {% trans "Experience our platform with a guided tour showing
+            invoicing, expense tracking, and financial reporting." %}
+          </p>
+          <button
+            class="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition duration-300"
+          >
+            {% trans "Watch Demo" %}
+          </button>
+        </div>
+
+        <!-- Demo Screenshots -->
+        <div class="space-y-6">
+          <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+            <div class="flex items-center mb-4">
+              <div
+                class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mr-4"
+              >
+                <i class="fas fa-mobile-alt text-green-600"></i>
+              </div>
+              <h4 class="text-lg font-semibold text-gray-900">
+                {% trans "Mobile App Demo" %}
+              </h4>
+            </div>
+            <p class="text-gray-600">
+              {% trans "Capture receipts and track expenses on the go with our
+              mobile app." %}
             </p>
-            <a href="{% url 'signup' %}" class="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-blue-700 transition duration-300">
-                {% trans "Get Started Free" %}
-            </a>
+          </div>
+
+          <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+            <div class="flex items-center mb-4">
+              <div
+                class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mr-4"
+              >
+                <i class="fas fa-chart-line text-purple-600"></i>
+              </div>
+              <h4 class="text-lg font-semibold text-gray-900">
+                {% trans "Dashboard Demo" %}
+              </h4>
+            </div>
+            <p class="text-gray-600">
+              {% trans "Get real-time insights into your business performance
+              with interactive dashboards." %}
+            </p>
+          </div>
+
+          <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+            <div class="flex items-center mb-4">
+              <div
+                class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center mr-4"
+              >
+                <i class="fas fa-file-invoice text-orange-600"></i>
+              </div>
+              <h4 class="text-lg font-semibold text-gray-900">
+                {% trans "Invoicing Demo" %}
+              </h4>
+            </div>
+            <p class="text-gray-600">
+              {% trans "Create and send professional invoices in under 60
+              seconds." %}
+            </p>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          {% trans "Trusted by Small Business Owners" %}
+        </h2>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+          {% trans "See what our customers say about managing their finances
+          with Ovovex." %}
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Testimonial 1 -->
+        <div class="bg-gray-50 p-8 rounded-lg">
+          <div class="flex items-center mb-4">
+            <div
+              class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4"
+            >
+              <span class="text-blue-600 font-semibold">SM</span>
+            </div>
+            <div>
+              <h4 class="font-semibold text-gray-900">
+                {% trans "Sarah Martinez" %}
+              </h4>
+              <p class="text-gray-600 text-sm">
+                {% trans "Owner, Martinez Consulting" %}
+              </p>
+            </div>
+          </div>
+          <p class="text-gray-600 italic">
+            {% trans "Ovovex saved me 20 hours per month on bookkeeping. The
+            automated invoicing and expense tracking features are game-changers
+            for my small business." %}
+          </p>
+          <div class="flex text-yellow-400 mt-4">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+        </div>
+
+        <!-- Testimonial 2 -->
+        <div class="bg-gray-50 p-8 rounded-lg">
+          <div class="flex items-center mb-4">
+            <div
+              class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4"
+            >
+              <span class="text-green-600 font-semibold">DJ</span>
+            </div>
+            <div>
+              <h4 class="font-semibold text-gray-900">
+                {% trans "David Johnson" %}
+              </h4>
+              <p class="text-gray-600 text-sm">
+                {% trans "Owner, Johnson Bakery" %}
+              </p>
+            </div>
+          </div>
+          <p class="text-gray-600 italic">
+            {% trans "As a bakery owner, I need accurate financial tracking.
+            Ovovex's mobile app lets me capture receipts instantly, and the
+            reports help me make better business decisions." %}
+          </p>
+          <div class="flex text-yellow-400 mt-4">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+        </div>
+
+        <!-- Testimonial 3 -->
+        <div class="bg-gray-50 p-8 rounded-lg">
+          <div class="flex items-center mb-4">
+            <div
+              class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mr-4"
+            >
+              <span class="text-purple-600 font-semibold">RL</span>
+            </div>
+            <div>
+              <h4 class="font-semibold text-gray-900">
+                {% trans "Rachel Lee" %}
+              </h4>
+              <p class="text-gray-600 text-sm">
+                {% trans "Owner, Lee Design Studio" %}
+              </p>
+            </div>
+          </div>
+          <p class="text-gray-600 italic">
+            {% trans "The customer support is amazing, and the software is so
+            intuitive. I went from dreading tax season to actually understanding
+            my business finances." %}
+          </p>
+          <div class="flex text-yellow-400 mt-4">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          {% trans "Simple, Transparent Pricing" %}
+        </h2>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+          {% trans "Choose the plan that fits your small business needs. No
+          hidden fees, no surprises." %}
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Starter Plan -->
+        <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-gray-200">
+          <div class="text-center">
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">
+              {% trans "Starter" %}
+            </h3>
+            <div class="text-4xl font-bold text-gray-900 mb-2">
+              $9<span class="text-lg font-normal">{% trans "/month" %}</span>
+            </div>
+            <p class="text-gray-600 mb-6">
+              {% trans "Perfect for freelancers and solo entrepreneurs" %}
+            </p>
+            <ul class="text-left space-y-3 mb-8">
+              <li class="flex items-center">
+                <i class="fas fa-check text-green-500 mr-3"></i>
+                {% trans "Up to 50 invoices per month" %}
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-check text-green-500 mr-3"></i>
+                {% trans "Expense tracking" %}
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-check text-green-500 mr-3"></i>
+                {% trans "Basic financial reports" %}
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-check text-green-500 mr-3"></i>
+                {% trans "Mobile app access" %}
+              </li>
+            </ul>
+            <a
+              href="{% url 'signup' %}"
+              class="block bg-gray-100 text-gray-800 px-6 py-3 rounded-lg font-semibold hover:bg-gray-200 transition duration-300"
+            >
+              {% trans "Start Free Trial" %}
+            </a>
+          </div>
+        </div>
+
+        <!-- Professional Plan -->
+        <div
+          class="bg-white p-8 rounded-lg shadow-lg border-2 border-blue-500 relative"
+        >
+          <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+            <span
+              class="bg-blue-500 text-white px-4 py-1 rounded-full text-sm font-semibold"
+              >{% trans "Most Popular" %}</span
+            >
+          </div>
+          <div class="text-center">
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">
+              {% trans "Professional" %}
+            </h3>
+            <div class="text-4xl font-bold text-gray-900 mb-2">
+              $29<span class="text-lg font-normal">{% trans "/month" %}</span>
+            </div>
+            <p class="text-gray-600 mb-6">
+              {% trans "Ideal for growing small businesses" %}
+            </p>
+            <ul class="text-left space-y-3 mb-8">
+              <li class="flex items-center">
+                <i class="fas fa-check text-green-500 mr-3"></i>
+                {% trans "Unlimited invoices" %}
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-check text-green-500 mr-3"></i>
+                {% trans "Advanced expense tracking" %}
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-check text-green-500 mr-3"></i>
+                {% trans "Full financial reporting suite" %}
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-check text-green-500 mr-3"></i>
+                {% trans "Multi-user access (up to 3 users)" %}
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-check text-green-500 mr-3"></i>
+                {% trans "Priority customer support" %}
+              </li>
+            </ul>
+            <a
+              href="{% url 'signup' %}"
+              class="block bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition duration-300"
+            >
+              {% trans "Start Free Trial" %}
+            </a>
+          </div>
+        </div>
+
+        <!-- Premium Plan -->
+        <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-gray-200">
+          <div class="text-center">
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">
+              {% trans "Premium" %}
+            </h3>
+            <div class="text-4xl font-bold text-gray-900 mb-2">
+              $49<span class="text-lg font-normal">{% trans "/month" %}</span>
+            </div>
+            <p class="text-gray-600 mb-6">
+              {% trans "For established businesses with advanced needs" %}
+            </p>
+            <ul class="text-left space-y-3 mb-8">
+              <li class="flex items-center">
+                <i class="fas fa-check text-green-500 mr-3"></i>
+                {% trans "Everything in Professional" %}
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-check text-green-500 mr-3"></i>
+                {% trans "Custom integrations" %}
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-check text-green-500 mr-3"></i>
+                {% trans "Advanced analytics & forecasting" %}
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-check text-green-500 mr-3"></i>
+                {% trans "Unlimited users" %}
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-check text-green-500 mr-3"></i>
+                {% trans "Dedicated account manager" %}
+              </li>
+            </ul>
+            <a
+              href="{% url 'signup' %}"
+              class="block bg-gray-100 text-gray-800 px-6 py-3 rounded-lg font-semibold hover:bg-gray-200 transition duration-300"
+            >
+              {% trans "Start Free Trial" %}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          {% trans "Frequently Asked Questions" %}
+        </h2>
+        <p class="text-xl text-gray-600">
+          {% trans "Get answers to common questions about Ovovex for small
+          businesses." %}
+        </p>
+      </div>
+
+      <div class="space-y-6">
+        <div class="bg-gray-50 p-6 rounded-lg">
+          <h3 class="text-lg font-semibold text-gray-900 mb-3">
+            {% trans "How long does it take to set up Ovovex?" %}
+          </h3>
+          <p class="text-gray-600">
+            {% trans "Most small businesses can get started in under 30 minutes.
+            We provide guided setup wizards and import tools for your existing
+            data." %}
+          </p>
+        </div>
+
+        <div class="bg-gray-50 p-6 rounded-lg">
+          <h3 class="text-lg font-semibold text-gray-900 mb-3">
+            {% trans "Can I import my existing financial data?" %}
+          </h3>
+          <p class="text-gray-600">
+            {% trans "Yes! We support importing from QuickBooks, Xero, Excel
+            spreadsheets, and most accounting software. Our team can help with
+            complex migrations." %}
+          </p>
+        </div>
+
+        <div class="bg-gray-50 p-6 rounded-lg">
+          <h3 class="text-lg font-semibold text-gray-900 mb-3">
+            {% trans "Is my financial data secure?" %}
+          </h3>
+          <p class="text-gray-600">
+            {% trans "Absolutely. We use bank-grade 256-bit SSL encryption,
+            regular security audits, and comply with SOC 2 Type II standards.
+            Your data is safer with us than in most banks." %}
+          </p>
+        </div>
+
+        <div class="bg-gray-50 p-6 rounded-lg">
+          <h3 class="text-lg font-semibold text-gray-900 mb-3">
+            {% trans "What kind of support do you provide?" %}
+          </h3>
+          <p class="text-gray-600">
+            {% trans "All plans include email support with 24-hour response
+            times. Professional and Premium plans include phone support and
+            priority assistance." %}
+          </p>
+        </div>
+
+        <div class="bg-gray-50 p-6 rounded-lg">
+          <h3 class="text-lg font-semibold text-gray-900 mb-3">
+            {% trans "Can I cancel my subscription anytime?" %}
+          </h3>
+          <p class="text-gray-600">
+            {% trans "Yes, you can cancel your subscription at any time with no
+            penalties. Your data remains accessible for 30 days after
+            cancellation for export purposes." %}
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="bg-gray-900 text-white py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-6">
+        {% trans "Ready to Simplify Your Accounting?" %}
+      </h2>
+      <p class="text-xl mb-8 max-w-2xl mx-auto">
+        {% trans "Join thousands of small businesses who trust Ovovex to handle
+        their finances. Start your free trial today." %}
+      </p>
+      <a
+        href="{% url 'signup' %}"
+        class="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-blue-700 transition duration-300"
+      >
+        {% trans "Get Started Free" %}
+      </a>
+    </div>
+  </section>
 </div>
 {% endblock %}

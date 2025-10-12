@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
-
+{% load i18n %}
 {% load static %}
-{% block title %}Pricing Plans - Ovovex{% endblock %}
+{% block title %}{% trans "Pricing Plans - Ovovex" %}{% endblock %}
 {% block content %}
 {% include 'components/navbar.html' %}
 
@@ -15,7 +15,7 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div class="text-center">
           <h1 class="text-4xl md:text-6xl font-bold mb-6">
-            Choose Your Perfect Plan
+            {% trans "Choose Your Perfect Plan" %}
           </h1>
         </div>
       </div>
@@ -25,7 +25,7 @@
         <div class="text-center">
           <img
             src="{% static 'images/hero-dashboard.svg' %}"
-            alt="Pricing Dashboard Preview"
+            alt="{% trans 'Pricing Dashboard Preview' %}"
             class="w-full max-w-3xl mx-auto h-auto rounded-lg shadow-lg"
           />
         </div>
@@ -35,11 +35,12 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
         <div class="text-center mb-8">
           <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
-            Transparent Pricing, No Hidden Fees
+            {% trans "Transparent Pricing, No Hidden Fees" %}
           </h2>
           <p class="text-xl text-gray-200 max-w-2xl mx-auto">
-            All plans include unlimited users, bank-grade security,
-            and 24/7 support. Cancel or change plans anytime with no penalties.
+            {% trans "All plans include unlimited users, bank-grade security,
+            and 24/7 support. Cancel or change plans anytime with no penalties."
+            %}
           </p>
         </div>
       </div>
@@ -51,11 +52,11 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16">
         <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-          Flexible Plans for Every Business
+          {% trans "Flexible Plans for Every Business" %}
         </h2>
         <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-          Choose the plan that fits your business size and needs. All
-          plans include our core accounting features.
+          {% trans "Choose the plan that fits your business size and needs. All
+          plans include our core accounting features." %}
         </p>
       </div>
 
@@ -64,41 +65,41 @@
         <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-gray-200">
           <div class="text-center">
             <h3 class="text-2xl font-bold text-gray-900 mb-4">
-              Free
+              {% trans "Free" %}
             </h3>
             <div class="text-4xl font-bold text-gray-900 mb-2">
-              $0<span class="text-lg font-normal">/month</span>
+              $0<span class="text-lg font-normal">/{% trans "month" %}</span>
             </div>
             <p class="text-gray-600 mb-6">
-              Perfect for getting started
+              {% trans "Perfect for getting started" %}
             </p>
             <ul class="text-left space-y-3 mb-8">
               <li class="flex items-center">
                 <i class="fas fa-check text-green-500 mr-3"></i>
-                Up to 5 invoices per month
+                {% trans "Up to 5 invoices per month" %}
               </li>
               <li class="flex items-center">
                 <i class="fas fa-check text-green-500 mr-3"></i>
-                Basic expense tracking
+                {% trans "Basic expense tracking" %}
               </li>
               <li class="flex items-center">
                 <i class="fas fa-check text-green-500 mr-3"></i>
-                Financial reports
+                {% trans "Financial reports" %}
               </li>
               <li class="flex items-center">
                 <i class="fas fa-check text-green-500 mr-3"></i>
-                Email support
+                {% trans "Email support" %}
               </li>
               <li class="flex items-center">
                 <i class="fas fa-check text-green-500 mr-3"></i>
-                Mobile app access
+                {% trans "Mobile app access" %}
               </li>
             </ul>
             <a
               href="{% url 'free_signup' %}"
               class="block bg-gray-100 text-gray-800 px-6 py-3 rounded-lg font-semibold hover:bg-gray-200 transition duration-300"
             >
-              Get Started Free
+              {% trans "Get Started Free" %}
             </a>
           </div>
         </div>
@@ -110,50 +111,50 @@
           <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
             <span
               class="bg-blue-500 text-white px-4 py-1 rounded-full text-sm font-semibold"
-              >Most Popular</span
+              >{% trans "Most Popular" %}</span
             >
           </div>
           <div class="text-center">
             <h3 class="text-2xl font-bold text-gray-900 mb-4">
-              Starter
+              {% trans "Starter" %}
             </h3>
             <div class="text-4xl font-bold text-gray-900 mb-2">
-              $29<span class="text-lg font-normal">/month</span>
+              $29<span class="text-lg font-normal">/{% trans "month" %}</span>
             </div>
             <p class="text-gray-600 mb-6">
-              Great for small businesses
+              {% trans "Great for small businesses" %}
             </p>
             <ul class="text-left space-y-3 mb-8">
               <li class="flex items-center">
                 <i class="fas fa-check text-green-500 mr-3"></i>
-                Unlimited invoices
+                {% trans "Unlimited invoices" %}
               </li>
               <li class="flex items-center">
                 <i class="fas fa-check text-green-500 mr-3"></i>
-                Advanced expense tracking
+                {% trans "Advanced expense tracking" %}
               </li>
               <li class="flex items-center">
                 <i class="fas fa-check text-green-500 mr-3"></i>
-                Multi-currency support
+                {% trans "Multi-currency support" %}
               </li>
               <li class="flex items-center">
                 <i class="fas fa-check text-green-500 mr-3"></i>
-                Bank reconciliation
+                {% trans "Bank reconciliation" %}
               </li>
               <li class="flex items-center">
                 <i class="fas fa-check text-green-500 mr-3"></i>
-                Priority email support
+                {% trans "Priority email support" %}
               </li>
               <li class="flex items-center">
                 <i class="fas fa-check text-green-500 mr-3"></i>
-                API access
+                {% trans "API access" %}
               </li>
             </ul>
             <a
               href="{% url 'starter_signup' %}"
               class="block bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition duration-300"
             >
-              Start Free Trial
+              {% trans "Start Free Trial" %}
             </a>
           </div>
         </div>
@@ -164,45 +165,45 @@
         >
           <div class="text-center">
             <h3 class="text-2xl font-bold text-gray-900 mb-4">
-              Professional
+              {% trans "Professional" %}
             </h3>
             <div class="text-4xl font-bold text-gray-900 mb-2">
-              $79<span class="text-lg font-normal">/month</span>
+              $79<span class="text-lg font-normal">/{% trans "month" %}</span>
             </div>
             <p class="text-gray-600 mb-6">
-              For growing businesses
+              {% trans "For growing businesses" %}
             </p>
             <ul class="text-left space-y-3 mb-8">
               <li class="flex items-center">
                 <i class="fas fa-check text-green-500 mr-3"></i>
-                Everything in Starter
+                {% trans "Everything in Starter" %}
               </li>
               <li class="flex items-center">
                 <i class="fas fa-check text-green-500 mr-3"></i>
-                Advanced analytics
+                {% trans "Advanced analytics" %}
               </li>
               <li class="flex items-center">
                 <i class="fas fa-check text-green-500 mr-3"></i>
-                Inventory management
+                {% trans "Inventory management" %}
               </li>
               <li class="flex items-center">
                 <i class="fas fa-check text-green-500 mr-3"></i>
-                Project accounting
+                {% trans "Project accounting" %}
               </li>
               <li class="flex items-center">
                 <i class="fas fa-check text-green-500 mr-3"></i>
-                Custom workflows
+                {% trans "Custom workflows" %}
               </li>
               <li class="flex items-center">
                 <i class="fas fa-check text-green-500 mr-3"></i>
-                Phone support
+                {% trans "Phone support" %}
               </li>
             </ul>
             <a
               href="{% url 'professional_signup' %}"
               class="block bg-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 transition duration-300"
             >
-              Start Free Trial
+              {% trans "Start Free Trial" %}
             </a>
           </div>
         </div>
@@ -211,45 +212,45 @@
         <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-gray-800">
           <div class="text-center">
             <h3 class="text-2xl font-bold text-gray-900 mb-4">
-              Enterprise
+              {% trans "Enterprise" %}
             </h3>
             <div class="text-4xl font-bold text-gray-900 mb-2">
-              Custom
+              {% trans "Custom" %}
             </div>
             <p class="text-gray-600 mb-6">
-              For large organizations
+              {% trans "For large organizations" %}
             </p>
             <ul class="text-left space-y-3 mb-8">
               <li class="flex items-center">
                 <i class="fas fa-check text-green-500 mr-3"></i>
-                Everything in Professional
+                {% trans "Everything in Professional" %}
               </li>
               <li class="flex items-center">
                 <i class="fas fa-check text-green-500 mr-3"></i>
-                Unlimited users
+                {% trans "Unlimited users" %}
               </li>
               <li class="flex items-center">
                 <i class="fas fa-check text-green-500 mr-3"></i>
-                Custom integrations
+                {% trans "Custom integrations" %}
               </li>
               <li class="flex items-center">
                 <i class="fas fa-check text-green-500 mr-3"></i>
-                Dedicated account manager
+                {% trans "Dedicated account manager" %}
               </li>
               <li class="flex items-center">
                 <i class="fas fa-check text-green-500 mr-3"></i>
-                SLA guarantees
+                {% trans "SLA guarantees" %}
               </li>
               <li class="flex items-center">
                 <i class="fas fa-check text-green-500 mr-3"></i>
-                24/7 premium support
+                {% trans "24/7 premium support" %}
               </li>
             </ul>
             <a
               href="{% url 'enterprise_signup' %}"
               class="block bg-gray-800 text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-900 transition duration-300"
             >
-              Contact Sales
+              {% trans "Contact Sales" %}
             </a>
           </div>
         </div>
@@ -262,11 +263,11 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16">
         <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-          Compare Plan Features
+          {% trans "Compare Plan Features" %}
         </h2>
         <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-          Detailed breakdown of what's included in each plan to help
-          you make the right choice.
+          {% trans "Detailed breakdown of what's included in each plan to help
+          you make the right choice." %}
         </p>
       </div>
 
@@ -277,60 +278,60 @@
               <th
                 class="px-6 py-4 text-left text-sm font-semibold text-gray-900"
               >
-                Features
+                {% trans "Features" %}
               </th>
               <th
                 class="px-6 py-4 text-center text-sm font-semibold text-gray-900"
               >
-                Free
+                {% trans "Free" %}
               </th>
               <th
                 class="px-6 py-4 text-center text-sm font-semibold text-blue-600"
               >
-                Starter
+                {% trans "Starter" %}
               </th>
               <th
                 class="px-6 py-4 text-center text-sm font-semibold text-purple-600"
               >
-                Professional
+                {% trans "Professional" %}
               </th>
               <th
                 class="px-6 py-4 text-center text-sm font-semibold text-gray-900"
               >
-                Enterprise
+                {% trans "Enterprise" %}
               </th>
             </tr>
           </thead>
           <tbody class="divide-y divide-gray-200">
             <tr>
               <td class="px-6 py-4 text-sm text-gray-900 font-medium">
-                Monthly Invoices
+                {% trans "Monthly Invoices" %}
               </td>
               <td class="px-6 py-4 text-center text-sm text-gray-600">5</td>
               <td class="px-6 py-4 text-center text-sm text-gray-600">
-                Unlimited
+                {% trans "Unlimited" %}
               </td>
               <td class="px-6 py-4 text-center text-sm text-gray-600">
-                Unlimited
+                {% trans "Unlimited" %}
               </td>
               <td class="px-6 py-4 text-center text-sm text-gray-600">
-                Unlimited
+                {% trans "Unlimited" %}
               </td>
             </tr>
             <tr class="bg-gray-50">
               <td class="px-6 py-4 text-sm text-gray-900 font-medium">
-                Users
+                {% trans "Users" %}
               </td>
               <td class="px-6 py-4 text-center text-sm text-gray-600">1</td>
               <td class="px-6 py-4 text-center text-sm text-gray-600">3</td>
               <td class="px-6 py-4 text-center text-sm text-gray-600">10</td>
               <td class="px-6 py-4 text-center text-sm text-gray-600">
-                Unlimited
+                {% trans "Unlimited" %}
               </td>
             </tr>
             <tr>
               <td class="px-6 py-4 text-sm text-gray-900 font-medium">
-                Bank Reconciliation
+                {% trans "Bank Reconciliation" %}
               </td>
               <td class="px-6 py-4 text-center text-sm text-gray-600">
                 <i class="fas fa-times text-red-500"></i>
@@ -347,7 +348,7 @@
             </tr>
             <tr class="bg-gray-50">
               <td class="px-6 py-4 text-sm text-gray-900 font-medium">
-                Inventory Management
+                {% trans "Inventory Management" %}
               </td>
               <td class="px-6 py-4 text-center text-sm text-gray-600">
                 <i class="fas fa-times text-red-500"></i>
@@ -364,7 +365,7 @@
             </tr>
             <tr>
               <td class="px-6 py-4 text-sm text-gray-900 font-medium">
-                Advanced Analytics
+                {% trans "Advanced Analytics" %}
               </td>
               <td class="px-6 py-4 text-center text-sm text-gray-600">
                 <i class="fas fa-times text-red-500"></i>
@@ -381,7 +382,7 @@
             </tr>
             <tr class="bg-gray-50">
               <td class="px-6 py-4 text-sm text-gray-900 font-medium">
-                API Access
+                {% trans "API Access" %}
               </td>
               <td class="px-6 py-4 text-center text-sm text-gray-600">
                 <i class="fas fa-times text-red-500"></i>
@@ -398,7 +399,7 @@
             </tr>
             <tr>
               <td class="px-6 py-4 text-sm text-gray-900 font-medium">
-                Phone Support
+                {% trans "Phone Support" %}
               </td>
               <td class="px-6 py-4 text-center text-sm text-gray-600">
                 <i class="fas fa-times text-red-500"></i>
@@ -415,7 +416,7 @@
             </tr>
             <tr class="bg-gray-50">
               <td class="px-6 py-4 text-sm text-gray-900 font-medium">
-                Custom Integrations
+                {% trans "Custom Integrations" %}
               </td>
               <td class="px-6 py-4 text-center text-sm text-gray-600">
                 <i class="fas fa-times text-red-500"></i>
@@ -441,11 +442,11 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16">
         <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-          See Ovovex in Action
+          {% trans "See Ovovex in Action" %}
         </h2>
         <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-          Watch live demos of our platform and see how it can
-          transform your accounting workflow.
+          {% trans "Watch live demos of our platform and see how it can
+          transform your accounting workflow." %}
         </p>
       </div>
 
@@ -458,17 +459,17 @@
             <i class="fas fa-play text-white text-2xl"></i>
           </div>
           <h3 class="text-2xl font-semibold text-gray-900 mb-4">
-            Platform Overview Demo
+            {% trans "Platform Overview Demo" %}
           </h3>
           <p class="text-gray-600 mb-6">
-            Get a comprehensive tour of Ovovex's features, from
+            {% trans "Get a comprehensive tour of Ovovex's features, from
             invoicing to financial reporting. See how our AI-powered tools can
-            automate your accounting processes.
+            automate your accounting processes." %}
           </p>
           <button
             class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition duration-300"
           >
-            Watch Full Demo
+            {% trans "Watch Full Demo" %}
           </button>
         </div>
 
@@ -482,12 +483,12 @@
                 <i class="fas fa-file-invoice-dollar text-blue-600"></i>
               </div>
               <h4 class="text-lg font-semibold text-gray-900">
-                Smart Invoicing Demo
+                {% trans "Smart Invoicing Demo" %}
               </h4>
             </div>
             <p class="text-gray-600">
-              See how our AI automatically generates professional
-              invoices, tracks payments, and sends reminders.
+              {% trans "See how our AI automatically generates professional
+              invoices, tracks payments, and sends reminders." %}
             </p>
           </div>
 
@@ -499,12 +500,12 @@
                 <i class="fas fa-robot text-green-600"></i>
               </div>
               <h4 class="text-lg font-semibold text-gray-900">
-                AI Bookkeeping Demo
+                {% trans "AI Bookkeeping Demo" %}
               </h4>
             </div>
             <p class="text-gray-600">
-              Watch our AI categorize transactions, reconcile
-              accounts, and identify anomalies in real-time.
+              {% trans "Watch our AI categorize transactions, reconcile
+              accounts, and identify anomalies in real-time." %}
             </p>
           </div>
 
@@ -516,12 +517,12 @@
                 <i class="fas fa-chart-line text-purple-600"></i>
               </div>
               <h4 class="text-lg font-semibold text-gray-900">
-                Analytics Dashboard Demo
+                {% trans "Analytics Dashboard Demo" %}
               </h4>
             </div>
             <p class="text-gray-600">
-              Explore interactive dashboards with real-time financial
-              metrics, trends, and insights.
+              {% trans "Explore interactive dashboards with real-time financial
+              metrics, trends, and insights." %}
             </p>
           </div>
         </div>
@@ -534,73 +535,74 @@
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16">
         <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-          Pricing FAQ
+          {% trans "Pricing FAQ" %}
         </h2>
       </div>
 
       <div class="space-y-6">
         <div class="bg-white p-6 rounded-lg shadow-sm">
           <h3 class="text-lg font-semibold text-gray-900 mb-3">
-            Can I change plans anytime?
+            {% trans "Can I change plans anytime?" %}
           </h3>
           <p class="text-gray-600">
-            Yes! You can upgrade or downgrade your plan at any time.
+            {% trans "Yes! You can upgrade or downgrade your plan at any time.
             Changes take effect immediately, and we'll prorate the billing
-            accordingly.
+            accordingly." %}
           </p>
         </div>
 
         <div class="bg-white p-6 rounded-lg shadow-sm">
           <h3 class="text-lg font-semibold text-gray-900 mb-3">
-            What payment methods do you accept?
+            {% trans "What payment methods do you accept?" %}
           </h3>
           <p class="text-gray-600">
-            We accept all major credit cards, PayPal, and bank
+            {% trans "We accept all major credit cards, PayPal, and bank
             transfers for annual plans. All payments are processed securely
-            through Stripe.
+            through Stripe." %}
           </p>
         </div>
 
         <div class="bg-white p-6 rounded-lg shadow-sm">
           <h3 class="text-lg font-semibold text-gray-900 mb-3">
-            Is there a free trial?
+            {% trans "Is there a free trial?" %}
           </h3>
           <p class="text-gray-600">
-            Yes! All paid plans come with a 14-day free trial. No
+            {% trans "Yes! All paid plans come with a 14-day free trial. No
             credit card required to start. You can explore all features during
-            the trial period.
+            the trial period." %}
           </p>
         </div>
 
         <div class="bg-white p-6 rounded-lg shadow-sm">
           <h3 class="text-lg font-semibold text-gray-900 mb-3">
-            What happens if I exceed my plan limits?
+            {% trans "What happens if I exceed my plan limits?" %}
           </h3>
           <p class="text-gray-600">
-            We'll notify you when you approach your limits. You can
+            {% trans "We'll notify you when you approach your limits. You can
             upgrade your plan at any time, or pay for overages if you prefer to
-            stay on your current plan.
+            stay on your current plan." %}
           </p>
         </div>
 
         <div class="bg-white p-6 rounded-lg shadow-sm">
           <h3 class="text-lg font-semibold text-gray-900 mb-3">
-            Do you offer discounts for annual billing?
+            {% trans "Do you offer discounts for annual billing?" %}
           </h3>
           <p class="text-gray-600">
-            Yes! Save 20% when you pay annually. This discount is
-            applied automatically at checkout when you select annual billing.
+            {% trans "Yes! Save 20% when you pay annually. This discount is
+            applied automatically at checkout when you select annual billing."
+            %}
           </p>
         </div>
 
         <div class="bg-white p-6 rounded-lg shadow-sm">
           <h3 class="text-lg font-semibold text-gray-900 mb-3">
-            Can I cancel my subscription?
+            {% trans "Can I cancel my subscription?" %}
           </h3>
           <p class="text-gray-600">
-            You can cancel your subscription at any time from your
+            {% trans "You can cancel your subscription at any time from your
             account settings. You'll continue to have access until the end of
-            your billing period.
+            your billing period." %}
           </p>
         </div>
       </div>
@@ -611,20 +613,20 @@
   <section class="bg-gray-900 text-white py-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <h2 class="text-3xl md:text-4xl font-bold mb-6">
-        Ready to Get Started?
+        {% trans "Ready to Get Started?" %}
       </h2>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <a
           href="{% url 'starter_signup' %}"
           class="bg-indigo-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-indigo-700 transition duration-300"
         >
-          Start Free Trial
+          {% trans "Start Free Trial" %}
         </a>
         <a
           href="#demo"
           class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white hover:text-gray-900 transition duration-300"
         >
-          Schedule Demo
+          {% trans "Schedule Demo" %}
         </a>
       </div>
     </div>

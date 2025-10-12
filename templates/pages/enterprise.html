@@ -1,478 +1,647 @@
 {% extends 'base.html' %}
-{% load i18n %}
-
-{% block title %}{% trans "Enterprise Accounting Solutions - Ovovex" %}{% endblock %}
-
+{% block title %}Enterprise Accounting Solutions - Ovovex{% endblock %}
 {% block content %}
 {% include 'components/navbar.html' %}
 
 <div class="min-h-screen bg-gray-50">
-    <!-- Extended Navbar Section -->
-    <section class="text-white py-32 relative overflow-hidden z-50" style="background-image: url('/static/images/image1.jpg'); background-size: 130%; background-position: center; background-repeat: no-repeat;">
-        <div class="absolute inset-0 bg-black bg-opacity-40"></div>
-        <div class="relative">
-            
-
-            <!-- Extended Hero Content -->
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                <div class="text-center">
-                    <h1 class="text-4xl md:text-6xl font-bold mb-6 text-white">{% trans "Enterprise-Grade Accounting for Large Organizations" %}</h1>
-                </div>
-            </div>
-
-            <!-- Extended Features Section within Navbar -->
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
-                <div class="text-center mb-8">
-                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">{% trans "Advanced Features for Enterprise Finance" %}</h2>
-                    <p class="text-xl text-gray-200 max-w-2xl mx-auto">
-                        {% trans "Comprehensive accounting capabilities that scale with your business growth, supporting complex organizational structures and global operations." %}
-                    </p>
-                </div>
-            </div>
+  <!-- Extended Navbar Section -->
+  <section
+    class="text-white py-32 relative overflow-hidden z-50"
+    style="
+      background-image: url('/static/images/image1.jpg');
+      background-size: 130%;
+      background-position: center;
+      background-repeat: no-repeat;
+    "
+  >
+    <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+    <div class="relative">
+      <!-- Extended Hero Content -->
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="text-center">
+          <h1 class="text-4xl md:text-6xl font-bold mb-6 text-white">
+            Enterprise-Grade Accounting for Large Organizations
+          </h1>
         </div>
-    </section>
+      </div>
 
-    <!-- Features Section -->
-    <section class="py-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Feature 1 -->
-                <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
-                    <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-6">
-                        <i class="fas fa-building text-indigo-600 text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Multi-Entity Management" %}</h3>
-                    <p class="text-gray-600">
-                        {% trans "Manage multiple subsidiaries, divisions, and legal entities within a single platform. Consolidated reporting and inter-company transactions made simple." %}
-                    </p>
-                </div>
-
-                <!-- Feature 2 -->
-                <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
-                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
-                        <i class="fas fa-globe text-blue-600 text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Global Currency Support" %}</h3>
-                    <p class="text-gray-600">
-                        {% trans "Handle multiple currencies with real-time exchange rates, automatic conversions, and comprehensive foreign currency risk management." %}
-                    </p>
-                </div>
-
-                <!-- Feature 3 -->
-                <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
-                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-6">
-                        <i class="fas fa-chart-line text-green-600 text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Advanced Analytics" %}</h3>
-                    <p class="text-gray-600">
-                        {% trans "Deep financial analytics with predictive modeling, scenario planning, and executive dashboards for data-driven decision making." %}
-                    </p>
-                </div>
-
-                <!-- Feature 4 -->
-                <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
-                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-6">
-                        <i class="fas fa-shield-alt text-purple-600 text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Enterprise Security" %}</h3>
-                    <p class="text-gray-600">
-                        {% trans "Bank-grade security with role-based access control, audit trails, and compliance with SOX, GDPR, and other regulatory requirements." %}
-                    </p>
-                </div>
-
-                <!-- Feature 5 -->
-                <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
-                    <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-6">
-                        <i class="fas fa-cogs text-orange-600 text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Workflow Automation" %}</h3>
-                    <p class="text-gray-600">
-                        {% trans "Automate complex approval workflows, recurring transactions, and financial processes to increase efficiency and reduce errors." %}
-                    </p>
-                </div>
-
-                <!-- Feature 6 -->
-                <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
-                    <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-6">
-                        <i class="fas fa-users-cog text-red-600 text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Dedicated Support" %}</h3>
-                    <p class="text-gray-600">
-                        {% trans "24/7 enterprise support with dedicated account managers, custom training, and priority response times for critical issues." %}
-                    </p>
-                </div>
-            </div>
+      <!-- Extended Features Section within Navbar -->
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+        <div class="text-center mb-8">
+          <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
+            Advanced Features for Enterprise Finance
+          </h2>
+          <p class="text-xl text-gray-200 max-w-2xl mx-auto">
+            Comprehensive accounting capabilities that scale with your
+            business growth, supporting complex organizational structures and
+            global operations.
+          </p>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Benefits Section -->
-    <section class="bg-gray-100 py-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                    {% trans "Why Enterprises Choose Ovovex" %}
-                </h2>
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-12">
-                <div class="bg-white p-8 rounded-lg shadow-lg">
-                    <h3 class="text-2xl font-semibold text-gray-900 mb-6">{% trans "Scalability & Performance" %}</h3>
-                    <ul class="space-y-4 text-gray-600">
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
-                            {% trans "Handles millions of transactions daily" %}
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
-                            {% trans "Auto-scaling infrastructure for peak loads" %}
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
-                            {% trans "99.9% uptime SLA with disaster recovery" %}
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
-                            {% trans "Global data centers for optimal performance" %}
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="bg-white p-8 rounded-lg shadow-lg">
-                    <h3 class="text-2xl font-semibold text-gray-900 mb-6">{% trans "Compliance & Integration" %}</h3>
-                    <ul class="space-y-4 text-gray-600">
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
-                            {% trans "IFRS and GAAP compliant reporting" %}
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
-                            {% trans "Pre-built integrations with ERP systems" %}
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
-                            {% trans "API-first architecture for custom integrations" %}
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
-                            {% trans "SOC 2 Type II certified infrastructure" %}
-                        </li>
-                    </ul>
-                </div>
-            </div>
+  <!-- Features Section -->
+  <section class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Feature 1 -->
+        <div
+          class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300"
+        >
+          <div
+            class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-6"
+          >
+            <i class="fas fa-building text-indigo-600 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-900 mb-4">
+            Multi-Entity Management
+          </h3>
+          <p class="text-gray-600">
+            Manage multiple subsidiaries, divisions, and legal
+            entities within a single platform. Consolidated reporting and
+            inter-company transactions made simple.
+          </p>
         </div>
-    </section>
 
-    <!-- Demo Section -->
-    <section class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                    {% trans "Enterprise Platform in Action" %}
-                </h2>
-                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-                    {% trans "Experience our enterprise-grade accounting platform with advanced features designed for large organizations." %}
-                </p>
-            </div>
-
-            <div class="grid lg:grid-cols-2 gap-12 items-center">
-                <!-- Demo Video Placeholder -->
-                <div class="bg-gray-100 rounded-lg p-8 text-center">
-                    <div class="w-16 h-16 bg-indigo-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <i class="fas fa-play text-white text-2xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-semibold text-gray-900 mb-4">{% trans "Enterprise Demo" %}</h3>
-                    <p class="text-gray-600 mb-6">
-                        {% trans "See how Fortune 500 companies manage complex financial operations with multi-entity support, global currencies, and advanced analytics." %}
-                    </p>
-                    <button class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition duration-300">
-                        {% trans "Watch Enterprise Demo" %}
-                    </button>
-                </div>
-
-                <!-- Demo Screenshots -->
-                <div class="space-y-6">
-                    <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
-                        <div class="flex items-center mb-4">
-                            <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
-                                <i class="fas fa-building text-blue-600"></i>
-                            </div>
-                            <h4 class="text-lg font-semibold text-gray-900">{% trans "Multi-Entity Dashboard" %}</h4>
-                        </div>
-                        <p class="text-gray-600">{% trans "Consolidated view of all subsidiaries and divisions with real-time financial metrics." %}</p>
-                    </div>
-
-                    <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
-                        <div class="flex items-center mb-4">
-                            <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mr-4">
-                                <i class="fas fa-globe text-green-600"></i>
-                            </div>
-                            <h4 class="text-lg font-semibold text-gray-900">{% trans "Global Currency Management" %}</h4>
-                        </div>
-                        <p class="text-gray-600">{% trans "Automated currency conversions and hedging strategies for international operations." %}</p>
-                    </div>
-
-                    <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
-                        <div class="flex items-center mb-4">
-                            <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mr-4">
-                                <i class="fas fa-chart-line text-purple-600"></i>
-                            </div>
-                            <h4 class="text-lg font-semibold text-gray-900">{% trans "Executive Analytics" %}</h4>
-                        </div>
-                        <p class="text-gray-600">{% trans "Advanced reporting with predictive analytics and scenario planning tools." %}</p>
-                    </div>
-                </div>
-            </div>
+        <!-- Feature 2 -->
+        <div
+          class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300"
+        >
+          <div
+            class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6"
+          >
+            <i class="fas fa-globe text-blue-600 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-900 mb-4">
+            Global Currency Support
+          </h3>
+          <p class="text-gray-600">
+            Handle multiple currencies with real-time exchange rates,
+            automatic conversions, and comprehensive foreign currency risk
+            management.
+          </p>
         </div>
-    </section>
 
-    <!-- Detailed Features Section -->
-    <section class="py-20 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                    {% trans "Comprehensive Enterprise Features" %}
-                </h2>
-                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-                    {% trans "Every tool your enterprise needs for complex financial management, from multi-entity operations to global compliance." %}
-                </p>
-            </div>
-
-            <div class="space-y-16">
-                <!-- Multi-Entity Management -->
-                <div class="grid lg:grid-cols-2 gap-12 items-center">
-                    <div>
-                        <h3 class="text-2xl font-bold text-gray-900 mb-4">{% trans "Advanced Multi-Entity Management" %}</h3>
-                        <ul class="space-y-3 text-gray-600">
-                            <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                {% trans "Unlimited subsidiaries and legal entities in one platform" %}
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                {% trans "Automated inter-company transactions and eliminations" %}
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                {% trans "Consolidated financial statements with segment reporting" %}
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                {% trans "Entity-level permissions and access controls" %}
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                {% trans "Multi-entity budgeting and forecasting" %}
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="bg-white p-8 rounded-lg shadow-lg">
-                        <div class="text-center">
-                            <i class="fas fa-building text-indigo-600 text-6xl mb-4"></i>
-                            <p class="text-gray-600">{% trans "Manage complex corporate structures with ease" %}</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Global Operations -->
-                <div class="grid lg:grid-cols-2 gap-12 items-center">
-                    <div class="bg-white p-8 rounded-lg shadow-lg">
-                        <div class="text-center">
-                            <i class="fas fa-globe text-blue-600 text-6xl mb-4"></i>
-                            <p class="text-gray-600">{% trans "Seamless international financial management" %}</p>
-                        </div>
-                    </div>
-                    <div>
-                        <h3 class="text-2xl font-bold text-gray-900 mb-4">{% trans "Global Operations Support" %}</h3>
-                        <ul class="space-y-3 text-gray-600">
-                            <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                {% trans "150+ currencies with real-time exchange rates" %}
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                {% trans "Automated foreign currency revaluation" %}
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                {% trans "Multi-language interface and reporting" %}
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                {% trans "Regional tax compliance and reporting" %}
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                {% trans "Cross-border transaction management" %}
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Advanced Analytics -->
-                <div class="grid lg:grid-cols-2 gap-12 items-center">
-                    <div>
-                        <h3 class="text-2xl font-bold text-gray-900 mb-4">{% trans "Executive Analytics & Intelligence" %}</h3>
-                        <ul class="space-y-3 text-gray-600">
-                            <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                {% trans "Predictive financial modeling and forecasting" %}
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                {% trans "Real-time KPI dashboards and alerts" %}
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                {% trans "Scenario planning and sensitivity analysis" %}
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                {% trans "Custom report builder with drag-and-drop interface" %}
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                {% trans "AI-powered insights and recommendations" %}
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="bg-white p-8 rounded-lg shadow-lg">
-                        <div class="text-center">
-                            <i class="fas fa-chart-line text-green-600 text-6xl mb-4"></i>
-                            <p class="text-gray-600">{% trans "Data-driven decisions with advanced analytics" %}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <!-- Feature 3 -->
+        <div
+          class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300"
+        >
+          <div
+            class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-6"
+          >
+            <i class="fas fa-chart-line text-green-600 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-900 mb-4">
+            Advanced Analytics
+          </h3>
+          <p class="text-gray-600">
+            Deep financial analytics with predictive modeling,
+            scenario planning, and executive dashboards for data-driven decision
+            making.
+          </p>
         </div>
-    </section>
 
-    <!-- Case Studies Section -->
-    <section class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                    {% trans "Enterprise Success Stories" %}
-                </h2>
-                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-                    {% trans "See how leading enterprises transformed their financial operations with Ovovex." %}
-                </p>
-            </div>
-
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Case Study 1 -->
-                <div class="bg-gray-50 p-8 rounded-lg">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center mr-4">
-                            <span class="text-indigo-600 font-bold text-lg">T</span>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-gray-900">{% trans "TechCorp Global" %}</h4>
-                            <p class="text-gray-600 text-sm">{% trans "Fortune 500 Technology Company" %}</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-600 italic mb-4">
-                        {% trans "Ovovex scaled seamlessly with our global expansion, handling 50+ entities across 20 countries. Monthly close time reduced by 60%." %}
-                    </p>
-                    <div class="text-sm text-gray-500">
-                        <strong>{% trans "Results:" %}</strong> {% trans "60% faster month-end close, $2M annual savings" %}
-                    </div>
-                </div>
-
-                <!-- Case Study 2 -->
-                <div class="bg-gray-50 p-8 rounded-lg">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
-                            <span class="text-blue-600 font-bold text-lg">M</span>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-gray-900">{% trans "Manufacturing Plus" %}</h4>
-                            <p class="text-gray-600 text-sm">{% trans "Global Manufacturing Conglomerate" %}</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-600 italic mb-4">
-                        {% trans "The multi-currency support and automated consolidations eliminated our biggest financial reporting headaches. Compliance is now effortless." %}
-                    </p>
-                    <div class="text-sm text-gray-500">
-                        <strong>{% trans "Results:" %}</strong> {% trans "100% IFRS compliance, 40% reduction in audit time" %}
-                    </div>
-                </div>
-
-                <!-- Case Study 3 -->
-                <div class="bg-gray-50 p-8 rounded-lg">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mr-4">
-                            <span class="text-green-600 font-bold text-lg">R</span>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-gray-900">{% trans "RetailMax Corporation" %}</h4>
-                            <p class="text-gray-600 text-sm">{% trans "International Retail Chain" %}</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-600 italic mb-4">
-                        {% trans "Real-time analytics helped us optimize inventory and cash flow across 500+ stores. Executive decision-making is now data-driven." %}
-                    </p>
-                    <div class="text-sm text-gray-500">
-                        <strong>{% trans "Results:" %}</strong> {% trans "25% improvement in cash flow, 15% increase in margins" %}
-                    </div>
-                </div>
-            </div>
+        <!-- Feature 4 -->
+        <div
+          class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300"
+        >
+          <div
+            class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-6"
+          >
+            <i class="fas fa-shield-alt text-purple-600 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-900 mb-4">
+            Enterprise Security
+          </h3>
+          <p class="text-gray-600">
+            Bank-grade security with role-based access control, audit
+            trails, and compliance with SOX, GDPR, and other regulatory
+            requirements.
+          </p>
         </div>
-    </section>
 
-    <!-- Enterprise FAQ Section -->
-    <section class="py-20 bg-white">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                    {% trans "Enterprise FAQ" %}
-                </h2>
-                <p class="text-xl text-gray-600">
-                    {% trans "Answers to common questions from enterprise customers." %}
-                </p>
-            </div>
-
-            <div class="space-y-6">
-                <div class="bg-gray-50 p-6 rounded-lg">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-3">{% trans "How long does enterprise implementation take?" %}</h3>
-                    <p class="text-gray-600">{% trans "Implementation timelines vary based on complexity, but typically range from 3-6 months. We provide detailed project plans and regular progress updates to ensure smooth deployment." %}</p>
-                </div>
-
-                <div class="bg-gray-50 p-6 rounded-lg">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-3">{% trans "Can you integrate with our existing ERP systems?" %}</h3>
-                    <p class="text-gray-600">{% trans "Yes, we have pre-built integrations with major ERP systems including SAP, Oracle, Microsoft Dynamics, and many others. Our API-first architecture also supports custom integrations." %}</p>
-                </div>
-
-                <div class="bg-gray-50 p-6 rounded-lg">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-3">{% trans "What level of customization is available?" %}</h3>
-                    <p class="text-gray-600">{% trans "We offer extensive customization options including custom workflows, reporting templates, user interfaces, and business logic. Our professional services team works closely with your IT and finance teams." %}</p>
-                </div>
-
-                <div class="bg-gray-50 p-6 rounded-lg">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-3">{% trans "Do you provide on-premise deployment options?" %}</h3>
-                    <p class="text-gray-600">{% trans "For highly regulated industries or organizations with strict data residency requirements, we offer on-premise deployment options alongside our cloud-based solutions." %}</p>
-                </div>
-
-                <div class="bg-gray-50 p-6 rounded-lg">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-3">{% trans "What kind of SLAs do you offer?" %}</h3>
-                    <p class="text-gray-600">{% trans "Enterprise customers receive 99.9% uptime SLAs, priority support response times (1 hour for critical issues), and dedicated account management. Custom SLAs can be negotiated based on your requirements." %}</p>
-                </div>
-            </div>
+        <!-- Feature 5 -->
+        <div
+          class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300"
+        >
+          <div
+            class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-6"
+          >
+            <i class="fas fa-cogs text-orange-600 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-900 mb-4">
+            Workflow Automation
+          </h3>
+          <p class="text-gray-600">
+            Automate complex approval workflows, recurring
+            transactions, and financial processes to increase efficiency and
+            reduce errors.
+          </p>
         </div>
-    </section>
 
-    <!-- CTA Section -->
-    <section class="bg-gray-900 text-white py-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-3xl md:text-4xl font-bold mb-6">
-                {% trans "Ready to Scale Your Finance Operations?" %}
-            </h2>
-            <p class="text-xl mb-8 max-w-2xl mx-auto">
-                {% trans "Contact our enterprise sales team to discuss your specific requirements and get a customized solution for your organization." %}
+        <!-- Feature 6 -->
+        <div
+          class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300"
+        >
+          <div
+            class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-6"
+          >
+            <i class="fas fa-users-cog text-red-600 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-900 mb-4">
+            Dedicated Support
+          </h3>
+          <p class="text-gray-600">
+            24/7 enterprise support with dedicated account managers,
+            custom training, and priority response times for critical issues.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits Section -->
+  <section class="bg-gray-100 py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          Why Enterprises Choose Ovovex
+        </h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-12">
+        <div class="bg-white p-8 rounded-lg shadow-lg">
+          <h3 class="text-2xl font-semibold text-gray-900 mb-6">
+            Scalability & Performance
+          </h3>
+          <ul class="space-y-4 text-gray-600">
+            <li class="flex items-start">
+              <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+              Handles millions of transactions daily
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+              Auto-scaling infrastructure for peak loads
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+              99.9% uptime SLA with disaster recovery
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+              Global data centers for optimal performance
+            </li>
+          </ul>
+        </div>
+
+        <div class="bg-white p-8 rounded-lg shadow-lg">
+          <h3 class="text-2xl font-semibold text-gray-900 mb-6">
+            Compliance & Integration
+          </h3>
+          <ul class="space-y-4 text-gray-600">
+            <li class="flex items-start">
+              <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+              IFRS and GAAP compliant reporting
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+              Pre-built integrations with ERP systems
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+              API-first architecture for custom integrations
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+              SOC 2 Type II certified infrastructure
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Demo Section -->
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          Enterprise Platform in Action
+        </h2>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+          Experience our enterprise-grade accounting platform with
+          advanced features designed for large organizations.
+        </p>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <!-- Demo Video Placeholder -->
+        <div class="bg-gray-100 rounded-lg p-8 text-center">
+          <div
+            class="w-16 h-16 bg-indigo-600 rounded-full flex items-center justify-center mx-auto mb-6"
+          >
+            <i class="fas fa-play text-white text-2xl"></i>
+          </div>
+          <h3 class="text-2xl font-semibold text-gray-900 mb-4">
+            Enterprise Demo
+          </h3>
+          <p class="text-gray-600 mb-6">
+            See how Fortune 500 companies manage complex financial
+            operations with multi-entity support, global currencies, and
+            advanced analytics.
+          </p>
+          <button
+            class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition duration-300"
+          >
+            Watch Enterprise Demo
+          </button>
+        </div>
+
+        <!-- Demo Screenshots -->
+        <div class="space-y-6">
+          <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+            <div class="flex items-center mb-4">
+              <div
+                class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-4"
+              >
+                <i class="fas fa-building text-blue-600"></i>
+              </div>
+              <h4 class="text-lg font-semibold text-gray-900">
+                Multi-Entity Dashboard
+              </h4>
+            </div>
+            <p class="text-gray-600">
+              Consolidated view of all subsidiaries and divisions with
+              real-time financial metrics.
             </p>
-            <a href="{% url 'signup' %}" class="bg-indigo-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-indigo-700 transition duration-300">
-                {% trans "Contact Sales" %}
-            </a>
+          </div>
+
+          <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+            <div class="flex items-center mb-4">
+              <div
+                class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mr-4"
+              >
+                <i class="fas fa-globe text-green-600"></i>
+              </div>
+              <h4 class="text-lg font-semibold text-gray-900">
+                Global Currency Management
+              </h4>
+            </div>
+            <p class="text-gray-600">
+              Automated currency conversions and hedging strategies
+              for international operations.
+            </p>
+          </div>
+
+          <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+            <div class="flex items-center mb-4">
+              <div
+                class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mr-4"
+              >
+                <i class="fas fa-chart-line text-purple-600"></i>
+              </div>
+              <h4 class="text-lg font-semibold text-gray-900">
+                Executive Analytics
+              </h4>
+            </div>
+            <p class="text-gray-600">
+              Advanced reporting with predictive analytics and
+              scenario planning tools.
+            </p>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
+
+  <!-- Detailed Features Section -->
+  <section class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          Comprehensive Enterprise Features
+        </h2>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+          Every tool your enterprise needs for complex financial
+          management, from multi-entity operations to global compliance.
+        </p>
+      </div>
+
+      <div class="space-y-16">
+        <!-- Multi-Entity Management -->
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">
+              Advanced Multi-Entity Management
+            </h3>
+            <ul class="space-y-3 text-gray-600">
+              <li class="flex items-start">
+                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                Unlimited subsidiaries and legal entities in one
+                platform
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                Automated inter-company transactions and eliminations
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                Consolidated financial statements with segment
+                reporting
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                Entity-level permissions and access controls
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                Multi-entity budgeting and forecasting
+              </li>
+            </ul>
+          </div>
+          <div class="bg-white p-8 rounded-lg shadow-lg">
+            <div class="text-center">
+              <i class="fas fa-building text-indigo-600 text-6xl mb-4"></i>
+              <p class="text-gray-600">
+                Manage complex corporate structures with ease
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Global Operations -->
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+          <div class="bg-white p-8 rounded-lg shadow-lg">
+            <div class="text-center">
+              <i class="fas fa-globe text-blue-600 text-6xl mb-4"></i>
+              <p class="text-gray-600">
+                Seamless international financial management
+              </p>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">
+              Global Operations Support
+            </h3>
+            <ul class="space-y-3 text-gray-600">
+              <li class="flex items-start">
+                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                150+ currencies with real-time exchange rates
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                Automated foreign currency revaluation
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                Multi-language interface and reporting
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                Regional tax compliance and reporting
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                Cross-border transaction management
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Advanced Analytics -->
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">
+              Executive Analytics & Intelligence
+            </h3>
+            <ul class="space-y-3 text-gray-600">
+              <li class="flex items-start">
+                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                Predictive financial modeling and forecasting
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                Real-time KPI dashboards and alerts
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                Scenario planning and sensitivity analysis
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                Custom report builder with drag-and-drop interface
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                AI-powered insights and recommendations
+              </li>
+            </ul>
+          </div>
+          <div class="bg-white p-8 rounded-lg shadow-lg">
+            <div class="text-center">
+              <i class="fas fa-chart-line text-green-600 text-6xl mb-4"></i>
+              <p class="text-gray-600">
+                Data-driven decisions with advanced analytics
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Case Studies Section -->
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          Enterprise Success Stories
+        </h2>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+          See how leading enterprises transformed their financial
+          operations with Ovovex.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Case Study 1 -->
+        <div class="bg-gray-50 p-8 rounded-lg">
+          <div class="flex items-center mb-4">
+            <div
+              class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center mr-4"
+            >
+              <span class="text-indigo-600 font-bold text-lg">T</span>
+            </div>
+            <div>
+              <h4 class="font-semibold text-gray-900">
+                TechCorp Global
+              </h4>
+              <p class="text-gray-600 text-sm">
+                Fortune 500 Technology Company
+              </p>
+            </div>
+          </div>
+          <p class="text-gray-600 italic mb-4">
+            Ovovex scaled seamlessly with our global expansion,
+            handling 50+ entities across 20 countries. Monthly close time
+            reduced by 60%.
+          </p>
+          <div class="text-sm text-gray-500">
+            <strong>Results:</strong> 60% faster
+            month-end close, $2M annual savings
+          </div>
+        </div>
+
+        <!-- Case Study 2 -->
+        <div class="bg-gray-50 p-8 rounded-lg">
+          <div class="flex items-center mb-4">
+            <div
+              class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4"
+            >
+              <span class="text-blue-600 font-bold text-lg">M</span>
+            </div>
+            <div>
+              <h4 class="font-semibold text-gray-900">
+                Manufacturing Plus
+              </h4>
+              <p class="text-gray-600 text-sm">
+                Global Manufacturing Conglomerate
+              </p>
+            </div>
+          </div>
+          <p class="text-gray-600 italic mb-4">
+            The multi-currency support and automated consolidations
+            eliminated our biggest financial reporting headaches. Compliance is
+            now effortless.
+          </p>
+          <div class="text-sm text-gray-500">
+            <strong>Results:</strong> 100% IFRS
+            compliance, 40% reduction in audit time
+          </div>
+        </div>
+
+        <!-- Case Study 3 -->
+        <div class="bg-gray-50 p-8 rounded-lg">
+          <div class="flex items-center mb-4">
+            <div
+              class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mr-4"
+            >
+              <span class="text-green-600 font-bold text-lg">R</span>
+            </div>
+            <div>
+              <h4 class="font-semibold text-gray-900">
+                RetailMax Corporation
+              </h4>
+              <p class="text-gray-600 text-sm">
+                International Retail Chain
+              </p>
+            </div>
+          </div>
+          <p class="text-gray-600 italic mb-4">
+            Real-time analytics helped us optimize inventory and cash
+            flow across 500+ stores. Executive decision-making is now
+            data-driven.
+          </p>
+          <div class="text-sm text-gray-500">
+            <strong>Results:</strong> 25% improvement in
+            cash flow, 15% increase in margins
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Enterprise FAQ Section -->
+  <section class="py-20 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          Enterprise FAQ
+        </h2>
+        <p class="text-xl text-gray-600">
+          Answers to common questions from enterprise customers.
+        </p>
+      </div>
+
+      <div class="space-y-6">
+        <div class="bg-gray-50 p-6 rounded-lg">
+          <h3 class="text-lg font-semibold text-gray-900 mb-3">
+            How long does enterprise implementation take?
+          </h3>
+          <p class="text-gray-600">
+            Implementation timelines vary based on complexity, but
+            typically range from 3-6 months. We provide detailed project plans
+            and regular progress updates to ensure smooth deployment.
+          </p>
+        </div>
+
+        <div class="bg-gray-50 p-6 rounded-lg">
+          <h3 class="text-lg font-semibold text-gray-900 mb-3">
+            Can you integrate with our existing ERP systems?
+          </h3>
+          <p class="text-gray-600">
+            Yes, we have pre-built integrations with major ERP systems
+            including SAP, Oracle, Microsoft Dynamics, and many others. Our
+            API-first architecture also supports custom integrations.
+          </p>
+        </div>
+
+        <div class="bg-gray-50 p-6 rounded-lg">
+          <h3 class="text-lg font-semibold text-gray-900 mb-3">
+            What level of customization is available?
+          </h3>
+          <p class="text-gray-600">
+            We offer extensive customization options including custom
+            workflows, reporting templates, user interfaces, and business logic.
+            Our professional services team works closely with your IT and
+            finance teams.
+          </p>
+        </div>
+
+        <div class="bg-gray-50 p-6 rounded-lg">
+          <h3 class="text-lg font-semibold text-gray-900 mb-3">
+            Do you provide on-premise deployment options?
+          </h3>
+          <p class="text-gray-600">
+            For highly regulated industries or organizations with
+            strict data residency requirements, we offer on-premise deployment
+            options alongside our cloud-based solutions.
+          </p>
+        </div>
+
+        <div class="bg-gray-50 p-6 rounded-lg">
+          <h3 class="text-lg font-semibold text-gray-900 mb-3">
+            What kind of SLAs do you offer?
+          </h3>
+          <p class="text-gray-600">
+            Enterprise customers receive 99.9% uptime SLAs, priority
+            support response times (1 hour for critical issues), and dedicated
+            account management. Custom SLAs can be negotiated based on your
+            requirements.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="bg-gray-900 text-white py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-6">
+        Ready to Scale Your Finance Operations?
+      </h2>
+      <p class="text-xl mb-8 max-w-2xl mx-auto">
+        Contact our enterprise sales team to discuss your specific
+        requirements and get a customized solution for your organization.
+      </p>
+      <a
+        href="{% url 'signup' %}"
+        class="bg-indigo-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-indigo-700 transition duration-300"
+      >
+        Contact Sales
+      </a>
+    </div>
+  </section>
 </div>
 {% endblock %}

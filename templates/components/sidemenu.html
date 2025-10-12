@@ -199,7 +199,7 @@
                     <i class="fas fa-user text-gray-600 dark:text-gray-300"></i>
                 </div>
                 <div class="flex-1 min-w-0">
-                    <p class="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">{{ user.first_name|default:user.username }}</p>
+                    <p class="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">{{ user.get_full_name|default:user.username }}</p>
                     <p class="text-xs text-gray-500 dark:text-gray-400 truncate">{{ user.email }}</p>
                 </div>
             </div>

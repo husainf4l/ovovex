@@ -105,7 +105,7 @@
                             </a>
                             <div class="relative group">
                                 <button class="text-gray-700 hover:text-gray-900 flex items-center">
-                                    <i class="fas fa-user-circle mr-2"></i>{{ user.first_name|default:user.username }}
+                                    <i class="fas fa-user-circle mr-2"></i>{{ user.get_full_name|default:user.username }}
                                 </button>
                                 <div class="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
                                     <div class="p-2">

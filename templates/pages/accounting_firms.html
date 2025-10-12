@@ -106,7 +106,7 @@
                             </a>
                             <div class="relative group">
                                 <button class="text-gray-700 hover:text-gray-900 flex items-center">
-                                    <i class="fas fa-user-circle mr-2"></i>{{ user.first_name|default:user.username }}
+                                    <i class="fas fa-user-circle mr-2"></i>{{ user.get_full_name|default:user.username }}
                                 </button>
                                 <div class="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
                                     <div class="p-2">
@@ -144,12 +144,6 @@
                     <h1 class="text-4xl md:text-6xl font-bold mb-6">
                         {% trans "Professional Accounting Firm Management" %}
                     </h1>
-                    <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
-                        {% trans "Streamline multi-client management with powerful tools designed specifically for accounting firms. Scale your practice while maintaining exceptional client service." %}
-                    </p>
-                    <a href="{% url 'signup' %}" class="bg-white text-green-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition duration-300">
-                        {% trans "Start Firm Trial" %}
-                    </a>
                 </div>
             </div>
 
