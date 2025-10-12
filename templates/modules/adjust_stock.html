@@ -1,8 +1,5 @@
-{% extends 'base.html' %}
-{% load static %}
-
-{% block content %}
-{% include 'components/sidemenu.html' %}
+{% extends 'base.html' %} {% load static %} {% block content %} {% include
+'components/sidemenu.html' %}
 
 <div
   class="min-h-screen bg-gray-50 dark:bg-gray-900 ml-64 transition-colors duration-300"
@@ -48,8 +45,12 @@
             >
               <option value="">Select Item</option>
               {% for item in items %}
-              <option value="{{ item.id }}" data-current-stock="{{ item.current_stock }}">
-                {{ item.item_code }} - {{ item.name }} (Current: {{ item.current_stock }})
+              <option
+                value="{{ item.id }}"
+                data-current-stock="{{ item.current_stock }}"
+              >
+                {{ item.item_code }} - {{ item.name }} (Current: {{
+                item.current_stock }})
               </option>
               {% endfor %}
             </select>
@@ -129,7 +130,10 @@
         </h3>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div class="text-center">
-            <div class="text-2xl font-bold text-gray-900 dark:text-gray-100" id="current-stock">
+            <div
+              class="text-2xl font-bold text-gray-900 dark:text-gray-100"
+              id="current-stock"
+            >
               --
             </div>
             <div class="text-sm text-gray-600 dark:text-gray-400">
@@ -137,10 +141,16 @@
             </div>
           </div>
           <div class="text-center">
-            <div class="text-2xl font-bold text-blue-600" id="adjustment-amount">
+            <div
+              class="text-2xl font-bold text-blue-600"
+              id="adjustment-amount"
+            >
               --
             </div>
-            <div class="text-sm text-gray-600 dark:text-gray-400" id="adjustment-label">
+            <div
+              class="text-sm text-gray-600 dark:text-gray-400"
+              id="adjustment-label"
+            >
               Adjustment Amount
             </div>
           </div>
@@ -161,13 +171,16 @@
         class="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-2xl p-6 hidden"
       >
         <div class="flex items-center">
-          <i class="fas fa-exclamation-triangle text-yellow-500 text-xl mr-3"></i>
+          <i
+            class="fas fa-exclamation-triangle text-yellow-500 text-xl mr-3"
+          ></i>
           <div>
             <h4 class="text-lg font-bold text-yellow-800 dark:text-yellow-200">
               Stock Decrease Warning
             </h4>
             <p class="text-yellow-700 dark:text-yellow-300 mt-1">
-              You are about to decrease stock below the reorder point. This may trigger a reorder alert.
+              You are about to decrease stock below the reorder point. This may
+              trigger a reorder alert.
             </p>
           </div>
         </div>
@@ -200,20 +213,24 @@
   // Update stock summary when item is selected
   document.getElementById("item-select").addEventListener("change", (e) => {
     const selectedOption = e.target.options[e.target.selectedIndex];
-    const currentStock = parseFloat(selectedOption.getAttribute("data-current-stock")) || 0;
+    const currentStock =
+      parseFloat(selectedOption.getAttribute("data-current-stock")) || 0;
 
     selectedItem = {
       id: e.target.value,
-      currentStock: currentStock
+      currentStock: currentStock,
     };
 
-    document.getElementById("current-stock").textContent = currentStock.toFixed(2);
+    document.getElementById("current-stock").textContent =
+      currentStock.toFixed(2);
     updateSummary();
   });
 
   // Update summary when quantity or type changes
   document.getElementById("quantity").addEventListener("input", updateSummary);
-  document.getElementById("adjustment-type").addEventListener("change", updateSummary);
+  document
+    .getElementById("adjustment-type")
+    .addEventListener("change", updateSummary);
 
   function updateSummary() {
     if (!selectedItem) return;
@@ -226,19 +243,27 @@
 
     if (adjustmentType === "increase") {
       newStock += quantity;
-      document.getElementById("adjustment-amount").textContent = "+" + quantity.toFixed(2);
-      document.getElementById("adjustment-label").textContent = "Increase Amount";
-      document.getElementById("adjustment-amount").className = "text-2xl font-bold text-green-600";
+      document.getElementById("adjustment-amount").textContent =
+        "+" + quantity.toFixed(2);
+      document.getElementById("adjustment-label").textContent =
+        "Increase Amount";
+      document.getElementById("adjustment-amount").className =
+        "text-2xl font-bold text-green-600";
     } else if (adjustmentType === "decrease") {
       newStock -= quantity;
       adjustmentAmount = -quantity;
-      document.getElementById("adjustment-amount").textContent = "-" + quantity.toFixed(2);
-      document.getElementById("adjustment-label").textContent = "Decrease Amount";
-      document.getElementById("adjustment-amount").className = "text-2xl font-bold text-red-600";
+      document.getElementById("adjustment-amount").textContent =
+        "-" + quantity.toFixed(2);
+      document.getElementById("adjustment-label").textContent =
+        "Decrease Amount";
+      document.getElementById("adjustment-amount").className =
+        "text-2xl font-bold text-red-600";
     } else {
       document.getElementById("adjustment-amount").textContent = "--";
-      document.getElementById("adjustment-label").textContent = "Adjustment Amount";
-      document.getElementById("adjustment-amount").className = "text-2xl font-bold text-blue-600";
+      document.getElementById("adjustment-label").textContent =
+        "Adjustment Amount";
+      document.getElementById("adjustment-amount").className =
+        "text-2xl font-bold text-blue-600";
     }
 
     document.getElementById("new-stock").textContent = newStock.toFixed(2);
@@ -286,8 +311,15 @@
       }
 
       // Confirm decrease if it will result in negative stock
-      const newStock = parseFloat(document.getElementById("new-stock").textContent);
-      if (newStock < 0 && !confirm("This adjustment will result in negative stock. Are you sure you want to continue?")) {
+      const newStock = parseFloat(
+        document.getElementById("new-stock").textContent
+      );
+      if (
+        newStock < 0 &&
+        !confirm(
+          "This adjustment will result in negative stock. Are you sure you want to continue?"
+        )
+      ) {
         return;
       }
 

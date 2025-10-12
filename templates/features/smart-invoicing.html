@@ -1,14 +1,13 @@
-{% extends 'base.html' %}
-{% load static %}
-
-{% block content %}
-{% include 'components/navbar.html' %}
+{% extends 'base.html' %} {% load static %} {% block content %} {% include
+'components/navbar.html' %}
 
 <!-- Hero Section -->
 <section class="pt-24 pb-16 bg-gradient-to-br from-blue-50 to-indigo-100">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center">
-      <div class="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold mb-6">
+      <div
+        class="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold mb-6"
+      >
         <i class="fas fa-file-invoice-dollar mr-2"></i>
         Smart Invoicing
       </div>
@@ -17,13 +16,21 @@
         <span class="text-blue-600">Seconds</span>
       </h1>
       <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-        Create stunning, professional invoices with AI-powered automation. From generation to payment collection, streamline your entire invoicing workflow.
+        Create stunning, professional invoices with AI-powered automation. From
+        generation to payment collection, streamline your entire invoicing
+        workflow.
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="#demo" class="inline-flex items-center px-8 py-4 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors">
+        <a
+          href="#demo"
+          class="inline-flex items-center px-8 py-4 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors"
+        >
           <i class="fas fa-play mr-2"></i>Watch Demo
         </a>
-        <a href="#features" class="inline-flex items-center px-8 py-4 bg-white text-gray-700 font-semibold rounded-xl border border-gray-300 hover:border-gray-400 transition-colors">
+        <a
+          href="#features"
+          class="inline-flex items-center px-8 py-4 bg-white text-gray-700 font-semibold rounded-xl border border-gray-300 hover:border-gray-400 transition-colors"
+        >
           <i class="fas fa-cog mr-2"></i>Explore Features
         </a>
       </div>
@@ -36,25 +43,38 @@
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="grid md:grid-cols-3 gap-8">
       <div class="text-center">
-        <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+        <div
+          class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-6"
+        >
           <i class="fas fa-bolt text-2xl text-blue-600"></i>
         </div>
         <h3 class="text-2xl font-bold text-gray-900 mb-4">10x Faster</h3>
-        <p class="text-gray-600">Generate professional invoices in under 30 seconds with smart templates</p>
+        <p class="text-gray-600">
+          Generate professional invoices in under 30 seconds with smart
+          templates
+        </p>
       </div>
       <div class="text-center">
-        <div class="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+        <div
+          class="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-6"
+        >
           <i class="fas fa-robot text-2xl text-green-600"></i>
         </div>
         <h3 class="text-2xl font-bold text-gray-900 mb-4">AI-Powered</h3>
-        <p class="text-gray-600">Intelligent automation handles calculations, taxes, and payment terms</p>
+        <p class="text-gray-600">
+          Intelligent automation handles calculations, taxes, and payment terms
+        </p>
       </div>
       <div class="text-center">
-        <div class="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+        <div
+          class="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-6"
+        >
           <i class="fas fa-globe text-2xl text-purple-600"></i>
         </div>
         <h3 class="text-2xl font-bold text-gray-900 mb-4">Multi-Currency</h3>
-        <p class="text-gray-600">Support for 150+ currencies with automatic exchange rate updates</p>
+        <p class="text-gray-600">
+          Support for 150+ currencies with automatic exchange rate updates
+        </p>
       </div>
     </div>
   </div>
@@ -64,39 +84,66 @@
 <section id="features" class="py-24 bg-gray-50">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center mb-16">
-      <h2 class="text-4xl font-bold text-gray-900 mb-6">Complete Invoicing Solution</h2>
-      <p class="text-xl text-gray-600 max-w-2xl mx-auto">Everything you need for professional invoicing</p>
+      <h2 class="text-4xl font-bold text-gray-900 mb-6">
+        Complete Invoicing Solution
+      </h2>
+      <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+        Everything you need for professional invoicing
+      </p>
     </div>
 
     <div class="grid lg:grid-cols-2 gap-16 items-center mb-20">
       <div>
-        <h3 class="text-3xl font-bold text-gray-900 mb-6">Smart Invoice Generation</h3>
+        <h3 class="text-3xl font-bold text-gray-900 mb-6">
+          Smart Invoice Generation
+        </h3>
         <div class="space-y-6">
           <div class="flex items-start space-x-4">
-            <div class="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center flex-shrink-0">
+            <div
+              class="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center flex-shrink-0"
+            >
               <i class="fas fa-magic text-white"></i>
             </div>
             <div>
-              <h4 class="text-xl font-semibold text-gray-900 mb-2">AI-Powered Templates</h4>
-              <p class="text-gray-600">Choose from 50+ professionally designed templates that adapt to your industry and branding.</p>
+              <h4 class="text-xl font-semibold text-gray-900 mb-2">
+                AI-Powered Templates
+              </h4>
+              <p class="text-gray-600">
+                Choose from 50+ professionally designed templates that adapt to
+                your industry and branding.
+              </p>
             </div>
           </div>
           <div class="flex items-start space-x-4">
-            <div class="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center flex-shrink-0">
+            <div
+              class="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center flex-shrink-0"
+            >
               <i class="fas fa-calculator text-white"></i>
             </div>
             <div>
-              <h4 class="text-xl font-semibold text-gray-900 mb-2">Automatic Calculations</h4>
-              <p class="text-gray-600">Smart tax calculations, discounts, and line item totals with real-time updates.</p>
+              <h4 class="text-xl font-semibold text-gray-900 mb-2">
+                Automatic Calculations
+              </h4>
+              <p class="text-gray-600">
+                Smart tax calculations, discounts, and line item totals with
+                real-time updates.
+              </p>
             </div>
           </div>
           <div class="flex items-start space-x-4">
-            <div class="w-12 h-12 bg-purple-500 rounded-xl flex items-center justify-center flex-shrink-0">
+            <div
+              class="w-12 h-12 bg-purple-500 rounded-xl flex items-center justify-center flex-shrink-0"
+            >
               <i class="fas fa-clock text-white"></i>
             </div>
             <div>
-              <h4 class="text-xl font-semibold text-gray-900 mb-2">Recurring Invoices</h4>
-              <p class="text-gray-600">Set up automatic recurring invoices for subscriptions, retainers, and ongoing services.</p>
+              <h4 class="text-xl font-semibold text-gray-900 mb-2">
+                Recurring Invoices
+              </h4>
+              <p class="text-gray-600">
+                Set up automatic recurring invoices for subscriptions,
+                retainers, and ongoing services.
+              </p>
             </div>
           </div>
         </div>
@@ -107,7 +154,9 @@
         <div class="bg-gray-50 rounded-lg p-6 mb-4">
           <div class="flex justify-between items-start mb-6">
             <div>
-              <h4 class="text-lg font-bold text-gray-900">INVOICE #INV-2025-001</h4>
+              <h4 class="text-lg font-bold text-gray-900">
+                INVOICE #INV-2025-001
+              </h4>
               <p class="text-sm text-gray-600">Date: October 11, 2025</p>
             </div>
             <div class="text-right">
@@ -117,7 +166,9 @@
           </div>
 
           <div class="border-t border-b border-gray-200 py-4 mb-4">
-            <div class="grid grid-cols-4 gap-4 text-sm font-medium text-gray-700 mb-2">
+            <div
+              class="grid grid-cols-4 gap-4 text-sm font-medium text-gray-700 mb-2"
+            >
               <div>Description</div>
               <div class="text-center">Qty</div>
               <div class="text-center">Rate</div>
@@ -144,16 +195,22 @@
             <div class="text-right">
               <div class="text-sm text-gray-600">Subtotal: $2,450.00</div>
               <div class="text-sm text-gray-600">Tax (8.25%): $202.13</div>
-              <div class="text-lg font-bold text-gray-900">Total: $2,652.13</div>
+              <div class="text-lg font-bold text-gray-900">
+                Total: $2,652.13
+              </div>
             </div>
           </div>
         </div>
 
         <div class="flex space-x-3">
-          <button class="flex-1 bg-blue-600 text-white py-2 px-4 rounded-lg text-sm font-medium hover:bg-blue-700">
+          <button
+            class="flex-1 bg-blue-600 text-white py-2 px-4 rounded-lg text-sm font-medium hover:bg-blue-700"
+          >
             Send Invoice
           </button>
-          <button class="flex-1 bg-gray-100 text-gray-700 py-2 px-4 rounded-lg text-sm font-medium hover:bg-gray-200">
+          <button
+            class="flex-1 bg-gray-100 text-gray-700 py-2 px-4 rounded-lg text-sm font-medium hover:bg-gray-200"
+          >
             Download PDF
           </button>
         </div>
@@ -163,35 +220,55 @@
     <!-- Additional Features Grid -->
     <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
       <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-        <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
+        <div
+          class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-4"
+        >
           <i class="fas fa-bell text-blue-600"></i>
         </div>
         <h4 class="text-lg font-bold text-gray-900 mb-2">Payment Reminders</h4>
-        <p class="text-gray-600 text-sm">Automated email and SMS reminders for overdue payments</p>
+        <p class="text-gray-600 text-sm">
+          Automated email and SMS reminders for overdue payments
+        </p>
       </div>
 
       <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-        <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mb-4">
+        <div
+          class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mb-4"
+        >
           <i class="fas fa-credit-card text-green-600"></i>
         </div>
-        <h4 class="text-lg font-bold text-gray-900 mb-2">Payment Integration</h4>
-        <p class="text-gray-600 text-sm">Connect with Stripe, PayPal, and other payment gateways</p>
+        <h4 class="text-lg font-bold text-gray-900 mb-2">
+          Payment Integration
+        </h4>
+        <p class="text-gray-600 text-sm">
+          Connect with Stripe, PayPal, and other payment gateways
+        </p>
       </div>
 
       <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-        <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mb-4">
+        <div
+          class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mb-4"
+        >
           <i class="fas fa-signature text-purple-600"></i>
         </div>
         <h4 class="text-lg font-bold text-gray-900 mb-2">Digital Signatures</h4>
-        <p class="text-gray-600 text-sm">Legally binding e-signatures with audit trails</p>
+        <p class="text-gray-600 text-sm">
+          Legally binding e-signatures with audit trails
+        </p>
       </div>
 
       <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-        <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center mb-4">
+        <div
+          class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center mb-4"
+        >
           <i class="fas fa-chart-line text-orange-600"></i>
         </div>
-        <h4 class="text-lg font-bold text-gray-900 mb-2">Analytics & Reports</h4>
-        <p class="text-gray-600 text-sm">Track invoice performance and payment trends</p>
+        <h4 class="text-lg font-bold text-gray-900 mb-2">
+          Analytics & Reports
+        </h4>
+        <p class="text-gray-600 text-sm">
+          Track invoice performance and payment trends
+        </p>
       </div>
     </div>
   </div>
@@ -211,7 +288,8 @@
         See Smart Invoicing in Action
       </h2>
       <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-        Watch our comprehensive video demo to see how Ovovex transforms invoicing workflows with AI-powered automation
+        Watch our comprehensive video demo to see how Ovovex transforms
+        invoicing workflows with AI-powered automation
       </p>
     </div>
 
@@ -221,7 +299,9 @@
           class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden demo-video"
         >
           <!-- Video Embed -->
-          <div class="aspect-video bg-gray-900 relative rounded-lg overflow-hidden demo-video">
+          <div
+            class="aspect-video bg-gray-900 relative rounded-lg overflow-hidden demo-video"
+          >
             <video
               class="w-full h-full object-cover"
               controls
@@ -233,52 +313,66 @@
               loop
               id="demo-video"
             >
-              <source src="{% static 'images/7078918_Graphs_Charts_1920x1080.mp4' %}" type="video/mp4">
+              <source
+                src="{% static 'images/7078918_Graphs_Charts_1920x1080.mp4' %}"
+                type="video/mp4"
+              />
               Your browser does not support the video tag.
             </video>
             <!-- Video overlay for better UX -->
-            <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none video-overlay"></div>
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none video-overlay"
+            ></div>
             <!-- Auto-play indicator -->
-            <div class="absolute top-4 right-4 bg-black/70 text-white px-3 py-1 rounded-full text-xs font-medium flex items-center space-x-2 auto-play-indicator">
+            <div
+              class="absolute top-4 right-4 bg-black/70 text-white px-3 py-1 rounded-full text-xs font-medium flex items-center space-x-2 auto-play-indicator"
+            >
               <i class="fas fa-play text-green-400"></i>
               <span>Auto-playing</span>
             </div>
             <!-- Unmute hint -->
-            <div class="absolute bottom-20 left-4 bg-black/70 text-white px-3 py-2 rounded-lg text-xs max-w-xs unmute-hint">
+            <div
+              class="absolute bottom-20 left-4 bg-black/70 text-white px-3 py-2 rounded-lg text-xs max-w-xs unmute-hint"
+            >
               <i class="fas fa-volume-mute mr-1"></i>
               Video is muted for auto-play. Click to unmute.
             </div>
             <!-- Loading indicator -->
-            <div id="video-loading" class="absolute inset-0 bg-gray-900 flex items-center justify-center">
+            <div
+              id="video-loading"
+              class="absolute inset-0 bg-gray-900 flex items-center justify-center"
+            >
               <div class="text-center text-white">
-                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto mb-4"></div>
+                <div
+                  class="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto mb-4"
+                ></div>
                 <p class="text-sm">Loading video...</p>
               </div>
             </div>
           </div>
 
           <script>
-            document.addEventListener('DOMContentLoaded', function() {
-              const video = document.getElementById('demo-video');
-              const loading = document.getElementById('video-loading');
+            document.addEventListener("DOMContentLoaded", function () {
+              const video = document.getElementById("demo-video");
+              const loading = document.getElementById("video-loading");
 
               // Hide loading when video can play
-              video.addEventListener('canplay', function() {
-                loading.style.display = 'none';
+              video.addEventListener("canplay", function () {
+                loading.style.display = "none";
               });
 
               // Hide loading when video starts playing
-              video.addEventListener('play', function() {
-                loading.style.display = 'none';
+              video.addEventListener("play", function () {
+                loading.style.display = "none";
               });
 
               // Show loading on video load start
-              video.addEventListener('loadstart', function() {
-                loading.style.display = 'flex';
+              video.addEventListener("loadstart", function () {
+                loading.style.display = "flex";
               });
 
               // Error handling
-              video.addEventListener('error', function() {
+              video.addEventListener("error", function () {
                 loading.innerHTML = `
                   <div class="text-center text-white">
                     <i class="fas fa-exclamation-triangle text-2xl mb-2"></i>
@@ -288,33 +382,37 @@
               });
 
               // Auto-play handling
-              video.addEventListener('loadeddata', function() {
+              video.addEventListener("loadeddata", function () {
                 // Try to play (will work since muted)
                 const playPromise = video.play();
                 if (playPromise !== undefined) {
-                  playPromise.then(function() {
-                    console.log('Video auto-playing successfully');
-                  }).catch(function(error) {
-                    console.log('Auto-play failed:', error);
-                  });
+                  playPromise
+                    .then(function () {
+                      console.log("Video auto-playing successfully");
+                    })
+                    .catch(function (error) {
+                      console.log("Auto-play failed:", error);
+                    });
                 }
               });
 
               // Add click to unmute functionality
-              video.addEventListener('click', function() {
+              video.addEventListener("click", function () {
                 if (video.muted) {
                   video.muted = false;
                   // Hide the unmute hint
-                  const unmuteHint = document.querySelector('.absolute.bottom-20');
+                  const unmuteHint = document.querySelector(
+                    ".absolute.bottom-20"
+                  );
                   if (unmuteHint) {
-                    unmuteHint.style.display = 'none';
+                    unmuteHint.style.display = "none";
                   }
                 }
               });
 
               // Loop indicator (video will loop automatically due to loop attribute)
-              video.addEventListener('ended', function() {
-                console.log('Video ended and will loop');
+              video.addEventListener("ended", function () {
+                console.log("Video ended and will loop");
               });
             });
           </script>
@@ -327,7 +425,9 @@
             What You'll See in the Demo
           </h3>
           <p class="text-lg text-gray-600 leading-relaxed mb-8">
-            Watch our comprehensive video walkthrough to see how Ovovex streamlines invoicing processes with intelligent automation and real-time insights.
+            Watch our comprehensive video walkthrough to see how Ovovex
+            streamlines invoicing processes with intelligent automation and
+            real-time insights.
           </p>
         </div>
 
@@ -344,7 +444,8 @@
                 Complete Invoice Creation
               </h4>
               <p class="text-gray-600">
-                See how to create professional invoices in seconds with AI-powered templates
+                See how to create professional invoices in seconds with
+                AI-powered templates
               </p>
             </div>
           </div>
@@ -359,7 +460,8 @@
                 AI Automation Showcase
               </h4>
               <p class="text-gray-600">
-                Watch AI-powered features like smart tax calculations and payment reminders
+                Watch AI-powered features like smart tax calculations and
+                payment reminders
               </p>
             </div>
           </div>
@@ -374,7 +476,8 @@
                 Real-Time Invoice Tracking
               </h4>
               <p class="text-gray-600">
-                Experience live invoice status updates and payment collection insights
+                Experience live invoice status updates and payment collection
+                insights
               </p>
             </div>
           </div>
@@ -389,7 +492,8 @@
                 Team Collaboration
               </h4>
               <p class="text-gray-600">
-                See how multiple users can work together on invoicing and approvals
+                See how multiple users can work together on invoicing and
+                approvals
               </p>
             </div>
           </div>
@@ -417,13 +521,24 @@
 <!-- CTA Section -->
 <section class="py-24 bg-blue-600">
   <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-    <h2 class="text-4xl font-bold text-white mb-6">Ready to Transform Your Invoicing?</h2>
-    <p class="text-xl text-blue-100 mb-8">Join thousands of businesses using Ovovex for professional, automated invoicing</p>
+    <h2 class="text-4xl font-bold text-white mb-6">
+      Ready to Transform Your Invoicing?
+    </h2>
+    <p class="text-xl text-blue-100 mb-8">
+      Join thousands of businesses using Ovovex for professional, automated
+      invoicing
+    </p>
     <div class="flex flex-col sm:flex-row gap-4 justify-center">
-      <a href="/" class="inline-flex items-center px-8 py-4 bg-white text-blue-600 font-semibold rounded-xl hover:bg-gray-50 transition-colors">
+      <a
+        href="/"
+        class="inline-flex items-center px-8 py-4 bg-white text-blue-600 font-semibold rounded-xl hover:bg-gray-50 transition-colors"
+      >
         <i class="fas fa-rocket mr-2"></i>Start Free Trial
       </a>
-      <a href="/features/financial-analytics/" class="inline-flex items-center px-8 py-4 bg-blue-500 text-white font-semibold rounded-xl hover:bg-blue-400 transition-colors">
+      <a
+        href="/features/financial-analytics/"
+        class="inline-flex items-center px-8 py-4 bg-blue-500 text-white font-semibold rounded-xl hover:bg-blue-400 transition-colors"
+      >
         <i class="fas fa-arrow-right mr-2"></i>Explore Other Features
       </a>
     </div>

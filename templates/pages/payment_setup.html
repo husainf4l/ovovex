@@ -1,20 +1,23 @@
-{% extends 'base.html' %}
-{% load static %}
-
-{% block title %}Setup Payment Method - Ovovex{% endblock %}
-
-{% block content %}
-{% include 'components/navbar.html' %}
+{% extends 'base.html' %} {% load static %} {% block title %}Setup Payment
+Method - Ovovex{% endblock %} {% block content %} {% include
+'components/navbar.html' %}
 
 <!-- Header Section -->
 <section class="pt-24 pb-16 bg-gradient-to-br from-blue-50 to-indigo-100">
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-    <div class="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold mb-6">
+    <div
+      class="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold mb-6"
+    >
       <i class="fas fa-credit-card mr-2"></i>
       Payment Setup
     </div>
-    <h1 class="text-4xl font-bold text-gray-900 mb-6">Complete Your Subscription</h1>
-    <p class="text-xl text-gray-600">Your 14-day free trial is ending soon. Add a payment method to continue using Ovovex.</p>
+    <h1 class="text-4xl font-bold text-gray-900 mb-6">
+      Complete Your Subscription
+    </h1>
+    <p class="text-xl text-gray-600">
+      Your 14-day free trial is ending soon. Add a payment method to continue
+      using Ovovex.
+    </p>
   </div>
 </section>
 
@@ -24,29 +27,57 @@
     <div class="grid lg:grid-cols-2 gap-12">
       <!-- Payment Form -->
       <div>
-        <h2 class="text-2xl font-bold text-gray-900 mb-6">Add Payment Method</h2>
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">
+          Add Payment Method
+        </h2>
 
         <form class="space-y-6">
           <!-- Card Information -->
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-3">Card Information</label>
+            <label class="block text-sm font-medium text-gray-700 mb-3"
+              >Card Information</label
+            >
             <div class="space-y-3">
               <div class="relative">
-                <input type="text" placeholder="Card number" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent pl-12">
+                <input
+                  type="text"
+                  placeholder="Card number"
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent pl-12"
+                />
                 <div class="absolute left-3 top-3.5">
                   <i class="fas fa-credit-card text-gray-400"></i>
                 </div>
                 <div class="absolute right-3 top-3.5 flex space-x-1">
-                  <div class="w-6 h-4 bg-blue-600 rounded text-xs text-white flex items-center justify-center font-bold">V</div>
-                  <div class="w-6 h-4 bg-red-500 rounded text-xs text-white flex items-center justify-center font-bold">M</div>
-                  <div class="w-6 h-4 bg-blue-400 rounded text-xs text-white flex items-center justify-center font-bold">A</div>
+                  <div
+                    class="w-6 h-4 bg-blue-600 rounded text-xs text-white flex items-center justify-center font-bold"
+                  >
+                    V
+                  </div>
+                  <div
+                    class="w-6 h-4 bg-red-500 rounded text-xs text-white flex items-center justify-center font-bold"
+                  >
+                    M
+                  </div>
+                  <div
+                    class="w-6 h-4 bg-blue-400 rounded text-xs text-white flex items-center justify-center font-bold"
+                  >
+                    A
+                  </div>
                 </div>
               </div>
 
               <div class="grid grid-cols-2 gap-3">
-                <input type="text" placeholder="MM/YY" class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                <input
+                  type="text"
+                  placeholder="MM/YY"
+                  class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                />
                 <div class="relative">
-                  <input type="text" placeholder="CVV" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent pl-12">
+                  <input
+                    type="text"
+                    placeholder="CVV"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent pl-12"
+                  />
                   <div class="absolute left-3 top-3.5">
                     <i class="fas fa-lock text-gray-400"></i>
                   </div>
@@ -57,18 +88,46 @@
 
           <!-- Billing Address -->
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-3">Billing Address</label>
+            <label class="block text-sm font-medium text-gray-700 mb-3"
+              >Billing Address</label
+            >
             <div class="space-y-3">
-              <input type="text" placeholder="Full name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-              <input type="text" placeholder="Address line 1" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-              <input type="text" placeholder="Address line 2 (optional)" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+              <input
+                type="text"
+                placeholder="Full name"
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+              <input
+                type="text"
+                placeholder="Address line 1"
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+              <input
+                type="text"
+                placeholder="Address line 2 (optional)"
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
               <div class="grid grid-cols-2 gap-3">
-                <input type="text" placeholder="City" class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                <input type="text" placeholder="State/Province" class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                <input
+                  type="text"
+                  placeholder="City"
+                  class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                />
+                <input
+                  type="text"
+                  placeholder="State/Province"
+                  class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                />
               </div>
               <div class="grid grid-cols-2 gap-3">
-                <input type="text" placeholder="ZIP/Postal code" class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                <select class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                <input
+                  type="text"
+                  placeholder="ZIP/Postal code"
+                  class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                />
+                <select
+                  class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                >
                   <option>United States</option>
                   <option>Canada</option>
                   <option>United Kingdom</option>
@@ -79,20 +138,43 @@
 
           <!-- Payment Options -->
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-3">Payment Options</label>
+            <label class="block text-sm font-medium text-gray-700 mb-3"
+              >Payment Options</label
+            >
             <div class="space-y-3">
               <label class="flex items-center">
-                <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
-                <span class="ml-2 text-sm text-gray-600">Save this card for future payments</span>
+                <input
+                  type="checkbox"
+                  class="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                />
+                <span class="ml-2 text-sm text-gray-600"
+                  >Save this card for future payments</span
+                >
               </label>
               <label class="flex items-center">
-                <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500" checked>
-                <span class="ml-2 text-sm text-gray-600">I agree to the <a href="#" class="text-blue-600 hover:text-blue-800">Terms of Service</a> and <a href="#" class="text-blue-600 hover:text-blue-800">Privacy Policy</a></span>
+                <input
+                  type="checkbox"
+                  class="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                  checked
+                />
+                <span class="ml-2 text-sm text-gray-600"
+                  >I agree to the
+                  <a href="#" class="text-blue-600 hover:text-blue-800"
+                    >Terms of Service</a
+                  >
+                  and
+                  <a href="#" class="text-blue-600 hover:text-blue-800"
+                    >Privacy Policy</a
+                  ></span
+                >
               </label>
             </div>
           </div>
 
-          <button type="submit" class="w-full bg-blue-600 text-white py-4 px-6 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+          <button
+            type="submit"
+            class="w-full bg-blue-600 text-white py-4 px-6 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+          >
             Complete Setup & Start Subscription
           </button>
         </form>
@@ -115,7 +197,9 @@
               </div>
             </div>
 
-            <div class="flex justify-between items-center text-sm text-gray-600">
+            <div
+              class="flex justify-between items-center text-sm text-gray-600"
+            >
               <span>Free trial (14 days)</span>
               <span>-$79.00</span>
             </div>
@@ -125,7 +209,9 @@
                 <span class="font-medium text-gray-900">Due today</span>
                 <span class="font-bold text-gray-900">$0.00</span>
               </div>
-              <div class="text-sm text-gray-600 mt-1">You'll be charged $79.00 on [Trial End Date]</div>
+              <div class="text-sm text-gray-600 mt-1">
+                You'll be charged $79.00 on [Trial End Date]
+              </div>
             </div>
           </div>
 
@@ -133,12 +219,29 @@
           <div class="border-t border-gray-200 pt-6">
             <h4 class="font-medium text-gray-900 mb-4">What's included:</h4>
             <ul class="space-y-2 text-sm text-gray-600">
-              <li><i class="fas fa-check text-green-500 mr-2"></i>Unlimited invoices & estimates</li>
-              <li><i class="fas fa-check text-green-500 mr-2"></i>Advanced analytics & reporting</li>
-              <li><i class="fas fa-check text-green-500 mr-2"></i>Inventory management</li>
-              <li><i class="fas fa-check text-green-500 mr-2"></i>Bank reconciliation</li>
-              <li><i class="fas fa-check text-green-500 mr-2"></i>Phone & email support</li>
-              <li><i class="fas fa-check text-green-500 mr-2"></i>API access</li>
+              <li>
+                <i class="fas fa-check text-green-500 mr-2"></i>Unlimited
+                invoices & estimates
+              </li>
+              <li>
+                <i class="fas fa-check text-green-500 mr-2"></i>Advanced
+                analytics & reporting
+              </li>
+              <li>
+                <i class="fas fa-check text-green-500 mr-2"></i>Inventory
+                management
+              </li>
+              <li>
+                <i class="fas fa-check text-green-500 mr-2"></i>Bank
+                reconciliation
+              </li>
+              <li>
+                <i class="fas fa-check text-green-500 mr-2"></i>Phone & email
+                support
+              </li>
+              <li>
+                <i class="fas fa-check text-green-500 mr-2"></i>API access
+              </li>
             </ul>
           </div>
 
@@ -158,27 +261,49 @@
 <!-- FAQ Section -->
 <section class="py-16 bg-gray-50">
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-    <h2 class="text-2xl font-bold text-gray-900 text-center mb-8">Frequently Asked Questions</h2>
+    <h2 class="text-2xl font-bold text-gray-900 text-center mb-8">
+      Frequently Asked Questions
+    </h2>
 
     <div class="space-y-6">
       <div class="bg-white rounded-lg p-6 shadow-sm">
-        <h3 class="font-semibold text-gray-900 mb-2">When will I be charged?</h3>
-        <p class="text-gray-600">You won't be charged until your 14-day free trial ends. You'll receive an email reminder 3 days before your trial expires.</p>
+        <h3 class="font-semibold text-gray-900 mb-2">
+          When will I be charged?
+        </h3>
+        <p class="text-gray-600">
+          You won't be charged until your 14-day free trial ends. You'll receive
+          an email reminder 3 days before your trial expires.
+        </p>
       </div>
 
       <div class="bg-white rounded-lg p-6 shadow-sm">
-        <h3 class="font-semibold text-gray-900 mb-2">Can I change my plan later?</h3>
-        <p class="text-gray-600">Yes, you can upgrade or downgrade your plan at any time. Changes take effect at the next billing cycle.</p>
+        <h3 class="font-semibold text-gray-900 mb-2">
+          Can I change my plan later?
+        </h3>
+        <p class="text-gray-600">
+          Yes, you can upgrade or downgrade your plan at any time. Changes take
+          effect at the next billing cycle.
+        </p>
       </div>
 
       <div class="bg-white rounded-lg p-6 shadow-sm">
-        <h3 class="font-semibold text-gray-900 mb-2">What if I cancel during the trial?</h3>
-        <p class="text-gray-600">You can cancel anytime during your trial period. No charges will be applied to your card.</p>
+        <h3 class="font-semibold text-gray-900 mb-2">
+          What if I cancel during the trial?
+        </h3>
+        <p class="text-gray-600">
+          You can cancel anytime during your trial period. No charges will be
+          applied to your card.
+        </p>
       </div>
 
       <div class="bg-white rounded-lg p-6 shadow-sm">
-        <h3 class="font-semibold text-gray-900 mb-2">Is my payment information secure?</h3>
-        <p class="text-gray-600">Yes, we use industry-standard encryption and comply with PCI DSS standards. We never store your full card details.</p>
+        <h3 class="font-semibold text-gray-900 mb-2">
+          Is my payment information secure?
+        </h3>
+        <p class="text-gray-600">
+          Yes, we use industry-standard encryption and comply with PCI DSS
+          standards. We never store your full card details.
+        </p>
       </div>
     </div>
   </div>

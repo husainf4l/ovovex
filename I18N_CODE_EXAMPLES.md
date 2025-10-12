@@ -3,6 +3,7 @@
 ## Template Examples
 
 ### Basic Translation
+
 ```django
 {% load i18n %}
 
@@ -11,6 +12,7 @@
 ```
 
 ### Translation with Variables
+
 ```django
 {% load i18n %}
 
@@ -26,6 +28,7 @@ You have {{ counter }} items.
 ```
 
 ### Context-Specific Translation (same word, different meaning)
+
 ```django
 {% load i18n %}
 
@@ -41,6 +44,7 @@ You have {{ counter }} items.
 ## Python/Views Examples
 
 ### Basic Translation
+
 ```python
 from django.utils.translation import gettext as _
 
@@ -50,6 +54,7 @@ def my_view(request):
 ```
 
 ### Lazy Translation (for module-level constants)
+
 ```python
 from django.utils.translation import gettext_lazy as _
 
@@ -62,6 +67,7 @@ class MyModel(models.Model):
 ```
 
 ### Translation with Variables
+
 ```python
 from django.utils.translation import gettext
 
@@ -72,6 +78,7 @@ def my_view(request):
 ```
 
 ### Plural Forms
+
 ```python
 from django.utils.translation import ngettext
 
@@ -96,7 +103,7 @@ class Product(models.Model):
     name = models.CharField(_('product name'), max_length=100)
     description = models.TextField(_('description'))
     price = models.DecimalField(_('price'), max_digits=10, decimal_places=2)
-    
+
     class Meta:
         verbose_name = _('product')
         verbose_name_plural = _('products')
@@ -150,6 +157,7 @@ urlpatterns = [
 ## JavaScript Translation
 
 ### Setup in template
+
 ```django
 {% load i18n %}
 
@@ -161,6 +169,7 @@ urlpatterns = [
 ```
 
 ### Configure in urls.py
+
 ```python
 from django.views.i18n import JavaScriptCatalog
 
@@ -174,23 +183,25 @@ urlpatterns = [
 ## RTL CSS Examples
 
 ### Using CSS Logical Properties (Best Practice)
+
 ```css
 /* ❌ Don't use: */
 .button {
-    margin-left: 10px;
-    padding-right: 20px;
-    text-align: left;
+  margin-left: 10px;
+  padding-right: 20px;
+  text-align: left;
 }
 
 /* ✅ Do use: */
 .button {
-    margin-inline-start: 10px;      /* Auto-adapts to LTR/RTL */
-    padding-inline-end: 20px;       /* Auto-adapts to LTR/RTL */
-    text-align: start;              /* Auto-adapts to LTR/RTL */
+  margin-inline-start: 10px; /* Auto-adapts to LTR/RTL */
+  padding-inline-end: 20px; /* Auto-adapts to LTR/RTL */
+  text-align: start; /* Auto-adapts to LTR/RTL */
 }
 ```
 
 ### Conditional RTL Styles in Template
+
 ```django
 {% load i18n %}
 {% get_current_language_bidi as LANGUAGE_BIDI %}
@@ -214,6 +225,7 @@ urlpatterns = [
 ## Language Switcher Examples
 
 ### Dropdown Switcher (As implemented)
+
 ```django
 {% load i18n %}
 {% get_current_language as LANGUAGE_CODE %}
@@ -233,6 +245,7 @@ urlpatterns = [
 ```
 
 ### Simple Toggle Buttons
+
 ```django
 {% load i18n %}
 {% get_current_language as LANGUAGE_CODE %}
@@ -240,12 +253,12 @@ urlpatterns = [
 <form action="{% url 'set_language' %}" method="post" class="inline">
     {% csrf_token %}
     <input name="next" type="hidden" value="{{ request.path }}" />
-    
-    <button type="submit" name="language" value="en" 
+
+    <button type="submit" name="language" value="en"
             class="{% if LANGUAGE_CODE == 'en' %}active{% endif %}">
         EN
     </button>
-    
+
     <button type="submit" name="language" value="ar"
             class="{% if LANGUAGE_CODE == 'ar' %}active{% endif %}">
         عر
@@ -254,6 +267,7 @@ urlpatterns = [
 ```
 
 ### Flag-based Switcher
+
 ```django
 {% load i18n %}
 {% get_current_language as LANGUAGE_CODE %}
@@ -261,11 +275,11 @@ urlpatterns = [
 <form action="{% url 'set_language' %}" method="post">
     {% csrf_token %}
     <input name="next" type="hidden" value="{{ request.path }}" />
-    
+
     <button type="submit" name="language" value="en" title="English">
         <img src="{% static 'flags/en.png' %}" alt="English" />
     </button>
-    
+
     <button type="submit" name="language" value="ar" title="العربية">
         <img src="{% static 'flags/ar.png' %}" alt="العربية" />
     </button>
@@ -325,6 +339,7 @@ MIDDLEWARE = [
 ## Testing Translations
 
 ### In Python Shell
+
 ```python
 python manage.py shell
 
@@ -340,6 +355,7 @@ print(_('Home'))  # Output: الرئيسية
 ```
 
 ### In Views/Tests
+
 ```python
 from django.test import TestCase
 from django.utils.translation import activate, gettext as _
@@ -348,7 +364,7 @@ class TranslationTests(TestCase):
     def test_arabic_translation(self):
         activate('ar')
         self.assertEqual(_('Home'), 'الرئيسية')
-    
+
     def test_english_translation(self):
         activate('en')
         self.assertEqual(_('Home'), 'Home')
@@ -359,6 +375,7 @@ class TranslationTests(TestCase):
 ## Common Patterns
 
 ### Date/Time Translation
+
 ```django
 {% load i18n %}
 
@@ -370,6 +387,7 @@ class TranslationTests(TestCase):
 ```
 
 ### Number Formatting
+
 ```django
 {% load l10n %}
 
@@ -381,6 +399,7 @@ class TranslationTests(TestCase):
 ```
 
 ### Email Translation
+
 ```python
 from django.core.mail import send_mail
 from django.utils.translation import gettext as _
@@ -402,11 +421,11 @@ from django.utils.translation import gettext_lazy as _
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = ['name', 'price', 'status']
-    
+
     # Translate admin texts
     verbose_name = _('Product')
     verbose_name_plural = _('Products')
-    
+
     # Translate fieldsets
     fieldsets = (
         (_('Basic Information'), {
@@ -423,6 +442,7 @@ class ProductAdmin(admin.ModelAdmin):
 ## Best Practices
 
 ### ✅ DO:
+
 - Use `{% trans %}` for simple text
 - Use `{% blocktrans %}` for text with variables
 - Use `gettext_lazy` in models/forms
@@ -431,6 +451,7 @@ class ProductAdmin(admin.ModelAdmin):
 - Use CSS logical properties for RTL
 
 ### ❌ DON'T:
+
 - Don't translate technical terms (API, URL, etc.)
 - Don't translate user-generated content
 - Don't forget to compile translations
@@ -483,4 +504,4 @@ class LoginForm(forms.Form):
 
 ---
 
-*This file contains all common patterns and examples for Django i18n!*
+_This file contains all common patterns and examples for Django i18n!_

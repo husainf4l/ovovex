@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
-{% block title %}AI Bookkeeping - Ovovex{% endblock %}
+{% block title %}{% trans "AI Bookkeeping - Ovovex" %}{% endblock %}
 
 {% block content %}
 {% include 'components/navbar.html' %}
@@ -11,27 +12,23 @@
         <div class="absolute inset-0 bg-gradient-to-r from-emerald-600 to-teal-700 bg-opacity-80"></div>
         <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
-                <h1 class="text-4xl md:text-6xl font-bold mb-6">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6">{% trans "
                     AI-Powered Bookkeeping
-                </h1>
-                <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
-                    Intelligent automation that learns your business patterns.
-                    Let AI handle routine bookkeeping tasks while you focus on growth.
-                </p>
-                <a href="{% url 'signup' %}" class="bg-white text-emerald-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition duration-300">
+                " %}</h1>
+                <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">{%  trans "Intelligent automation that learns your business patterns.
+                    Let AI handle routine bookkeeping tasks while you focus on growth." %}</p>
+                <a href="{% url 'signup' %}" class="bg-white text-emerald-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition duration-300">{% trans "
                     Experience AI Bookkeeping
-                </a>
+                " %}</a>
             </div>
 
             <!-- Extended Hero Content -->
             <div class="text-center">
-                <h2 class="text-3xl md:text-4xl font-bold mb-6">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">{% trans "
                     Intelligent Automation
-                </h2>
-                <p class="text-xl text-gray-100 max-w-2xl mx-auto mb-12">
-                    Advanced AI algorithms that categorize transactions, reconcile accounts,
-                    and identify patterns to streamline your financial operations.
-                </p>
+                " %}</h2>
+                <p class="text-xl text-gray-100 max-w-2xl mx-auto mb-12">{%  trans "Advanced AI algorithms that categorize transactions, reconcile accounts,
+                    and identify patterns to streamline your financial operations." %}</p>
             </div>
         </div>
     </section>
@@ -42,11 +39,9 @@
                     <div class="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center mb-6">
                         <i class="fas fa-brain text-emerald-600 text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Smart Categorization</h3>
-                    <p class="text-gray-600">
-                        AI learns your business patterns to automatically categorize transactions.
-                        Machine learning improves accuracy over time with minimal corrections.
-                    </p>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Smart Categorization" %}</h3>
+                    <p class="text-gray-600">{%  trans "AI learns your business patterns to automatically categorize transactions.
+                        Machine learning improves accuracy over time with minimal corrections." %}</p>
                 </div>
 
                 <!-- Feature 2 -->
@@ -54,11 +49,9 @@
                     <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
                         <i class="fas fa-robot text-blue-600 text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Automated Reconciliation</h3>
-                    <p class="text-gray-600">
-                        Intelligent matching of bank transactions to bookkeeping entries.
-                        AI identifies discrepancies and suggests corrections automatically.
-                    </p>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Automated Reconciliation" %}</h3>
+                    <p class="text-gray-600">{%  trans "Intelligent matching of bank transactions to bookkeeping entries.
+                        AI identifies discrepancies and suggests corrections automatically." %}</p>
                 </div>
 
                 <!-- Feature 3 -->
@@ -66,11 +59,9 @@
                     <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-6">
                         <i class="fas fa-receipt text-purple-600 text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Receipt Processing</h3>
-                    <p class="text-gray-600">
-                        Upload receipts and invoices for automatic data extraction.
-                        AI reads text, identifies vendors, amounts, and dates instantly.
-                    </p>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Receipt Processing" %}</h3>
+                    <p class="text-gray-600">{%  trans "Upload receipts and invoices for automatic data extraction.
+                        AI reads text, identifies vendors, amounts, and dates instantly." %}</p>
                 </div>
 
                 <!-- Feature 4 -->
@@ -78,11 +69,9 @@
                     <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-6">
                         <i class="fas fa-chart-line text-orange-600 text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Pattern Recognition</h3>
-                    <p class="text-gray-600">
-                        AI identifies recurring transactions, seasonal patterns, and anomalies.
-                        Get proactive alerts about unusual financial activities.
-                    </p>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Pattern Recognition" %}</h3>
+                    <p class="text-gray-600">{%  trans "AI identifies recurring transactions, seasonal patterns, and anomalies.
+                        Get proactive alerts about unusual financial activities." %}</p>
                 </div>
 
                 <!-- Feature 5 -->
@@ -90,11 +79,9 @@
                     <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-6">
                         <i class="fas fa-magic text-red-600 text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Predictive Insights</h3>
-                    <p class="text-gray-600">
-                        Forecast cash flow, predict expenses, and anticipate financial needs.
-                        AI analyzes historical data to provide actionable business insights.
-                    </p>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Predictive Insights" %}</h3>
+                    <p class="text-gray-600">{%  trans "Forecast cash flow, predict expenses, and anticipate financial needs.
+                        AI analyzes historical data to provide actionable business insights." %}</p>
                 </div>
 
                 <!-- Feature 6 -->
@@ -102,11 +89,9 @@
                     <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-6">
                         <i class="fas fa-shield-alt text-indigo-600 text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Fraud Detection</h3>
-                    <p class="text-gray-600">
-                        AI monitors transactions for suspicious patterns and potential fraud.
-                        Automated alerts for unusual activities requiring review.
-                    </p>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Fraud Detection" %}</h3>
+                    <p class="text-gray-600">{%  trans "AI monitors transactions for suspicious patterns and potential fraud.
+                        Automated alerts for unusual activities requiring review." %}</p>
                 </div>
             </div>
         </div>
@@ -116,14 +101,14 @@
     <section class="bg-gray-100 py-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">{% trans "
                     The Power of AI Bookkeeping
-                </h2>
+                " %}</h2>
             </div>
 
             <div class="grid md:grid-cols-2 gap-12">
                 <div class="bg-white p-8 rounded-lg shadow-lg">
-                    <h3 class="text-2xl font-semibold text-gray-900 mb-6">Time Savings</h3>
+                    <h3 class="text-2xl font-semibold text-gray-900 mb-6">{% trans "Time Savings" %}</h3>
                     <ul class="space-y-4 text-gray-600">
                         <li class="flex items-start">
                             <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
@@ -145,7 +130,7 @@
                 </div>
 
                 <div class="bg-white p-8 rounded-lg shadow-lg">
-                    <h3 class="text-2xl font-semibold text-gray-900 mb-6">Accuracy & Compliance</h3>
+                    <h3 class="text-2xl font-semibold text-gray-900 mb-6">{% trans "Accuracy & Compliance" %}</h3>
                     <ul class="space-y-4 text-gray-600">
                         <li class="flex items-start">
                             <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
@@ -173,12 +158,10 @@
     <section class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">{% trans "
                     AI Bookkeeping in Action
-                </h2>
-                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-                    Watch how our AI learns your business patterns and automates complex bookkeeping tasks, from transaction categorization to financial reporting.
-                </p>
+                " %}</h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">{%  trans "Watch how our AI learns your business patterns and automates complex bookkeeping tasks, from transaction categorization to financial reporting." %}</p>
             </div>
 
             <div class="grid lg:grid-cols-2 gap-12 items-center">
@@ -187,13 +170,11 @@
                     <div class="w-16 h-16 bg-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6">
                         <i class="fas fa-play text-white text-2xl"></i>
                     </div>
-                    <h3 class="text-2xl font-semibold text-gray-900 mb-4">AI Bookkeeping Demo</h3>
-                    <p class="text-gray-600 mb-6">
-                        See how AI processes receipts, categorizes transactions, reconciles accounts, and generates financial reports automatically.
-                    </p>
-                    <button class="bg-emerald-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-emerald-700 transition duration-300">
+                    <h3 class="text-2xl font-semibold text-gray-900 mb-4">{% trans "AI Bookkeeping Demo" %}</h3>
+                    <p class="text-gray-600 mb-6">{%  trans "See how AI processes receipts, categorizes transactions, reconciles accounts, and generates financial reports automatically." %}</p>
+                    <button class="bg-emerald-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-emerald-700 transition duration-300">{% trans "
                         Watch AI Demo
-                    </button>
+                    " %}</button>
                 </div>
 
                 <!-- Demo Screenshots -->
@@ -203,9 +184,9 @@
                             <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
                                 <i class="fas fa-upload text-blue-600"></i>
                             </div>
-                            <h4 class="text-lg font-semibold text-gray-900">Smart Receipt Processing</h4>
+                            <h4 class="text-lg font-semibold text-gray-900">{% trans "Smart Receipt Processing" %}</h4>
                         </div>
-                        <p class="text-gray-600">Upload receipts and watch AI extract vendor names, amounts, dates, and tax information instantly.</p>
+                        <p class="text-gray-600">{%  trans "Upload receipts and watch AI extract vendor names, amounts, dates, and tax information instantly." %}</p>
                     </div>
 
                     <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
@@ -213,9 +194,9 @@
                             <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mr-4">
                                 <i class="fas fa-tags text-green-600"></i>
                             </div>
-                            <h4 class="text-lg font-semibold text-gray-900">Intelligent Categorization</h4>
+                            <h4 class="text-lg font-semibold text-gray-900">{% trans "Intelligent Categorization" %}</h4>
                         </div>
-                        <p class="text-gray-600">AI learns your business patterns and automatically categorizes transactions with 99% accuracy.</p>
+                        <p class="text-gray-600">{%  trans "AI learns your business patterns and automatically categorizes transactions with 99% accuracy." %}</p>
                     </div>
 
                     <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
@@ -223,9 +204,9 @@
                             <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mr-4">
                                 <i class="fas fa-balance-scale text-purple-600"></i>
                             </div>
-                            <h4 class="text-lg font-semibold text-gray-900">Automated Reconciliation</h4>
+                            <h4 class="text-lg font-semibold text-gray-900">{% trans "Automated Reconciliation" %}</h4>
                         </div>
-                        <p class="text-gray-600">Bank reconciliation happens automatically with AI matching transactions and identifying discrepancies.</p>
+                        <p class="text-gray-600">{%  trans "Bank reconciliation happens automatically with AI matching transactions and identifying discrepancies." %}</p>
                     </div>
                 </div>
             </div>
@@ -236,19 +217,17 @@
     <section class="py-20 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">{% trans "
                     Advanced AI Bookkeeping Features
-                </h2>
-                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-                    Comprehensive AI-powered automation that handles every aspect of bookkeeping, from data entry to financial analysis.
-                </p>
+                " %}</h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">{%  trans "Comprehensive AI-powered automation that handles every aspect of bookkeeping, from data entry to financial analysis." %}</p>
             </div>
 
             <div class="space-y-16">
                 <!-- Data Processing & Learning -->
                 <div class="grid lg:grid-cols-2 gap-12 items-center">
                     <div>
-                        <h3 class="text-2xl font-bold text-gray-900 mb-4">Intelligent Data Processing</h3>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4">{% trans "Intelligent Data Processing" %}</h3>
                         <ul class="space-y-3 text-gray-600">
                             <li class="flex items-start">
                                 <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
@@ -275,7 +254,7 @@
                     <div class="bg-white p-8 rounded-lg shadow-lg">
                         <div class="text-center">
                             <i class="fas fa-brain text-emerald-600 text-6xl mb-4"></i>
-                            <p class="text-gray-600">AI that gets smarter with every transaction</p>
+                            <p class="text-gray-600">{%  trans "AI that gets smarter with every transaction" %}</p>
                         </div>
                     </div>
                 </div>
@@ -285,11 +264,11 @@
                     <div class="bg-white p-8 rounded-lg shadow-lg">
                         <div class="text-center">
                             <i class="fas fa-cogs text-blue-600 text-6xl mb-4"></i>
-                            <p class="text-gray-600">Set it and forget it bookkeeping automation</p>
+                            <p class="text-gray-600">{%  trans "Set it and forget it bookkeeping automation" %}</p>
                         </div>
                     </div>
                     <div>
-                        <h3 class="text-2xl font-bold text-gray-900 mb-4">Automated Workflows</h3>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4">{% trans "Automated Workflows" %}</h3>
                         <ul class="space-y-3 text-gray-600">
                             <li class="flex items-start">
                                 <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
@@ -318,7 +297,7 @@
                 <!-- Analytics & Insights -->
                 <div class="grid lg:grid-cols-2 gap-12 items-center">
                     <div>
-                        <h3 class="text-2xl font-bold text-gray-900 mb-4">Predictive Analytics</h3>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4">{% trans "Predictive Analytics" %}</h3>
                         <ul class="space-y-3 text-gray-600">
                             <li class="flex items-start">
                                 <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
@@ -345,7 +324,7 @@
                     <div class="bg-white p-8 rounded-lg shadow-lg">
                         <div class="text-center">
                             <i class="fas fa-chart-line text-red-600 text-6xl mb-4"></i>
-                            <p class="text-gray-600">Turn bookkeeping data into strategic insights</p>
+                            <p class="text-gray-600">{%  trans "Turn bookkeeping data into strategic insights" %}</p>
                         </div>
                     </div>
                 </div>
@@ -357,12 +336,10 @@
     <section class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">{% trans "
                     Businesses Trust AI Bookkeeping
-                </h2>
-                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-                    See how companies have transformed their financial operations and reduced bookkeeping costs with Ovovex AI Bookkeeping.
-                </p>
+                " %}</h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">{%  trans "See how companies have transformed their financial operations and reduced bookkeeping costs with Ovovex AI Bookkeeping." %}</p>
             </div>
 
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -373,13 +350,11 @@
                             <span class="text-emerald-600 font-semibold">MB</span>
                         </div>
                         <div>
-                            <h4 class="font-semibold text-gray-900">Marketing Bros</h4>
-                            <p class="text-gray-600 text-sm">Digital Marketing Agency</p>
+                            <h4 class="font-semibold text-gray-900">{% trans "Marketing Bros" %}</h4>
+                            <p class="text-gray-600 text-sm">{%  trans "Digital Marketing Agency" %}</p>
                         </div>
                     </div>
-                    <p class="text-gray-600 italic">
-                        "AI Bookkeeping saved us 20 hours per week. What used to take our bookkeeper 2 days now happens automatically overnight."
-                    </p>
+                    <p class="text-gray-600 italic">{% trans "AI Bookkeeping saved us 20 hours per week. What used to take our bookkeeper 2 days now happens automatically overnight." %}</p>
                     <div class="flex text-yellow-400 mt-4">
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
@@ -396,13 +371,11 @@
                             <span class="text-blue-600 font-semibold">EC</span>
                         </div>
                         <div>
-                            <h4 class="font-semibold text-gray-900">E-commerce Central</h4>
-                            <p class="text-gray-600 text-sm">Online Retail Business</p>
+                            <h4 class="font-semibold text-gray-900">{% trans "E-commerce Central" %}</h4>
+                            <p class="text-gray-600 text-sm">{%  trans "Online Retail Business" %}</p>
                         </div>
                     </div>
-                    <p class="text-gray-600 italic">
-                        "The AI caught a $50,000 duplicate payment that our old system missed. It's paying for itself many times over."
-                    </p>
+                    <p class="text-gray-600 italic">{% trans "The AI caught a $50,000 duplicate payment that our old system missed. It's paying for itself many times over." %}</p>
                     <div class="flex text-yellow-400 mt-4">
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
@@ -419,13 +392,11 @@
                             <span class="text-purple-600 font-semibold">PL</span>
                         </div>
                         <div>
-                            <h4 class="font-semibold text-gray-900">Professional Law</h4>
-                            <p class="text-gray-600 text-sm">Legal Practice</p>
+                            <h4 class="font-semibold text-gray-900">{% trans "Professional Law" %}</h4>
+                            <p class="text-gray-600 text-sm">{%  trans "Legal Practice" %}</p>
                         </div>
                     </div>
-                    <p class="text-gray-600 italic">
-                        "Client trust funds are handled with perfect accuracy. The AI compliance features give us complete peace of mind."
-                    </p>
+                    <p class="text-gray-600 italic">{% trans "Client trust funds are handled with perfect accuracy. The AI compliance features give us complete peace of mind." %}</p>
                     <div class="flex text-yellow-400 mt-4">
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
@@ -442,21 +413,19 @@
     <section class="py-20 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">{% trans "
                     AI Bookkeeping Pricing
-                </h2>
-                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-                    Transparent pricing that scales with your business. Start with basic automation and upgrade as your AI accuracy improves.
-                </p>
+                " %}</h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">{%  trans "Transparent pricing that scales with your business. Start with basic automation and upgrade as your AI accuracy improves." %}</p>
             </div>
 
             <div class="grid md:grid-cols-3 gap-8">
                 <!-- Starter Plan -->
                 <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-gray-200">
                     <div class="text-center">
-                        <h3 class="text-2xl font-bold text-gray-900 mb-4">AI Starter</h3>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4">{% trans "AI Starter" %}</h3>
                         <div class="text-4xl font-bold text-gray-900 mb-2">$49<span class="text-lg font-normal">/month</span></div>
-                        <p class="text-gray-600 mb-6">Perfect for small businesses getting started with AI</p>
+                        <p class="text-gray-600 mb-6">{%  trans "Perfect for small businesses getting started with AI" %}</p>
                         <ul class="text-left space-y-3 mb-8">
                             <li class="flex items-center">
                                 <i class="fas fa-check text-green-500 mr-3"></i>
@@ -479,9 +448,9 @@
                                 Email support
                             </li>
                         </ul>
-                        <a href="{% url 'signup' %}" class="block bg-gray-100 text-gray-800 px-6 py-3 rounded-lg font-semibold hover:bg-gray-200 transition duration-300">
+                        <a href="{% url 'signup' %}" class="block bg-gray-100 text-gray-800 px-6 py-3 rounded-lg font-semibold hover:bg-gray-200 transition duration-300">{% trans "
                             Start Free Trial
-                        </a>
+                        " %}</a>
                     </div>
                 </div>
 
@@ -491,9 +460,9 @@
                         <span class="bg-emerald-500 text-white px-4 py-1 rounded-full text-sm font-semibold">Most Popular</span>
                     </div>
                     <div class="text-center">
-                        <h3 class="text-2xl font-bold text-gray-900 mb-4">AI Professional</h3>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4">{% trans "AI Professional" %}</h3>
                         <div class="text-4xl font-bold text-gray-900 mb-2">$149<span class="text-lg font-normal">/month</span></div>
-                        <p class="text-gray-600 mb-6">Advanced AI for growing businesses</p>
+                        <p class="text-gray-600 mb-6">{%  trans "Advanced AI for growing businesses" %}</p>
                         <ul class="text-left space-y-3 mb-8">
                             <li class="flex items-center">
                                 <i class="fas fa-check text-green-500 mr-3"></i>
@@ -520,18 +489,18 @@
                                 Priority support
                             </li>
                         </ul>
-                        <a href="{% url 'signup' %}" class="block bg-emerald-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-emerald-700 transition duration-300">
+                        <a href="{% url 'signup' %}" class="block bg-emerald-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-emerald-700 transition duration-300">{% trans "
                             Start Free Trial
-                        </a>
+                        " %}</a>
                     </div>
                 </div>
 
                 <!-- Enterprise Plan -->
                 <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-gray-200">
                     <div class="text-center">
-                        <h3 class="text-2xl font-bold text-gray-900 mb-4">AI Enterprise</h3>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4">{% trans "AI Enterprise" %}</h3>
                         <div class="text-4xl font-bold text-gray-900 mb-2">$399<span class="text-lg font-normal">/month</span></div>
-                        <p class="text-gray-600 mb-6">Full AI automation for large organizations</p>
+                        <p class="text-gray-600 mb-6">{%  trans "Full AI automation for large organizations" %}</p>
                         <ul class="text-left space-y-3 mb-8">
                             <li class="flex items-center">
                                 <i class="fas fa-check text-green-500 mr-3"></i>
@@ -558,9 +527,9 @@
                                 Dedicated AI specialist
                             </li>
                         </ul>
-                        <a href="mailto:sales@ovovex.com" class="block bg-gray-100 text-gray-800 px-6 py-3 rounded-lg font-semibold hover:bg-gray-200 transition duration-300">
+                        <a href="mailto:sales@ovovex.com" class="block bg-gray-100 text-gray-800 px-6 py-3 rounded-lg font-semibold hover:bg-gray-200 transition duration-300">{% trans "
                             Contact Sales
-                        </a>
+                        " %}</a>
                     </div>
                 </div>
             </div>
@@ -571,38 +540,36 @@
     <section class="py-20 bg-white">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">{% trans "
                     AI Bookkeeping FAQ
-                </h2>
-                <p class="text-xl text-gray-600">
-                    Answers to common questions about our AI-powered bookkeeping platform.
-                </p>
+                " %}</h2>
+                <p class="text-xl text-gray-600">{%  trans "Answers to common questions about our AI-powered bookkeeping platform." %}</p>
             </div>
 
             <div class="space-y-6">
                 <div class="bg-gray-50 p-6 rounded-lg">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-3">How accurate is the AI categorization?</h3>
-                    <p class="text-gray-600">Our AI achieves 99% accuracy within the first month of use, learning from your corrections and business patterns. Most businesses see 95%+ accuracy from day one.</p>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-3">{% trans "How accurate is the AI categorization?" %}</h3>
+                    <p class="text-gray-600">{%  trans "Our AI achieves 99% accuracy within the first month of use, learning from your corrections and business patterns. Most businesses see 95%+ accuracy from day one." %}</p>
                 </div>
 
                 <div class="bg-gray-50 p-6 rounded-lg">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-3">Can I still review and correct transactions?</h3>
-                    <p class="text-gray-600">Absolutely. You maintain full control with the ability to review, correct, and approve all AI-suggested categorizations. The AI learns from your corrections to improve accuracy.</p>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-3">{% trans "Can I still review and correct transactions?" %}</h3>
+                    <p class="text-gray-600">{%  trans "Absolutely. You maintain full control with the ability to review, correct, and approve all AI-suggested categorizations. The AI learns from your corrections to improve accuracy." %}</p>
                 </div>
 
                 <div class="bg-gray-50 p-6 rounded-lg">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-3">What types of documents can the AI process?</h3>
-                    <p class="text-gray-600">The AI can process receipts, invoices, bank statements, credit card statements, utility bills, and most business documents with printed or handwritten text.</p>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-3">{% trans "What types of documents can the AI process?" %}</h3>
+                    <p class="text-gray-600">{%  trans "The AI can process receipts, invoices, bank statements, credit card statements, utility bills, and most business documents with printed or handwritten text." %}</p>
                 </div>
 
                 <div class="bg-gray-50 p-6 rounded-lg">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-3">How does the AI handle complex accounting scenarios?</h3>
-                    <p class="text-gray-600">The AI is trained on complex accounting rules and can handle multi-currency transactions, deferred revenue, inventory accounting, and industry-specific requirements.</p>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-3">{% trans "How does the AI handle complex accounting scenarios?" %}</h3>
+                    <p class="text-gray-600">{%  trans "The AI is trained on complex accounting rules and can handle multi-currency transactions, deferred revenue, inventory accounting, and industry-specific requirements." %}</p>
                 </div>
 
                 <div class="bg-gray-50 p-6 rounded-lg">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-3">Is my financial data secure with AI processing?</h3>
-                    <p class="text-gray-600">Yes, all data is encrypted and processed in secure environments. AI models are trained on anonymized data, and your sensitive financial information never leaves our secure infrastructure.</p>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-3">{% trans "Is my financial data secure with AI processing?" %}</h3>
+                    <p class="text-gray-600">{%  trans "Yes, all data is encrypted and processed in secure environments. AI models are trained on anonymized data, and your sensitive financial information never leaves our secure infrastructure." %}</p>
                 </div>
             </div>
         </div>
@@ -611,16 +578,14 @@
     <!-- CTA Section -->
     <section class="bg-gray-900 text-white py-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-3xl md:text-4xl font-bold mb-6">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">{% trans "
                 Experience the Future of Bookkeeping
-            </h2>
-            <p class="text-xl mb-8 max-w-2xl mx-auto">
-                Join forward-thinking businesses using AI to transform their financial operations.
-                Start your AI bookkeeping journey today.
-            </p>
-            <a href="{% url 'signup' %}" class="bg-emerald-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-emerald-700 transition duration-300">
+            " %}</h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto">{%  trans "Join forward-thinking businesses using AI to transform their financial operations.
+                Start your AI bookkeeping journey today." %}</p>
+            <a href="{% url 'signup' %}" class="bg-emerald-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-emerald-700 transition duration-300">{% trans "
                 Try AI Bookkeeping
-            </a>
+            " %}</a>
         </div>
     </section>
 </div>

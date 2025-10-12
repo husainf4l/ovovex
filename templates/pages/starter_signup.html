@@ -1,512 +1,426 @@
-{% extends 'base.html' %}
-{% load static %}
-
-{% block title %}Start Starter Plan - Ovovex{% endblock %}
-
-{% block content %}
-{% include 'components/navbar.html' %}
-
-<!-- Pricing Plans Section -->
-<section class="py-24 bg-gray-50">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-16">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-        Choose the Right Plan for Your Business
-      </h2>
-      <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-        All plans include our core accounting features with advanced capabilities for growing businesses.
-      </p>
-    </div>
-
-    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-      <!-- Free Plan -->
-      <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-gray-200">
-        <div class="text-center">
-          <h3 class="text-2xl font-bold text-gray-900 mb-4">Free</h3>
-          <div class="text-4xl font-bold text-gray-900 mb-2">$0<span class="text-lg font-normal">/month</span></div>
-          <p class="text-gray-600 mb-6">Perfect for getting started</p>
-          <ul class="text-left space-y-3 mb-8">
-            <li class="flex items-center">
-              <i class="fas fa-check text-green-500 mr-3"></i>
-              Up to 5 invoices per month
-            </li>
-            <li class="flex items-center">
-              <i class="fas fa-check text-green-500 mr-3"></i>
-              Basic expense tracking
-            </li>
-            <li class="flex items-center">
-              <i class="fas fa-check text-green-500 mr-3"></i>
-              Financial reports
-            </li>
-            <li class="flex items-center">
-              <i class="fas fa-check text-green-500 mr-3"></i>
-              Email support
-            </li>
-            <li class="flex items-center">
-              <i class="fas fa-check text-green-500 mr-3"></i>
-              Mobile app access
-            </li>
-          </ul>
-          <a href="{% url 'free_signup' %}" class="block bg-gray-100 text-gray-800 px-6 py-3 rounded-lg font-semibold hover:bg-gray-200 transition duration-300">
-            Get Started Free
-          </a>
-        </div>
-      </div>
-
-      <!-- Starter Plan -->
-      <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-blue-500 relative">
-        <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
-          <span class="bg-blue-500 text-white px-4 py-1 rounded-full text-sm font-semibold">Most Popular</span>
-        </div>
-        <div class="text-center">
-          <h3 class="text-2xl font-bold text-gray-900 mb-4">Starter</h3>
-          <div class="text-4xl font-bold text-gray-900 mb-2">$29<span class="text-lg font-normal">/month</span></div>
-          <p class="text-gray-600 mb-6">Great for small businesses</p>
-          <ul class="text-left space-y-3 mb-8">
-            <li class="flex items-center">
-              <i class="fas fa-check text-green-500 mr-3"></i>
-              Unlimited invoices
-            </li>
-            <li class="flex items-center">
-              <i class="fas fa-check text-green-500 mr-3"></i>
-              Advanced expense tracking
-            </li>
-            <li class="flex items-center">
-              <i class="fas fa-check text-green-500 mr-3"></i>
-              Multi-currency support
-            </li>
-            <li class="flex items-center">
-              <i class="fas fa-check text-green-500 mr-3"></i>
-              Bank reconciliation
-            </li>
-            <li class="flex items-center">
-              <i class="fas fa-check text-green-500 mr-3"></i>
-              Priority email support
-            </li>
-            <li class="flex items-center">
-              <i class="fas fa-check text-green-500 mr-3"></i>
-              API access
-            </li>
-          </ul>
-          <a href="{% url 'starter_signup' %}" class="block bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition duration-300">
-            Start Free Trial
-          </a>
-        </div>
-      </div>
-
-      <!-- Professional Plan -->
-      <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-purple-500">
-        <div class="text-center">
-          <h3 class="text-2xl font-bold text-gray-900 mb-4">Professional</h3>
-          <div class="text-4xl font-bold text-gray-900 mb-2">$79<span class="text-lg font-normal">/month</span></div>
-          <p class="text-gray-600 mb-6">For growing businesses</p>
-          <ul class="text-left space-y-3 mb-8">
-            <li class="flex items-center">
-              <i class="fas fa-check text-green-500 mr-3"></i>
-              Everything in Starter
-            </li>
-            <li class="flex items-center">
-              <i class="fas fa-check text-green-500 mr-3"></i>
-              Advanced analytics
-            </li>
-            <li class="flex items-center">
-              <i class="fas fa-check text-green-500 mr-3"></i>
-              Inventory management
-            </li>
-            <li class="flex items-center">
-              <i class="fas fa-check text-green-500 mr-3"></i>
-              Project accounting
-            </li>
-            <li class="flex items-center">
-              <i class="fas fa-check text-green-500 mr-3"></i>
-              Custom workflows
-            </li>
-            <li class="flex items-center">
-              <i class="fas fa-check text-green-500 mr-3"></i>
-              Phone support
-            </li>
-          </ul>
-          <a href="{% url 'professional_signup' %}" class="block bg-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 transition duration-300">
-            Start Free Trial
-          </a>
-        </div>
-      </div>
-
-      <!-- Enterprise Plan -->
-      <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-gray-800">
-        <div class="text-center">
-          <h3 class="text-2xl font-bold text-gray-900 mb-4">Enterprise</h3>
-          <div class="text-4xl font-bold text-gray-900 mb-2">Custom</div>
-          <p class="text-gray-600 mb-6">For large organizations</p>
-          <ul class="text-left space-y-3 mb-8">
-            <li class="flex items-center">
-              <i class="fas fa-check text-green-500 mr-3"></i>
-              Everything in Professional
-            </li>
-            <li class="flex items-center">
-              <i class="fas fa-check text-green-500 mr-3"></i>
-              Unlimited users
-            </li>
-            <li class="flex items-center">
-              <i class="fas fa-check text-green-500 mr-3"></i>
-              Custom integrations
-            </li>
-            <li class="flex items-center">
-              <i class="fas fa-check text-green-500 mr-3"></i>
-              Dedicated account manager
-            </li>
-            <li class="flex items-center">
-              <i class="fas fa-check text-green-500 mr-3"></i>
-              SLA guarantees
-            </li>
-            <li class="flex items-center">
-              <i class="fas fa-check text-green-500 mr-3"></i>
-              24/7 premium support
-            </li>
-          </ul>
-          <a href="{% url 'enterprise_signup' %}" class="block bg-gray-800 text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-900 transition duration-300">
-            Contact Sales
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Hero Section -->
-<section class="pt-24 pb-16 bg-gradient-to-br from-blue-50 to-indigo-100">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center">
-      <div class="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold mb-6">
-        <i class="fas fa-rocket mr-2"></i>
-        Starter Plan
-      </div>
-      <h1 class="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-        Start Your Accounting
-        <span class="text-blue-600">Journey Today</span>
-      </h1>
-      <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-        Get 14 days of full access to smart invoicing, expense tracking, financial reports, and email support. Perfect for small businesses!
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- Key Benefits -->
-<section class="py-24 bg-white">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="grid md:grid-cols-3 gap-8">
-      <div class="text-center">
-        <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-          <i class="fas fa-bolt text-2xl text-blue-600"></i>
-        </div>
-        <h3 class="text-2xl font-bold text-gray-900 mb-4">Quick Setup</h3>
-        <p class="text-gray-600">Get started in under 15 minutes with our guided onboarding process</p>
-      </div>
-      <div class="text-center">
-        <div class="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-          <i class="fas fa-shield-alt text-2xl text-green-600"></i>
-        </div>
-        <h3 class="text-2xl font-bold text-gray-900 mb-4">Bank-Grade Security</h3>
-        <p class="text-gray-600">Your financial data is protected with 256-bit encryption and SOC 2 compliance</p>
-      </div>
-      <div class="text-center">
-        <div class="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-          <i class="fas fa-headset text-2xl text-purple-600"></i>
-        </div>
-        <h3 class="text-2xl font-bold text-gray-900 mb-4">Priority Support</h3>
-        <p class="text-gray-600">Get help when you need it with priority email support and comprehensive documentation</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- What's Included -->
-<section id="features" class="py-24 bg-gray-50">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-16">
-      <h2 class="text-4xl font-bold text-gray-900 mb-6">Everything You Need to Get Started</h2>
-      <p class="text-xl text-gray-600 max-w-2xl mx-auto">Complete accounting solution with all essential features included</p>
-    </div>
-
-    <div class="grid lg:grid-cols-2 gap-16 items-center mb-20">
-      <div>
-        <h3 class="text-3xl font-bold text-gray-900 mb-6">Smart Invoicing & Billing</h3>
-        <div class="space-y-6">
-          <div class="flex items-start space-x-4">
-            <div class="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center flex-shrink-0">
-              <i class="fas fa-file-invoice-dollar text-white"></i>
-            </div>
-            <div>
-              <h4 class="text-xl font-semibold text-gray-900 mb-2">Unlimited Invoices</h4>
-              <p class="text-gray-600">Create professional invoices with automatic calculations, taxes, and payment terms</p>
-            </div>
-          </div>
-          <div class="flex items-start space-x-4">
-            <div class="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center flex-shrink-0">
-              <i class="fas fa-bell text-white"></i>
-            </div>
-            <div>
-              <h4 class="text-xl font-semibold text-gray-900 mb-2">Automated Reminders</h4>
-              <p class="text-gray-600">Send payment reminders automatically via email to reduce overdue invoices</p>
-            </div>
-          </div>
-          <div class="flex items-start space-x-4">
-            <div class="w-12 h-12 bg-purple-500 rounded-xl flex items-center justify-center flex-shrink-0">
-              <i class="fas fa-globe text-white"></i>
-            </div>
-            <div>
-              <h4 class="text-xl font-semibold text-gray-900 mb-2">Multi-Currency Support</h4>
-              <p class="text-gray-600">Handle international clients with support for 150+ currencies</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Invoice Preview -->
-      <div class="bg-white rounded-2xl shadow-lg p-8">
-        <div class="bg-gray-50 rounded-lg p-6">
-          <div class="flex justify-between items-start mb-6">
-            <div>
-              <h4 class="text-lg font-bold text-gray-900">INVOICE #INV-2025-001</h4>
-              <p class="text-sm text-gray-600">Date: October 11, 2025</p>
-            </div>
-            <div class="text-right">
-              <div class="text-2xl font-bold text-blue-600">$2,450.00</div>
-              <div class="text-sm text-gray-600">Due: Nov 10, 2025</div>
-            </div>
-          </div>
-
-          <div class="border-t border-b border-gray-200 py-4 mb-4">
-            <div class="grid grid-cols-4 gap-4 text-sm font-medium text-gray-700 mb-2">
-              <div>Description</div>
-              <div class="text-center">Qty</div>
-              <div class="text-center">Rate</div>
-              <div class="text-right">Amount</div>
-            </div>
-            <div class="space-y-2">
-              <div class="grid grid-cols-4 gap-4 text-sm">
-                <div>Web Development</div>
-                <div class="text-center">40</div>
-                <div class="text-center">$55.00</div>
-                <div class="text-right">$2,200.00</div>
-              </div>
-              <div class="grid grid-cols-4 gap-4 text-sm">
-                <div>Hosting Setup</div>
-                <div class="text-center">1</div>
-                <div class="text-center">$250.00</div>
-                <div class="text-right">$250.00</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="flex justify-between items-center">
-            <div class="text-sm text-gray-600">Payment Terms: Net 30</div>
-            <div class="text-right">
-              <div class="text-lg font-bold text-gray-900">Total: $2,450.00</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="flex space-x-3 mt-6">
-          <button class="flex-1 bg-blue-600 text-white py-2 px-4 rounded-lg text-sm font-medium hover:bg-blue-700">
-            Send Invoice
-          </button>
-          <button class="flex-1 bg-gray-100 text-gray-700 py-2 px-4 rounded-lg text-sm font-medium hover:bg-gray-200">
-            Download PDF
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Additional Features Grid -->
-    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-      <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-        <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
-          <i class="fas fa-credit-card text-blue-600"></i>
-        </div>
-        <h4 class="text-lg font-bold text-gray-900 mb-2">Payment Integration</h4>
-        <p class="text-gray-600 text-sm">Connect with Stripe, PayPal, and other payment gateways</p>
-      </div>
-
-      <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-        <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mb-4">
-          <i class="fas fa-university text-green-600"></i>
-        </div>
-        <h4 class="text-lg font-bold text-gray-900 mb-2">Bank Reconciliation</h4>
-        <p class="text-gray-600 text-sm">Automatically match bank transactions with your records</p>
-      </div>
-
-      <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-        <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mb-4">
-          <i class="fas fa-chart-bar text-purple-600"></i>
-        </div>
-        <h4 class="text-lg font-bold text-gray-900 mb-2">Financial Reports</h4>
-        <p class="text-gray-600 text-sm">Generate P&L statements, balance sheets, and cash flow reports</p>
-      </div>
-
-      <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-        <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center mb-4">
-          <i class="fas fa-mobile-alt text-orange-600"></i>
-        </div>
-        <h4 class="text-lg font-bold text-gray-900 mb-2">Mobile Access</h4>
-        <p class="text-gray-600 text-sm">Access your accounting data on-the-go with our mobile app</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Demo Section -->
-<section id="demo" class="py-24 bg-white">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-16">
-      <h2 class="text-4xl font-bold text-gray-900 mb-6">See the Starter Plan in Action</h2>
-      <p class="text-xl text-gray-600 max-w-2xl mx-auto">Watch how our core features work together to streamline your accounting</p>
-    </div>
-
-    <div class="max-w-4xl mx-auto">
-      <div class="bg-gray-900 rounded-2xl overflow-hidden shadow-2xl">
-        <video
-          class="w-full aspect-video"
-          controls
-          poster="{% static 'images/image1.jpg' %}"
+{% extends 'base.html' %} {% load static %} {% load i18n %} {% block content %}
+<div class="min-h-screen bg-gray-50 flex">
+  <!-- Left Side - Starter Plan Branding -->
+  <div class="hidden lg:flex lg:w-1/2 relative">
+    <img
+      src="{% static 'images/image2.jpg' %}"
+      alt="{% trans 'Join Ovovex Starter Plan' %}"
+      class="absolute inset-0 w-full h-full object-cover"
+    />
+    <div class="absolute inset-0 bg-gray-900/70"></div>
+    <div
+      class="relative z-10 flex flex-col justify-center px-12 text-white max-w-lg mx-auto"
+    >
+      <div class="flex items-center mb-8">
+        <div
+          class="w-12 h-12 bg-white rounded-xl flex items-center justify-center mr-4"
         >
-          <source src="{% static 'images/7078918_Graphs_Charts_1920x1080.mp4' %}" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
+          <i class="fas fa-rocket text-gray-900 text-xl"></i>
+        </div>
+        <div>
+          <h2 class="text-3xl font-bold">Ovovex</h2>
+          <p class="text-sm text-gray-300">{% trans "Starter Plan" %}</p>
+        </div>
+      </div>
+
+      <div
+        class="inline-block bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-6 self-start"
+      >
+        <span class="text-sm font-semibold"
+          >✨ {% trans "30-Day Free Trial - No Credit Card Required" %}</span
+        >
+      </div>
+
+      <h1 class="text-4xl md:text-5xl font-bold mb-6 leading-tight">
+        {% trans "Perfect for Small Businesses Ready to Grow" %}
+      </h1>
+      <p class="text-xl text-gray-300 mb-8 leading-relaxed">
+        {% trans "Get all the essential features you need to manage your
+        finances professionally. Start your free trial today!" %}
+      </p>
+
+      <div class="space-y-4 mb-8">
+        <div class="flex items-center space-x-4">
+          <div
+            class="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center"
+          >
+            <i class="fas fa-infinity text-white"></i>
+          </div>
+          <span class="text-lg"
+            >{% trans "Unlimited invoices & expenses" %}</span
+          >
+        </div>
+        <div class="flex items-center space-x-4">
+          <div
+            class="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center"
+          >
+            <i class="fas fa-users text-white"></i>
+          </div>
+          <span class="text-lg">{% trans "Up to 5 team members" %}</span>
+        </div>
+        <div class="flex items-center space-x-4">
+          <div
+            class="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center"
+          >
+            <i class="fas fa-headset text-white"></i>
+          </div>
+          <span class="text-lg">{% trans "Priority support included" %}</span>
+        </div>
+        <div class="flex items-center space-x-4">
+          <div
+            class="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center"
+          >
+            <i class="fas fa-code text-white"></i>
+          </div>
+          <span class="text-lg">{% trans "API access for integrations" %}</span>
+        </div>
+      </div>
+
+      <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6">
+        <div class="text-center mb-4">
+          <div class="text-4xl font-bold mb-2">
+            $29<span class="text-2xl text-gray-300">/{% trans "month" %}</span>
+          </div>
+          <p class="text-gray-300">{% trans "After your free trial ends" %}</p>
+        </div>
+        <div class="grid grid-cols-3 gap-4 pt-4 border-t border-white/20">
+          <div class="text-center">
+            <div class="text-2xl font-bold mb-1">30</div>
+            <div class="text-xs text-gray-300">{% trans "Days Free" %}</div>
+          </div>
+          <div class="text-center">
+            <div class="text-2xl font-bold mb-1">5</div>
+            <div class="text-xs text-gray-300">{% trans "Team Members" %}</div>
+          </div>
+          <div class="text-center">
+            <div class="text-2xl font-bold mb-1">∞</div>
+            <div class="text-xs text-gray-300">{% trans "Invoices" %}</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</section>
 
-<!-- Signup Form Section -->
-<section id="signup" class="py-24 bg-gray-50">
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-16">
-      <h2 class="text-4xl font-bold text-gray-900 mb-6">Ready to Get Started?</h2>
-      <p class="text-xl text-gray-600 max-w-2xl mx-auto">Create your account and start your 14-day free trial of Starter features</p>
-    </div>
+  <!-- Right Side - Signup Form -->
+  <div class="w-full lg:w-1/2 flex items-center justify-center px-8 py-12">
+    <div class="w-full max-w-md space-y-8">
+      <div class="text-center">
+        <h3 class="text-3xl font-bold text-gray-900 mb-2">
+          {% trans "Start Your Free Trial" %}
+        </h3>
+        <p class="text-gray-600">
+          {% trans "Create your account and get started in minutes" %}
+        </p>
+      </div>
 
-    <div class="bg-white rounded-2xl shadow-xl p-8">
+      <!-- Messages -->
+      {% if messages %} {% for message in messages %}
+      <div
+        class="p-4 rounded-lg {% if message.tags == 'error' %}bg-red-50 text-red-800 border border-red-200{% elif message.tags == 'success' %}bg-green-50 text-green-800 border border-green-200{% else %}bg-blue-50 text-blue-800 border border-blue-200{% endif %}"
+      >
+        {{ message }}
+      </div>
+      {% endfor %} {% endif %}
+
       <form method="post" action="{% url 'signup' %}" class="space-y-6">
         {% csrf_token %}
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+        <input type="hidden" name="plan" value="starter" />
+
+        <div class="grid grid-cols-2 gap-4">
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
-            <input
-              name="first_name"
-              placeholder="Enter your first name"
-              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              required
-            />
+            <label
+              for="first_name"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >{% trans "First Name" %}</label
+            >
+            <div class="relative">
+              <div
+                class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+              >
+                <i class="fas fa-user text-gray-400"></i>
+              </div>
+              <input
+                type="text"
+                class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+                id="first_name"
+                name="first_name"
+                placeholder="{% trans 'First name' %}"
+                required
+                value="{{ request.POST.first_name }}"
+              />
+            </div>
           </div>
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
-            <input
-              name="last_name"
-              placeholder="Enter your last name"
-              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              required
-            />
+            <label
+              for="last_name"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >{% trans "Last Name" %}</label
+            >
+            <div class="relative">
+              <div
+                class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+              >
+                <i class="fas fa-user text-gray-400"></i>
+              </div>
+              <input
+                type="text"
+                class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+                id="last_name"
+                name="last_name"
+                placeholder="{% trans 'Last name' %}"
+                required
+                value="{{ request.POST.last_name }}"
+              />
+            </div>
           </div>
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Work Email</label>
-          <input
-            name="email"
-            type="email"
-            placeholder="Enter your work email"
-            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            required
-          />
-        </div>
-
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Username</label>
-          <input
-            name="username"
-            placeholder="Choose a username"
-            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            required
-          />
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
-            <input
-              name="password"
-              type="password"
-              placeholder="Create a strong password"
-              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              required
-            />
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Confirm Password</label>
-            <input
-              name="password_confirm"
-              type="password"
-              placeholder="Confirm your password"
-              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              required
-            />
-          </div>
-        </div>
-
-        <div class="flex justify-end">
-          <button
-            type="submit"
-            class="w-full md:w-auto px-8 py-4 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center"
+          <label
+            for="username"
+            class="block text-sm font-medium text-gray-700 mb-2"
+            >{% trans "Username" %}</label
           >
-            <i class="fas fa-rocket mr-2"></i>
-            Start Starter Trial
-          </button>
+          <div class="relative">
+            <div
+              class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+            >
+              <i class="fas fa-at text-gray-400"></i>
+            </div>
+            <input
+              type="text"
+              class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+              id="username"
+              name="username"
+              placeholder="{% trans 'Choose a username' %}"
+              required
+              value="{{ request.POST.username }}"
+            />
+          </div>
+          <p class="text-sm text-gray-500 mt-1">
+            {% trans "This will be your unique identifier" %}
+          </p>
         </div>
+
+        <div>
+          <label
+            for="email"
+            class="block text-sm font-medium text-gray-700 mb-2"
+            >{% trans "Email Address" %}</label
+          >
+          <div class="relative">
+            <div
+              class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+            >
+              <i class="fas fa-envelope text-gray-400"></i>
+            </div>
+            <input
+              type="email"
+              class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+              id="email"
+              name="email"
+              placeholder="{% trans 'Enter your email' %}"
+              required
+              value="{{ request.POST.email }}"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label
+            for="password"
+            class="block text-sm font-medium text-gray-700 mb-2"
+            >{% trans "Password" %}</label
+          >
+          <div class="relative">
+            <div
+              class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+            >
+              <i class="fas fa-lock text-gray-400"></i>
+            </div>
+            <input
+              type="password"
+              class="block w-full pl-10 pr-12 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+              id="password"
+              name="password"
+              placeholder="{% trans 'Create a strong password' %}"
+              required
+            />
+            <button
+              class="absolute inset-y-0 right-0 pr-3 flex items-center"
+              type="button"
+              id="togglePassword"
+            >
+              <i class="fas fa-eye text-gray-400 hover:text-gray-600"></i>
+            </button>
+          </div>
+          <p class="text-sm text-gray-500 mt-1">
+            {% trans "Minimum 8 characters with letters and numbers" %}
+          </p>
+        </div>
+
+        <div>
+          <label
+            for="password_confirm"
+            class="block text-sm font-medium text-gray-700 mb-2"
+            >{% trans "Confirm Password" %}</label
+          >
+          <div class="relative">
+            <div
+              class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+            >
+              <i class="fas fa-lock text-gray-400"></i>
+            </div>
+            <input
+              type="password"
+              class="block w-full pl-10 pr-12 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+              id="password_confirm"
+              name="password_confirm"
+              placeholder="{% trans 'Confirm your password' %}"
+              required
+            />
+            <button
+              class="absolute inset-y-0 right-0 pr-3 flex items-center"
+              type="button"
+              id="togglePasswordConfirm"
+            >
+              <i class="fas fa-eye text-gray-400 hover:text-gray-600"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          <div class="flex items-start">
+            <input
+              class="h-4 w-4 text-gray-600 focus:ring-gray-500 border-gray-300 rounded mt-1"
+              type="checkbox"
+              id="terms"
+              name="terms"
+              required
+            />
+            <label class="ml-2 block text-sm text-gray-700" for="terms">
+              {% trans "I agree to the" %}
+              <a
+                href="#"
+                class="text-gray-900 font-semibold hover:text-gray-700"
+                >{% trans "Terms of Service" %}</a
+              >
+              {% trans "and" %}
+              <a
+                href="#"
+                class="text-gray-900 font-semibold hover:text-gray-700"
+                >{% trans "Privacy Policy" %}</a
+              >
+            </label>
+          </div>
+          <div class="flex items-start">
+            <input
+              class="h-4 w-4 text-gray-600 focus:ring-gray-500 border-gray-300 rounded mt-1"
+              type="checkbox"
+              id="newsletter"
+              name="newsletter"
+            />
+            <label class="ml-2 block text-sm text-gray-700" for="newsletter">
+              {% trans "Send me updates and marketing communications" %}
+            </label>
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          class="w-full flex items-center justify-center px-8 py-4 bg-gray-900 text-white font-semibold rounded-xl hover:bg-gray-800 transition-colors duration-200"
+        >
+          <span>{% trans "Start Free Trial" %}</span>
+          <i class="fas fa-arrow-right ml-2"></i>
+        </button>
+
+        <p class="text-center text-sm text-gray-600">
+          {% trans "30-day free trial • No credit card required • Cancel
+          anytime" %}
+        </p>
       </form>
 
-      <div class="mt-8 pt-6 border-t border-gray-200">
-        <div class="text-center">
-          <p class="text-sm text-gray-600 mb-4">
-            By signing up you agree to our
-            <a href="#" class="text-blue-600 hover:text-blue-700 underline">Terms</a> and
-            <a href="#" class="text-blue-600 hover:text-blue-700 underline">Privacy Policy</a>.
-          </p>
-          <div class="flex items-center justify-center space-x-6 text-sm text-gray-500">
-            <span class="flex items-center">
-              <i class="fas fa-shield-alt mr-2 text-green-500"></i>
-              Bank-grade security
-            </span>
-            <span class="flex items-center">
-              <i class="fas fa-lock mr-2 text-green-500"></i>
-              256-bit encryption
-            </span>
-            <span class="flex items-center">
-              <i class="fas fa-check-circle mr-2 text-green-500"></i>
-              SOC 2 compliant
-            </span>
-          </div>
+      <div class="relative">
+        <div class="absolute inset-0 flex items-center">
+          <div class="w-full border-t border-gray-300"></div>
         </div>
+        <div class="relative flex justify-center text-sm">
+          <span class="px-2 bg-gray-50 text-gray-500">{% trans "or" %}</span>
+        </div>
+      </div>
+
+      <div class="space-y-4">
+        <button
+          type="button"
+          class="w-full flex items-center justify-center px-4 py-3 bg-white text-gray-700 font-medium rounded-xl border border-gray-300 hover:border-gray-400 transition-colors duration-200"
+        >
+          <i class="fab fa-google mr-3"></i>
+          {% trans "Sign up with Google" %}
+        </button>
+      </div>
+
+      <div class="text-center">
+        <p class="text-gray-600">
+          {% trans "Already have an account?" %}
+          <a
+            href="{% url 'login' %}"
+            class="text-gray-900 font-semibold hover:text-gray-700"
+            >{% trans "Sign in here" %}</a
+          >
+        </p>
       </div>
     </div>
   </div>
-</section>
+</div>
 
-<!-- CTA Section -->
-<section class="py-24 bg-blue-600">
-  <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-    <h2 class="text-4xl font-bold text-white mb-6">Start Your Free Trial Today</h2>
-    <p class="text-xl text-blue-100 mb-8">Join thousands of small businesses already using Ovovex to manage their accounting</p>
-    <div class="flex flex-col sm:flex-row gap-4 justify-center">
-      <a href="#signup" class="inline-flex items-center px-8 py-4 bg-white text-blue-600 font-semibold rounded-xl hover:bg-gray-50 transition-colors">
-        <i class="fas fa-rocket mr-2"></i>Start Free Trial
-      </a>
-      <a href="#demo" class="inline-flex items-center px-8 py-4 bg-blue-500 text-white font-semibold rounded-xl hover:bg-blue-400 transition-colors">
-        <i class="fas fa-play mr-2"></i>Watch Demo
-      </a>
-    </div>
-  </div>
-</section>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Toggle password visibility
+    function setupPasswordToggle(toggleId, passwordId) {
+      const toggleButton = document.getElementById(toggleId);
+      const passwordField = document.getElementById(passwordId);
 
+      if (toggleButton && passwordField) {
+        toggleButton.addEventListener("click", function () {
+          const type =
+            passwordField.getAttribute("type") === "password"
+              ? "text"
+              : "password";
+          passwordField.setAttribute("type", type);
+
+          const icon = this.querySelector("i");
+          icon.classList.toggle("fa-eye");
+          icon.classList.toggle("fa-eye-slash");
+        });
+      }
+    }
+
+    setupPasswordToggle("togglePassword", "password");
+    setupPasswordToggle("togglePasswordConfirm", "password_confirm");
+
+    // Password confirmation validation
+    const password = document.getElementById("password");
+    const passwordConfirm = document.getElementById("password_confirm");
+
+    function validatePasswordMatch() {
+      if (password.value && passwordConfirm.value) {
+        if (password.value === passwordConfirm.value) {
+          passwordConfirm.classList.remove("is-invalid");
+          passwordConfirm.classList.add("is-valid");
+        } else {
+          passwordConfirm.classList.remove("is-valid");
+          passwordConfirm.classList.add("is-invalid");
+        }
+      } else {
+        passwordConfirm.classList.remove("is-valid", "is-invalid");
+      }
+    }
+
+    if (password && passwordConfirm) {
+      passwordConfirm.addEventListener("input", validatePasswordMatch);
+      password.addEventListener("input", validatePasswordMatch);
+    }
+  });
+</script>
 {% endblock %}

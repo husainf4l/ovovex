@@ -1,8 +1,5 @@
-{% extends 'base.html' %}
-{% load static %}
-
-{% block content %}
-{% include 'components/sidemenu.html' %}
+{% extends 'base.html' %} {% load static %} {% block content %} {% include
+'components/sidemenu.html' %}
 
 <div
   class="min-h-screen bg-gray-50 dark:bg-gray-900 ml-64 transition-colors duration-300"
@@ -62,9 +59,7 @@
             >
               <option value="">Select Vendor</option>
               {% for vendor in vendors %}
-              <option value="{{ vendor.id }}">
-                {{ vendor.company_name }}
-              </option>
+              <option value="{{ vendor.id }}">{{ vendor.company_name }}</option>
               {% endfor %}
             </select>
           </div>

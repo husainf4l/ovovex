@@ -1,242 +1,397 @@
-{% extends 'base.html' %}
-{% load static %}
-
-{% block content %}
+{% extends 'base.html' %} {% load static %} {% load i18n %} {% block content %}
 <div class="min-h-screen bg-gray-50 flex">
-    <!-- Left Side - Branding with Hero Image -->
-    <div class="hidden lg:flex lg:w-1/2 relative">
-        <img src="{% static 'images/image2.jpg' %}" alt="Join Ovovex" class="absolute inset-0 w-full h-full object-cover">
-        <div class="absolute inset-0 bg-gray-900/70"></div>
-        <div class="relative z-10 flex flex-col justify-center px-12 text-white max-w-lg mx-auto">
-            <div class="flex items-center mb-8">
-                <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center mr-4">
-                    <i class="fas fa-chart-line text-gray-900 text-xl"></i>
-                </div>
-                <h2 class="text-3xl font-bold">Ovovex</h2>
-            </div>
-
-            <h1 class="text-4xl md:text-5xl font-bold mb-6 leading-tight">Start your financial journey today</h1>
-            <p class="text-xl text-gray-300 mb-8 leading-relaxed">Join thousands of businesses who trust Ovovex for their accounting needs. Get started in minutes with our intuitive platform.</p>
-
-            <div class="space-y-4 mb-8">
-                <div class="flex items-center space-x-4">
-                    <div class="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
-                        <i class="fas fa-rocket text-white"></i>
-                    </div>
-                    <span class="text-lg">Quick setup in 5 minutes</span>
-                </div>
-                <div class="flex items-center space-x-4">
-                    <div class="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
-                        <i class="fas fa-users text-white"></i>
-                    </div>
-                    <span class="text-lg">Trusted by 50,000+ businesses</span>
-                </div>
-                <div class="flex items-center space-x-4">
-                    <div class="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
-                        <i class="fas fa-star text-white"></i>
-                    </div>
-                    <span class="text-lg">30-day free trial included</span>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-3 gap-6">
-                <div class="text-center">
-                    <div class="text-3xl font-bold mb-1">98%</div>
-                    <div class="text-sm text-gray-300">Customer Satisfaction</div>
-                </div>
-                <div class="text-center">
-                    <div class="text-3xl font-bold mb-1">24/7</div>
-                    <div class="text-sm text-gray-300">Support Available</div>
-                </div>
-                <div class="text-center">
-                    <div class="text-3xl font-bold mb-1">5min</div>
-                    <div class="text-sm text-gray-300">Setup Time</div>
-                </div>
-            </div>
+  <!-- Left Side - Branding with Hero Image -->
+  <div class="hidden lg:flex lg:w-1/2 relative">
+    <img
+      src="{% static 'images/image2.jpg' %}"
+      alt="{% trans 'Join Ovovex' %}"
+      class="absolute inset-0 w-full h-full object-cover"
+    />
+    <div class="absolute inset-0 bg-gray-900/70"></div>
+    <div
+      class="relative z-10 flex flex-col justify-center px-12 text-white max-w-lg mx-auto"
+    >
+      <div class="flex items-center mb-8">
+        <div
+          class="w-12 h-12 bg-white rounded-xl flex items-center justify-center mr-4"
+        >
+          <i class="fas fa-chart-line text-gray-900 text-xl"></i>
         </div>
+        <h2 class="text-3xl font-bold">Ovovex</h2>
+      </div>
+
+      <h1 class="text-4xl md:text-5xl font-bold mb-6 leading-tight">
+        {% trans "Start your financial journey today" %}
+      </h1>
+      <p class="text-xl text-gray-300 mb-8 leading-relaxed">
+        {% trans "Join thousands of businesses who trust Ovovex for their
+        accounting needs. Get started in minutes with our intuitive platform."
+        %}
+      </p>
+
+      <div class="space-y-4 mb-8">
+        <div class="flex items-center space-x-4">
+          <div
+            class="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center"
+          >
+            <i class="fas fa-rocket text-white"></i>
+          </div>
+          <span class="text-lg">{% trans "Quick setup in 5 minutes" %}</span>
+        </div>
+        <div class="flex items-center space-x-4">
+          <div
+            class="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center"
+          >
+            <i class="fas fa-users text-white"></i>
+          </div>
+          <span class="text-lg"
+            >{% trans "Trusted by 50,000+ businesses" %}</span
+          >
+        </div>
+        <div class="flex items-center space-x-4">
+          <div
+            class="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center"
+          >
+            <i class="fas fa-star text-white"></i>
+          </div>
+          <span class="text-lg">{% trans "30-day free trial included" %}</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-3 gap-6">
+        <div class="text-center">
+          <div class="text-3xl font-bold mb-1">98%</div>
+          <div class="text-sm text-gray-300">
+            {% trans "Customer Satisfaction" %}
+          </div>
+        </div>
+        <div class="text-center">
+          <div class="text-3xl font-bold mb-1">24/7</div>
+          <div class="text-sm text-gray-300">
+            {% trans "Support Available" %}
+          </div>
+        </div>
+        <div class="text-center">
+          <div class="text-3xl font-bold mb-1">5min</div>
+          <div class="text-sm text-gray-300">{% trans "Setup Time" %}</div>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <!-- Right Side - Signup Form -->
-    <div class="w-full lg:w-1/2 flex items-center justify-center px-8 py-12">
-        <div class="w-full max-w-md space-y-8">
-            <div class="text-center">
-                <h3 class="text-3xl font-bold text-gray-900 mb-2">Create your account</h3>
-                <p class="text-gray-600">Join Ovovex and transform your business finances</p>
-            </div>
+  <!-- Right Side - Signup Form -->
+  <div class="w-full lg:w-1/2 flex items-center justify-center px-8 py-12">
+    <div class="w-full max-w-md space-y-8">
+      <div class="text-center">
+        <h3 class="text-3xl font-bold text-gray-900 mb-2">
+          {% trans "Create your account" %}
+        </h3>
+        <p class="text-gray-600">
+          {% trans "Join Ovovex and transform your business finances" %}
+        </p>
+      </div>
 
-            <!-- Messages -->
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="p-4 rounded-lg {% if message.tags == 'error' %}bg-red-50 text-red-800 border border-red-200{% elif message.tags == 'success' %}bg-green-50 text-green-800 border border-green-200{% else %}bg-blue-50 text-blue-800 border border-blue-200{% endif %}">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            {% endif %}
+      <!-- Messages -->
+      {% if messages %} {% for message in messages %}
+      <div
+        class="p-4 rounded-lg {% if message.tags == 'error' %}bg-red-50 text-red-800 border border-red-200{% elif message.tags == 'success' %}bg-green-50 text-green-800 border border-green-200{% else %}bg-blue-50 text-blue-800 border border-blue-200{% endif %}"
+      >
+        {{ message }}
+      </div>
+      {% endfor %} {% endif %}
 
-            <form method="post" class="space-y-6">
-                {% csrf_token %}
+      <form method="post" class="space-y-6">
+        {% csrf_token %}
 
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label for="first_name" class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
-                        <div class="relative">
-                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <i class="fas fa-user text-gray-400"></i>
-                            </div>
-                            <input type="text" class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gray-500 focus:border-transparent" id="first_name" name="first_name" placeholder="First name" required value="{{ request.POST.first_name }}">
-                        </div>
-                    </div>
-                    <div>
-                        <label for="last_name" class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
-                        <div class="relative">
-                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <i class="fas fa-user text-gray-400"></i>
-                            </div>
-                            <input type="text" class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gray-500 focus:border-transparent" id="last_name" name="last_name" placeholder="Last name" required value="{{ request.POST.last_name }}">
-                        </div>
-                    </div>
-                </div>
-
-                <div>
-                    <label for="username" class="block text-sm font-medium text-gray-700 mb-2">Username</label>
-                    <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <i class="fas fa-at text-gray-400"></i>
-                        </div>
-                        <input type="text" class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gray-500 focus:border-transparent" id="username" name="username" placeholder="Choose a username" required value="{{ request.POST.username }}">
-                    </div>
-                    <p class="text-sm text-gray-500 mt-1">This will be your unique identifier</p>
-                </div>
-
-                <div>
-                    <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
-                    <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <i class="fas fa-envelope text-gray-400"></i>
-                        </div>
-                        <input type="email" class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gray-500 focus:border-transparent" id="email" name="email" placeholder="Enter your email" required value="{{ request.POST.email }}">
-                    </div>
-                </div>
-
-                <div>
-                    <label for="password" class="block text-sm font-medium text-gray-700 mb-2">Password</label>
-                    <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <i class="fas fa-lock text-gray-400"></i>
-                        </div>
-                        <input type="password" class="block w-full pl-10 pr-12 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gray-500 focus:border-transparent" id="password" name="password" placeholder="Create a strong password" required>
-                        <button class="absolute inset-y-0 right-0 pr-3 flex items-center" type="button" id="togglePassword">
-                            <i class="fas fa-eye text-gray-400 hover:text-gray-600"></i>
-                        </button>
-                    </div>
-                    <p class="text-sm text-gray-500 mt-1">Minimum 8 characters with letters and numbers</p>
-                </div>
-
-                <div>
-                    <label for="password_confirm" class="block text-sm font-medium text-gray-700 mb-2">Confirm Password</label>
-                    <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <i class="fas fa-lock text-gray-400"></i>
-                        </div>
-                        <input type="password" class="block w-full pl-10 pr-12 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gray-500 focus:border-transparent" id="password_confirm" name="password_confirm" placeholder="Confirm your password" required>
-                        <button class="absolute inset-y-0 right-0 pr-3 flex items-center" type="button" id="togglePasswordConfirm">
-                            <i class="fas fa-eye text-gray-400 hover:text-gray-600"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="space-y-4">
-                    <div class="flex items-start">
-                        <input class="h-4 w-4 text-gray-600 focus:ring-gray-500 border-gray-300 rounded mt-1" type="checkbox" id="terms" name="terms" required>
-                        <label class="ml-2 block text-sm text-gray-700" for="terms">
-                            I agree to the <a href="#" class="text-gray-900 font-semibold hover:text-gray-700">Terms of Service</a> and
-                            <a href="#" class="text-gray-900 font-semibold hover:text-gray-700">Privacy Policy</a>
-                        </label>
-                    </div>
-                    <div class="flex items-start">
-                        <input class="h-4 w-4 text-gray-600 focus:ring-gray-500 border-gray-300 rounded mt-1" type="checkbox" id="newsletter" name="newsletter">
-                        <label class="ml-2 block text-sm text-gray-700" for="newsletter">
-                            Send me updates and marketing communications
-                        </label>
-                    </div>
-                </div>
-
-                <button type="submit" class="w-full flex items-center justify-center px-8 py-4 bg-gray-900 text-white font-semibold rounded-xl hover:bg-gray-800 transition-colors duration-200">
-                    <span>Create Account</span>
-                    <i class="fas fa-arrow-right ml-2"></i>
-                </button>
-            </form>
-
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label
+              for="first_name"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >{% trans "First Name" %}</label
+            >
             <div class="relative">
-                <div class="absolute inset-0 flex items-center">
-                    <div class="w-full border-t border-gray-300"></div>
-                </div>
-                <div class="relative flex justify-center text-sm">
-                    <span class="px-2 bg-gray-50 text-gray-500">or</span>
-                </div>
+              <div
+                class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+              >
+                <i class="fas fa-user text-gray-400"></i>
+              </div>
+              <input
+                type="text"
+                class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+                id="first_name"
+                name="first_name"
+                placeholder="{% trans 'First name' %}"
+                required
+                value="{{ request.POST.first_name }}"
+              />
             </div>
-
-            <div class="space-y-4">
-                <button type="button" class="w-full flex items-center justify-center px-4 py-3 bg-white text-gray-700 font-medium rounded-xl border border-gray-300 hover:border-gray-400 transition-colors duration-200">
-                    <i class="fab fa-google mr-3"></i>
-                    Sign up with Google
-                </button>
+          </div>
+          <div>
+            <label
+              for="last_name"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >{% trans "Last Name" %}</label
+            >
+            <div class="relative">
+              <div
+                class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+              >
+                <i class="fas fa-user text-gray-400"></i>
+              </div>
+              <input
+                type="text"
+                class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+                id="last_name"
+                name="last_name"
+                placeholder="{% trans 'Last name' %}"
+                required
+                value="{{ request.POST.last_name }}"
+              />
             </div>
-
-            <div class="text-center">
-                <p class="text-gray-600">
-                    Already have an account?
-                    <a href="{% url 'login' %}" class="text-gray-900 font-semibold hover:text-gray-700">Sign in here</a>
-                </p>
-            </div>
+          </div>
         </div>
+
+        <div>
+          <label
+            for="username"
+            class="block text-sm font-medium text-gray-700 mb-2"
+            >{% trans "Username" %}</label
+          >
+          <div class="relative">
+            <div
+              class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+            >
+              <i class="fas fa-at text-gray-400"></i>
+            </div>
+            <input
+              type="text"
+              class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+              id="username"
+              name="username"
+              placeholder="{% trans 'Choose a username' %}"
+              required
+              value="{{ request.POST.username }}"
+            />
+          </div>
+          <p class="text-sm text-gray-500 mt-1">
+            {% trans "This will be your unique identifier" %}
+          </p>
+        </div>
+
+        <div>
+          <label
+            for="email"
+            class="block text-sm font-medium text-gray-700 mb-2"
+            >{% trans "Email Address" %}</label
+          >
+          <div class="relative">
+            <div
+              class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+            >
+              <i class="fas fa-envelope text-gray-400"></i>
+            </div>
+            <input
+              type="email"
+              class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+              id="email"
+              name="email"
+              placeholder="{% trans 'Enter your email' %}"
+              required
+              value="{{ request.POST.email }}"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label
+            for="password"
+            class="block text-sm font-medium text-gray-700 mb-2"
+            >Password</label
+          >
+          <div class="relative">
+            <div
+              class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+            >
+              <i class="fas fa-lock text-gray-400"></i>
+            </div>
+            <input
+              type="password"
+              class="block w-full pl-10 pr-12 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+              id="password"
+              name="password"
+              placeholder="{% trans 'Create a strong password' %}"
+              required
+            />
+            <button
+              class="absolute inset-y-0 right-0 pr-3 flex items-center"
+              type="button"
+              id="togglePassword"
+            >
+              <i class="fas fa-eye text-gray-400 hover:text-gray-600"></i>
+            </button>
+          </div>
+          <p class="text-sm text-gray-500 mt-1">
+            {% trans "Minimum 8 characters with letters and numbers" %}
+          </p>
+        </div>
+
+        <div>
+          <label
+            for="password_confirm"
+            class="block text-sm font-medium text-gray-700 mb-2"
+            >{% trans "Confirm Password" %}</label
+          >
+          <div class="relative">
+            <div
+              class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+            >
+              <i class="fas fa-lock text-gray-400"></i>
+            </div>
+            <input
+              type="password"
+              class="block w-full pl-10 pr-12 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+              id="password_confirm"
+              name="password_confirm"
+              placeholder="{% trans 'Confirm your password' %}"
+              required
+            />
+            <button
+              class="absolute inset-y-0 right-0 pr-3 flex items-center"
+              type="button"
+              id="togglePasswordConfirm"
+            >
+              <i class="fas fa-eye text-gray-400 hover:text-gray-600"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          <div class="flex items-start">
+            <input
+              class="h-4 w-4 text-gray-600 focus:ring-gray-500 border-gray-300 rounded mt-1"
+              type="checkbox"
+              id="terms"
+              name="terms"
+              required
+            />
+            <label class="ml-2 block text-sm text-gray-700" for="terms">
+              {% trans "I agree to the" %}
+              <a
+                href="#"
+                class="text-gray-900 font-semibold hover:text-gray-700"
+                >{% trans "Terms of Service" %}</a
+              >
+              {% trans "and" %}
+              <a
+                href="#"
+                class="text-gray-900 font-semibold hover:text-gray-700"
+                >{% trans "Privacy Policy" %}</a
+              >
+            </label>
+          </div>
+          <div class="flex items-start">
+            <input
+              class="h-4 w-4 text-gray-600 focus:ring-gray-500 border-gray-300 rounded mt-1"
+              type="checkbox"
+              id="newsletter"
+              name="newsletter"
+            />
+            <label class="ml-2 block text-sm text-gray-700" for="newsletter">
+              {% trans "Send me updates and marketing communications" %}
+            </label>
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          class="w-full flex items-center justify-center px-8 py-4 bg-gray-900 text-white font-semibold rounded-xl hover:bg-gray-800 transition-colors duration-200"
+        >
+          <span>{% trans "Create Account" %}</span>
+          <i class="fas fa-arrow-right ml-2"></i>
+        </button>
+      </form>
+
+      <div class="relative">
+        <div class="absolute inset-0 flex items-center">
+          <div class="w-full border-t border-gray-300"></div>
+        </div>
+        <div class="relative flex justify-center text-sm">
+          <span class="px-2 bg-gray-50 text-gray-500">or</span>
+        </div>
+      </div>
+
+      <div class="space-y-4">
+        <button
+          type="button"
+          class="w-full flex items-center justify-center px-4 py-3 bg-white text-gray-700 font-medium rounded-xl border border-gray-300 hover:border-gray-400 transition-colors duration-200"
+        >
+          <i class="fab fa-google mr-3"></i>
+          {% trans "Sign up with Google" %}
+        </button>
+      </div>
+
+      <div class="text-center">
+        <p class="text-gray-600">
+          {% trans "Already have an account?" %}
+          <a
+            href="{% url 'login' %}"
+            class="text-gray-900 font-semibold hover:text-gray-700"
+            >{% trans "Sign in here" %}</a
+          >
+        </p>
+      </div>
     </div>
+  </div>
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener("DOMContentLoaded", function () {
     // Toggle password visibility
     function setupPasswordToggle(toggleId, passwordId) {
-        const toggleButton = document.getElementById(toggleId);
-        const passwordField = document.getElementById(passwordId);
+      const toggleButton = document.getElementById(toggleId);
+      const passwordField = document.getElementById(passwordId);
 
-        if (toggleButton && passwordField) {
-            toggleButton.addEventListener('click', function() {
-                const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
-                passwordField.setAttribute('type', type);
+      if (toggleButton && passwordField) {
+        toggleButton.addEventListener("click", function () {
+          const type =
+            passwordField.getAttribute("type") === "password"
+              ? "text"
+              : "password";
+          passwordField.setAttribute("type", type);
 
-                const icon = this.querySelector('i');
-                icon.classList.toggle('fa-eye');
-                icon.classList.toggle('fa-eye-slash');
-            });
-        }
+          const icon = this.querySelector("i");
+          icon.classList.toggle("fa-eye");
+          icon.classList.toggle("fa-eye-slash");
+        });
+      }
     }
 
-    setupPasswordToggle('togglePassword', 'password');
-    setupPasswordToggle('togglePasswordConfirm', 'password_confirm');
+    setupPasswordToggle("togglePassword", "password");
+    setupPasswordToggle("togglePasswordConfirm", "password_confirm");
 
     // Password confirmation validation
-    const password = document.getElementById('password');
-    const passwordConfirm = document.getElementById('password_confirm');
+    const password = document.getElementById("password");
+    const passwordConfirm = document.getElementById("password_confirm");
 
     function validatePasswordMatch() {
-        if (password.value && passwordConfirm.value) {
-            if (password.value === passwordConfirm.value) {
-                passwordConfirm.classList.remove('is-invalid');
-                passwordConfirm.classList.add('is-valid');
-            } else {
-                passwordConfirm.classList.remove('is-valid');
-                passwordConfirm.classList.add('is-invalid');
-            }
+      if (password.value && passwordConfirm.value) {
+        if (password.value === passwordConfirm.value) {
+          passwordConfirm.classList.remove("is-invalid");
+          passwordConfirm.classList.add("is-valid");
         } else {
-            passwordConfirm.classList.remove('is-valid', 'is-invalid');
+          passwordConfirm.classList.remove("is-valid");
+          passwordConfirm.classList.add("is-invalid");
         }
+      } else {
+        passwordConfirm.classList.remove("is-valid", "is-invalid");
+      }
     }
 
     if (password && passwordConfirm) {
-        passwordConfirm.addEventListener('input', validatePasswordMatch);
-        password.addEventListener('input', validatePasswordMatch);
+      passwordConfirm.addEventListener("input", validatePasswordMatch);
+      password.addEventListener("input", validatePasswordMatch);
     }
-});
+  });
 </script>
 {% endblock %}

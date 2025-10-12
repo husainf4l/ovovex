@@ -1,628 +1,825 @@
-{% extends 'base.html' %}
-
-{% block title %}Real-time Analytics - Ovovex{% endblock %}
-
-{% block content %}
-{% include 'components/navbar.html' %}
+{% extends 'base.html' %} {% load i18n %} {% block title %}{% trans "Real-time
+Analytics - Ovovex" %}{% endblock %} {% block content %} {% include
+'components/navbar.html' %}
 
 <div class="min-h-screen bg-gray-50">
-    <!-- Hero Section -->
-    <section class="text-white py-32 relative overflow-hidden" style="background-image: url('/static/images/image1.jpg'); background-size: 130%; background-position: center; background-repeat: no-repeat;">
-        <div class="absolute inset-0 bg-gradient-to-r from-violet-600 to-purple-700 bg-opacity-80"></div>
-        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center">
-                <h1 class="text-4xl md:text-6xl font-bold mb-6">
-                    Real-Time Financial Insights
-                </h1>
-                <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
-                    Live dashboards and analytics that update in real-time.
-                    Make data-driven decisions with instant access to your financial data.
-                </p>
-                <a href="{% url 'signup' %}" class="bg-white text-violet-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition duration-300">
-                    Explore Analytics
-                </a>
-            </div>
-            <div class="mt-16 text-center">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">
-                    Live Financial Insights
-                </h2>
-                <p class="text-xl text-gray-200 max-w-2xl mx-auto">
-                    Real-time analytics that provide instant visibility into your business performance,
-                    cash flow, profitability, and key financial metrics.
-                </p>
-            </div>
+  <!-- Hero Section -->
+  <section
+    class="text-white py-32 relative overflow-hidden"
+    style="
+      background-image: url('/static/images/image1.jpg');
+      background-size: 130%;
+      background-position: center;
+      background-repeat: no-repeat;
+    "
+  >
+    <div
+      class="absolute inset-0 bg-gradient-to-r from-violet-600 to-purple-700 bg-opacity-80"
+    ></div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center">
+        <h1 class="text-4xl md:text-6xl font-bold mb-6">
+          {% trans " Real-Time Financial Insights " %}
+        </h1>
+        <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
+          {% trans "Live dashboards and analytics that update in real-time. Make
+          data-driven decisions with instant access to your financial data." %}
+        </p>
+        <a
+          href="{% url 'signup' %}"
+          class="bg-white text-violet-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition duration-300"
+          >{% trans " Explore Analytics " %}</a
+        >
+      </div>
+      <div class="mt-16 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">
+          {% trans " Live Financial Insights " %}
+        </h2>
+        <p class="text-xl text-gray-200 max-w-2xl mx-auto">
+          {% trans "Real-time analytics that provide instant visibility into
+          your business performance, cash flow, profitability, and key financial
+          metrics." %}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Feature 1 -->
+        <div
+          class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300"
+        >
+          <div
+            class="w-12 h-12 bg-violet-100 rounded-lg flex items-center justify-center mb-6"
+          >
+            <i class="fas fa-tachometer-alt text-violet-600 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-900 mb-4">
+            {% trans "Live Dashboards" %}
+          </h3>
+          <p class="text-gray-600">
+            {% trans "Real-time dashboards that update automatically as
+            transactions are recorded. Monitor key metrics without manual
+            refreshes or delays." %}
+          </p>
         </div>
-    </section>
 
-    <!-- Features Section -->
-    <section class="py-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Feature 1 -->
-                <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
-                    <div class="w-12 h-12 bg-violet-100 rounded-lg flex items-center justify-center mb-6">
-                        <i class="fas fa-tachometer-alt text-violet-600 text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Live Dashboards</h3>
-                    <p class="text-gray-600">
-                        Real-time dashboards that update automatically as transactions are recorded.
-                        Monitor key metrics without manual refreshes or delays.
-                    </p>
-                </div>
-
-                <!-- Feature 2 -->
-                <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
-                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
-                        <i class="fas fa-chart-line text-blue-600 text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Cash Flow Monitoring</h3>
-                    <p class="text-gray-600">
-                        Real-time cash flow tracking with projections and alerts.
-                        Identify cash shortages or surpluses before they impact your business.
-                    </p>
-                </div>
-
-                <!-- Feature 3 -->
-                <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
-                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-6">
-                        <i class="fas fa-dollar-sign text-green-600 text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Revenue Analytics</h3>
-                    <p class="text-gray-600">
-                        Track revenue streams in real-time with detailed breakdowns by product,
-                        service, customer, and time period. Identify top performers instantly.
-                    </p>
-                </div>
-
-                <!-- Feature 4 -->
-                <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
-                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-6">
-                        <i class="fas fa-exclamation-triangle text-purple-600 text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Smart Alerts</h3>
-                    <p class="text-gray-600">
-                        Automated alerts for important events like low cash balances,
-                        overdue invoices, or unusual spending patterns.
-                    </p>
-                </div>
-
-                <!-- Feature 5 -->
-                <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
-                    <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-6">
-                        <i class="fas fa-mobile-alt text-orange-600 text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Mobile Analytics</h3>
-                    <p class="text-gray-600">
-                        Access real-time financial data on-the-go with mobile-optimized dashboards.
-                        Make informed decisions from anywhere, anytime.
-                    </p>
-                </div>
-
-                <!-- Feature 6 -->
-                <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
-                    <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-6">
-                        <i class="fas fa-share-alt text-red-600 text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Custom Reports</h3>
-                    <p class="text-gray-600">
-                        Build custom reports with real-time data that automatically refresh.
-                        Share insights with stakeholders through secure, branded reports.
-                    </p>
-                </div>
-            </div>
+        <!-- Feature 2 -->
+        <div
+          class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300"
+        >
+          <div
+            class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6"
+          >
+            <i class="fas fa-chart-line text-blue-600 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-900 mb-4">
+            {% trans "Cash Flow Monitoring" %}
+          </h3>
+          <p class="text-gray-600">
+            {% trans "Real-time cash flow tracking with projections and alerts.
+            Identify cash shortages or surpluses before they impact your
+            business." %}
+          </p>
         </div>
-    </section>
 
-    <!-- Benefits Section -->
-    <section class="bg-gray-100 py-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                    The Advantage of Real-Time Analytics
-                </h2>
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-12">
-                <div class="bg-white p-8 rounded-lg shadow-lg">
-                    <h3 class="text-2xl font-semibold text-gray-900 mb-6">Faster Decision Making</h3>
-                    <ul class="space-y-4 text-gray-600">
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
-                            Instant access to current financial data
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
-                            Real-time alerts for critical business events
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
-                            Up-to-the-minute cash flow visibility
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
-                            Live performance metrics and KPIs
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="bg-white p-8 rounded-lg shadow-lg">
-                    <h3 class="text-2xl font-semibold text-gray-900 mb-6">Proactive Management</h3>
-                    <ul class="space-y-4 text-gray-600">
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
-                            Early warning systems for financial issues
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
-                            Predictive analytics for cash flow planning
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
-                            Trend analysis for revenue and expenses
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
-                            Benchmarking against industry standards
-                        </li>
-                    </ul>
-                </div>
-            </div>
+        <!-- Feature 3 -->
+        <div
+          class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300"
+        >
+          <div
+            class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-6"
+          >
+            <i class="fas fa-dollar-sign text-green-600 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-900 mb-4">
+            {% trans "Revenue Analytics" %}
+          </h3>
+          <p class="text-gray-600">
+            {% trans "Track revenue streams in real-time with detailed
+            breakdowns by product, service, customer, and time period. Identify
+            top performers instantly." %}
+          </p>
         </div>
-    </section>
 
-    <!-- Demo Section -->
-    <section class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                    Real-Time Analytics in Action
-                </h2>
-                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-                    Experience live dashboards that update instantly as transactions flow through your business, providing immediate insights for better decision-making.
-                </p>
-            </div>
-
-            <div class="grid lg:grid-cols-2 gap-12 items-center">
-                <!-- Demo Video Placeholder -->
-                <div class="bg-gray-100 rounded-lg p-8 text-center">
-                    <div class="w-16 h-16 bg-violet-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <i class="fas fa-play text-white text-2xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-semibold text-gray-900 mb-4">Analytics Dashboard Demo</h3>
-                    <p class="text-gray-600 mb-6">
-                        Watch how real-time analytics transform raw financial data into actionable business intelligence with live-updating dashboards and instant alerts.
-                    </p>
-                    <button class="bg-violet-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-violet-700 transition duration-300">
-                        Watch Analytics Demo
-                    </button>
-                </div>
-
-                <!-- Demo Screenshots -->
-                <div class="space-y-6">
-                    <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
-                        <div class="flex items-center mb-4">
-                            <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
-                                <i class="fas fa-tachometer-alt text-blue-600"></i>
-                            </div>
-                            <h4 class="text-lg font-semibold text-gray-900">Live KPI Dashboard</h4>
-                        </div>
-                        <p class="text-gray-600">Monitor revenue, expenses, profit margins, and cash flow with dashboards that update in real-time as transactions are processed.</p>
-                    </div>
-
-                    <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
-                        <div class="flex items-center mb-4">
-                            <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mr-4">
-                                <i class="fas fa-bell text-green-600"></i>
-                            </div>
-                            <h4 class="text-lg font-semibold text-gray-900">Smart Alert System</h4>
-                        </div>
-                        <p class="text-gray-600">Receive instant notifications for cash flow changes, overdue payments, budget variances, and other critical business events.</p>
-                    </div>
-
-                    <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
-                        <div class="flex items-center mb-4">
-                            <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mr-4">
-                                <i class="fas fa-chart-area text-purple-600"></i>
-                            </div>
-                            <h4 class="text-lg font-semibold text-gray-900">Cash Flow Forecasting</h4>
-                        </div>
-                        <p class="text-gray-600">Predict future cash positions with AI-powered forecasting that updates in real-time based on current transaction patterns.</p>
-                    </div>
-                </div>
-            </div>
+        <!-- Feature 4 -->
+        <div
+          class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300"
+        >
+          <div
+            class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-6"
+          >
+            <i class="fas fa-exclamation-triangle text-purple-600 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-900 mb-4">
+            {% trans "Smart Alerts" %}
+          </h3>
+          <p class="text-gray-600">
+            {% trans "Automated alerts for important events like low cash
+            balances, overdue invoices, or unusual spending patterns." %}
+          </p>
         </div>
-    </section>
 
-    <!-- Detailed Features Section -->
-    <section class="py-20 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                    Comprehensive Analytics Features
-                </h2>
-                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-                    Advanced real-time analytics that provide complete visibility into your financial performance, from transaction-level details to executive summaries.
-                </p>
-            </div>
-
-            <div class="space-y-16">
-                <!-- Dashboard & Visualization -->
-                <div class="grid lg:grid-cols-2 gap-12 items-center">
-                    <div>
-                        <h3 class="text-2xl font-bold text-gray-900 mb-4">Live Dashboard Platform</h3>
-                        <ul class="space-y-3 text-gray-600">
-                            <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                Auto-refreshing dashboards with sub-second updates
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                Customizable widgets and KPI cards
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                Interactive charts and graphs with drill-down capabilities
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                Mobile-responsive design for on-the-go access
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                Role-based access control and data permissions
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="bg-white p-8 rounded-lg shadow-lg">
-                        <div class="text-center">
-                            <i class="fas fa-chart-bar text-violet-600 text-6xl mb-4"></i>
-                            <p class="text-gray-600">See your business performance evolve in real-time</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Alerting & Monitoring -->
-                <div class="grid lg:grid-cols-2 gap-12 items-center">
-                    <div class="bg-white p-8 rounded-lg shadow-lg">
-                        <div class="text-center">
-                            <i class="fas fa-exclamation-triangle text-orange-600 text-6xl mb-4"></i>
-                            <p class="text-gray-600">Never miss critical business events again</p>
-                        </div>
-                    </div>
-                    <div>
-                        <h3 class="text-2xl font-bold text-gray-900 mb-4">Intelligent Alert System</h3>
-                        <ul class="space-y-3 text-gray-600">
-                            <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                Real-time notifications via email, SMS, and in-app alerts
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                Customizable thresholds for cash, revenue, and expense alerts
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                Anomaly detection for unusual transaction patterns
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                Predictive alerts for upcoming cash flow issues
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                Escalation workflows for critical business events
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Forecasting & Insights -->
-                <div class="grid lg:grid-cols-2 gap-12 items-center">
-                    <div>
-                        <h3 class="text-2xl font-bold text-gray-900 mb-4">Predictive Analytics Engine</h3>
-                        <ul class="space-y-3 text-gray-600">
-                            <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                AI-powered cash flow forecasting with 95%+ accuracy
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                Revenue trend analysis and seasonal pattern recognition
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                Expense forecasting based on historical data
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                Scenario planning and what-if analysis tools
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                Benchmarking against industry standards and peers
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="bg-white p-8 rounded-lg shadow-lg">
-                        <div class="text-center">
-                            <i class="fas fa-magic text-red-600 text-6xl mb-4"></i>
-                            <p class="text-gray-600">Predict the future of your business finances</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <!-- Feature 5 -->
+        <div
+          class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300"
+        >
+          <div
+            class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-6"
+          >
+            <i class="fas fa-mobile-alt text-orange-600 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-900 mb-4">
+            {% trans "Mobile Analytics" %}
+          </h3>
+          <p class="text-gray-600">
+            {% trans "Access real-time financial data on-the-go with
+            mobile-optimized dashboards. Make informed decisions from anywhere,
+            anytime." %}
+          </p>
         </div>
-    </section>
 
-    <!-- Testimonials Section -->
-    <section class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                    Real-Time Analytics Success Stories
-                </h2>
-                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-                    See how businesses have transformed their decision-making and improved financial performance with Ovovex Real-Time Analytics.
-                </p>
-            </div>
-
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Testimonial 1 -->
-                <div class="bg-gray-50 p-8 rounded-lg">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-violet-100 rounded-full flex items-center justify-center mr-4">
-                            <span class="text-violet-600 font-semibold">RF</span>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-gray-900">Retail Flow</h4>
-                            <p class="text-gray-600 text-sm">E-commerce Platform</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-600 italic">
-                        "Real-time analytics caught a cash flow crisis 3 weeks before it would have bankrupted us. We restructured payments just in time."
-                    </p>
-                    <div class="flex text-yellow-400 mt-4">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                </div>
-
-                <!-- Testimonial 2 -->
-                <div class="bg-gray-50 p-8 rounded-lg">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
-                            <span class="text-blue-600 font-semibold">MS</span>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-gray-900">Manufacturing Solutions</h4>
-                            <p class="text-gray-600 text-sm">Industrial Equipment</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-600 italic">
-                        "The real-time dashboard showed us exactly when to negotiate better payment terms with suppliers. Saved us $200K in interest costs."
-                    </p>
-                    <div class="flex text-yellow-400 mt-4">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                </div>
-
-                <!-- Testimonial 3 -->
-                <div class="bg-gray-50 p-8 rounded-lg">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mr-4">
-                            <span class="text-green-600 font-semibold">HC</span>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-gray-900">Healthcare Corp</h4>
-                            <p class="text-gray-600 text-sm">Medical Services</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-600 italic">
-                        "Board meetings are now data-driven. Real-time insights help us make strategic decisions instead of relying on month-old reports."
-                    </p>
-                    <div class="flex text-yellow-400 mt-4">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                </div>
-            </div>
+        <!-- Feature 6 -->
+        <div
+          class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300"
+        >
+          <div
+            class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-6"
+          >
+            <i class="fas fa-share-alt text-red-600 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold text-gray-900 mb-4">
+            {% trans "Custom Reports" %}
+          </h3>
+          <p class="text-gray-600">
+            {% trans "Build custom reports with real-time data that
+            automatically refresh. Share insights with stakeholders through
+            secure, branded reports." %}
+          </p>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Analytics Pricing Section -->
-    <section class="py-20 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                    Real-Time Analytics Pricing
-                </h2>
-                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-                    Transparent pricing for real-time financial intelligence. Start with essential dashboards and scale to advanced predictive analytics.
-                </p>
-            </div>
+  <!-- Benefits Section -->
+  <section class="bg-gray-100 py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          {% trans " The Advantage of Real-Time Analytics " %}
+        </h2>
+      </div>
 
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Starter Plan -->
-                <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-gray-200">
-                    <div class="text-center">
-                        <h3 class="text-2xl font-bold text-gray-900 mb-4">Analytics Starter</h3>
-                        <div class="text-4xl font-bold text-gray-900 mb-2">$29<span class="text-lg font-normal">/month</span></div>
-                        <p class="text-gray-600 mb-6">Essential real-time dashboards for small businesses</p>
-                        <ul class="text-left space-y-3 mb-8">
-                            <li class="flex items-center">
-                                <i class="fas fa-check text-green-500 mr-3"></i>
-                                Basic KPI dashboards
-                            </li>
-                            <li class="flex items-center">
-                                <i class="fas fa-check text-green-500 mr-3"></i>
-                                Real-time cash flow monitoring
-                            </li>
-                            <li class="flex items-center">
-                                <i class="fas fa-check text-green-500 mr-3"></i>
-                                Email alerts for critical events
-                            </li>
-                            <li class="flex items-center">
-                                <i class="fas fa-check text-green-500 mr-3"></i>
-                                Monthly financial reports
-                            </li>
-                            <li class="flex items-center">
-                                <i class="fas fa-check text-green-500 mr-3"></i>
-                                Mobile dashboard access
-                            </li>
-                        </ul>
-                        <a href="{% url 'signup' %}" class="block bg-gray-100 text-gray-800 px-6 py-3 rounded-lg font-semibold hover:bg-gray-200 transition duration-300">
-                            Start Free Trial
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Professional Plan -->
-                <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-violet-500 relative">
-                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                        <span class="bg-violet-500 text-white px-4 py-1 rounded-full text-sm font-semibold">Most Popular</span>
-                    </div>
-                    <div class="text-center">
-                        <h3 class="text-2xl font-bold text-gray-900 mb-4">Analytics Pro</h3>
-                        <div class="text-4xl font-bold text-gray-900 mb-2">$89<span class="text-lg font-normal">/month</span></div>
-                        <p class="text-gray-600 mb-6">Advanced analytics for growing businesses</p>
-                        <ul class="text-left space-y-3 mb-8">
-                            <li class="flex items-center">
-                                <i class="fas fa-check text-green-500 mr-3"></i>
-                                Advanced KPI dashboards
-                            </li>
-                            <li class="flex items-center">
-                                <i class="fas fa-check text-green-500 mr-3"></i>
-                                Predictive cash flow forecasting
-                            </li>
-                            <li class="flex items-center">
-                                <i class="fas fa-check text-green-500 mr-3"></i>
-                                Custom alerts and notifications
-                            </li>
-                            <li class="flex items-center">
-                                <i class="fas fa-check text-green-500 mr-3"></i>
-                                Trend analysis and reporting
-                            </li>
-                            <li class="flex items-center">
-                                <i class="fas fa-check text-green-500 mr-3"></i>
-                                Multi-user dashboard sharing
-                            </li>
-                            <li class="flex items-center">
-                                <i class="fas fa-check text-green-500 mr-3"></i>
-                                API access for integrations
-                            </li>
-                        </ul>
-                        <a href="{% url 'signup' %}" class="block bg-violet-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-violet-700 transition duration-300">
-                            Start Free Trial
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Enterprise Plan -->
-                <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-gray-200">
-                    <div class="text-center">
-                        <h3 class="text-2xl font-bold text-gray-900 mb-4">Analytics Enterprise</h3>
-                        <div class="text-4xl font-bold text-gray-900 mb-2">$249<span class="text-lg font-normal">/month</span></div>
-                        <p class="text-gray-600 mb-6">Complete analytics platform for large organizations</p>
-                        <ul class="text-left space-y-3 mb-8">
-                            <li class="flex items-center">
-                                <i class="fas fa-check text-green-500 mr-3"></i>
-                                Unlimited custom dashboards
-                            </li>
-                            <li class="flex items-center">
-                                <i class="fas fa-check text-green-500 mr-3"></i>
-                                Advanced AI forecasting models
-                            </li>
-                            <li class="flex items-center">
-                                <i class="fas fa-check text-green-500 mr-3"></i>
-                                Real-time anomaly detection
-                            </li>
-                            <li class="flex items-center">
-                                <i class="fas fa-check text-green-500 mr-3"></i>
-                                Multi-entity consolidation
-                            </li>
-                            <li class="flex items-center">
-                                <i class="fas fa-check text-green-500 mr-3"></i>
-                                White-label reporting
-                            </li>
-                            <li class="flex items-center">
-                                <i class="fas fa-check text-green-500 mr-3"></i>
-                                Dedicated analytics consultant
-                            </li>
-                        </ul>
-                        <a href="mailto:sales@ovovex.com" class="block bg-gray-100 text-gray-800 px-6 py-3 rounded-lg font-semibold hover:bg-gray-200 transition duration-300">
-                            Contact Sales
-                        </a>
-                    </div>
-                </div>
-            </div>
+      <div class="grid md:grid-cols-2 gap-12">
+        <div class="bg-white p-8 rounded-lg shadow-lg">
+          <h3 class="text-2xl font-semibold text-gray-900 mb-6">
+            {% trans "Faster Decision Making" %}
+          </h3>
+          <ul class="space-y-4 text-gray-600">
+            <li class="flex items-start">
+              <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+              Instant access to current financial data
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+              Real-time alerts for critical business events
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+              Up-to-the-minute cash flow visibility
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+              Live performance metrics and KPIs
+            </li>
+          </ul>
         </div>
-    </section>
 
-    <!-- Analytics FAQ Section -->
-    <section class="py-20 bg-white">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                    Real-Time Analytics FAQ
-                </h2>
-                <p class="text-xl text-gray-600">
-                    Answers to common questions about our real-time analytics platform.
-                </p>
-            </div>
-
-            <div class="space-y-6">
-                <div class="bg-gray-50 p-6 rounded-lg">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-3">How real-time is the data?</h3>
-                    <p class="text-gray-600">Data updates within seconds of transaction processing. Most dashboards refresh every 30 seconds, with critical alerts sent immediately when thresholds are breached.</p>
-                </div>
-
-                <div class="bg-gray-50 p-6 rounded-lg">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-3">Can I create custom dashboards?</h3>
-                    <p class="text-gray-600">Yes, all plans include dashboard customization tools. Professional and Enterprise plans offer advanced customization with custom metrics, calculated fields, and API integrations.</p>
-                </div>
-
-                <div class="bg-gray-50 p-6 rounded-lg">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-3">What types of alerts are available?</h3>
-                    <p class="text-gray-600">You can set alerts for cash flow thresholds, overdue payments, budget variances, unusual transactions, revenue milestones, and custom KPI targets with email, SMS, and in-app notifications.</p>
-                </div>
-
-                <div class="bg-gray-50 p-6 rounded-lg">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-3">How accurate are the cash flow forecasts?</h3>
-                    <p class="text-gray-600">Our AI models achieve 95%+ accuracy for 30-day forecasts, improving as more historical data becomes available. Forecasts update in real-time as new transactions are recorded.</p>
-                </div>
-
-                <div class="bg-gray-50 p-6 rounded-lg">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-3">Can multiple users access the analytics?</h3>
-                    <p class="text-gray-600">Yes, Professional and Enterprise plans support multi-user access with role-based permissions. You can share specific dashboards or reports with team members, accountants, or stakeholders.</p>
-                </div>
-            </div>
+        <div class="bg-white p-8 rounded-lg shadow-lg">
+          <h3 class="text-2xl font-semibold text-gray-900 mb-6">
+            {% trans "Proactive Management" %}
+          </h3>
+          <ul class="space-y-4 text-gray-600">
+            <li class="flex items-start">
+              <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+              Early warning systems for financial issues
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+              Predictive analytics for cash flow planning
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+              Trend analysis for revenue and expenses
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+              Benchmarking against industry standards
+            </li>
+          </ul>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- CTA Section -->
-    <section class="bg-gray-900 text-white py-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-3xl md:text-4xl font-bold mb-6">
-                See Your Business in Real-Time
-            </h2>
-            <p class="text-xl mb-8 max-w-2xl mx-auto">
-                Transform your decision-making with live financial insights.
-                Start monitoring your business performance in real-time today.
+  <!-- Demo Section -->
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          {% trans " Real-Time Analytics in Action " %}
+        </h2>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+          {% trans "Experience live dashboards that update instantly as
+          transactions flow through your business, providing immediate insights
+          for better decision-making." %}
+        </p>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <!-- Demo Video Placeholder -->
+        <div class="bg-gray-100 rounded-lg p-8 text-center">
+          <div
+            class="w-16 h-16 bg-violet-600 rounded-full flex items-center justify-center mx-auto mb-6"
+          >
+            <i class="fas fa-play text-white text-2xl"></i>
+          </div>
+          <h3 class="text-2xl font-semibold text-gray-900 mb-4">
+            {% trans "Analytics Dashboard Demo" %}
+          </h3>
+          <p class="text-gray-600 mb-6">
+            {% trans "Watch how real-time analytics transform raw financial data
+            into actionable business intelligence with live-updating dashboards
+            and instant alerts." %}
+          </p>
+          <button
+            class="bg-violet-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-violet-700 transition duration-300"
+          >
+            {% trans " Watch Analytics Demo " %}
+          </button>
+        </div>
+
+        <!-- Demo Screenshots -->
+        <div class="space-y-6">
+          <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+            <div class="flex items-center mb-4">
+              <div
+                class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-4"
+              >
+                <i class="fas fa-tachometer-alt text-blue-600"></i>
+              </div>
+              <h4 class="text-lg font-semibold text-gray-900">
+                {% trans "Live KPI Dashboard" %}
+              </h4>
+            </div>
+            <p class="text-gray-600">
+              {% trans "Monitor revenue, expenses, profit margins, and cash flow
+              with dashboards that update in real-time as transactions are
+              processed." %}
             </p>
-            <a href="{% url 'signup' %}" class="bg-violet-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-violet-700 transition duration-300">
-                Get Real-Time Analytics
-            </a>
+          </div>
+
+          <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+            <div class="flex items-center mb-4">
+              <div
+                class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mr-4"
+              >
+                <i class="fas fa-bell text-green-600"></i>
+              </div>
+              <h4 class="text-lg font-semibold text-gray-900">
+                {% trans "Smart Alert System" %}
+              </h4>
+            </div>
+            <p class="text-gray-600">
+              {% trans "Receive instant notifications for cash flow changes,
+              overdue payments, budget variances, and other critical business
+              events." %}
+            </p>
+          </div>
+
+          <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+            <div class="flex items-center mb-4">
+              <div
+                class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mr-4"
+              >
+                <i class="fas fa-chart-area text-purple-600"></i>
+              </div>
+              <h4 class="text-lg font-semibold text-gray-900">
+                {% trans "Cash Flow Forecasting" %}
+              </h4>
+            </div>
+            <p class="text-gray-600">
+              {% trans "Predict future cash positions with AI-powered
+              forecasting that updates in real-time based on current transaction
+              patterns." %}
+            </p>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
+
+  <!-- Detailed Features Section -->
+  <section class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          {% trans " Comprehensive Analytics Features " %}
+        </h2>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+          {% trans "Advanced real-time analytics that provide complete
+          visibility into your financial performance, from transaction-level
+          details to executive summaries." %}
+        </p>
+      </div>
+
+      <div class="space-y-16">
+        <!-- Dashboard & Visualization -->
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">
+              {% trans "Live Dashboard Platform" %}
+            </h3>
+            <ul class="space-y-3 text-gray-600">
+              <li class="flex items-start">
+                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                Auto-refreshing dashboards with sub-second updates
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                Customizable widgets and KPI cards
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                Interactive charts and graphs with drill-down capabilities
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                Mobile-responsive design for on-the-go access
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                Role-based access control and data permissions
+              </li>
+            </ul>
+          </div>
+          <div class="bg-white p-8 rounded-lg shadow-lg">
+            <div class="text-center">
+              <i class="fas fa-chart-bar text-violet-600 text-6xl mb-4"></i>
+              <p class="text-gray-600">
+                {% trans "See your business performance evolve in real-time" %}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Alerting & Monitoring -->
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+          <div class="bg-white p-8 rounded-lg shadow-lg">
+            <div class="text-center">
+              <i
+                class="fas fa-exclamation-triangle text-orange-600 text-6xl mb-4"
+              ></i>
+              <p class="text-gray-600">
+                {% trans "Never miss critical business events again" %}
+              </p>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">
+              {% trans "Intelligent Alert System" %}
+            </h3>
+            <ul class="space-y-3 text-gray-600">
+              <li class="flex items-start">
+                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                Real-time notifications via email, SMS, and in-app alerts
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                Customizable thresholds for cash, revenue, and expense alerts
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                Anomaly detection for unusual transaction patterns
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                Predictive alerts for upcoming cash flow issues
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                Escalation workflows for critical business events
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Forecasting & Insights -->
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">
+              {% trans "Predictive Analytics Engine" %}
+            </h3>
+            <ul class="space-y-3 text-gray-600">
+              <li class="flex items-start">
+                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                AI-powered cash flow forecasting with 95%+ accuracy
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                Revenue trend analysis and seasonal pattern recognition
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                Expense forecasting based on historical data
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                Scenario planning and what-if analysis tools
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                Benchmarking against industry standards and peers
+              </li>
+            </ul>
+          </div>
+          <div class="bg-white p-8 rounded-lg shadow-lg">
+            <div class="text-center">
+              <i class="fas fa-magic text-red-600 text-6xl mb-4"></i>
+              <p class="text-gray-600">
+                {% trans "Predict the future of your business finances" %}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          {% trans " Real-Time Analytics Success Stories " %}
+        </h2>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+          {% trans "See how businesses have transformed their decision-making
+          and improved financial performance with Ovovex Real-Time Analytics."
+          %}
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Testimonial 1 -->
+        <div class="bg-gray-50 p-8 rounded-lg">
+          <div class="flex items-center mb-4">
+            <div
+              class="w-12 h-12 bg-violet-100 rounded-full flex items-center justify-center mr-4"
+            >
+              <span class="text-violet-600 font-semibold">RF</span>
+            </div>
+            <div>
+              <h4 class="font-semibold text-gray-900">
+                {% trans "Retail Flow" %}
+              </h4>
+              <p class="text-gray-600 text-sm">
+                {% trans "E-commerce Platform" %}
+              </p>
+            </div>
+          </div>
+          <p class="text-gray-600 italic">
+            {% trans "Real-time analytics caught a cash flow crisis 3 weeks
+            before it would have bankrupted us. We restructured payments just in
+            time." %}
+          </p>
+          <div class="flex text-yellow-400 mt-4">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+        </div>
+
+        <!-- Testimonial 2 -->
+        <div class="bg-gray-50 p-8 rounded-lg">
+          <div class="flex items-center mb-4">
+            <div
+              class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4"
+            >
+              <span class="text-blue-600 font-semibold">MS</span>
+            </div>
+            <div>
+              <h4 class="font-semibold text-gray-900">
+                {% trans "Manufacturing Solutions" %}
+              </h4>
+              <p class="text-gray-600 text-sm">
+                {% trans "Industrial Equipment" %}
+              </p>
+            </div>
+          </div>
+          <p class="text-gray-600 italic">
+            {% trans "The real-time dashboard showed us exactly when to
+            negotiate better payment terms with suppliers. Saved us $200K in
+            interest costs." %}
+          </p>
+          <div class="flex text-yellow-400 mt-4">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+        </div>
+
+        <!-- Testimonial 3 -->
+        <div class="bg-gray-50 p-8 rounded-lg">
+          <div class="flex items-center mb-4">
+            <div
+              class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mr-4"
+            >
+              <span class="text-green-600 font-semibold">HC</span>
+            </div>
+            <div>
+              <h4 class="font-semibold text-gray-900">
+                {% trans "Healthcare Corp" %}
+              </h4>
+              <p class="text-gray-600 text-sm">
+                {% trans "Medical Services" %}
+              </p>
+            </div>
+          </div>
+          <p class="text-gray-600 italic">
+            {% trans "Board meetings are now data-driven. Real-time insights
+            help us make strategic decisions instead of relying on month-old
+            reports." %}
+          </p>
+          <div class="flex text-yellow-400 mt-4">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Analytics Pricing Section -->
+  <section class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          {% trans " Real-Time Analytics Pricing " %}
+        </h2>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+          {% trans "Transparent pricing for real-time financial intelligence.
+          Start with essential dashboards and scale to advanced predictive
+          analytics." %}
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Starter Plan -->
+        <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-gray-200">
+          <div class="text-center">
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">
+              {% trans "Analytics Starter" %}
+            </h3>
+            <div class="text-4xl font-bold text-gray-900 mb-2">
+              $29<span class="text-lg font-normal">/month</span>
+            </div>
+            <p class="text-gray-600 mb-6">
+              {% trans "Essential real-time dashboards for small businesses" %}
+            </p>
+            <ul class="text-left space-y-3 mb-8">
+              <li class="flex items-center">
+                <i class="fas fa-check text-green-500 mr-3"></i>
+                Basic KPI dashboards
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-check text-green-500 mr-3"></i>
+                Real-time cash flow monitoring
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-check text-green-500 mr-3"></i>
+                Email alerts for critical events
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-check text-green-500 mr-3"></i>
+                Monthly financial reports
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-check text-green-500 mr-3"></i>
+                Mobile dashboard access
+              </li>
+            </ul>
+            <a
+              href="{% url 'signup' %}"
+              class="block bg-gray-100 text-gray-800 px-6 py-3 rounded-lg font-semibold hover:bg-gray-200 transition duration-300"
+              >{% trans " Start Free Trial " %}</a
+            >
+          </div>
+        </div>
+
+        <!-- Professional Plan -->
+        <div
+          class="bg-white p-8 rounded-lg shadow-lg border-2 border-violet-500 relative"
+        >
+          <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+            <span
+              class="bg-violet-500 text-white px-4 py-1 rounded-full text-sm font-semibold"
+              >Most Popular</span
+            >
+          </div>
+          <div class="text-center">
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">
+              {% trans "Analytics Pro" %}
+            </h3>
+            <div class="text-4xl font-bold text-gray-900 mb-2">
+              $89<span class="text-lg font-normal">/month</span>
+            </div>
+            <p class="text-gray-600 mb-6">
+              {% trans "Advanced analytics for growing businesses" %}
+            </p>
+            <ul class="text-left space-y-3 mb-8">
+              <li class="flex items-center">
+                <i class="fas fa-check text-green-500 mr-3"></i>
+                Advanced KPI dashboards
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-check text-green-500 mr-3"></i>
+                Predictive cash flow forecasting
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-check text-green-500 mr-3"></i>
+                Custom alerts and notifications
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-check text-green-500 mr-3"></i>
+                Trend analysis and reporting
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-check text-green-500 mr-3"></i>
+                Multi-user dashboard sharing
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-check text-green-500 mr-3"></i>
+                API access for integrations
+              </li>
+            </ul>
+            <a
+              href="{% url 'signup' %}"
+              class="block bg-violet-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-violet-700 transition duration-300"
+              >{% trans " Start Free Trial " %}</a
+            >
+          </div>
+        </div>
+
+        <!-- Enterprise Plan -->
+        <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-gray-200">
+          <div class="text-center">
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">
+              {% trans "Analytics Enterprise" %}
+            </h3>
+            <div class="text-4xl font-bold text-gray-900 mb-2">
+              $249<span class="text-lg font-normal">/month</span>
+            </div>
+            <p class="text-gray-600 mb-6">
+              {% trans "Complete analytics platform for large organizations" %}
+            </p>
+            <ul class="text-left space-y-3 mb-8">
+              <li class="flex items-center">
+                <i class="fas fa-check text-green-500 mr-3"></i>
+                Unlimited custom dashboards
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-check text-green-500 mr-3"></i>
+                Advanced AI forecasting models
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-check text-green-500 mr-3"></i>
+                Real-time anomaly detection
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-check text-green-500 mr-3"></i>
+                Multi-entity consolidation
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-check text-green-500 mr-3"></i>
+                White-label reporting
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-check text-green-500 mr-3"></i>
+                Dedicated analytics consultant
+              </li>
+            </ul>
+            <a
+              href="mailto:sales@ovovex.com"
+              class="block bg-gray-100 text-gray-800 px-6 py-3 rounded-lg font-semibold hover:bg-gray-200 transition duration-300"
+              >{% trans " Contact Sales " %}</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Analytics FAQ Section -->
+  <section class="py-20 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          {% trans " Real-Time Analytics FAQ " %}
+        </h2>
+        <p class="text-xl text-gray-600">
+          {% trans "Answers to common questions about our real-time analytics
+          platform." %}
+        </p>
+      </div>
+
+      <div class="space-y-6">
+        <div class="bg-gray-50 p-6 rounded-lg">
+          <h3 class="text-lg font-semibold text-gray-900 mb-3">
+            {% trans "How real-time is the data?" %}
+          </h3>
+          <p class="text-gray-600">
+            {% trans "Data updates within seconds of transaction processing.
+            Most dashboards refresh every 30 seconds, with critical alerts sent
+            immediately when thresholds are breached." %}
+          </p>
+        </div>
+
+        <div class="bg-gray-50 p-6 rounded-lg">
+          <h3 class="text-lg font-semibold text-gray-900 mb-3">
+            {% trans "Can I create custom dashboards?" %}
+          </h3>
+          <p class="text-gray-600">
+            {% trans "Yes, all plans include dashboard customization tools.
+            Professional and Enterprise plans offer advanced customization with
+            custom metrics, calculated fields, and API integrations." %}
+          </p>
+        </div>
+
+        <div class="bg-gray-50 p-6 rounded-lg">
+          <h3 class="text-lg font-semibold text-gray-900 mb-3">
+            {% trans "What types of alerts are available?" %}
+          </h3>
+          <p class="text-gray-600">
+            {% trans "You can set alerts for cash flow thresholds, overdue
+            payments, budget variances, unusual transactions, revenue
+            milestones, and custom KPI targets with email, SMS, and in-app
+            notifications." %}
+          </p>
+        </div>
+
+        <div class="bg-gray-50 p-6 rounded-lg">
+          <h3 class="text-lg font-semibold text-gray-900 mb-3">
+            {% trans "How accurate are the cash flow forecasts?" %}
+          </h3>
+          <p class="text-gray-600">
+            {% trans "Our AI models achieve 95%+ accuracy for 30-day forecasts,
+            improving as more historical data becomes available. Forecasts
+            update in real-time as new transactions are recorded." %}
+          </p>
+        </div>
+
+        <div class="bg-gray-50 p-6 rounded-lg">
+          <h3 class="text-lg font-semibold text-gray-900 mb-3">
+            {% trans "Can multiple users access the analytics?" %}
+          </h3>
+          <p class="text-gray-600">
+            {% trans "Yes, Professional and Enterprise plans support multi-user
+            access with role-based permissions. You can share specific
+            dashboards or reports with team members, accountants, or
+            stakeholders." %}
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="bg-gray-900 text-white py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-6">
+        {% trans " See Your Business in Real-Time " %}
+      </h2>
+      <p class="text-xl mb-8 max-w-2xl mx-auto">
+        {% trans "Transform your decision-making with live financial insights.
+        Start monitoring your business performance in real-time today." %}
+      </p>
+      <a
+        href="{% url 'signup' %}"
+        class="bg-violet-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-violet-700 transition duration-300"
+        >{% trans " Get Real-Time Analytics " %}</a
+      >
+    </div>
+  </section>
 </div>
 {% endblock %}

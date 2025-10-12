@@ -1,14 +1,13 @@
 {% extends 'base.html' %}
-{% load i18n %}
 
-{% block title %}{% trans "Accounting Firms Solutions - Ovovex" %}{% endblock %}
+{% block title %}Retail & E-commerce Accounting - Ovovex{% endblock %}
 
 {% block content %}
 {% include 'components/navbar.html' %}
 
 <div class="min-h-screen bg-gray-50">
     <!-- Extended Navbar Section -->
-    <section class="bg-white shadow-lg relative z-50" style="background-image: url('/static/images/image2.jpg'); background-size: 130%; background-position: center;">
+    <section class="bg-white shadow-lg relative z-50" style="background-image: url('/static/images/digital-composite-image-man-using-laptop.jpg'); background-size: 130%; background-position: center;">
         <div class="absolute inset-0 bg-black bg-opacity-40"></div>
         <div class="relative">
             <!-- Navbar -->
@@ -24,74 +23,74 @@
                             </a>
                         </div>
                         <div class="hidden md:flex items-center space-x-8">
-                            <a href="/" class="text-gray-700 hover:text-gray-900">{% trans "Home" %}</a>
+                            <a href="/" class="text-gray-700 hover:text-gray-900">Home</a>
                             <div class="relative group">
                                 <button class="text-gray-700 hover:text-gray-900 flex items-center">
-                                    {% trans "Solutions" %} <i class="fas fa-chevron-down ml-1"></i>
+                                    Solutions <i class="fas fa-chevron-down ml-1"></i>
                                 </button>
                                 <div class="absolute left-0 mt-2 w-64 bg-white shadow-lg rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
                                     <div class="p-4">
-                                        <div class="text-sm font-semibold text-gray-500 mb-2"><i class="fas fa-building mr-2"></i>{% trans "By Business Size" %}</div>
+                                        <div class="text-sm font-semibold text-gray-500 mb-2"><i class="fas fa-building mr-2"></i>By Business Size</div>
                                         <a href="{% url 'small_business' %}" class="flex items-center p-2 hover:bg-gray-100 rounded">
                                             <i class="fas fa-store mr-2 text-gray-600"></i>
                                             <div>
-                                                <div class="font-semibold">{% trans "Small Business" %}</div>
-                                                <div class="text-sm text-gray-500">{% trans "Up to 50 employees" %}</div>
+                                                <div class="font-semibold">Small Business</div>
+                                                <div class="text-sm text-gray-500">Up to 50 employees</div>
                                             </div>
                                         </a>
                                         <a href="{% url 'enterprise' %}" class="flex items-center p-2 hover:bg-gray-100 rounded">
                                             <i class="fas fa-industry mr-2 text-gray-600"></i>
                                             <div>
-                                                <div class="font-semibold">{% trans "Enterprise" %}</div>
-                                                <div class="text-sm text-gray-500">{% trans "500+ employees" %}</div>
+                                                <div class="font-semibold">Enterprise</div>
+                                                <div class="text-sm text-gray-500">500+ employees</div>
                                             </div>
                                         </a>
                                         <a href="{% url 'accounting_firms' %}" class="flex items-center p-2 hover:bg-gray-100 rounded">
                                             <i class="fas fa-handshake mr-2 text-gray-600"></i>
                                             <div>
-                                                <div class="font-semibold">{% trans "Accounting Firms" %}</div>
-                                                <div class="text-sm text-gray-500">{% trans "Multi-client management" %}</div>
+                                                <div class="font-semibold">Accounting Firms</div>
+                                                <div class="text-sm text-gray-500">Multi-client management</div>
                                             </div>
                                         </a>
                                         <hr class="my-2">
-                                        <div class="text-sm font-semibold text-gray-500 mb-2"><i class="fas fa-tags mr-2"></i>{% trans "By Industry" %}</div>
+                                        <div class="text-sm font-semibold text-gray-500 mb-2"><i class="fas fa-tags mr-2"></i>By Industry</div>
                                         <a href="{% url 'retail_ecommerce' %}" class="flex items-center p-2 hover:bg-gray-100 rounded">
-                                            <i class="fas fa-shopping-cart mr-2 text-gray-600"></i>{% trans "Retail & E-commerce" %}
+                                            <i class="fas fa-shopping-cart mr-2 text-gray-600"></i>Retail & E-commerce
                                         </a>
                                         <a href="{% url 'manufacturing' %}" class="flex items-center p-2 hover:bg-gray-100 rounded">
-                                            <i class="fas fa-hammer mr-2 text-gray-600"></i>{% trans "Manufacturing" %}
+                                            <i class="fas fa-hammer mr-2 text-gray-600"></i>Manufacturing
                                         </a>
                                     </div>
                                 </div>
                             </div>
                             <div class="relative group">
                                 <button class="text-gray-700 hover:text-gray-900 flex items-center">
-                                    {% trans "Platform" %} <i class="fas fa-chevron-down ml-1"></i>
+                                    Platform <i class="fas fa-chevron-down ml-1"></i>
                                 </button>
                                 <div class="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
                                     <div class="p-2">
                                         <a href="{% url 'smart_invoicing' %}" class="flex items-center p-2 hover:bg-gray-100 rounded">
-                                            <i class="fas fa-file-invoice-dollar mr-2 text-gray-600"></i>{% trans "Smart Invoicing" %}
+                                            <i class="fas fa-file-invoice-dollar mr-2 text-gray-600"></i>Smart Invoicing
                                         </a>
                                         <a href="{% url 'ai_bookkeeping' %}" class="flex items-center p-2 hover:bg-gray-100 rounded">
-                                            <i class="fas fa-robot mr-2 text-gray-600"></i>{% trans "AI Bookkeeping" %}
+                                            <i class="fas fa-robot mr-2 text-gray-600"></i>AI Bookkeeping
                                         </a>
                                         <a href="{% url 'real_time_analytics' %}" class="flex items-center p-2 hover:bg-gray-100 rounded">
-                                            <i class="fas fa-chart-line mr-2 text-gray-600"></i>{% trans "Real-time Analytics" %}
+                                            <i class="fas fa-chart-line mr-2 text-gray-600"></i>Real-time Analytics
                                         </a>
                                         <a href="{% url 'ifrs_compliance' %}" class="flex items-center p-2 hover:bg-gray-100 rounded">
-                                            <i class="fas fa-certificate mr-2 text-gray-600"></i>{% trans "IFRS Compliance" %}
+                                            <i class="fas fa-certificate mr-2 text-gray-600"></i>IFRS Compliance
                                         </a>
                                         <a href="{% url 'bank_grade_security' %}" class="flex items-center p-2 hover:bg-gray-100 rounded">
-                                            <i class="fas fa-lock mr-2 text-gray-600"></i>{% trans "Bank-Grade Security" %}
+                                            <i class="fas fa-lock mr-2 text-gray-600"></i>Bank-Grade Security
                                         </a>
                                     </div>
                                 </div>
                             </div>
-                            <a href="#pricing" class="text-gray-700 hover:text-gray-900">{% trans "Pricing" %}</a>
+                            <a href="#pricing" class="text-gray-700 hover:text-gray-900">Pricing</a>
                             {% if not user.is_authenticated %}
-                            <a href="{% url 'login' %}" class="text-gray-700 hover:text-gray-900">{% trans "Login" %}</a>
-                            <a href="{% url 'signup' %}" class="bg-gray-900 text-white px-4 py-2 rounded-lg hover:bg-gray-800">{% trans "Sign Up" %}</a>
+                            <a href="{% url 'login' %}" class="text-gray-700 hover:text-gray-900">Login</a>
+                            <a href="{% url 'signup' %}" class="bg-gray-900 text-white px-4 py-2 rounded-lg hover:bg-gray-800">Sign Up</a>
                             {% endif %}
                         </div>
                         <div class="md:hidden flex items-center">
@@ -102,7 +101,7 @@
                         {% if user.is_authenticated %}
                         <div class="hidden md:flex items-center space-x-4">
                             <a href="{% url 'dashboard' %}" class="text-gray-700 hover:text-gray-900 flex items-center">
-                                <i class="fas fa-tachometer-alt mr-2"></i>{% trans "Dashboard" %}
+                                <i class="fas fa-tachometer-alt mr-2"></i>Dashboard
                             </a>
                             <div class="relative group">
                                 <button class="text-gray-700 hover:text-gray-900 flex items-center">
@@ -111,17 +110,17 @@
                                 <div class="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
                                     <div class="p-2">
                                         <a href="{% url 'dashboard' %}" class="flex items-center p-2 hover:bg-gray-100 rounded">
-                                            <i class="fas fa-tachometer-alt mr-2"></i>{% trans "Dashboard" %}
+                                            <i class="fas fa-tachometer-alt mr-2"></i>Dashboard
                                         </a>
                                         <a href="#" class="flex items-center p-2 hover:bg-gray-100 rounded">
-                                            <i class="fas fa-user mr-2"></i>{% trans "Profile" %}
+                                            <i class="fas fa-user mr-2"></i>Profile
                                         </a>
                                         <a href="#" class="flex items-center p-2 hover:bg-gray-100 rounded">
-                                            <i class="fas fa-cog mr-2"></i>{% trans "Settings" %}
+                                            <i class="fas fa-cog mr-2"></i>Settings
                                         </a>
                                         <hr class="my-1">
                                         <a href="{% url 'logout' %}" class="flex items-center p-2 hover:bg-gray-100 rounded">
-                                            <i class="fas fa-sign-out-alt mr-2"></i>{% trans "Logout" %}
+                                            <i class="fas fa-sign-out-alt mr-2"></i>Logout
                                         </a>
                                     </div>
                                 </div>
@@ -130,7 +129,7 @@
                         {% else %}
                         <div class="hidden md:flex items-center">
                             <a href="{% url 'signup' %}" class="bg-gray-900 text-white px-6 py-2 rounded-lg hover:bg-gray-800 flex items-center">
-                                {% trans "Start Free Trial" %} <i class="fas fa-arrow-right ml-2"></i>
+                                Start Free Trial <i class="fas fa-arrow-right ml-2"></i>
                             </a>
                         </div>
                         {% endif %}
@@ -142,13 +141,14 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 <div class="text-center">
                     <h1 class="text-4xl md:text-6xl font-bold mb-6">
-                        {% trans "Professional Accounting Firm Management" %}
+                        Accounting for Retail & E-commerce
                     </h1>
                     <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
-                        {% trans "Streamline multi-client management with powerful tools designed specifically for accounting firms. Scale your practice while maintaining exceptional client service." %}
+                        Specialized accounting solutions for retail stores and online businesses.
+                        Manage inventory, sales channels, and customer data with ease.
                     </p>
-                    <a href="{% url 'signup' %}" class="bg-white text-green-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition duration-300">
-                        {% trans "Start Firm Trial" %}
+                    <a href="{% url 'signup' %}" class="bg-white text-pink-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition duration-300">
+                        Start Retail Trial
                     </a>
                 </div>
             </div>
@@ -157,10 +157,11 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
                 <div class="text-center mb-8">
                     <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
-                        {% trans "Built for Accounting Professionals" %}
+                        Retail-Specific Accounting Features
                     </h2>
                     <p class="text-xl text-gray-200 max-w-2xl mx-auto">
-                        {% trans "Comprehensive tools to manage client relationships, automate workflows, and deliver high-quality accounting services efficiently." %}
+                        Tools designed to handle the unique challenges of retail and e-commerce businesses,
+                        from inventory management to multi-channel sales tracking.
                     </p>
                 </div>
             </div>
@@ -172,67 +173,73 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <!-- Feature 1 -->
                 <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
-                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-6">
-                        <i class="fas fa-users text-green-600 text-2xl"></i>
+                    <div class="w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-boxes text-pink-600 text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Multi-Client Management" %}</h3>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Inventory Management</h3>
                     <p class="text-gray-600">
-                        {% trans "Organize and manage multiple client accounts with dedicated workspaces, custom permissions, and seamless data segregation." %}
+                        Track inventory across multiple locations and sales channels.
+                        Automated stock alerts, cost of goods sold calculations, and inventory valuation.
                     </p>
                 </div>
 
                 <!-- Feature 2 -->
                 <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
                     <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
-                        <i class="fas fa-desktop text-blue-600 text-2xl"></i>
+                        <i class="fas fa-shopping-cart text-blue-600 text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Client Portals" %}</h3>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Multi-Channel Sales</h3>
                     <p class="text-gray-600">
-                        {% trans "Give clients secure access to their financial data, documents, and reports. Enable self-service capabilities and improve client satisfaction." %}
+                        Consolidate sales data from online stores, physical locations, and marketplaces.
+                        Real-time sales tracking and channel performance analytics.
                     </p>
                 </div>
 
                 <!-- Feature 3 -->
                 <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
-                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-6">
-                        <i class="fas fa-tags text-purple-600 text-2xl"></i>
+                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-cash-register text-green-600 text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-4">{% trans "White-Label Solutions" %}</h3>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Point of Sale Integration</h3>
                     <p class="text-gray-600">
-                        {% trans "Brand the platform with your firm's identity. Custom domains, logos, and color schemes to maintain your professional image." %}
+                        Seamless integration with POS systems for real-time transaction recording,
+                        payment processing, and sales tax calculations.
                     </p>
                 </div>
 
                 <!-- Feature 4 -->
                 <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
-                    <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-6">
-                        <i class="fas fa-clock text-orange-600 text-2xl"></i>
+                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-users text-purple-600 text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Time Tracking & Billing" %}</h3>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Customer Analytics</h3>
                     <p class="text-gray-600">
-                        {% trans "Track time spent on client work, generate detailed invoices, and manage billing cycles with automated recurring charges." %}
+                        Track customer behavior, purchase patterns, and lifetime value.
+                        Segment customers for targeted marketing and personalized service.
                     </p>
                 </div>
 
                 <!-- Feature 5 -->
                 <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
-                    <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-6">
-                        <i class="fas fa-file-contract text-red-600 text-2xl"></i>
+                    <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-truck text-orange-600 text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Engagement Management" %}</h3>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Shipping & Returns</h3>
                     <p class="text-gray-600">
-                        {% trans "Manage client engagements with customizable templates, automated workflows, and comprehensive audit trails for compliance." %}
+                        Track shipping costs, manage returns and refunds, and calculate accurate
+                        gross margins including all fulfillment expenses.
                     </p>
                 </div>
 
                 <!-- Feature 6 -->
                 <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
-                    <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-6">
-                        <i class="fas fa-chart-pie text-indigo-600 text-2xl"></i>
+                    <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-tags text-red-600 text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Practice Analytics" %}</h3>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Pricing & Promotions</h3>
                     <p class="text-gray-600">
-                        {% trans "Gain insights into your firm's performance with detailed analytics on profitability, client retention, and operational efficiency." %}
+                        Manage complex pricing strategies, discounts, and promotions.
+                        Track promotional performance and ROI on marketing campaigns.
                     </p>
                 </div>
             </div>
@@ -244,51 +251,51 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                    {% trans "Why Accounting Firms Choose Ovovex" %}
+                    Why Retailers Choose Ovovex
                 </h2>
             </div>
 
             <div class="grid md:grid-cols-2 gap-12">
                 <div class="bg-white p-8 rounded-lg shadow-lg">
-                    <h3 class="text-2xl font-semibold text-gray-900 mb-6">{% trans "Client Service Excellence" %}</h3>
+                    <h3 class="text-2xl font-semibold text-gray-900 mb-6">Operational Efficiency</h3>
                     <ul class="space-y-4 text-gray-600">
                         <li class="flex items-start">
                             <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
-                            {% trans "Secure client data portals with document sharing" %}
+                            Automated inventory tracking and reorder alerts
                         </li>
                         <li class="flex items-start">
                             <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
-                            {% trans "Automated client communications and reminders" %}
+                            Real-time sales and profit margin calculations
                         </li>
                         <li class="flex items-start">
                             <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
-                            {% trans "Real-time collaboration tools for team members" %}
+                            Integrated POS and e-commerce platform connections
                         </li>
                         <li class="flex items-start">
                             <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
-                            {% trans "Customizable client reporting and dashboards" %}
+                            Automated tax calculations for multiple jurisdictions
                         </li>
                     </ul>
                 </div>
 
                 <div class="bg-white p-8 rounded-lg shadow-lg">
-                    <h3 class="text-2xl font-semibold text-gray-900 mb-6">{% trans "Operational Efficiency" %}</h3>
+                    <h3 class="text-2xl font-semibold text-gray-900 mb-6">Business Intelligence</h3>
                     <ul class="space-y-4 text-gray-600">
                         <li class="flex items-start">
                             <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
-                            {% trans "Automated data imports from client systems" %}
+                            Customer lifetime value and retention analytics
                         </li>
                         <li class="flex items-start">
                             <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
-                            {% trans "Bulk processing capabilities for multiple clients" %}
+                            Product performance and profitability reports
                         </li>
                         <li class="flex items-start">
                             <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
-                            {% trans "Standardized workflows and templates" %}
+                            Seasonal trend analysis and forecasting
                         </li>
                         <li class="flex items-start">
                             <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
-                            {% trans "Advanced audit trails and compliance reporting" %}
+                            Multi-channel attribution and marketing ROI
                         </li>
                     </ul>
                 </div>
@@ -301,25 +308,25 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                    {% trans "Accounting Firm Platform in Action" %}
+                    Retail & E-commerce Platform in Action
                 </h2>
                 <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-                    {% trans "See how leading accounting firms manage multiple clients, streamline workflows, and deliver exceptional service with Ovovex." %}
+                    See how retailers and online stores manage inventory, track sales across channels, and optimize profitability with Ovovex.
                 </p>
             </div>
 
             <div class="grid lg:grid-cols-2 gap-12 items-center">
                 <!-- Demo Video Placeholder -->
                 <div class="bg-gray-100 rounded-lg p-8 text-center">
-                    <div class="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <div class="w-16 h-16 bg-pink-600 rounded-full flex items-center justify-center mx-auto mb-6">
                         <i class="fas fa-play text-white text-2xl"></i>
                     </div>
-                    <h3 class="text-2xl font-semibold text-gray-900 mb-4">{% trans "Firm Management Demo" %}</h3>
+                    <h3 class="text-2xl font-semibold text-gray-900 mb-4">Retail Operations Demo</h3>
                     <p class="text-gray-600 mb-6">
-                        {% trans "Watch how accounting firms manage 100+ clients with multi-client portals, automated workflows, and comprehensive practice analytics." %}
+                        Experience our retail platform with multi-channel sales tracking, automated inventory management, and real-time business analytics for stores and online businesses.
                     </p>
-                    <button class="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition duration-300">
-                        {% trans "Watch Firm Demo" %}
+                    <button class="bg-pink-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-pink-700 transition duration-300">
+                        Watch Retail Demo
                     </button>
                 </div>
 
@@ -328,31 +335,31 @@
                     <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
                         <div class="flex items-center mb-4">
                             <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
-                                <i class="fas fa-users text-blue-600"></i>
+                                <i class="fas fa-shopping-cart text-blue-600"></i>
                             </div>
-                            <h4 class="text-lg font-semibold text-gray-900">{% trans "Multi-Client Dashboard" %}</h4>
+                            <h4 class="text-lg font-semibold text-gray-900">Multi-Channel Dashboard</h4>
                         </div>
-                        <p class="text-gray-600">{% trans "Centralized view of all client accounts with status updates, deadlines, and key metrics." %}</p>
+                        <p class="text-gray-600">Unified view of sales across online stores, physical locations, and marketplaces with real-time performance metrics.</p>
+                    </div>
+
+                    <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+                        <div class="flex items-center mb-4">
+                            <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mr-4">
+                                <i class="fas fa-boxes text-green-600"></i>
+                            </div>
+                            <h4 class="text-lg font-semibold text-gray-900">Smart Inventory Management</h4>
+                        </div>
+                        <p class="text-gray-600">Automated stock tracking, low inventory alerts, and intelligent reorder recommendations across all locations.</p>
                     </div>
 
                     <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
                         <div class="flex items-center mb-4">
                             <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mr-4">
-                                <i class="fas fa-tags text-purple-600"></i>
+                                <i class="fas fa-chart-line text-purple-600"></i>
                             </div>
-                            <h4 class="text-lg font-semibold text-gray-900">{% trans "White-Label Client Portal" %}</h4>
+                            <h4 class="text-lg font-semibold text-gray-900">Customer Insights Analytics</h4>
                         </div>
-                        <p class="text-gray-600">{% trans "Branded client portals with your firm's logo, colors, and custom domain." %}</p>
-                    </div>
-
-                    <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
-                        <div class="flex items-center mb-4">
-                            <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center mr-4">
-                                <i class="fas fa-clock text-orange-600"></i>
-                            </div>
-                            <h4 class="text-lg font-semibold text-gray-900">{% trans "Time & Billing Automation" %}</h4>
-                        </div>
-                        <p class="text-gray-600">{% trans "Automated time tracking, invoice generation, and client billing with recurring charges." %}</p>
+                        <p class="text-gray-600">Deep customer behavior analysis, purchase patterns, and personalized marketing recommendations.</p>
                     </div>
                 </div>
             </div>
@@ -364,115 +371,115 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                    {% trans "Comprehensive Firm Management Features" %}
+                    Comprehensive Retail Accounting Features
                 </h2>
                 <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-                    {% trans "Everything accounting firms need to manage clients efficiently, maintain compliance, and grow their practice." %}
+                    Everything retail and e-commerce businesses need for accurate financial management, from inventory tracking to customer analytics.
                 </p>
             </div>
 
             <div class="space-y-16">
-                <!-- Multi-Client Management -->
+                <!-- Inventory & Operations -->
                 <div class="grid lg:grid-cols-2 gap-12 items-center">
                     <div>
-                        <h3 class="text-2xl font-bold text-gray-900 mb-4">{% trans "Advanced Multi-Client Management" %}</h3>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4">Advanced Inventory Management</h3>
                         <ul class="space-y-3 text-gray-600">
                             <li class="flex items-start">
                                 <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                {% trans "Unlimited client accounts with dedicated workspaces" %}
+                                Real-time inventory tracking across multiple locations and channels
                             </li>
                             <li class="flex items-start">
                                 <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                {% trans "Role-based permissions for staff and client access" %}
+                                Automated low stock alerts and reorder point calculations
                             </li>
                             <li class="flex items-start">
                                 <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                {% trans "Automated client onboarding and setup workflows" %}
+                                Cost of goods sold (COGS) tracking and gross margin analysis
                             </li>
                             <li class="flex items-start">
                                 <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                {% trans "Client data segregation and security controls" %}
+                                Inventory valuation methods (FIFO, LIFO, weighted average)
                             </li>
                             <li class="flex items-start">
                                 <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                {% trans "Bulk operations for managing multiple clients" %}
+                                Seasonal demand forecasting and stock optimization
                             </li>
                         </ul>
                     </div>
                     <div class="bg-white p-8 rounded-lg shadow-lg">
                         <div class="text-center">
-                            <i class="fas fa-users text-green-600 text-6xl mb-4"></i>
-                            <p class="text-gray-600">{% trans "Manage hundreds of clients with complete data isolation" %}</p>
+                            <i class="fas fa-boxes text-pink-600 text-6xl mb-4"></i>
+                            <p class="text-gray-600">Never run out of stock or overstock again</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Client Service Tools -->
+                <!-- Multi-Channel Sales -->
                 <div class="grid lg:grid-cols-2 gap-12 items-center">
                     <div class="bg-white p-8 rounded-lg shadow-lg">
                         <div class="text-center">
-                            <i class="fas fa-desktop text-blue-600 text-6xl mb-4"></i>
-                            <p class="text-gray-600">{% trans "Empower clients with self-service capabilities" %}</p>
+                            <i class="fas fa-shopping-cart text-blue-600 text-6xl mb-4"></i>
+                            <p class="text-gray-600">Sell anywhere, track everything in one place</p>
                         </div>
                     </div>
                     <div>
-                        <h3 class="text-2xl font-bold text-gray-900 mb-4">{% trans "Client Service Excellence" %}</h3>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4">Omni-Channel Sales Management</h3>
                         <ul class="space-y-3 text-gray-600">
                             <li class="flex items-start">
                                 <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                {% trans "Secure document sharing and collaboration tools" %}
+                                Integration with Shopify, WooCommerce, BigCommerce, and more
                             </li>
                             <li class="flex items-start">
                                 <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                {% trans "Real-time notifications and automated reminders" %}
+                                Marketplace integrations (Amazon, eBay, Etsy)
                             </li>
                             <li class="flex items-start">
                                 <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                {% trans "Customizable client dashboards and reports" %}
+                                Point of sale system connections for brick-and-mortar stores
                             </li>
                             <li class="flex items-start">
                                 <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                {% trans "Client feedback and satisfaction tracking" %}
+                                Real-time sales consolidation and channel performance tracking
                             </li>
                             <li class="flex items-start">
                                 <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                {% trans "Integrated client communication tools" %}
+                                Automated transaction matching and reconciliation
                             </li>
                         </ul>
                     </div>
                 </div>
 
-                <!-- Practice Management -->
+                <!-- Customer & Analytics -->
                 <div class="grid lg:grid-cols-2 gap-12 items-center">
                     <div>
-                        <h3 class="text-2xl font-bold text-gray-900 mb-4">{% trans "Practice Analytics & Insights" %}</h3>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4">Customer Intelligence & Analytics</h3>
                         <ul class="space-y-3 text-gray-600">
                             <li class="flex items-start">
                                 <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                {% trans "Detailed profitability analysis by client and service" %}
+                                Customer lifetime value calculation and segmentation
                             </li>
                             <li class="flex items-start">
                                 <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                {% trans "Staff productivity and utilization reports" %}
+                                Purchase pattern analysis and behavioral insights
                             </li>
                             <li class="flex items-start">
                                 <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                {% trans "Client retention and growth analytics" %}
+                                Customer retention tracking and churn prediction
                             </li>
                             <li class="flex items-start">
                                 <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                {% trans "Workflow efficiency and bottleneck identification" %}
+                                Personalized marketing campaign performance
                             </li>
                             <li class="flex items-start">
                                 <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                {% trans "Custom KPI dashboards and benchmarking" %}
+                                A/B testing analytics for pricing and promotions
                             </li>
                         </ul>
                     </div>
                     <div class="bg-white p-8 rounded-lg shadow-lg">
                         <div class="text-center">
-                            <i class="fas fa-chart-pie text-indigo-600 text-6xl mb-4"></i>
-                            <p class="text-gray-600">{% trans "Data-driven insights to grow your practice" %}</p>
+                            <i class="fas fa-users text-purple-600 text-6xl mb-4"></i>
+                            <p class="text-gray-600">Understand your customers like never before</p>
                         </div>
                     </div>
                 </div>
@@ -485,10 +492,10 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                    {% trans "Trusted by Accounting Firms" %}
+                    Trusted by Retailers & Online Stores
                 </h2>
                 <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-                    {% trans "See what accounting professionals say about managing their practices with Ovovex." %}
+                    See what retail businesses say about managing their finances with Ovovex.
                 </p>
             </div>
 
@@ -496,16 +503,16 @@
                 <!-- Testimonial 1 -->
                 <div class="bg-gray-50 p-8 rounded-lg">
                     <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
-                            <span class="text-green-600 font-semibold">PC</span>
+                        <div class="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center mr-4">
+                            <span class="text-pink-600 font-semibold">FS</span>
                         </div>
                         <div>
-                            <h4 class="font-semibold text-gray-900">{% trans "Partners & Co." %}</h4>
-                            <p class="text-gray-600 text-sm">{% trans "Regional Accounting Firm" %}</p>
+                            <h4 class="font-semibold text-gray-900">Fashion Store Plus</h4>
+                            <p class="text-gray-600 text-sm">Multi-location Retail Chain</p>
                         </div>
                     </div>
                     <p class="text-gray-600 italic">
-                        {% trans "Ovovex transformed how we serve our 200+ clients. The white-label portals make us look like a Fortune 500 firm, and our efficiency has doubled." %}
+                        "Ovovex handles our complex inventory across 15 stores and online shop seamlessly. The multi-channel reporting saves us hours every month and our margins have improved by 12%."
                     </p>
                     <div class="flex text-yellow-400 mt-4">
                         <i class="fas fa-star"></i>
@@ -520,15 +527,15 @@
                 <div class="bg-gray-50 p-8 rounded-lg">
                     <div class="flex items-center mb-4">
                         <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
-                            <span class="text-blue-600 font-semibold">AF</span>
+                            <span class="text-blue-600 font-semibold">EC</span>
                         </div>
                         <div>
-                            <h4 class="font-semibold text-gray-900">{% trans "Anderson Financial" %}</h4>
-                            <p class="text-gray-600 text-sm">{% trans "Tax & Accounting Specialists" %}</p>
+                            <h4 class="font-semibold text-gray-900">Eco Commerce</h4>
+                            <p class="text-gray-600 text-sm">Sustainable Products E-commerce</p>
                         </div>
                     </div>
                     <p class="text-gray-600 italic">
-                        {% trans "The automated time tracking and billing features saved us 15 hours per week. Our clients love the transparent billing and our margins improved significantly." %}
+                        "The automated inventory tracking and low stock alerts have eliminated our stockouts. Customer analytics help us understand buying patterns and improve our product recommendations."
                     </p>
                     <div class="flex text-yellow-400 mt-4">
                         <i class="fas fa-star"></i>
@@ -542,16 +549,16 @@
                 <!-- Testimonial 3 -->
                 <div class="bg-gray-50 p-8 rounded-lg">
                     <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mr-4">
-                            <span class="text-purple-600 font-semibold">BC</span>
+                        <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mr-4">
+                            <span class="text-green-600 font-semibold">HM</span>
                         </div>
                         <div>
-                            <h4 class="font-semibold text-gray-900">{% trans "Business Consultants Inc." %}</h4>
-                            <p class="text-gray-600 text-sm">{% trans "Full-Service Accounting Firm" %}</p>
+                            <h4 class="font-semibold text-gray-900">Home & Market</h4>
+                            <p class="text-gray-600 text-sm">Home Goods Marketplace</p>
                         </div>
                     </div>
                     <p class="text-gray-600 italic">
-                        {% trans "The practice analytics give us incredible insights into our business. We can now identify which services are most profitable and focus our marketing efforts accordingly." %}
+                        "Managing sales across our website, Amazon, and physical store was a nightmare before Ovovex. Now we have real-time insights into profitability by channel and can make data-driven decisions."
                     </p>
                     <div class="flex text-yellow-400 mt-4">
                         <i class="fas fa-star"></i>
@@ -565,128 +572,128 @@
         </div>
     </section>
 
-    <!-- Firm Pricing Section -->
+    <!-- Retail Pricing Section -->
     <section class="py-20 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                    {% trans "Accounting Firm Pricing" %}
+                    Retail & E-commerce Pricing
                 </h2>
                 <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-                    {% trans "Flexible pricing designed for accounting firms of all sizes. Scale as your practice grows." %}
+                    Flexible pricing designed for retail businesses of all sizes, from single stores to multi-channel operations.
                 </p>
             </div>
 
             <div class="grid md:grid-cols-3 gap-8">
-                <!-- Starter Firm Plan -->
+                <!-- Starter Retail Plan -->
                 <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-gray-200">
                     <div class="text-center">
-                        <h3 class="text-2xl font-bold text-gray-900 mb-4">{% trans "Starter Firm" %}</h3>
-                        <div class="text-4xl font-bold text-gray-900 mb-2">$49<span class="text-lg font-normal">/{% trans "month" %}</span></div>
-                        <p class="text-gray-600 mb-6">{% trans "Perfect for small accounting practices" %}</p>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4">Starter Store</h3>
+                        <div class="text-4xl font-bold text-gray-900 mb-2">$39<span class="text-lg font-normal">/month</span></div>
+                        <p class="text-gray-600 mb-6">Perfect for single location or small online stores</p>
                         <ul class="text-left space-y-3 mb-8">
                             <li class="flex items-center">
                                 <i class="fas fa-check text-green-500 mr-3"></i>
-                                {% trans "Up to 25 client accounts" %}
+                                Up to 1,000 inventory items
                             </li>
                             <li class="flex items-center">
                                 <i class="fas fa-check text-green-500 mr-3"></i>
-                                {% trans "Basic client portals" %}
+                                Basic inventory tracking
                             </li>
                             <li class="flex items-center">
                                 <i class="fas fa-check text-green-500 mr-3"></i>
-                                {% trans "Time tracking & billing" %}
+                                Single sales channel integration
                             </li>
                             <li class="flex items-center">
                                 <i class="fas fa-check text-green-500 mr-3"></i>
-                                {% trans "Basic practice reports" %}
+                                Basic sales and profit reports
                             </li>
                             <li class="flex items-center">
                                 <i class="fas fa-check text-green-500 mr-3"></i>
-                                {% trans "Email support" %}
+                                Email support
                             </li>
                         </ul>
                         <a href="{% url 'signup' %}" class="block bg-gray-100 text-gray-800 px-6 py-3 rounded-lg font-semibold hover:bg-gray-200 transition duration-300">
-                            {% trans "Start Free Trial" %}
+                            Start Free Trial
                         </a>
                     </div>
                 </div>
 
-                <!-- Professional Firm Plan -->
-                <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-green-500 relative">
+                <!-- Professional Retail Plan -->
+                <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-pink-500 relative">
                     <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                        <span class="bg-green-500 text-white px-4 py-1 rounded-full text-sm font-semibold">{% trans "Most Popular" %}</span>
+                        <span class="bg-pink-500 text-white px-4 py-1 rounded-full text-sm font-semibold">Most Popular</span>
                     </div>
                     <div class="text-center">
-                        <h3 class="text-2xl font-bold text-gray-900 mb-4">{% trans "Professional Firm" %}</h3>
-                        <div class="text-4xl font-bold text-gray-900 mb-2">$149<span class="text-lg font-normal">/{% trans "month" %}</span></div>
-                        <p class="text-gray-600 mb-6">{% trans "Ideal for growing accounting firms" %}</p>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4">Growing Business</h3>
+                        <div class="text-4xl font-bold text-gray-900 mb-2">$99<span class="text-lg font-normal">/month</span></div>
+                        <p class="text-gray-600 mb-6">Ideal for multi-location or multi-channel retailers</p>
                         <ul class="text-left space-y-3 mb-8">
                             <li class="flex items-center">
                                 <i class="fas fa-check text-green-500 mr-3"></i>
-                                {% trans "Up to 100 client accounts" %}
+                                Up to 10,000 inventory items
                             </li>
                             <li class="flex items-center">
                                 <i class="fas fa-check text-green-500 mr-3"></i>
-                                {% trans "White-label client portals" %}
+                                Advanced inventory management
                             </li>
                             <li class="flex items-center">
                                 <i class="fas fa-check text-green-500 mr-3"></i>
-                                {% trans "Advanced time & billing" %}
+                                Multi-channel sales integration
                             </li>
                             <li class="flex items-center">
                                 <i class="fas fa-check text-green-500 mr-3"></i>
-                                {% trans "Full practice analytics" %}
+                                Customer analytics and insights
                             </li>
                             <li class="flex items-center">
                                 <i class="fas fa-check text-green-500 mr-3"></i>
-                                {% trans "Priority phone support" %}
+                                Priority phone support
                             </li>
                             <li class="flex items-center">
                                 <i class="fas fa-check text-green-500 mr-3"></i>
-                                {% trans "Custom integrations" %}
+                                Custom reporting
                             </li>
                         </ul>
-                        <a href="{% url 'signup' %}" class="block bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition duration-300">
-                            {% trans "Start Free Trial" %}
+                        <a href="{% url 'signup' %}" class="block bg-pink-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-pink-700 transition duration-300">
+                            Start Free Trial
                         </a>
                     </div>
                 </div>
 
-                <!-- Enterprise Firm Plan -->
+                <!-- Enterprise Retail Plan -->
                 <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-gray-200">
                     <div class="text-center">
-                        <h3 class="text-2xl font-bold text-gray-900 mb-4">{% trans "Enterprise Firm" %}</h3>
-                        <div class="text-4xl font-bold text-gray-900 mb-2">$299<span class="text-lg font-normal">/{% trans "month" %}</span></div>
-                        <p class="text-gray-600 mb-6">{% trans "For large accounting partnerships" %}</p>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4">Enterprise Retail</h3>
+                        <div class="text-4xl font-bold text-gray-900 mb-2">$199<span class="text-lg font-normal">/month</span></div>
+                        <p class="text-gray-600 mb-6">For large retail chains and complex operations</p>
                         <ul class="text-left space-y-3 mb-8">
                             <li class="flex items-center">
                                 <i class="fas fa-check text-green-500 mr-3"></i>
-                                {% trans "Unlimited client accounts" %}
+                                Unlimited inventory items
                             </li>
                             <li class="flex items-center">
                                 <i class="fas fa-check text-green-500 mr-3"></i>
-                                {% trans "Full white-label customization" %}
+                                Advanced multi-location management
                             </li>
                             <li class="flex items-center">
                                 <i class="fas fa-check text-green-500 mr-3"></i>
-                                {% trans "Advanced automation workflows" %}
+                                Unlimited sales channels
                             </li>
                             <li class="flex items-center">
                                 <i class="fas fa-check text-green-500 mr-3"></i>
-                                {% trans "Dedicated account manager" %}
+                                Advanced customer intelligence
                             </li>
                             <li class="flex items-center">
                                 <i class="fas fa-check text-green-500 mr-3"></i>
-                                {% trans "Custom development services" %}
+                                Dedicated account manager
                             </li>
                             <li class="flex items-center">
                                 <i class="fas fa-check text-green-500 mr-3"></i>
-                                {% trans "24/7 premium support" %}
+                                Custom integrations & API access
                             </li>
                         </ul>
                         <a href="mailto:sales@ovovex.com" class="block bg-gray-100 text-gray-800 px-6 py-3 rounded-lg font-semibold hover:bg-gray-200 transition duration-300">
-                            {% trans "Contact Sales" %}
+                            Contact Sales
                         </a>
                     </div>
                 </div>
@@ -694,42 +701,42 @@
         </div>
     </section>
 
-    <!-- Firm FAQ Section -->
+    <!-- Retail FAQ Section -->
     <section class="py-20 bg-white">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                    {% trans "Accounting Firm FAQ" %}
+                    Retail & E-commerce FAQ
                 </h2>
                 <p class="text-xl text-gray-600">
-                    {% trans "Answers to common questions from accounting firms." %}
+                    Answers to common questions from retail and online business owners.
                 </p>
             </div>
 
             <div class="space-y-6">
                 <div class="bg-gray-50 p-6 rounded-lg">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-3">{% trans "How does client data security work?" %}</h3>
-                    <p class="text-gray-600">{% trans "Each client account is completely segregated with bank-grade encryption. Your firm maintains full control over client data access, and we comply with all major privacy regulations including GDPR and CCPA." %}</p>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-3">How does inventory tracking work across multiple locations?</h3>
+                    <p class="text-gray-600">Our platform provides real-time inventory synchronization across all your locations and sales channels. When an item sells in your online store, your physical store inventory updates automatically, preventing overselling and stockouts.</p>
                 </div>
 
                 <div class="bg-gray-50 p-6 rounded-lg">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-3">{% trans "Can I migrate my existing clients?" %}</h3>
-                    <p class="text-gray-600">{% trans "Yes! We provide comprehensive data migration tools and services. Our team can help import client data from QuickBooks, Xero, Excel files, and most accounting software platforms." %}</p>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-3">Can I integrate with my existing e-commerce platform?</h3>
+                    <p class="text-gray-600">Yes! We integrate with all major e-commerce platforms including Shopify, WooCommerce, BigCommerce, Magento, and Squarespace. We also support marketplace integrations with Amazon, eBay, and Walmart.</p>
                 </div>
 
                 <div class="bg-gray-50 p-6 rounded-lg">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-3">{% trans "What level of customization is available?" %}</h3>
-                    <p class="text-gray-600">{% trans "Professional and Enterprise plans include white-label branding, custom workflows, and API access. Enterprise plans also include custom development services for unique requirements." %}</p>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-3">How do you handle sales tax for multiple states or countries?</h3>
+                    <p class="text-gray-600">Our platform automatically calculates sales tax based on customer location, product type, and applicable tax rates. We stay updated with the latest tax regulations and support both origin-based and destination-based tax calculations.</p>
                 </div>
 
                 <div class="bg-gray-50 p-6 rounded-lg">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-3">{% trans "How does the billing work for multiple clients?" %}</h3>
-                    <p class="text-gray-600">{% trans "You pay one monthly fee for your firm account. Client billing is handled separately through our integrated invoicing system, with automated recurring charges and detailed time tracking." %}</p>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-3">What kind of reporting do you provide for retail businesses?</h3>
+                    <p class="text-gray-600">We provide comprehensive retail-specific reports including sales by channel, inventory turnover, gross margin analysis, customer lifetime value, seasonal trends, and promotional campaign performance tracking.</p>
                 </div>
 
                 <div class="bg-gray-50 p-6 rounded-lg">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-3">{% trans "Can I integrate with my existing software?" %}</h3>
-                    <p class="text-gray-600">{% trans "Yes, we offer integrations with major accounting software, CRM systems, and practice management tools. Our API-first architecture also supports custom integrations for specialized needs." %}</p>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-3">Can I track customer behavior and purchase patterns?</h3>
+                    <p class="text-gray-600">Absolutely! Our customer analytics track purchase history, browsing behavior, cart abandonment, product preferences, and lifetime value. Use these insights to create targeted marketing campaigns and improve customer retention.</p>
                 </div>
             </div>
         </div>
@@ -739,13 +746,14 @@
     <section class="bg-gray-900 text-white py-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 class="text-3xl md:text-4xl font-bold mb-6">
-                {% trans "Grow Your Accounting Practice" %}
+                Grow Your Retail Business
             </h2>
             <p class="text-xl mb-8 max-w-2xl mx-auto">
-                {% trans "Join leading accounting firms who use Ovovex to scale their operations and deliver exceptional client service." %}
+                Join successful retailers who use Ovovex to optimize operations,
+                increase profitability, and scale their businesses.
             </p>
-            <a href="{% url 'signup' %}" class="bg-green-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-green-700 transition duration-300">
-                {% trans "Start Firm Trial" %}
+            <a href="{% url 'signup' %}" class="bg-pink-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-pink-700 transition duration-300">
+                Start Retail Trial
             </a>
         </div>
     </section>

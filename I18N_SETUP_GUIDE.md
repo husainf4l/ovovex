@@ -1,4 +1,5 @@
 # Django Internationalization (i18n) Setup Guide
+
 ## English & Arabic Support with RTL Layout
 
 This guide explains the complete internationalization setup for your Django project supporting English (default) and Arabic with right-to-left (RTL) layout.
@@ -10,6 +11,7 @@ This guide explains the complete internationalization setup for your Django proj
 ### 1. **settings.py Changes**
 
 #### ✅ Enabled i18n System
+
 ```python
 USE_I18N = True  # Enable Django's translation system
 USE_L10N = True  # Enable localized formatting of numbers and dates
@@ -20,6 +22,7 @@ USE_L10N = True  # Enable localized formatting of numbers and dates
 ---
 
 #### ✅ Added LocaleMiddleware
+
 ```python
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -30,7 +33,8 @@ MIDDLEWARE = [
 ]
 ```
 
-**What it does:** 
+**What it does:**
+
 - Detects the user's preferred language from browser settings, cookies, or session
 - Must be placed AFTER `SessionMiddleware` and BEFORE `CommonMiddleware`
 - Automatically activates the correct language for each request
@@ -38,6 +42,7 @@ MIDDLEWARE = [
 ---
 
 #### ✅ Configured Supported Languages
+
 ```python
 LANGUAGE_CODE = 'en'  # Default language
 
@@ -47,7 +52,8 @@ LANGUAGES = [
 ]
 ```
 
-**What it does:** 
+**What it does:**
+
 - Sets English as the default language
 - Defines only English and Arabic as supported languages
 - The tuple format: (language_code, human_readable_name)
@@ -55,6 +61,7 @@ LANGUAGES = [
 ---
 
 #### ✅ Set Translation File Path
+
 ```python
 LOCALE_PATHS = [
     BASE_DIR / 'locale',
@@ -66,6 +73,7 @@ LOCALE_PATHS = [
 ---
 
 #### ✅ Added i18n Context Processor
+
 ```python
 TEMPLATES = [
     {
@@ -86,6 +94,7 @@ TEMPLATES = [
 ### 2. **urls.py Changes**
 
 #### ✅ Wrapped URLs with i18n_patterns
+
 ```python
 from django.conf.urls.i18n import i18n_patterns
 
@@ -105,6 +114,7 @@ urlpatterns += i18n_patterns(
 ```
 
 **What it does:**
+
 - Adds language prefix to URLs: `/en/` for English, `/ar/` for Arabic
 - Example: `example.com/en/login/` or `example.com/ar/login/`
 - Admin and API endpoints don't need translation, so they stay outside i18n_patterns
@@ -115,6 +125,7 @@ urlpatterns += i18n_patterns(
 ### 3. **base.html Template Changes**
 
 #### ✅ Added Language and Direction Detection
+
 ```django
 {% load i18n %}
 {% get_current_language as LANGUAGE_CODE %}
@@ -123,6 +134,7 @@ urlpatterns += i18n_patterns(
 ```
 
 **What it does:**
+
 - Loads i18n template tags
 - Gets current language code (en/ar)
 - Detects if current language is RTL (Right-to-Left)
@@ -132,13 +144,18 @@ urlpatterns += i18n_patterns(
 ---
 
 #### ✅ Added Arabic Font Support
+
 ```html
 {% if LANGUAGE_BIDI %}
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link
+  href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap"
+  rel="stylesheet"
+/>
 <style>
-    body, html {
-        font-family: 'Cairo', 'Inter', sans-serif;
-    }
+  body,
+  html {
+    font-family: "Cairo", "Inter", sans-serif;
+  }
 </style>
 {% endif %}
 ```
@@ -150,6 +167,7 @@ urlpatterns += i18n_patterns(
 ### 4. **navbar.html - Language Switcher**
 
 #### ✅ Added Translation Tags
+
 ```django
 {% load i18n %}
 <a href="/">{% trans "Home" %}</a>
@@ -161,6 +179,7 @@ urlpatterns += i18n_patterns(
 ---
 
 #### ✅ Added Language Dropdown
+
 ```django
 <div class="relative group">
     {% get_current_language as LANGUAGE_CODE %}
@@ -180,6 +199,7 @@ urlpatterns += i18n_patterns(
 ```
 
 **What it does:**
+
 - Shows current language with globe icon
 - Provides dropdown to switch between English/Arabic
 - Uses Django's built-in `set_language` view
@@ -199,6 +219,7 @@ python manage.py makemessages -l ar
 ```
 
 **What it does:**
+
 - Scans all your templates and Python files
 - Finds all `{% trans %}` tags and `_()` functions
 - Creates `/locale/ar/LC_MESSAGES/django.po` file
@@ -234,6 +255,7 @@ msgstr "مرحباً بعودتك"
 ```
 
 **Format:**
+
 - `msgid`: Original English text
 - `msgstr`: Your Arabic translation (add it here)
 
@@ -248,6 +270,7 @@ python manage.py compilemessages
 ```
 
 **What it does:**
+
 - Converts the human-readable .po file into a binary .mo file
 - Django uses .mo files for fast translation lookup
 - Creates `locale/ar/LC_MESSAGES/django.mo`
@@ -275,6 +298,7 @@ python manage.py compilemessages
 ## 📝 How to Use in Templates
 
 ### Basic Translation
+
 ```django
 {% load i18n %}
 
@@ -290,6 +314,7 @@ Hello, {{ name }}!
 ---
 
 ### Translation in Python Code
+
 ```python
 from django.utils.translation import gettext as _
 
@@ -305,6 +330,7 @@ def my_view(request):
 When Arabic is active, the entire layout flips automatically. However, you may need to adjust some CSS:
 
 ### Option 1: Conditional CSS in Template
+
 ```django
 {% if LANGUAGE_BIDI %}
 <style>
@@ -315,11 +341,12 @@ When Arabic is active, the entire layout flips automatically. However, you may n
 ```
 
 ### Option 2: CSS with Logical Properties (Modern Approach)
+
 ```css
 /* Instead of margin-left, use margin-inline-start */
 .button {
-    margin-inline-start: 10px;  /* Adapts to LTR/RTL automatically */
-    padding-inline: 20px;       /* Same as padding-left and padding-right */
+  margin-inline-start: 10px; /* Adapts to LTR/RTL automatically */
+  padding-inline: 20px; /* Same as padding-left and padding-right */
 }
 ```
 
@@ -330,16 +357,19 @@ When Arabic is active, the entire layout flips automatically. However, you may n
 ### Test in Browser
 
 1. **Start the server:**
+
    ```bash
    python manage.py runserver
    ```
 
 2. **Access English version:**
+
    ```
    http://127.0.0.1:8000/en/
    ```
 
 3. **Access Arabic version:**
+
    ```
    http://127.0.0.1:8000/ar/
    ```
@@ -351,6 +381,7 @@ When Arabic is active, the entire layout flips automatically. However, you may n
 ### Expected Behavior
 
 ✅ **When you switch to Arabic:**
+
 - URL changes to `/ar/...`
 - Layout flips to right-to-left
 - Arabic font (Cairo) loads
@@ -358,6 +389,7 @@ When Arabic is active, the entire layout flips automatically. However, you may n
 - Navbar, buttons, forms all flip direction
 
 ✅ **When you switch to English:**
+
 - URL changes to `/en/...`
 - Layout returns to left-to-right
 - English font (Inter) is used
@@ -382,34 +414,38 @@ Before deploying:
 ## 📚 Common Issues & Solutions
 
 ### Issue: Translations not appearing
+
 **Solution:** Make sure you ran `compilemessages` after editing the .po file
 
 ### Issue: Layout breaks in RTL
+
 **Solution:** Use CSS logical properties or add RTL-specific styles
 
 ### Issue: Language switcher not working
+
 **Solution:** Check that `path('i18n/', include('django.conf.urls.i18n'))` is in urlpatterns
 
 ### Issue: Some pages don't have language prefix
+
 **Solution:** Make sure URLs are inside `i18n_patterns()` in urls.py
 
 ---
 
 ## 🎓 Summary
 
-| Component | Purpose | Required? |
-|-----------|---------|-----------|
-| `USE_I18N = True` | Enable translation system | ✅ Yes |
-| `LocaleMiddleware` | Detect user's language | ✅ Yes |
-| `LANGUAGES` setting | Define supported languages | ✅ Yes |
-| `LOCALE_PATHS` | Where translation files live | ✅ Yes |
-| `i18n_patterns()` | Add language prefix to URLs | ✅ Yes |
-| `{% load i18n %}` | Load translation tags in templates | ✅ Yes |
-| `{% trans %}` | Mark text for translation | ✅ Yes |
-| `makemessages` | Create .po files | ✅ Yes |
-| `compilemessages` | Create .mo files | ✅ Yes |
-| Language switcher | Let users change language | ✅ Recommended |
-| RTL CSS | Fix layout for Arabic | ⚠️ As needed |
+| Component           | Purpose                            | Required?      |
+| ------------------- | ---------------------------------- | -------------- |
+| `USE_I18N = True`   | Enable translation system          | ✅ Yes         |
+| `LocaleMiddleware`  | Detect user's language             | ✅ Yes         |
+| `LANGUAGES` setting | Define supported languages         | ✅ Yes         |
+| `LOCALE_PATHS`      | Where translation files live       | ✅ Yes         |
+| `i18n_patterns()`   | Add language prefix to URLs        | ✅ Yes         |
+| `{% load i18n %}`   | Load translation tags in templates | ✅ Yes         |
+| `{% trans %}`       | Mark text for translation          | ✅ Yes         |
+| `makemessages`      | Create .po files                   | ✅ Yes         |
+| `compilemessages`   | Create .mo files                   | ✅ Yes         |
+| Language switcher   | Let users change language          | ✅ Recommended |
+| RTL CSS             | Fix layout for Arabic              | ⚠️ As needed   |
 
 ---
 
@@ -429,4 +465,4 @@ https://docs.djangoproject.com/en/5.2/topics/i18n/
 
 ---
 
-*Setup completed successfully! Your Django project now supports English and Arabic with full RTL support.* 🎉
+_Setup completed successfully! Your Django project now supports English and Arabic with full RTL support._ 🎉

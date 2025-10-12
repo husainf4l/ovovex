@@ -1,297 +1,507 @@
-{% extends 'modules/base_module.html' %}
-{% load static %}
-
-{% block content %}
+{% extends 'modules/base_module.html' %} {% load static %} {% block content %}
 {% include 'components/sidemenu.html' %}
 
-<div class="min-h-screen bg-gray-50 dark:bg-gray-900 ml-64 transition-colors duration-300">
-    <!-- Top Navigation Bar -->
-    <div class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4 transition-colors duration-300">
-        <div class="flex items-center justify-between">
-            <div class="flex items-center space-x-4">
-                <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Inventory Management</h1>
-                <span class="px-3 py-1 bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 text-sm font-medium rounded-full">5 Low Stock</span>
-            </div>
-            <div class="flex items-center space-x-4">
-                <!-- Quick Search -->
-                <div class="relative">
-                    <input type="text" placeholder="Search products, items..." class="w-64 pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-300">
-                    <i class="fas fa-search absolute left-3 top-3 text-gray-400 dark:text-gray-500"></i>
-                </div>
-                <!-- Export -->
-                <button onclick="window.location.href='{% url 'export_inventory' %}'" class="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200">
-                    <i class="fas fa-download mr-2"></i>
-                    Export
-                </button>
-                <!-- Theme Toggle -->
-                <button id="theme-toggle" class="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-300">
-                    <i class="fas fa-moon text-xl dark:hidden"></i>
-                    <i class="fas fa-sun text-xl hidden dark:inline"></i>
-                </button>
-            </div>
+<div
+  class="min-h-screen bg-gray-50 dark:bg-gray-900 ml-64 transition-colors duration-300"
+>
+  <!-- Top Navigation Bar -->
+  <div
+    class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4 transition-colors duration-300"
+  >
+    <div class="flex items-center justify-between">
+      <div class="flex items-center space-x-4">
+        <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">
+          Inventory Management
+        </h1>
+        <span
+          class="px-3 py-1 bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 text-sm font-medium rounded-full"
+          >5 Low Stock</span
+        >
+      </div>
+      <div class="flex items-center space-x-4">
+        <!-- Quick Search -->
+        <div class="relative">
+          <input
+            type="text"
+            placeholder="Search products, items..."
+            class="w-64 pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-300"
+          />
+          <i
+            class="fas fa-search absolute left-3 top-3 text-gray-400 dark:text-gray-500"
+          ></i>
         </div>
+        <!-- Export -->
+        <button
+          onclick="window.location.href='{% url 'export_inventory' %}'"
+          class="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200"
+        >
+          <i class="fas fa-download mr-2"></i>
+          Export
+        </button>
+        <!-- Theme Toggle -->
+        <button
+          id="theme-toggle"
+          class="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-300"
+        >
+          <i class="fas fa-moon text-xl dark:hidden"></i>
+          <i class="fas fa-sun text-xl hidden dark:inline"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-8">
+    <!-- Breadcrumb -->
+    <nav class="flex mb-6" aria-label="Breadcrumb">
+      <ol class="inline-flex items-center space-x-1 md:space-x-3">
+        <li class="inline-flex items-center">
+          <a
+            href="{% url 'dashboard' %}"
+            class="inline-flex items-center text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+          >
+            <i class="fas fa-home mr-2"></i>
+            Dashboard
+          </a>
+        </li>
+        <li>
+          <div class="flex items-center">
+            <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+            <span class="text-sm font-medium text-gray-500 dark:text-gray-400"
+              >Inventory Management</span
+            >
+          </div>
+        </li>
+      </ol>
+    </nav>
+
+    <!-- Module Description -->
+    <div
+      class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 mb-6"
+    >
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">
+            Inventory Management
+          </h2>
+          <p class="text-gray-600 dark:text-gray-400">
+            Track stock levels, manage product catalog, monitor inventory
+            turnover, and optimize stock levels to ensure smooth operations and
+            customer satisfaction.
+          </p>
+        </div>
+        <div class="flex items-center space-x-3">
+          <div class="text-right">
+            <div class="text-2xl font-bold text-gray-900 dark:text-gray-100">
+              {{ total_items }}
+            </div>
+            <div class="text-sm text-gray-600 dark:text-gray-400">
+              Total Items
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-8">
-        <!-- Breadcrumb -->
-        <nav class="flex mb-6" aria-label="Breadcrumb">
-            <ol class="inline-flex items-center space-x-1 md:space-x-3">
-                <li class="inline-flex items-center">
-                    <a href="{% url 'dashboard' %}" class="inline-flex items-center text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
-                        <i class="fas fa-home mr-2"></i>
-                        Dashboard
-                    </a>
-                </li>
-                <li>
-                    <div class="flex items-center">
-                        <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
-                        <span class="text-sm font-medium text-gray-500 dark:text-gray-400">Inventory Management</span>
-                    </div>
-                </li>
-            </ol>
-        </nav>
+    <!-- KPI Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+      <!-- Total Inventory Value -->
+      <div
+        class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6"
+      >
+        <div class="flex items-center justify-between mb-4">
+          <div
+            class="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center"
+          >
+            <i class="fas fa-dollar-sign text-blue-600 dark:text-blue-400"></i>
+          </div>
+          <span class="text-green-600 dark:text-green-400 text-sm font-medium"
+            >+5.2%</span
+          >
+        </div>
+        <div class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">
+          ${{ total_value|floatformat:2 }}
+        </div>
+        <div class="text-sm text-gray-600 dark:text-gray-400">
+          Inventory Value
+        </div>
+      </div>
 
-        <!-- Module Description -->
-        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 mb-6">
-            <div class="flex items-center justify-between">
-                <div>
-                    <h2 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">Inventory Management</h2>
-                    <p class="text-gray-600 dark:text-gray-400">Track stock levels, manage product catalog, monitor inventory turnover, and optimize stock levels to ensure smooth operations and customer satisfaction.</p>
-                </div>
-                <div class="flex items-center space-x-3">
-                    <div class="text-right">
-                        <div class="text-2xl font-bold text-gray-900 dark:text-gray-100">{{ total_items }}</div>
-                        <div class="text-sm text-gray-600 dark:text-gray-400">Total Items</div>
-                    </div>
-                </div>
+      <!-- Low Stock Items -->
+      <div
+        class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6"
+      >
+        <div class="flex items-center justify-between mb-4">
+          <div
+            class="w-10 h-10 bg-red-100 dark:bg-red-900 rounded-lg flex items-center justify-center"
+          >
+            <i
+              class="fas fa-exclamation-triangle text-red-600 dark:text-red-400"
+            ></i>
+          </div>
+          <span class="text-red-600 dark:text-red-400 text-sm font-medium"
+            >{{ low_stock_count }}</span
+          >
+        </div>
+        <div class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">
+          {{ low_stock_count }}
+        </div>
+        <div class="text-sm text-gray-600 dark:text-gray-400">
+          Low Stock Items
+        </div>
+      </div>
+
+      <!-- Inventory Turnover -->
+      <div
+        class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6"
+      >
+        <div class="flex items-center justify-between mb-4">
+          <div
+            class="w-10 h-10 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center"
+          >
+            <i class="fas fa-sync text-green-600 dark:text-green-400"></i>
+          </div>
+          <span class="text-green-600 dark:text-green-400 text-sm font-medium"
+            >+8.5%</span
+          >
+        </div>
+        <div class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">
+          {{ turnover_ratio|floatformat:1 }}x
+        </div>
+        <div class="text-sm text-gray-600 dark:text-gray-400">
+          Turnover Ratio
+        </div>
+      </div>
+
+      <!-- Out of Stock -->
+      <div
+        class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6"
+      >
+        <div class="flex items-center justify-between mb-4">
+          <div
+            class="w-10 h-10 bg-orange-100 dark:bg-orange-900 rounded-lg flex items-center justify-center"
+          >
+            <i
+              class="fas fa-times-circle text-orange-600 dark:text-orange-400"
+            ></i>
+          </div>
+          <span class="text-orange-600 dark:text-orange-400 text-sm font-medium"
+            >{{ out_of_stock_count }}</span
+          >
+        </div>
+        <div class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">
+          {{ out_of_stock_count }}
+        </div>
+        <div class="text-sm text-gray-600 dark:text-gray-400">Out of Stock</div>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+      <button
+        onclick="window.location.href='{% url 'add_product' %}'"
+        class="flex items-center justify-center px-4 py-3 bg-blue-600 text-white font-medium rounded-xl hover:bg-blue-700 transition-colors duration-200"
+      >
+        <i class="fas fa-plus mr-2"></i>
+        Add Product
+      </button>
+      <button
+        onclick="window.location.href='{% url 'import_items' %}'"
+        class="flex items-center justify-center px-4 py-3 bg-green-600 text-white font-medium rounded-xl hover:bg-green-700 transition-colors duration-200"
+      >
+        <i class="fas fa-upload mr-2"></i>
+        Import Items
+      </button>
+      <button
+        onclick="window.location.href='{% url 'receive_stock' %}'"
+        class="flex items-center justify-center px-4 py-3 bg-purple-600 text-white font-medium rounded-xl hover:bg-purple-700 transition-colors duration-200"
+      >
+        <i class="fas fa-truck mr-2"></i>
+        Receive Stock
+      </button>
+      <button
+        onclick="window.location.href='{% url 'stock_report' %}'"
+        class="flex items-center justify-center px-4 py-3 bg-gray-600 dark:bg-gray-700 text-white font-medium rounded-xl hover:bg-gray-700 dark:hover:bg-gray-600 transition-colors duration-200"
+      >
+        <i class="fas fa-chart-bar mr-2"></i>
+        Stock Report
+      </button>
+    </div>
+
+    <!-- Main Content Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <!-- Inventory Items Table -->
+      <div
+        class="lg:col-span-2 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700"
+      >
+        <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+          <div class="flex items-center justify-between">
+            <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100">
+              Inventory Items
+            </h3>
+            <div class="flex items-center space-x-2">
+              <select
+                class="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-300"
+              >
+                <option>All Items</option>
+                <option>Low Stock</option>
+                <option>Out of Stock</option>
+                <option>Overstock</option>
+              </select>
+              <button
+                onclick="window.location.href='{% url 'add_product' %}'"
+                class="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700"
+              >
+                + Add Item
+              </button>
             </div>
+          </div>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full">
+            <thead class="bg-gray-50 dark:bg-gray-700">
+              <tr>
+                <th
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider"
+                >
+                  Item Code
+                </th>
+                <th
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider"
+                >
+                  Product Name
+                </th>
+                <th
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider"
+                >
+                  Category
+                </th>
+                <th
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider"
+                >
+                  Stock Level
+                </th>
+                <th
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider"
+                >
+                  Value
+                </th>
+                <th
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider"
+                >
+                  Status
+                </th>
+              </tr>
+            </thead>
+            <tbody
+              class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700"
+            >
+              {% for item in inventory_items %}
+              <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
+                <td
+                  class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100"
+                >
+                  {{ item.item_code }}
+                </td>
+                <td
+                  class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100"
+                >
+                  {{ item.name }}
+                </td>
+                <td
+                  class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400"
+                >
+                  {{ item.category }}
+                </td>
+                <td
+                  class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100"
+                >
+                  {{ item.current_stock|floatformat:0 }}
+                </td>
+                <td
+                  class="px-6 py-4 whitespace-nowrap text-sm font-medium text-green-600 dark:text-green-400"
+                >
+                  ${{ item.total_value|floatformat:2 }}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <span
+                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ item.status_class }}"
+                    >{{ item.status }}</span
+                  >
+                </td>
+              </tr>
+              {% empty %}
+              <tr>
+                <td
+                  colspan="6"
+                  class="px-6 py-4 text-center text-gray-500 dark:text-gray-400"
+                >
+                  No inventory items found.
+                  <a
+                    href="{% url 'add_product' %}"
+                    class="text-blue-600 hover:text-blue-800"
+                    >Add your first product</a
+                  >.
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="space-y-6">
+        <!-- Stock Alerts -->
+        <div
+          class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700"
+        >
+          <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+            <h4 class="text-lg font-bold text-gray-900 dark:text-gray-100">
+              Stock Alerts
+            </h4>
+          </div>
+          <div class="p-6 space-y-4">
+            <div
+              class="flex items-start space-x-3 p-3 bg-red-50 dark:bg-red-900 rounded-lg"
+            >
+              <i class="fas fa-exclamation-triangle text-red-500 mt-1"></i>
+              <div class="flex-1">
+                <p class="text-sm font-medium text-red-900 dark:text-red-100">
+                  Out of Stock
+                </p>
+                <p class="text-xs text-red-700 dark:text-red-300">
+                  Laptop Computer (PRD-003)
+                </p>
+                <div class="mt-2">
+                  <span class="text-xs text-red-700 dark:text-red-300"
+                    >Reorder immediately</span
+                  >
+                </div>
+              </div>
+            </div>
+            <div
+              class="flex items-start space-x-3 p-3 bg-yellow-50 dark:bg-yellow-900 rounded-lg"
+            >
+              <i class="fas fa-exclamation-circle text-yellow-500 mt-1"></i>
+              <div class="flex-1">
+                <p
+                  class="text-sm font-medium text-yellow-900 dark:text-yellow-100"
+                >
+                  Low Stock
+                </p>
+                <p class="text-xs text-yellow-700 dark:text-yellow-300">
+                  Printer Paper (PRD-002)
+                </p>
+                <div class="mt-2">
+                  <span class="text-xs text-yellow-700 dark:text-yellow-300"
+                    >8 units remaining</span
+                  >
+                </div>
+              </div>
+            </div>
+            <div
+              class="flex items-start space-x-3 p-3 bg-yellow-50 dark:bg-yellow-900 rounded-lg"
+            >
+              <i class="fas fa-exclamation-circle text-yellow-500 mt-1"></i>
+              <div class="flex-1">
+                <p
+                  class="text-sm font-medium text-yellow-900 dark:text-yellow-100"
+                >
+                  Low Stock
+                </p>
+                <p class="text-xs text-yellow-700 dark:text-yellow-300">
+                  Coffee Beans (PRD-004)
+                </p>
+                <div class="mt-2">
+                  <span class="text-xs text-yellow-700 dark:text-yellow-300"
+                    >12 units remaining</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <!-- KPI Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
-            <!-- Total Inventory Value -->
-            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-                <div class="flex items-center justify-between mb-4">
-                    <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
-                        <i class="fas fa-dollar-sign text-blue-600 dark:text-blue-400"></i>
-                    </div>
-                    <span class="text-green-600 dark:text-green-400 text-sm font-medium">+5.2%</span>
-                </div>
-                <div class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">${{ total_value|floatformat:2 }}</div>
-                <div class="text-sm text-gray-600 dark:text-gray-400">Inventory Value</div>
+        <!-- Inventory Categories -->
+        <div
+          class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700"
+        >
+          <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+            <h4 class="text-lg font-bold text-gray-900 dark:text-gray-100">
+              Categories
+            </h4>
+          </div>
+          <div class="p-6 space-y-3">
+            {% for category in categories %}
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-gray-600 dark:text-gray-400"
+                >{{ category.name }}</span
+              >
+              <span class="text-sm font-medium text-gray-900 dark:text-gray-100"
+                >{{ category.item_count }} items</span
+              >
             </div>
-
-            <!-- Low Stock Items -->
-            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-                <div class="flex items-center justify-between mb-4">
-                    <div class="w-10 h-10 bg-red-100 dark:bg-red-900 rounded-lg flex items-center justify-center">
-                        <i class="fas fa-exclamation-triangle text-red-600 dark:text-red-400"></i>
-                    </div>
-                    <span class="text-red-600 dark:text-red-400 text-sm font-medium">{{ low_stock_count }}</span>
-                </div>
-                <div class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">{{ low_stock_count }}</div>
-                <div class="text-sm text-gray-600 dark:text-gray-400">Low Stock Items</div>
+            {% empty %}
+            <div class="text-center text-gray-500 dark:text-gray-400 py-4">
+              No categories found
             </div>
-
-            <!-- Inventory Turnover -->
-            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-                <div class="flex items-center justify-between mb-4">
-                    <div class="w-10 h-10 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
-                        <i class="fas fa-sync text-green-600 dark:text-green-400"></i>
-                    </div>
-                    <span class="text-green-600 dark:text-green-400 text-sm font-medium">+8.5%</span>
-                </div>
-                <div class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">{{ turnover_ratio|floatformat:1 }}x</div>
-                <div class="text-sm text-gray-600 dark:text-gray-400">Turnover Ratio</div>
-            </div>
-
-            <!-- Out of Stock -->
-            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-                <div class="flex items-center justify-between mb-4">
-                    <div class="w-10 h-10 bg-orange-100 dark:bg-orange-900 rounded-lg flex items-center justify-center">
-                        <i class="fas fa-times-circle text-orange-600 dark:text-orange-400"></i>
-                    </div>
-                    <span class="text-orange-600 dark:text-orange-400 text-sm font-medium">{{ out_of_stock_count }}</span>
-                </div>
-                <div class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">{{ out_of_stock_count }}</div>
-                <div class="text-sm text-gray-600 dark:text-gray-400">Out of Stock</div>
-            </div>
+            {% endfor %}
+          </div>
         </div>
 
         <!-- Quick Actions -->
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-            <button onclick="window.location.href='{% url 'add_product' %}'" class="flex items-center justify-center px-4 py-3 bg-blue-600 text-white font-medium rounded-xl hover:bg-blue-700 transition-colors duration-200">
-                <i class="fas fa-plus mr-2"></i>
-                Add Product
+        <div
+          class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700"
+        >
+          <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+            <h4 class="text-lg font-bold text-gray-900 dark:text-gray-100">
+              Quick Actions
+            </h4>
+          </div>
+          <div class="p-6 space-y-3">
+            <button
+              onclick="window.location.href='{% url 'adjust_stock' %}'"
+              class="w-full flex items-center justify-center px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200 text-sm"
+            >
+              <i class="fas fa-plus-circle mr-2"></i>
+              Adjust Stock
             </button>
-            <button onclick="window.location.href='{% url 'import_items' %}'" class="flex items-center justify-center px-4 py-3 bg-green-600 text-white font-medium rounded-xl hover:bg-green-700 transition-colors duration-200">
-                <i class="fas fa-upload mr-2"></i>
-                Import Items
+            <button
+              onclick="window.location.href='{% url 'create_po' %}'"
+              class="w-full flex items-center justify-center px-4 py-2 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition-colors duration-200 text-sm"
+            >
+              <i class="fas fa-shopping-cart mr-2"></i>
+              Create PO
             </button>
-            <button onclick="window.location.href='{% url 'receive_stock' %}'" class="flex items-center justify-center px-4 py-3 bg-purple-600 text-white font-medium rounded-xl hover:bg-purple-700 transition-colors duration-200">
-                <i class="fas fa-truck mr-2"></i>
-                Receive Stock
+            <button
+              onclick="window.location.href='{% url 'set_reorder_point' %}'"
+              class="w-full flex items-center justify-center px-4 py-2 bg-purple-600 text-white font-medium rounded-lg hover:bg-purple-700 transition-colors duration-200 text-sm"
+            >
+              <i class="fas fa-tags mr-2"></i>
+              Set Reorder Point
             </button>
-            <button onclick="window.location.href='{% url 'stock_report' %}'" class="flex items-center justify-center px-4 py-3 bg-gray-600 dark:bg-gray-700 text-white font-medium rounded-xl hover:bg-gray-700 dark:hover:bg-gray-600 transition-colors duration-200">
-                <i class="fas fa-chart-bar mr-2"></i>
-                Stock Report
-            </button>
+          </div>
         </div>
-
-        <!-- Main Content Grid -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <!-- Inventory Items Table -->
-            <div class="lg:col-span-2 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700">
-                <div class="p-6 border-b border-gray-200 dark:border-gray-700">
-                    <div class="flex items-center justify-between">
-                        <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100">Inventory Items</h3>
-                        <div class="flex items-center space-x-2">
-                            <select class="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-300">
-                                <option>All Items</option>
-                                <option>Low Stock</option>
-                                <option>Out of Stock</option>
-                                <option>Overstock</option>
-                            </select>
-                            <button onclick="window.location.href='{% url 'add_product' %}'" class="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700">+ Add Item</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="overflow-x-auto">
-                    <table class="w-full">
-                        <thead class="bg-gray-50 dark:bg-gray-700">
-                            <tr>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Item Code</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Product Name</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Category</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Stock Level</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Value</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
-                            {% for item in inventory_items %}
-                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">{{ item.item_code }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">{{ item.name }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{{ item.category }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">{{ item.current_stock|floatformat:0 }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-green-600 dark:text-green-400">${{ item.total_value|floatformat:2 }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ item.status_class }}">{{ item.status }}</span>
-                                </td>
-                            </tr>
-                            {% empty %}
-                            <tr>
-                                <td colspan="6" class="px-6 py-4 text-center text-gray-500 dark:text-gray-400">
-                                    No inventory items found. <a href="{% url 'add_product' %}" class="text-blue-600 hover:text-blue-800">Add your first product</a>.
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Sidebar -->
-            <div class="space-y-6">
-                <!-- Stock Alerts -->
-                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700">
-                    <div class="p-6 border-b border-gray-200 dark:border-gray-700">
-                        <h4 class="text-lg font-bold text-gray-900 dark:text-gray-100">Stock Alerts</h4>
-                    </div>
-                    <div class="p-6 space-y-4">
-                        <div class="flex items-start space-x-3 p-3 bg-red-50 dark:bg-red-900 rounded-lg">
-                            <i class="fas fa-exclamation-triangle text-red-500 mt-1"></i>
-                            <div class="flex-1">
-                                <p class="text-sm font-medium text-red-900 dark:text-red-100">Out of Stock</p>
-                                <p class="text-xs text-red-700 dark:text-red-300">Laptop Computer (PRD-003)</p>
-                                <div class="mt-2">
-                                    <span class="text-xs text-red-700 dark:text-red-300">Reorder immediately</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex items-start space-x-3 p-3 bg-yellow-50 dark:bg-yellow-900 rounded-lg">
-                            <i class="fas fa-exclamation-circle text-yellow-500 mt-1"></i>
-                            <div class="flex-1">
-                                <p class="text-sm font-medium text-yellow-900 dark:text-yellow-100">Low Stock</p>
-                                <p class="text-xs text-yellow-700 dark:text-yellow-300">Printer Paper (PRD-002)</p>
-                                <div class="mt-2">
-                                    <span class="text-xs text-yellow-700 dark:text-yellow-300">8 units remaining</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex items-start space-x-3 p-3 bg-yellow-50 dark:bg-yellow-900 rounded-lg">
-                            <i class="fas fa-exclamation-circle text-yellow-500 mt-1"></i>
-                            <div class="flex-1">
-                                <p class="text-sm font-medium text-yellow-900 dark:text-yellow-100">Low Stock</p>
-                                <p class="text-xs text-yellow-700 dark:text-yellow-300">Coffee Beans (PRD-004)</p>
-                                <div class="mt-2">
-                                    <span class="text-xs text-yellow-700 dark:text-yellow-300">12 units remaining</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Inventory Categories -->
-                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700">
-                    <div class="p-6 border-b border-gray-200 dark:border-gray-700">
-                        <h4 class="text-lg font-bold text-gray-900 dark:text-gray-100">Categories</h4>
-                    </div>
-                    <div class="p-6 space-y-3">
-                        {% for category in categories %}
-                        <div class="flex justify-between items-center">
-                            <span class="text-sm text-gray-600 dark:text-gray-400">{{ category.name }}</span>
-                            <span class="text-sm font-medium text-gray-900 dark:text-gray-100">{{ category.item_count }} items</span>
-                        </div>
-                        {% empty %}
-                        <div class="text-center text-gray-500 dark:text-gray-400 py-4">
-                            No categories found
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-
-                <!-- Quick Actions -->
-                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700">
-                    <div class="p-6 border-b border-gray-200 dark:border-gray-700">
-                        <h4 class="text-lg font-bold text-gray-900 dark:text-gray-100">Quick Actions</h4>
-                    </div>
-                    <div class="p-6 space-y-3">
-                        <button onclick="window.location.href='{% url 'adjust_stock' %}'" class="w-full flex items-center justify-center px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200 text-sm">
-                            <i class="fas fa-plus-circle mr-2"></i>
-                            Adjust Stock
-                        </button>
-                        <button onclick="window.location.href='{% url 'create_po' %}'" class="w-full flex items-center justify-center px-4 py-2 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition-colors duration-200 text-sm">
-                            <i class="fas fa-shopping-cart mr-2"></i>
-                            Create PO
-                        </button>
-                        <button onclick="window.location.href='{% url 'set_reorder_point' %}'" class="w-full flex items-center justify-center px-4 py-2 bg-purple-600 text-white font-medium rounded-lg hover:bg-purple-700 transition-colors duration-200 text-sm">
-                            <i class="fas fa-tags mr-2"></i>
-                            Set Reorder Point
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
+  </div>
 </div>
 
 <!-- Theme Toggle Script -->
 <script>
-    // Theme toggle
-    const themeToggle = document.getElementById('theme-toggle');
-    themeToggle.addEventListener('click', () => {
-        const html = document.documentElement;
-        const isDark = html.classList.contains('dark');
-        if (isDark) {
-            html.classList.remove('dark');
-            localStorage.setItem('theme', 'light');
-        } else {
-            html.classList.add('dark');
-            localStorage.setItem('theme', 'dark');
-        }
-    });
+  // Theme toggle
+  const themeToggle = document.getElementById("theme-toggle");
+  themeToggle.addEventListener("click", () => {
+    const html = document.documentElement;
+    const isDark = html.classList.contains("dark");
+    if (isDark) {
+      html.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    } else {
+      html.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    }
+  });
 </script>
 
 {% endblock %}

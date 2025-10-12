@@ -1,150 +1,259 @@
 <!-- Modern Quick Access Navigation -->
 {% load i18n %}
 <nav class="bg-white shadow-lg fixed top-0 w-full z-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
-            <div class="flex items-center">
-                <a class="flex items-center text-gray-800 hover:text-gray-600 font-bold text-xl" href="/">
-                    <div class="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center mr-3">
-                        <i class="fas fa-cube text-white"></i>
-                    </div>
-                    Ovovex
-                </a>
-            </div>
-            <div class="hidden md:flex items-center space-x-8">
-                <a href="/" class="text-gray-700 hover:text-gray-900">{% trans "Home" %}</a>
-                <div class="relative group">
-                    <button class="text-gray-700 hover:text-gray-900 flex items-center">
-                        {% trans "Solutions" %} <i class="fas fa-chevron-down ml-1"></i>
-                    </button>
-                    <div class="absolute left-0 mt-2 w-64 bg-white shadow-lg rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
-                        <div class="p-4">
-                            <div class="text-sm font-semibold text-gray-500 mb-2"><i class="fas fa-building mr-2"></i>{% trans "By Business Size" %}</div>
-                            <a href="{% url 'small_business' %}" class="flex items-center p-2 hover:bg-gray-100 rounded">
-                                <i class="fas fa-store mr-2 text-gray-600"></i>
-                                <div>
-                                    <div class="font-semibold">{% trans "Small Business" %}</div>
-                                    <div class="text-sm text-gray-500">{% trans "Up to 50 employees" %}</div>
-                                </div>
-                            </a>
-                            <a href="{% url 'enterprise' %}" class="flex items-center p-2 hover:bg-gray-100 rounded">
-                                <i class="fas fa-industry mr-2 text-gray-600"></i>
-                                <div>
-                                    <div class="font-semibold">{% trans "Enterprise" %}</div>
-                                    <div class="text-sm text-gray-500">{% trans "500+ employees" %}</div>
-                                </div>
-                            </a>
-                            <a href="{% url 'accounting_firms' %}" class="flex items-center p-2 hover:bg-gray-100 rounded">
-                                <i class="fas fa-handshake mr-2 text-gray-600"></i>
-                                <div>
-                                    <div class="font-semibold">{% trans "Accounting Firms" %}</div>
-                                    <div class="text-sm text-gray-500">{% trans "Multi-client management" %}</div>
-                                </div>
-                            </a>
-                            <hr class="my-2">
-                            <div class="text-sm font-semibold text-gray-500 mb-2"><i class="fas fa-tags mr-2"></i>{% trans "By Industry" %}</div>
-                            <a href="{% url 'retail_ecommerce' %}" class="flex items-center p-2 hover:bg-gray-100 rounded">
-                                <i class="fas fa-shopping-cart mr-2 text-gray-600"></i>{% trans "Retail & E-commerce" %}
-                            </a>
-                            <a href="{% url 'manufacturing' %}" class="flex items-center p-2 hover:bg-gray-100 rounded">
-                                <i class="fas fa-hammer mr-2 text-gray-600"></i>{% trans "Manufacturing" %}
-                            </a>
-                        </div>
-                    </div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between h-16">
+      <div class="flex items-center">
+        <a
+          class="flex items-center text-gray-800 hover:text-gray-600 font-bold text-xl"
+          href="/"
+        >
+          <div
+            class="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center mr-3"
+          >
+            <i class="fas fa-cube text-white"></i>
+          </div>
+          Ovovex
+        </a>
+      </div>
+      <div class="hidden md:flex items-center space-x-8">
+        <a href="/" class="text-gray-700 hover:text-gray-900"
+          >{% trans "Home" %}</a
+        >
+        <div class="relative group">
+          <button class="text-gray-700 hover:text-gray-900 flex items-center">
+            {% trans "Solutions" %} <i class="fas fa-chevron-down ml-1"></i>
+          </button>
+          <div
+            class="absolute left-0 mt-2 w-64 bg-white shadow-lg rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50"
+          >
+            <div class="p-4">
+              <div class="text-sm font-semibold text-gray-500 mb-2">
+                <i class="fas fa-building mr-2"></i>{% trans "By Business Size"
+                %}
+              </div>
+              <a
+                href="{% url 'small_business' %}"
+                class="flex items-center p-2 hover:bg-gray-100 rounded"
+              >
+                <i class="fas fa-store mr-2 text-gray-600"></i>
+                <div>
+                  <div class="font-semibold">{% trans "Small Business" %}</div>
+                  <div class="text-sm text-gray-500">
+                    {% trans "Up to 50 employees" %}
+                  </div>
                 </div>
-                <div class="relative group">
-                    <button class="text-gray-700 hover:text-gray-900 flex items-center">
-                        {% trans "Platform" %} <i class="fas fa-chevron-down ml-1"></i>
-                    </button>
-                    <div class="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
-                        <div class="p-2">
-                            <a href="{% url 'smart_invoicing' %}" class="flex items-center p-2 hover:bg-gray-100 rounded">
-                                <i class="fas fa-file-invoice-dollar mr-2 text-gray-600"></i>{% trans "Smart Invoicing" %}
-                            </a>
-                            <a href="{% url 'ai_bookkeeping' %}" class="flex items-center p-2 hover:bg-gray-100 rounded">
-                                <i class="fas fa-robot mr-2 text-gray-600"></i>{% trans "AI Bookkeeping" %}
-                            </a>
-                            <a href="{% url 'real_time_analytics' %}" class="flex items-center p-2 hover:bg-gray-100 rounded">
-                                <i class="fas fa-chart-line mr-2 text-gray-600"></i>{% trans "Real-time Analytics" %}
-                            </a>
-                            <a href="{% url 'ifrs_compliance' %}" class="flex items-center p-2 hover:bg-gray-100 rounded">
-                                <i class="fas fa-certificate mr-2 text-gray-600"></i>{% trans "IFRS Compliance" %}
-                            </a>
-                            <a href="{% url 'bank_grade_security' %}" class="flex items-center p-2 hover:bg-gray-100 rounded">
-                                <i class="fas fa-lock mr-2 text-gray-600"></i>{% trans "Bank-Grade Security" %}
-                            </a>
-                        </div>
-                    </div>
+              </a>
+              <a
+                href="{% url 'enterprise' %}"
+                class="flex items-center p-2 hover:bg-gray-100 rounded"
+              >
+                <i class="fas fa-industry mr-2 text-gray-600"></i>
+                <div>
+                  <div class="font-semibold">{% trans "Enterprise" %}</div>
+                  <div class="text-sm text-gray-500">
+                    {% trans "500+ employees" %}
+                  </div>
                 </div>
-                <a href="{% url 'pricing' %}" class="text-gray-700 hover:text-gray-900">{% trans "Pricing" %}</a>
-                
-                <!-- Language Switcher -->
-                <div class="relative group">
-                    {% get_current_language as LANGUAGE_CODE %}
-                    <button class="text-gray-700 hover:text-gray-900 flex items-center">
-                        <i class="fas fa-globe mr-1"></i>
-                        {% if LANGUAGE_CODE == 'ar' %}العربية{% else %}English{% endif %}
-                        <i class="fas fa-chevron-down ml-1"></i>
-                    </button>
-                    <div class="absolute right-0 mt-2 w-40 bg-white shadow-lg rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
-                        <form action="{% url 'set_language' %}" method="post" class="p-2">
-                            {% csrf_token %}
-                            <input name="next" type="hidden" value="{{ request.path }}" />
-                            <button type="submit" name="language" value="en" class="w-full text-left flex items-center p-2 hover:bg-gray-100 rounded {% if LANGUAGE_CODE == 'en' %}bg-gray-100{% endif %}">
-                                <i class="fas fa-check mr-2 {% if LANGUAGE_CODE != 'en' %}invisible{% endif %}"></i>English
-                            </button>
-                            <button type="submit" name="language" value="ar" class="w-full text-left flex items-center p-2 hover:bg-gray-100 rounded {% if LANGUAGE_CODE == 'ar' %}bg-gray-100{% endif %}">
-                                <i class="fas fa-check mr-2 {% if LANGUAGE_CODE != 'ar' %}invisible{% endif %}"></i>العربية
-                            </button>
-                        </form>
-                    </div>
+              </a>
+              <a
+                href="{% url 'accounting_firms' %}"
+                class="flex items-center p-2 hover:bg-gray-100 rounded"
+              >
+                <i class="fas fa-handshake mr-2 text-gray-600"></i>
+                <div>
+                  <div class="font-semibold">
+                    {% trans "Accounting Firms" %}
+                  </div>
+                  <div class="text-sm text-gray-500">
+                    {% trans "Multi-client management" %}
+                  </div>
                 </div>
-                
-                {% if not user.is_authenticated %}
-                <a href="{% url 'login' %}" class="text-gray-700 hover:text-gray-900">{% trans "Login" %}</a>
-                <a href="{% url 'starter_signup' %}" class="bg-gray-900 text-white px-4 py-2 rounded-lg hover:bg-gray-800">{% trans "Sign Up" %}</a>
-                {% endif %}
+              </a>
+              <hr class="my-2" />
+              <div class="text-sm font-semibold text-gray-500 mb-2">
+                <i class="fas fa-tags mr-2"></i>{% trans "By Industry" %}
+              </div>
+              <a
+                href="{% url 'retail_ecommerce' %}"
+                class="flex items-center p-2 hover:bg-gray-100 rounded"
+              >
+                <i class="fas fa-shopping-cart mr-2 text-gray-600"></i>{% trans
+                "Retail & E-commerce" %}
+              </a>
+              <a
+                href="{% url 'manufacturing' %}"
+                class="flex items-center p-2 hover:bg-gray-100 rounded"
+              >
+                <i class="fas fa-hammer mr-2 text-gray-600"></i>{% trans
+                "Manufacturing" %}
+              </a>
             </div>
-            <div class="md:hidden flex items-center">
-                <button class="text-gray-700 hover:text-gray-900">
-                    <i class="fas fa-bars"></i>
-                </button>
-            </div>
-            {% if user.is_authenticated %}
-            <div class="hidden md:flex items-center space-x-4">
-                <a href="{% url 'dashboard' %}" class="text-gray-700 hover:text-gray-900 flex items-center">
-                    <i class="fas fa-tachometer-alt mr-2"></i>{% trans "Dashboard" %}
-                </a>
-                <div class="relative group">
-                    <button class="text-gray-700 hover:text-gray-900 flex items-center">
-                        <i class="fas fa-user-circle mr-2"></i>{{ user.first_name|default:user.username }}
-                    </button>
-                    <div class="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
-                        <div class="p-2">
-                            <a href="{% url 'dashboard' %}" class="flex items-center p-2 hover:bg-gray-100 rounded">
-                                <i class="fas fa-tachometer-alt mr-2"></i>{% trans "Dashboard" %}
-                            </a>
-                            <a href="{% url 'customer_profile' %}" class="flex items-center p-2 hover:bg-gray-100 rounded">
-                                <i class="fas fa-user mr-2"></i>{% trans "Profile" %}
-                            </a>
-                            <a href="{% url 'settings' %}" class="flex items-center p-2 hover:bg-gray-100 rounded">
-                                <i class="fas fa-cog mr-2"></i>{% trans "Settings" %}
-                            </a>
-                            <hr class="my-1">
-                            <a href="{% url 'logout' %}" class="flex items-center p-2 hover:bg-gray-100 rounded">
-                                <i class="fas fa-sign-out-alt mr-2"></i>{% trans "Logout" %}
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% else %}
-            <div class="hidden md:flex items-center">
-                <a href="http://127.0.0.1:8000/starter-signup/" class="bg-gray-900 text-white px-6 py-2 rounded-lg hover:bg-gray-800 flex items-center">
-                    {% trans "Start Free Trial" %} <i class="fas fa-arrow-right ml-2"></i>
-                </a>
-            </div>
-            {% endif %}
+          </div>
         </div>
+        <div class="relative group">
+          <button class="text-gray-700 hover:text-gray-900 flex items-center">
+            {% trans "Platform" %} <i class="fas fa-chevron-down ml-1"></i>
+          </button>
+          <div
+            class="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50"
+          >
+            <div class="p-2">
+              <a
+                href="{% url 'smart_invoicing' %}"
+                class="flex items-center p-2 hover:bg-gray-100 rounded"
+              >
+                <i class="fas fa-file-invoice-dollar mr-2 text-gray-600"></i>{%
+                trans "Smart Invoicing" %}
+              </a>
+              <a
+                href="{% url 'ai_bookkeeping' %}"
+                class="flex items-center p-2 hover:bg-gray-100 rounded"
+              >
+                <i class="fas fa-robot mr-2 text-gray-600"></i>{% trans "AI
+                Bookkeeping" %}
+              </a>
+              <a
+                href="{% url 'real_time_analytics' %}"
+                class="flex items-center p-2 hover:bg-gray-100 rounded"
+              >
+                <i class="fas fa-chart-line mr-2 text-gray-600"></i>{% trans
+                "Real-time Analytics" %}
+              </a>
+              <a
+                href="{% url 'ifrs_compliance' %}"
+                class="flex items-center p-2 hover:bg-gray-100 rounded"
+              >
+                <i class="fas fa-certificate mr-2 text-gray-600"></i>{% trans
+                "IFRS Compliance" %}
+              </a>
+              <a
+                href="{% url 'bank_grade_security' %}"
+                class="flex items-center p-2 hover:bg-gray-100 rounded"
+              >
+                <i class="fas fa-lock mr-2 text-gray-600"></i>{% trans
+                "Bank-Grade Security" %}
+              </a>
+            </div>
+          </div>
+        </div>
+        <a href="{% url 'pricing' %}" class="text-gray-700 hover:text-gray-900"
+          >{% trans "Pricing" %}</a
+        >
+
+        <!-- Language Switcher -->
+        <div class="relative group">
+          {% get_current_language as LANGUAGE_CODE %}
+          <button class="text-gray-700 hover:text-gray-900 flex items-center">
+            <i class="fas fa-globe mr-1"></i>
+            {% if LANGUAGE_CODE == 'ar' %}العربية{% else %}English{% endif %}
+            <i class="fas fa-chevron-down ml-1"></i>
+          </button>
+          <div
+            class="absolute right-0 mt-2 w-40 bg-white shadow-lg rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50"
+          >
+            <form action="{% url 'set_language' %}" method="post" class="p-2">
+              {% csrf_token %}
+              <input name="next" type="hidden" value="{{ request.path }}" />
+              <button
+                type="submit"
+                name="language"
+                value="en"
+                class="w-full text-left flex items-center p-2 hover:bg-gray-100 rounded {% if LANGUAGE_CODE == 'en' %}bg-gray-100{% endif %}"
+              >
+                <i
+                  class="fas fa-check mr-2 {% if LANGUAGE_CODE != 'en' %}invisible{% endif %}"
+                ></i
+                >English
+              </button>
+              <button
+                type="submit"
+                name="language"
+                value="ar"
+                class="w-full text-left flex items-center p-2 hover:bg-gray-100 rounded {% if LANGUAGE_CODE == 'ar' %}bg-gray-100{% endif %}"
+              >
+                <i
+                  class="fas fa-check mr-2 {% if LANGUAGE_CODE != 'ar' %}invisible{% endif %}"
+                ></i
+                >العربية
+              </button>
+            </form>
+          </div>
+        </div>
+
+        {% if not user.is_authenticated %}
+        <a href="{% url 'login' %}" class="text-gray-700 hover:text-gray-900"
+          >{% trans "Login" %}</a
+        >
+        <a
+          href="{% url 'starter_signup' %}"
+          class="bg-gray-900 text-white px-4 py-2 rounded-lg hover:bg-gray-800"
+          >{% trans "Sign Up" %}</a
+        >
+        {% endif %}
+      </div>
+      <div class="md:hidden flex items-center">
+        <button class="text-gray-700 hover:text-gray-900">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+      {% if user.is_authenticated %}
+      <div class="hidden md:flex items-center space-x-4">
+        <a
+          href="{% url 'dashboard' %}"
+          class="text-gray-700 hover:text-gray-900 flex items-center"
+        >
+          <i class="fas fa-tachometer-alt mr-2"></i>{% trans "Dashboard" %}
+        </a>
+        <div class="relative group">
+          <button class="text-gray-700 hover:text-gray-900 flex items-center">
+            <i class="fas fa-user-circle mr-2"></i>{{
+            user.first_name|default:user.username }}
+          </button>
+          <div
+            class="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50"
+          >
+            <div class="p-2">
+              <a
+                href="{% url 'dashboard' %}"
+                class="flex items-center p-2 hover:bg-gray-100 rounded"
+              >
+                <i class="fas fa-tachometer-alt mr-2"></i>{% trans "Dashboard"
+                %}
+              </a>
+              <a
+                href="{% url 'customer_profile' %}"
+                class="flex items-center p-2 hover:bg-gray-100 rounded"
+              >
+                <i class="fas fa-user mr-2"></i>{% trans "Profile" %}
+              </a>
+              <a
+                href="{% url 'settings' %}"
+                class="flex items-center p-2 hover:bg-gray-100 rounded"
+              >
+                <i class="fas fa-cog mr-2"></i>{% trans "Settings" %}
+              </a>
+              <hr class="my-1" />
+              <a
+                href="{% url 'logout' %}"
+                class="flex items-center p-2 hover:bg-gray-100 rounded"
+              >
+                <i class="fas fa-sign-out-alt mr-2"></i>{% trans "Logout" %}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% else %}
+      <div class="hidden md:flex items-center">
+        <a
+          href="http://127.0.0.1:8000/starter-signup/"
+          class="bg-gray-900 text-white px-6 py-2 rounded-lg hover:bg-gray-800 flex items-center"
+        >
+          {% trans "Start Free Trial" %} <i class="fas fa-arrow-right ml-2"></i>
+        </a>
+      </div>
+      {% endif %}
     </div>
+  </div>
 </nav>

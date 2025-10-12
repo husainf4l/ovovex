@@ -1,8 +1,5 @@
-{% extends 'base.html' %}
-{% load static %}
-
-{% block content %}
-{% include 'components/sidemenu.html' %}
+{% extends 'base.html' %} {% load static %} {% block content %} {% include
+'components/sidemenu.html' %}
 
 <div
   class="min-h-screen bg-gray-50 dark:bg-gray-900 ml-64 transition-colors duration-300"
@@ -43,7 +40,10 @@
         Reorder Point Management
       </h3>
       <div class="text-sm text-blue-800 dark:text-blue-200 space-y-1">
-        <p>• Set reorder points to automatically trigger purchase orders when stock gets low</p>
+        <p>
+          • Set reorder points to automatically trigger purchase orders when
+          stock gets low
+        </p>
         <p>• Minimum stock is the absolute minimum you should have on hand</p>
         <p>• Reorder point is when you should start the ordering process</p>
         <p>• Maximum stock helps prevent overstocking (optional)</p>
@@ -63,48 +63,76 @@
         <table class="w-full">
           <thead class="bg-gray-50 dark:bg-gray-700">
             <tr>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+              <th
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider"
+              >
                 Item Code
               </th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+              <th
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider"
+              >
                 Name
               </th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+              <th
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider"
+              >
                 Category
               </th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+              <th
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider"
+              >
                 Current Stock
               </th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+              <th
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider"
+              >
                 Min Stock
               </th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+              <th
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider"
+              >
                 Reorder Point
               </th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+              <th
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider"
+              >
                 Max Stock
               </th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+              <th
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider"
+              >
                 Status
               </th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+              <th
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider"
+              >
                 Actions
               </th>
             </tr>
           </thead>
-          <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+          <tbody
+            class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700"
+          >
             {% for item in items %}
             <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
-              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">
+              <td
+                class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100"
+              >
                 {{ item.item_code }}
               </td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
+              <td
+                class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100"
+              >
                 {{ item.name }}
               </td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+              <td
+                class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400"
+              >
                 {{ item.category.name|default:"Uncategorized" }}
               </td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
+              <td
+                class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100"
+              >
                 {{ item.current_stock }}
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
@@ -140,17 +168,24 @@
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
                 {% if item.current_stock <= item.reorder_point %}
-                  <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800">
-                    Needs Reorder
-                  </span>
-                {% elif item.maximum_stock and item.current_stock >= item.maximum_stock %}
-                  <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                    Overstock
-                  </span>
+                <span
+                  class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800"
+                >
+                  Needs Reorder
+                </span>
+                {% elif item.maximum_stock and item.current_stock >=
+                item.maximum_stock %}
+                <span
+                  class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800"
+                >
+                  Overstock
+                </span>
                 {% else %}
-                  <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
-                    OK
-                  </span>
+                <span
+                  class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800"
+                >
+                  OK
+                </span>
                 {% endif %}
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm">
@@ -164,7 +199,10 @@
             </tr>
             {% empty %}
             <tr>
-              <td colspan="9" class="px-6 py-4 text-center text-gray-500 dark:text-gray-400">
+              <td
+                colspan="9"
+                class="px-6 py-4 text-center text-gray-500 dark:text-gray-400"
+              >
                 No inventory items found.
               </td>
             </tr>
@@ -254,17 +292,22 @@
         if (result.success) {
           // Update status
           const statusCell = row.querySelector("td:nth-child(8)");
-          const currentStock = parseFloat(row.querySelector("td:nth-child(4)").textContent);
+          const currentStock = parseFloat(
+            row.querySelector("td:nth-child(4)").textContent
+          );
           const reorderPointNum = parseFloat(reorderPoint);
           const maxStockNum = maximumStock ? parseFloat(maximumStock) : null;
 
           let statusHtml = "";
           if (currentStock <= reorderPointNum) {
-            statusHtml = '<span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800">Needs Reorder</span>';
+            statusHtml =
+              '<span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800">Needs Reorder</span>';
           } else if (maxStockNum && currentStock >= maxStockNum) {
-            statusHtml = '<span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800">Overstock</span>';
+            statusHtml =
+              '<span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800">Overstock</span>';
           } else {
-            statusHtml = '<span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">OK</span>';
+            statusHtml =
+              '<span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">OK</span>';
           }
           statusCell.innerHTML = statusHtml;
 
@@ -283,8 +326,10 @@
     const promises = [];
     const rows = document.querySelectorAll("tbody tr");
 
-    rows.forEach(row => {
-      const itemId = row.querySelector(".save-item-btn").getAttribute("data-item-id");
+    rows.forEach((row) => {
+      const itemId = row
+        .querySelector(".save-item-btn")
+        .getAttribute("data-item-id");
       const reorderPoint = row.querySelector(".reorder-point-input").value;
       const minimumStock = row.querySelector(".min-stock-input").value;
       const maximumStock = row.querySelector(".max-stock-input").value;
@@ -321,7 +366,11 @@
         }
       }
 
-      alert(`Saved ${successCount} items successfully${errorCount > 0 ? `, ${errorCount} errors` : ''}`);
+      alert(
+        `Saved ${successCount} items successfully${
+          errorCount > 0 ? `, ${errorCount} errors` : ""
+        }`
+      );
       if (successCount > 0) {
         location.reload();
       }
@@ -332,7 +381,8 @@
 
   // Apply bulk settings
   document.getElementById("apply-bulk").addEventListener("click", () => {
-    const bulkReorderPoint = document.getElementById("bulk-reorder-point").value;
+    const bulkReorderPoint =
+      document.getElementById("bulk-reorder-point").value;
     const bulkMinStock = document.getElementById("bulk-min-stock").value;
 
     if (!bulkReorderPoint && !bulkMinStock) {
@@ -344,11 +394,11 @@
       return;
     }
 
-    document.querySelectorAll(".reorder-point-input").forEach(input => {
+    document.querySelectorAll(".reorder-point-input").forEach((input) => {
       if (bulkReorderPoint) input.value = bulkReorderPoint;
     });
 
-    document.querySelectorAll(".min-stock-input").forEach(input => {
+    document.querySelectorAll(".min-stock-input").forEach((input) => {
       if (bulkMinStock) input.value = bulkMinStock;
     });
   });

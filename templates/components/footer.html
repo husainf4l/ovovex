@@ -1,75 +1,189 @@
 {% load i18n %}
 <!-- Modern Footer -->
 <footer class="bg-gray-900 text-white py-24">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid lg:grid-cols-5 gap-12 mb-12">
-            <div class="lg:col-span-2">
-                <div class="flex items-center mb-6">
-                    <div class="w-10 h-10 bg-gray-800 rounded-xl flex items-center justify-center mr-4">
-                        <i class="fas fa-cube text-gray-300"></i>
-                    </div>
-                    <h5 class="text-2xl font-bold text-white">Ovovex</h5>
-                </div>
-                <p class="text-gray-400 mb-8 leading-relaxed">{% trans "Empowering businesses with intelligent, IFRS-compliant accounting solutions for the modern world." %}</p>
-                <div class="flex space-x-4">
-                    <a href="#" class="w-10 h-10 bg-gray-800 rounded-xl flex items-center justify-center hover:bg-gray-700 transition-colors duration-200">
-                        <i class="fab fa-linkedin text-gray-400 hover:text-white"></i>
-                    </a>
-                    <a href="#" class="w-10 h-10 bg-gray-800 rounded-xl flex items-center justify-center hover:bg-gray-700 transition-colors duration-200">
-                        <i class="fab fa-twitter text-gray-400 hover:text-white"></i>
-                    </a>
-                    <a href="#" class="w-10 h-10 bg-gray-800 rounded-xl flex items-center justify-center hover:bg-gray-700 transition-colors duration-200">
-                        <i class="fab fa-github text-gray-400 hover:text-white"></i>
-                    </a>
-                </div>
-            </div>
-
-            <div>
-                <h6 class="text-white font-semibold mb-6">{% trans "Product" %}</h6>
-                <ul class="space-y-4">
-                    <li><a href="#features" class="text-gray-400 hover:text-white transition-colors duration-200">{% trans "Features" %}</a></li>
-                    <li><a href="#pricing" class="text-gray-400 hover:text-white transition-colors duration-200">{% trans "Pricing" %}</a></li>
-                    <li><a href="#security" class="text-gray-400 hover:text-white transition-colors duration-200">{% trans "Security" %}</a></li>
-                    <li><a href="#demo" class="text-gray-400 hover:text-white transition-colors duration-200">{% trans "Demo" %}</a></li>
-                </ul>
-            </div>
-
-            <div>
-                <h6 class="text-white font-semibold mb-6">{% trans "Company" %}</h6>
-                <ul class="space-y-4">
-                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">{% trans "About" %}</a></li>
-                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">{% trans "Careers" %}</a></li>
-                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">{% trans "Blog" %}</a></li>
-                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">{% trans "Contact" %}</a></li>
-                </ul>
-            </div>
-
-            <div>
-                <h6 class="text-white font-semibold mb-6">{% trans "Resources" %}</h6>
-                <ul class="space-y-4">
-                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">{% trans "Documentation" %}</a></li>
-                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">{% trans "API" %}</a></li>
-                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">{% trans "Support" %}</a></li>
-                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">{% trans "Status" %}</a></li>
-                </ul>
-            </div>
-
-            <div>
-                <h6 class="text-white font-semibold mb-6">{% trans "Legal" %}</h6>
-                <ul class="space-y-4">
-                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">{% trans "Privacy" %}</a></li>
-                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">{% trans "Terms" %}</a></li>
-                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">{% trans "Security" %}</a></li>
-                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">{% trans "Compliance" %}</a></li>
-                </ul>
-            </div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid lg:grid-cols-5 gap-12 mb-12">
+      <div class="lg:col-span-2">
+        <div class="flex items-center mb-6">
+          <div
+            class="w-10 h-10 bg-gray-800 rounded-xl flex items-center justify-center mr-4"
+          >
+            <i class="fas fa-cube text-gray-300"></i>
+          </div>
+          <h5 class="text-2xl font-bold text-white">Ovovex</h5>
         </div>
-
-        <div class="border-t border-gray-800 pt-8">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <p class="text-gray-400">{% trans "&copy; 2025 Ovovex. All rights reserved." %}</p>
-                <p class="text-gray-400 mt-4 md:mt-0">{% trans "Made for modern businesses" %}</p>
-            </div>
+        <p class="text-gray-400 mb-8 leading-relaxed">
+          {% trans "Empowering businesses with intelligent, IFRS-compliant
+          accounting solutions for the modern world." %}
+        </p>
+        <div class="flex space-x-4">
+          <a
+            href="#"
+            class="w-10 h-10 bg-gray-800 rounded-xl flex items-center justify-center hover:bg-gray-700 transition-colors duration-200"
+          >
+            <i class="fab fa-linkedin text-gray-400 hover:text-white"></i>
+          </a>
+          <a
+            href="#"
+            class="w-10 h-10 bg-gray-800 rounded-xl flex items-center justify-center hover:bg-gray-700 transition-colors duration-200"
+          >
+            <i class="fab fa-twitter text-gray-400 hover:text-white"></i>
+          </a>
+          <a
+            href="#"
+            class="w-10 h-10 bg-gray-800 rounded-xl flex items-center justify-center hover:bg-gray-700 transition-colors duration-200"
+          >
+            <i class="fab fa-github text-gray-400 hover:text-white"></i>
+          </a>
         </div>
+      </div>
+
+      <div>
+        <h6 class="text-white font-semibold mb-6">{% trans "Product" %}</h6>
+        <ul class="space-y-4">
+          <li>
+            <a
+              href="#features"
+              class="text-gray-400 hover:text-white transition-colors duration-200"
+              >{% trans "Features" %}</a
+            >
+          </li>
+          <li>
+            <a
+              href="#pricing"
+              class="text-gray-400 hover:text-white transition-colors duration-200"
+              >{% trans "Pricing" %}</a
+            >
+          </li>
+          <li>
+            <a
+              href="#security"
+              class="text-gray-400 hover:text-white transition-colors duration-200"
+              >{% trans "Security" %}</a
+            >
+          </li>
+          <li>
+            <a
+              href="#demo"
+              class="text-gray-400 hover:text-white transition-colors duration-200"
+              >{% trans "Demo" %}</a
+            >
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h6 class="text-white font-semibold mb-6">{% trans "Company" %}</h6>
+        <ul class="space-y-4">
+          <li>
+            <a
+              href="#"
+              class="text-gray-400 hover:text-white transition-colors duration-200"
+              >{% trans "About" %}</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="text-gray-400 hover:text-white transition-colors duration-200"
+              >{% trans "Careers" %}</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="text-gray-400 hover:text-white transition-colors duration-200"
+              >{% trans "Blog" %}</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="text-gray-400 hover:text-white transition-colors duration-200"
+              >{% trans "Contact" %}</a
+            >
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h6 class="text-white font-semibold mb-6">{% trans "Resources" %}</h6>
+        <ul class="space-y-4">
+          <li>
+            <a
+              href="#"
+              class="text-gray-400 hover:text-white transition-colors duration-200"
+              >{% trans "Documentation" %}</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="text-gray-400 hover:text-white transition-colors duration-200"
+              >{% trans "API" %}</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="text-gray-400 hover:text-white transition-colors duration-200"
+              >{% trans "Support" %}</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="text-gray-400 hover:text-white transition-colors duration-200"
+              >{% trans "Status" %}</a
+            >
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h6 class="text-white font-semibold mb-6">{% trans "Legal" %}</h6>
+        <ul class="space-y-4">
+          <li>
+            <a
+              href="#"
+              class="text-gray-400 hover:text-white transition-colors duration-200"
+              >{% trans "Privacy" %}</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="text-gray-400 hover:text-white transition-colors duration-200"
+              >{% trans "Terms" %}</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="text-gray-400 hover:text-white transition-colors duration-200"
+              >{% trans "Security" %}</a
+            >
+          </li>
+          <li>
+            <a
+              href="#"
+              class="text-gray-400 hover:text-white transition-colors duration-200"
+              >{% trans "Compliance" %}</a
+            >
+          </li>
+        </ul>
+      </div>
     </div>
+
+    <div class="border-t border-gray-800 pt-8">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <p class="text-gray-400">
+          {% trans "&copy; 2025 Ovovex. All rights reserved." %}
+        </p>
+        <p class="text-gray-400 mt-4 md:mt-0">
+          {% trans "Made for modern businesses" %}
+        </p>
+      </div>
+    </div>
+  </div>
 </footer>

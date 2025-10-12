@@ -3,12 +3,11 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-11 12:18+0000\n"
+"POT-Creation-Date: 2025-10-12 09:52+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,895 +18,4619 @@ msgstr ""
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
-#: templates/base.html:54
+#: templates/auth/login.html:6
+#, fuzzy
+#| msgid "Real-time Analytics - Ovovex"
+msgid "Welcome Back to Ovovex"
+msgstr "التحليلات في الوقت الفعلي"
+
+#: templates/auth/login.html:23
+msgid "Welcome back to your financial command center"
+msgstr "مرحبًا بعودتك إلى مركز التحكم المالي الخاص بك"
+
+#: templates/auth/login.html:37
+msgid "Bank-grade security"
+msgstr "أمان بمستوى البنوك"
+
+#: templates/auth/login.html:45
+msgid "Real-time analytics"
+msgstr "التحليلات في الوقت الفعلي"
+
+#: templates/auth/login.html:53
+msgid "Mobile accessible"
+msgstr "الوصول عبر الهاتف المحمول"
+
+#: templates/auth/login.html:60
+msgid "Secure Login"
+msgstr "تسجيل دخول آمن"
+
+#: templates/auth/login.html:74
+msgid "Sign in to your account"
+msgstr "تسجيل الدخول إلى حسابك"
+
+#: templates/auth/login.html:77
+msgid "Enter your credentials to access your dashboard"
+msgstr "أدخل بيانات الاعتماد الخاصة بك للوصول إلى لوحة المعلومات"
+
+#: templates/auth/login.html:97
+msgid "Username or Email"
+msgstr "اسم المستخدم أو البريد الإلكتروني"
+
+#: templates/auth/login.html:110
+msgid "Enter your username or email"
+msgstr "أدخل اسم المستخدم أو البريد الإلكتروني"
+
+#: templates/auth/login.html:120 templates/pages/starter_signup.html:234
+msgid "Password"
+msgstr "كلمة المرور"
+
+#: templates/auth/login.html:133
+msgid "Enter your password"
+msgstr "أدخل كلمة المرور الخاصة بك"
+
+#: templates/auth/login.html:155
+msgid "Remember me for 30 days"
+msgstr "تذكرني لمدة 30 يومًا"
+
+#: templates/auth/login.html:159
+msgid "Forgot password?"
+msgstr "هل نسيت كلمة المرور؟"
+
+#: templates/auth/login.html:167
+msgid "Sign In"
+msgstr "تسجيل الدخول"
+
+#: templates/auth/login.html:177 templates/pages/starter_signup.html:349
+msgid "or"
+msgstr "أو"
+
+#: templates/auth/login.html:187
+msgid "Continue with Google"
+msgstr "المتابعة باستخدام Google"
+
+#: templates/auth/login.html:193
+msgid "Don't have an account?"
+msgstr "ليس لديك حساب؟"
+
+#: templates/auth/login.html:197
+msgid "Create one here"
+msgstr "أنشئ حسابًا هنا"
+
+#: templates/auth/signup.html:7
+msgid "Join Ovovex"
+msgstr "انضم إلى Ovovex"
+
+#: templates/auth/signup.html:24
+msgid "Start your financial journey today"
+msgstr "ابدأ رحلتك المالية اليوم"
+
+#: templates/auth/signup.html:39
+msgid "Quick setup in 5 minutes"
+msgstr "إعداد سريع في 5 دقائق"
+
+#: templates/auth/signup.html:48
+msgid "Trusted by 50,000+ businesses"
+msgstr "موثوق به من قبل أكثر من 50,000 شركة"
+
+#: templates/auth/signup.html:57
+msgid "30-day free trial included"
+msgstr "تجربة مجانية لمدة 30 يومًا مضمنة"
+
+#: templates/auth/signup.html:65
+msgid "Customer Satisfaction"
+msgstr "رضا العملاء"
+
+#: templates/auth/signup.html:71
+msgid "Support Available"
+msgstr "الدعم متاح"
+
+#: templates/auth/signup.html:76
+msgid "Setup Time"
+msgstr "وقت الإعداد"
+
+#: templates/auth/signup.html:87
+msgid "Create your account"
+msgstr "إنشاء حسابك"
+
+#: templates/auth/signup.html:90
+msgid "Join Ovovex and transform your business finances"
+msgstr "انضم إلى Ovovex وحوّل الأمور المالية لنشاطك التجاري"
+
+#: templates/auth/signup.html:111 templates/pages/starter_signup.html:135
+msgid "First Name"
+msgstr "الاسم الأول"
+
+#: templates/auth/signup.html:124 templates/pages/starter_signup.html:148
+msgid "First name"
+msgstr "الاسم الأول"
+
+#: templates/auth/signup.html:134 templates/pages/starter_signup.html:158
+msgid "Last Name"
+msgstr "اسم العائلة"
+
+#: templates/auth/signup.html:147 templates/pages/starter_signup.html:171
+msgid "Last name"
+msgstr "اسم العائلة"
+
+#: templates/auth/signup.html:159 templates/pages/starter_signup.html:183
+msgid "Username"
+msgstr "اسم المستخدم"
+
+#: templates/auth/signup.html:172 templates/pages/starter_signup.html:196
+msgid "Choose a username"
+msgstr "اختر اسم مستخدم"
+
+#: templates/auth/signup.html:178 templates/pages/starter_signup.html:202
+msgid "This will be your unique identifier"
+msgstr "سيكون هذا هو المعرف الفريد الخاص بك"
+
+#: templates/auth/signup.html:186 templates/pages/starter_signup.html:210
+msgid "Email Address"
+msgstr "عنوان البريد الإلكتروني"
+
+#: templates/auth/signup.html:199 templates/pages/starter_signup.html:223
+msgid "Enter your email"
+msgstr "أدخل بريدك الإلكتروني"
+
+#: templates/auth/signup.html:223 templates/pages/starter_signup.html:247
+msgid "Create a strong password"
+msgstr "أنشئ كلمة مرور قوية"
+
+#: templates/auth/signup.html:235 templates/pages/starter_signup.html:259
+msgid "Minimum 8 characters with letters and numbers"
+msgstr "8 أحرف على الأقل مع حروف وأرقام"
+
+#: templates/auth/signup.html:243 templates/pages/starter_signup.html:267
+msgid "Confirm Password"
+msgstr "تأكيد كلمة المرور"
+
+#: templates/auth/signup.html:256 templates/pages/starter_signup.html:280
+msgid "Confirm your password"
+msgstr "أكد كلمة المرور الخاصة بك"
+
+#: templates/auth/signup.html:279 templates/pages/starter_signup.html:303
+msgid "I agree to the"
+msgstr "أوافق على"
+
+#: templates/auth/signup.html:283 templates/pages/starter_signup.html:307
+msgid "Terms of Service"
+msgstr "شروط الخدمة"
+
+#: templates/auth/signup.html:285 templates/pages/starter_signup.html:309
+msgid "and"
+msgstr "و"
+
+#: templates/auth/signup.html:289 templates/pages/starter_signup.html:313
+msgid "Privacy Policy"
+msgstr "سياسة الخصوصية"
+
+#: templates/auth/signup.html:301 templates/pages/starter_signup.html:325
+msgid "Send me updates and marketing communications"
+msgstr "أرسل لي التحديثات والاتصالات التسويقية"
+
+#: templates/auth/signup.html:310
+msgid "Create Account"
+msgstr "إنشاء حساب"
+
+#: templates/auth/signup.html:330 templates/pages/starter_signup.html:359
+msgid "Sign up with Google"
+msgstr "التسجيل باستخدام Google"
+
+#: templates/auth/signup.html:336 templates/pages/starter_signup.html:365
+msgid "Already have an account?"
+msgstr "هل لديك حساب بالفعل؟"
+
+#: templates/auth/signup.html:340 templates/pages/starter_signup.html:369
+msgid "Sign in here"
+msgstr "سجل الدخول هنا"
+
+#: templates/base.html:65
 msgid "Accounting Software"
 msgstr "برنامج محاسبة"
 
-#: templates/base.html:58
-msgid ""
-"Professional accounting software with AI-powered automation, IFRS "
-"compliance, and enterprise-grade security for modern businesses."
-msgstr "برنامج محاسبة احترافي بأتمتة مدعومة بالذكاء الاصطناعي، والامتثال لمعايير IFRS، وأمان بمستوى المؤسسات للأعمال الحديثة."
-
-#: templates/base.html:79 templates/components/footer.html:28
+#: templates/base.html:99 templates/components/footer.html:42
 msgid "Product"
 msgstr "المنتج"
 
-#: templates/base.html:81 templates/components/navbar.html:62
-#: templates/home.html:384
+#: templates/base.html:105 templates/home.html:415
+#: templates/pages/accounting_firms.html:74
 msgid "Smart Invoicing"
 msgstr "الفواتير الذكية"
 
-#: templates/base.html:82 templates/home.html:413
+#: templates/base.html:112 templates/home.html:454
 msgid "Financial Analytics"
 msgstr "التحليلات المالية"
 
-#: templates/base.html:83 templates/home.html:442
+#: templates/base.html:119 templates/home.html:493
 msgid "Expense Management"
 msgstr "إدارة المصروفات"
 
-#: templates/base.html:84 templates/home.html:334 templates/home.html:470
+#: templates/base.html:126 templates/home.html:362 templates/home.html:530
 msgid "Team Collaboration"
 msgstr "التعاون الجماعي"
 
-#: templates/base.html:85 templates/home.html:499
+#: templates/base.html:133 templates/home.html:568
 msgid "Security & Compliance"
 msgstr "الأمان والامتثال"
 
-#: templates/base.html:86 templates/home.html:528
+#: templates/base.html:140 templates/home.html:607
 msgid "Integrations"
 msgstr "التكاملات"
 
-#: templates/base.html:87 templates/components/footer.html:31
-#: templates/components/navbar.html:79
+#: templates/base.html:147 templates/components/footer.html:55
+#: templates/components/navbar.html:141
+#: templates/pages/accounting_firms.html:91
 msgid "Pricing"
 msgstr "الأسعار"
 
-#: templates/base.html:93 templates/components/navbar.html:18
+#: templates/base.html:155 templates/components/navbar.html:25
+#: templates/pages/accounting_firms.html:30
 msgid "Solutions"
 msgstr "الحلول"
 
-#: templates/base.html:95 templates/components/navbar.html:26
+#: templates/base.html:161 templates/components/navbar.html:41
+#: templates/pages/accounting_firms.html:38
 msgid "Small Business"
 msgstr "الأعمال الصغيرة"
 
-#: templates/base.html:96 templates/components/navbar.html:33
-#: templates/home.html:1137
+#: templates/base.html:168 templates/components/navbar.html:53
+#: templates/home.html:1273 templates/pages/accounting_firms.html:45
+#: templates/pages/pricing.html:218 templates/pages/pricing.html:304
+#: templates/pages/smart_invoicing.html:683
 msgid "Enterprise"
 msgstr "المؤسسات"
 
-#: templates/base.html:97 templates/components/navbar.html:40
+#: templates/base.html:175 templates/components/navbar.html:66
+#: templates/pages/accounting_firms.html:52
 msgid "Accounting Firms"
 msgstr "مكاتب المحاسبة"
 
-#: templates/base.html:98 templates/components/navbar.html:47
+#: templates/base.html:182 templates/pages/accounting_firms.html:59
 msgid "Retail & E-commerce"
 msgstr "التجزئة والتجارة الإلكترونية"
 
-#: templates/base.html:99 templates/components/navbar.html:50
+#: templates/base.html:189 templates/pages/accounting_firms.html:62
 msgid "Manufacturing"
 msgstr "التصنيع"
 
-#: templates/base.html:100 templates/components/navbar.html:65
+#: templates/base.html:196 templates/pages/accounting_firms.html:77
 msgid "AI Bookkeeping"
 msgstr "مسك الدفاتر بالذكاء الاصطناعي"
 
-#: templates/base.html:101 templates/components/navbar.html:68
+#: templates/base.html:203 templates/pages/accounting_firms.html:80
 msgid "Real-time Analytics"
 msgstr "التحليلات في الوقت الفعلي"
 
-#: templates/base.html:107
+#: templates/base.html:212
 msgid "Support & Resources"
 msgstr "الدعم والموارد"
 
-#: templates/base.html:109
+#: templates/base.html:219
 msgid "Help Center"
 msgstr "مركز المساعدة"
 
-#: templates/base.html:110
+#: templates/base.html:226
 msgid "API Documentation"
 msgstr "توثيق API"
 
-#: templates/base.html:111
+#: templates/base.html:233
 msgid "Community Forum"
 msgstr "منتدى المجتمع"
 
-#: templates/base.html:112
+#: templates/base.html:240
 msgid "Video Tutorials"
 msgstr "دروس الفيديو"
 
-#: templates/base.html:113
+#: templates/base.html:247
 msgid "Webinars"
 msgstr "ندوات عبر الإنترنت"
 
-#: templates/base.html:114 templates/components/footer.html:42
+#: templates/base.html:254 templates/components/footer.html:96
 msgid "Blog"
 msgstr "المدونة"
 
-#: templates/base.html:115
+#: templates/base.html:261
 msgid "Contact Support"
 msgstr "الدعم الفني"
 
-#: templates/components/footer.html:13
-msgid ""
-"Empowering businesses with intelligent, IFRS-compliant accounting solutions "
-"for the modern world."
-msgstr "تمكين الشركات بحلول محاسبية ذكية ومتوافقة مع IFRS للعالم الحديث."
-
-#: templates/components/footer.html:30
+#: templates/components/footer.html:48 templates/pages/pricing.html:284
 msgid "Features"
 msgstr "الميزات"
 
-#: templates/components/footer.html:32 templates/components/footer.html:62
-#: templates/home.html:1034
+#: templates/components/footer.html:62 templates/components/footer.html:164
+#: templates/home.html:1163
 msgid "Security"
 msgstr "الأمان"
 
-#: templates/components/footer.html:33
+#: templates/components/footer.html:69
 msgid "Demo"
 msgstr "عرض توضيحي"
 
-#: templates/components/footer.html:38
+#: templates/components/footer.html:76
 msgid "Company"
 msgstr "الشركة"
 
-#: templates/components/footer.html:40
+#: templates/components/footer.html:82
 msgid "About"
 msgstr "من نحن"
 
-#: templates/components/footer.html:41
+#: templates/components/footer.html:89
 msgid "Careers"
 msgstr "الوظائف"
 
-#: templates/components/footer.html:43
+#: templates/components/footer.html:103
 msgid "Contact"
 msgstr "اتصل بنا"
 
-#: templates/components/footer.html:48
+#: templates/components/footer.html:110
 msgid "Resources"
 msgstr "الموارد"
 
-#: templates/components/footer.html:50
+#: templates/components/footer.html:116
 msgid "Documentation"
 msgstr "التوثيق"
 
-#: templates/components/footer.html:51
+#: templates/components/footer.html:123
 msgid "API"
 msgstr "API"
 
-#: templates/components/footer.html:52
+#: templates/components/footer.html:130
 msgid "Support"
-msgstr "الدعم"
+msgstr "دعم مخصص"
 
-#: templates/components/footer.html:53
+#: templates/components/footer.html:137
 msgid "Status"
 msgstr "الحالة"
 
-#: templates/components/footer.html:58
+#: templates/components/footer.html:144
 msgid "Legal"
 msgstr "القانونية"
 
-#: templates/components/footer.html:60
+#: templates/components/footer.html:150
 msgid "Privacy"
 msgstr "الخصوصية"
 
-#: templates/components/footer.html:61
+#: templates/components/footer.html:157
 msgid "Terms"
 msgstr "الشروط"
 
-#: templates/components/footer.html:63
+#: templates/components/footer.html:171
 msgid "Compliance"
 msgstr "الامتثال"
 
-#: templates/components/footer.html:70
+#: templates/components/footer.html:181
 msgid "&copy; 2025 Ovovex. All rights reserved."
 msgstr "&copy; 2025 Ovovex. جميع الحقوق محفوظة."
 
-#: templates/components/footer.html:71
+#: templates/components/footer.html:184
 msgid "Made for modern businesses"
 msgstr "صُنع للأعمال الحديثة"
 
-#: templates/components/navbar.html:15
+#: templates/components/navbar.html:21 templates/pages/accounting_firms.html:27
 msgid "Home"
 msgstr "الرئيسية"
 
-#: templates/components/navbar.html:22
-msgid "By Business Size"
-msgstr "حسب حجم الأعمال"
-
-#: templates/components/navbar.html:27
+#: templates/components/navbar.html:43 templates/pages/accounting_firms.html:39
 msgid "Up to 50 employees"
 msgstr "حتى 50 موظف"
 
-#: templates/components/navbar.html:34
+#: templates/components/navbar.html:55 templates/pages/accounting_firms.html:46
 msgid "500+ employees"
 msgstr "500+ موظف"
 
-#: templates/components/navbar.html:41
+#: templates/components/navbar.html:69 templates/pages/accounting_firms.html:53
 msgid "Multi-client management"
 msgstr "إدارة متعددة العملاء"
 
-#: templates/components/navbar.html:45
+#: templates/components/navbar.html:75 templates/pages/accounting_firms.html:57
 msgid "By Industry"
 msgstr "حسب الصناعة"
 
-#: templates/components/navbar.html:57
+#: templates/components/navbar.html:96 templates/pages/accounting_firms.html:69
 msgid "Platform"
 msgstr "المنصة"
 
-#: templates/components/navbar.html:71
-msgid "IFRS Compliance"
-msgstr "الامتثال لمعايير IFRS"
-
-#: templates/components/navbar.html:74 templates/home.html:840
-msgid "Bank-Grade Security"
-msgstr "أمان بمستوى البنوك"
-
-#: templates/components/navbar.html:104
+#: templates/components/navbar.html:186
+#: templates/pages/accounting_firms.html:93
 msgid "Login"
 msgstr "تسجيل الدخول"
 
-#: templates/components/navbar.html:105
+#: templates/components/navbar.html:191
+#: templates/pages/accounting_firms.html:94
 msgid "Sign Up"
 msgstr "إنشاء حساب"
 
-#: templates/components/navbar.html:116 templates/components/navbar.html:125
+#: templates/components/navbar.html:206
+#: templates/pages/accounting_firms.html:105
+#: templates/pages/accounting_firms.html:114
 msgid "Dashboard"
 msgstr "لوحة التحكم"
 
-#: templates/components/navbar.html:128
+#: templates/components/navbar.html:228
+#: templates/pages/accounting_firms.html:117
 msgid "Profile"
 msgstr "الملف الشخصي"
 
-#: templates/components/navbar.html:131
+#: templates/components/navbar.html:234
+#: templates/pages/accounting_firms.html:120
 msgid "Settings"
 msgstr "الإعدادات"
 
-#: templates/components/navbar.html:135
+#: templates/components/navbar.html:241
+#: templates/pages/accounting_firms.html:124
 msgid "Logout"
 msgstr "تسجيل الخروج"
 
-#: templates/components/navbar.html:144 templates/home.html:59
-#: templates/home.html:348 templates/home.html:1120 templates/home.html:1132
-#: templates/home.html:1179
+#: templates/components/navbar.html:253 templates/home.html:61
+#: templates/home.html:377 templates/home.html:1253 templates/home.html:1267
+#: templates/home.html:1321 templates/pages/accounting_firms.html:133
+#: templates/pages/accounting_firms.html:610
+#: templates/pages/accounting_firms.html:651 templates/pages/pricing.html:32
+#: templates/pages/pricing.html:160 templates/pages/pricing.html:209
+#: templates/pages/pricing.html:634 templates/pages/small_business.html:25
+#: templates/pages/small_business.html:423
+#: templates/pages/small_business.html:460
+#: templates/pages/small_business.html:494
+#: templates/pages/starter_signup.html:334
 msgid "Start Free Trial"
 msgstr "ابدأ التجربة المجانية"
 
-#: templates/home.html:19
+#: templates/home.html:15
 msgid "IFRS Compliant & ISO 27001 Certified"
 msgstr "متوافق مع معايير IFRS ومعتمد ISO 27001"
 
-#: templates/home.html:27
+#: templates/home.html:23
 msgid "Simplify Your"
 msgstr "بسّط"
 
-#: templates/home.html:29
+#: templates/home.html:25
 msgid "Accounting."
 msgstr "محاسبتك."
 
-#: templates/home.html:32
-msgid ""
-"Automated, secure, and IFRS-compliant accounting system made for modern "
-"teams. Transform your financial management with intelligent automation."
-msgstr ""
-"نظام محاسبة آلي وآمن ومتوافق مع معايير IFRS مصمم للفرق الحديثة. حوّل إدارتك "
-"المالية بالأتمتة الذكية."
-
-#: templates/home.html:40
-#, fuzzy
-#| msgid "By Business Size"
+#: templates/home.html:39
 msgid "Businesses"
 msgstr "الشركات"
 
-#: templates/home.html:44
+#: templates/home.html:45
 msgid "Countries"
 msgstr "الدول"
 
-#: templates/home.html:48
+#: templates/home.html:50
 msgid "Uptime"
 msgstr "وقت التشغيل"
 
-#: templates/home.html:66
+#: templates/home.html:68 templates/pages/small_business.html:139
 msgid "Watch Demo"
 msgstr "شاهد العرض التوضيحي"
 
-#: templates/home.html:88
-#, fuzzy
-#| msgid "Dashboard"
+#: templates/home.html:90
 msgid "Financial Dashboard"
 msgstr "لوحة التحكم المالية"
 
-#: templates/home.html:91
+#: templates/home.html:93
 msgid "Real-time insights at your fingertips"
 msgstr "رؤى في الوقت الفعلي في متناول يدك"
 
-#: templates/home.html:109
+#: templates/home.html:111
 msgid "Revenue"
 msgstr "الإيرادات"
 
-#: templates/home.html:125
+#: templates/home.html:127 templates/pages/pricing.html:326
 msgid "Users"
 msgstr "المستخدمون"
 
-#: templates/home.html:153
+#: templates/home.html:155
 msgid "Video Demo"
 msgstr "عرض الفيديو"
 
-#: templates/home.html:156
+#: templates/home.html:158 templates/pages/pricing.html:448
+#: templates/pages/small_business.html:121
 msgid "See Ovovex in Action"
 msgstr "شاهد Ovovex أثناء العمل"
 
-#: templates/home.html:159
-msgid ""
-"Watch our comprehensive video demo to see how Ovovex transforms accounting "
-"workflows with AI-powered automation"
-msgstr ""
-"شاهد عرض الفيديو الشامل لترى كيف تحوّل Ovovex سير عمل المحاسبة بالأتمتة "
-"المدعومة بالذكاء الاصطناعي"
-
-#: templates/home.html:272
+#: templates/home.html:295
 msgid "What You'll See in the Demo"
 msgstr "ما سوف تراه في العرض"
 
-#: templates/home.html:275
-msgid ""
-"Watch our comprehensive video walkthrough to see how Ovovex streamlines "
-"accounting processes with intelligent automation and real-time insights."
-msgstr ""
-"شاهد الشرح الشامل لترى كيف تبسط Ovovex عمليات المحاسبة بالأتمتة الذكية "
-"والرؤى في الوقت الفعلي."
-
-#: templates/home.html:289
+#: templates/home.html:314
 msgid "Complete Platform Tour"
 msgstr "جولة كاملة في المنصة"
 
-#: templates/home.html:292
-msgid ""
-"See every feature in action, from invoice generation to financial reporting"
-msgstr "شاهد كل ميزة أثناء العمل، من إنشاء الفواتير إلى التقارير المالية"
-
-#: templates/home.html:304
+#: templates/home.html:330
 msgid "AI Automation Showcase"
 msgstr "عرض الأتمتة بالذكاء الاصطناعي"
 
-#: templates/home.html:307
-msgid ""
-"Watch AI-powered features like smart categorization and anomaly detection"
-msgstr "شاهد ميزات الذكاء الاصطناعي مثل التصنيف الذكي وكشف الشذوذ"
-
-#: templates/home.html:319
-#, fuzzy
-#| msgid "Dashboard"
+#: templates/home.html:346
 msgid "Real-Time Dashboards"
 msgstr "لوحات التحكم في الوقت الفعلي"
 
-#: templates/home.html:322
-msgid ""
-"Experience live financial insights and interactive reporting capabilities"
-msgstr "اختبر الرؤى المالية المباشرة وإمكانيات التقارير التفاعلية"
-
-#: templates/home.html:337
-msgid "See how multiple users can work together seamlessly in real-time"
-msgstr "شاهد كيف يمكن للمستخدمين المتعددين العمل معًا بسلاسة في الوقت الفعلي"
-
-#: templates/home.html:354
+#: templates/home.html:383
 msgid "Schedule Live Demo"
 msgstr "جدولة عرض توضيحي مباشر"
 
-#: templates/home.html:367
+#: templates/home.html:396
 msgid "Everything You Need to Run Your Business"
 msgstr "كل ما تحتاجه لإدارة أعمالك"
 
-#: templates/home.html:370
-msgid ""
-"From invoicing to financial reporting, Ovovex provides comprehensive "
-"accounting tools designed for modern businesses"
-msgstr ""
-"من الفواتير إلى التقارير المالية، توفر Ovovex أدوات محاسبية شاملة مصممة "
-"للشركات الحديثة"
-
-#: templates/home.html:386
-msgid ""
-"Create professional invoices in seconds with AI-powered templates. Track "
-"payment status and send automated reminders."
-msgstr ""
-"أنشئ فواتير احترافية في ثوانٍ باستخدام قوالب مدعومة بالذكاء الاصطناعي. تتبع "
-"حالة الدفع وأرسل تذكيرات آلية."
-
-#: templates/home.html:389
+#: templates/home.html:423
 msgid "Automated invoice generation"
 msgstr "إنشاء فواتير آلي"
 
-#: templates/home.html:390
+#: templates/home.html:426 templates/pages/pricing.html:141
 msgid "Multi-currency support"
 msgstr "دعم متعدد العملات"
 
-#: templates/home.html:391 templates/home.html:534
+#: templates/home.html:429 templates/home.html:618
 msgid "Payment gateway integration"
 msgstr "تكامل بوابة الدفع"
 
-#: templates/home.html:392
+#: templates/home.html:432
 msgid "Recurring billing automation"
 msgstr "أتمتة الفواتير المتكررة"
 
-#: templates/home.html:398 templates/home.html:428 templates/home.html:456
-#: templates/home.html:484 templates/home.html:514 templates/home.html:542
+#: templates/home.html:439 templates/home.html:478 templates/home.html:515
+#: templates/home.html:553 templates/home.html:592 templates/home.html:629
 msgid "Learn more"
 msgstr "اعرف المزيد"
 
-#: templates/home.html:416
-msgid ""
-"Get real-time insights into your business performance with AI-driven "
-"analytics and predictive forecasting."
-msgstr ""
-"احصل على رؤى في الوقت الفعلي حول أداء عملك بالتحليلات المدعومة بالذكاء "
-"الاصطناعي والتنبؤات."
-
-#: templates/home.html:419
+#: templates/home.html:462
 msgid "Real-time cash flow tracking"
 msgstr "تتبع التدفق النقدي في الوقت الفعلي"
 
-#: templates/home.html:420
+#: templates/home.html:465
 msgid "Predictive financial modeling"
 msgstr "النمذجة المالية التنبؤية"
 
-#: templates/home.html:421
+#: templates/home.html:468
 msgid "Interactive dashboards"
 msgstr "لوحات تحكم تفاعلية"
 
-#: templates/home.html:422
+#: templates/home.html:471
 msgid "Custom KPI monitoring"
 msgstr "مراقبة مؤشرات الأداء المخصصة"
 
-#: templates/home.html:444
-msgid ""
-"Capture receipts, categorize expenses automatically, and track spending "
-"across projects and departments."
-msgstr ""
-"التقط الإيصالات، وصنف المصروفات تلقائيًا، وتتبع الإنفاق عبر المشاريع والأقسام."
-
-#: templates/home.html:447
+#: templates/home.html:501
 msgid "OCR receipt scanning"
 msgstr "مسح الإيصالات بتقنية OCR"
 
-#: templates/home.html:448
+#: templates/home.html:504
 msgid "Auto expense categorization"
 msgstr "تصنيف المصروفات تلقائيًا"
 
-#: templates/home.html:449
+#: templates/home.html:506
 msgid "Mileage tracking"
 msgstr "تتبع المسافات المقطوعة"
 
-#: templates/home.html:450
+#: templates/home.html:508
 msgid "Expense policy enforcement"
 msgstr "تطبيق سياسة المصروفات"
 
-#: templates/home.html:472
-msgid ""
-"Work seamlessly with your team, accountants, and stakeholders with role-"
-"based permissions and real-time collaboration."
-msgstr ""
-"اعمل بسلاسة مع فريقك والمحاسبين وأصحاب المصلحة بأذونات قائمة على الأدوار "
-"وتعاون في الوقت الفعلي."
-
-#: templates/home.html:475
+#: templates/home.html:539
 msgid "Role-based access control"
 msgstr "التحكم في الوصول حسب الدور"
 
-#: templates/home.html:476
+#: templates/home.html:542
 msgid "Real-time collaboration"
 msgstr "التعاون في الوقت الفعلي"
 
-#: templates/home.html:477
+#: templates/home.html:544
 msgid "Audit trails"
 msgstr "سجلات التدقيق"
 
-#: templates/home.html:478
+#: templates/home.html:546
 msgid "Multi-user support"
 msgstr "دعم متعدد المستخدمين"
 
-#: templates/home.html:502
-msgid ""
-"Bank-level security with IFRS compliance, automated backups, and "
-"comprehensive audit capabilities."
-msgstr "أمان بمستوى البنوك مع امتثال IFRS ونسخ احتياطي آلي وقدرات تدقيق شاملة."
-
-#: templates/home.html:505
+#: templates/home.html:576
 msgid "256-bit SSL encryption"
 msgstr "تشفير SSL 256 بت"
 
-#: templates/home.html:506
+#: templates/home.html:579
 msgid "IFRS & GAAP compliance"
 msgstr "الامتثال لمعايير IFRS و GAAP"
 
-#: templates/home.html:507
+#: templates/home.html:582
 msgid "Automated daily backups"
 msgstr "نسخ احتياطي يومي آلي"
 
-#: templates/home.html:508
+#: templates/home.html:585
 msgid "SOC 2 Type II certified"
 msgstr "معتمد SOC 2 Type II"
 
-#: templates/home.html:530
-msgid ""
-"Connect with 200+ business apps including banks, payment processors, CRMs, "
-"and e-commerce platforms."
-msgstr ""
-"اتصل مع أكثر من 200 تطبيق أعمال بما في ذلك البنوك ومعالجات الدفع وأنظمة CRM "
-"ومنصات التجارة الإلكترونية."
-
-#: templates/home.html:533
+#: templates/home.html:615
 msgid "Bank account synchronization"
 msgstr "مزامنة الحساب البنكي"
 
-#: templates/home.html:535
+#: templates/home.html:621
 msgid "CRM & ERP connections"
 msgstr "اتصالات CRM و ERP"
 
-#: templates/home.html:536
+#: templates/home.html:623 templates/pages/pricing.html:153
 msgid "API access"
 msgstr "الوصول إلى API"
 
-#: templates/home.html:558
+#: templates/home.html:645
 msgid "AI-Powered"
 msgstr "مدعوم بالذكاء الاصطناعي"
 
-#: templates/home.html:561
+#: templates/home.html:648
 msgid "Intelligence That Works for You"
 msgstr "ذكاء يعمل من أجلك"
 
-#: templates/home.html:564
-msgid ""
-"Leverage artificial intelligence to automate routine tasks, gain insights, "
-"and make smarter financial decisions"
-msgstr ""
-"استفد من الذكاء الاصطناعي لأتمتة المهام الروتينية والحصول على رؤى واتخاذ "
-"قرارات مالية أذكى"
-
-#: templates/home.html:572
+#: templates/home.html:660
 msgid "Smart Transaction Categorization"
 msgstr "تصنيف المعاملات الذكي"
 
-#: templates/home.html:575
-msgid ""
-"Our AI learns from your business patterns to automatically categorize "
-"transactions, saving you hours of manual work each week."
-msgstr ""
-"يتعلم ذكاؤنا الاصطناعي من أنماط عملك لتصنيف المعاملات تلقائيًا، مما يوفر لك "
-"ساعات من العمل اليدوي كل أسبوع."
-
-#: templates/home.html:583
+#: templates/home.html:673
 msgid "Accuracy Rate"
 msgstr "معدل الدقة"
 
-#: templates/home.html:587
+#: templates/home.html:677
 msgid "Saved Weekly"
 msgstr "التوفير الأسبوعي"
 
-#: templates/home.html:591
+#: templates/home.html:682
 msgid "Processing Time"
 msgstr "وقت المعالجة"
 
-#: templates/home.html:606
+#: templates/home.html:699
 msgid "AI Processing"
 msgstr "معالجة بالذكاء الاصطناعي"
 
-#: templates/home.html:686 templates/home.html:903
+#: templates/home.html:780 templates/home.html:1031
+#: templates/pages/ai_bookkeeping.html:300
 msgid "Predictive Analytics"
 msgstr "التحليلات التنبؤية"
 
-#: templates/home.html:689
-msgid "Forecast cash flow and identify trends before they impact your business"
-msgstr "تنبأ بالتدفق النقدي وحدد الاتجاهات قبل أن تؤثر على عملك"
-
-#: templates/home.html:701
+#: templates/home.html:797
 msgid "Anomaly Detection"
 msgstr "كشف الشذوذ"
 
-#: templates/home.html:703
-msgid "Automatically flag unusual transactions and potential fraud attempts"
-msgstr "وضع علامة تلقائيًا على المعاملات غير العادية ومحاولات الاحتيال المحتملة"
-
-#: templates/home.html:715
-#, fuzzy
-#| msgid "Smart Invoicing"
+#: templates/home.html:814
 msgid "Smart Insights"
 msgstr "رؤى ذكية"
 
-#: templates/home.html:717
-msgid ""
-"Receive personalized recommendations to optimize your financial performance"
-msgstr "احصل على توصيات مخصصة لتحسين أدائك المالي"
-
-#: templates/home.html:729
+#: templates/home.html:831
 msgid "Natural Language"
 msgstr "اللغة الطبيعية"
 
-#: templates/home.html:731
-msgid ""
-"Ask questions about your finances in plain English and get instant answers"
-msgstr "اطرح أسئلة حول أموالك بلغة بسيطة واحصل على إجابات فورية"
-
-#: templates/home.html:743
+#: templates/home.html:847
 msgid "Core Accounting Features"
 msgstr "ميزات المحاسبة الأساسية"
 
-#: templates/home.html:746
+#: templates/home.html:850
 msgid "Everything you need for complete financial management"
 msgstr "كل ما تحتاجه للإدارة المالية الكاملة"
 
-#: templates/home.html:760
+#: templates/home.html:864
 msgid "Smart Invoicing & Billing"
 msgstr "الفواتير والفوترة الذكية"
 
-#: templates/home.html:763
-msgid ""
-"Automated recurring invoices, payment reminders, and multi-currency support "
-"with IFRS compliance."
-msgstr "فواتير متكررة آلية وتذكيرات دفع ودعم متعدد العملات مع امتثال IFRS."
-
-#: templates/home.html:776
+#: templates/home.html:881
 msgid "Automated Bookkeeping"
 msgstr "مسك الدفاتر الآلي"
 
-#: templates/home.html:779
-msgid ""
-"AI-powered transaction categorization and automated journal entries "
-"following IFRS standards."
-msgstr ""
-"تصنيف معاملات مدعوم بالذكاء الاصطناعي وقيود يومية آلية تتبع معايير IFRS."
-
-#: templates/home.html:792
+#: templates/home.html:898
 msgid "Real-Time Analytics"
 msgstr "التحليلات في الوقت الفعلي"
 
-#: templates/home.html:795
-msgid ""
-"Live financial dashboards, KPI tracking, and predictive analytics for "
-"informed decision-making."
-msgstr ""
-"لوحات تحكم مالية مباشرة وتتبع مؤشرات الأداء والتحليلات التنبؤية لاتخاذ "
-"قرارات مستنيرة."
-
-#: templates/home.html:808
+#: templates/home.html:915
 msgid "Multi-Currency & Multi-Company"
 msgstr "متعدد العملات ومتعدد الشركات"
 
-#: templates/home.html:811
-msgid ""
-"Handle multiple entities and currencies with automatic consolidation and "
-"intercompany transactions."
-msgstr "تعامل مع عدة كيانات وعملات مع الدمج التلقائي والمعاملات بين الشركات."
-
-#: templates/home.html:824
+#: templates/home.html:932
 msgid "AI-Powered Insights"
 msgstr "رؤى مدعومة بالذكاء الاصطناعي"
 
-#: templates/home.html:827
-msgid ""
-"Smart forecasting, anomaly detection, and automated financial analysis with "
-"machine learning."
-msgstr "تنبؤات ذكية وكشف الشذوذ وتحليل مالي آلي بالتعلم الآلي."
+#: templates/home.html:949 templates/pages/accounting_firms.html:86
+msgid "Bank-Grade Security"
+msgstr "أمان بمستوى البنوك"
 
-#: templates/home.html:843
-msgid ""
-"AES-256 encryption, 2FA, ISO 27001 compliance, and regular security audits "
-"for data protection."
-msgstr ""
-"تشفير AES-256 ومصادقة ثنائية وامتثال ISO 27001 وعمليات تدقيق أمنية منتظمة "
-"لحماية البيانات."
-
-#: templates/home.html:855
+#: templates/home.html:965
 msgid "Complete Accounting Suite"
 msgstr "مجموعة محاسبية كاملة"
 
-#: templates/home.html:858
+#: templates/home.html:968
 msgid "IFRS-compliant features for every business need"
 msgstr "ميزات متوافقة مع IFRS لكل احتياجات الأعمال"
 
-#: templates/home.html:864
+#: templates/home.html:975
 msgid "Accounting Core"
 msgstr "نواة المحاسبة"
 
-#: templates/home.html:866
+#: templates/home.html:979
 msgid "Journal Entries & General Ledger"
 msgstr "قيود اليومية ودفتر الأستاذ العام"
 
-#: templates/home.html:867
+#: templates/home.html:981
 msgid "Chart of Accounts (IFRS)"
 msgstr "دليل الحسابات (IFRS)"
 
-#: templates/home.html:868
+#: templates/home.html:983
 msgid "Trial Balance & Reconciliation"
 msgstr "ميزان المراجعة والتسوية"
 
-#: templates/home.html:869
+#: templates/home.html:986 templates/pages/ifrs_compliance.html:100
 msgid "Financial Statement Generation"
 msgstr "إنشاء القوائم المالية"
 
-#: templates/home.html:874
+#: templates/home.html:993
 msgid "Sales & Invoicing"
 msgstr "المبيعات والفواتير"
 
-#: templates/home.html:876
+#: templates/home.html:996
 msgid "Quotations & Estimates"
 msgstr "عروض الأسعار والتقديرات"
 
-#: templates/home.html:877
+#: templates/home.html:998
 msgid "Recurring Invoices & Reminders"
 msgstr "الفواتير المتكررة والتذكيرات"
 
-#: templates/home.html:878
+#: templates/home.html:1001
 msgid "E-Invoicing & Digital Signatures"
 msgstr "الفوترة الإلكترونية والتوقيعات الرقمية"
 
-#: templates/home.html:879
+#: templates/home.html:1004
 msgid "Payment Gateway Integration"
 msgstr "تكامل بوابة الدفع"
 
-#: templates/home.html:885
+#: templates/home.html:1011
 msgid "Banking & Cash Flow"
 msgstr "الخدمات المصرفية والتدفق النقدي"
 
-#: templates/home.html:888
+#: templates/home.html:1014
 msgid "Bank Feed Integration"
 msgstr "تكامل التغذية البنكية"
 
-#: templates/home.html:889
+#: templates/home.html:1015
 msgid "Auto Reconciliation"
 msgstr "التسوية التلقائية"
 
-#: templates/home.html:890
+#: templates/home.html:1016 templates/pages/real_time_analytics.html:311
 msgid "Cash Flow Forecasting"
 msgstr "التنبؤ بالتدفق النقدي"
 
-#: templates/home.html:891
+#: templates/home.html:1017
 msgid "Multi-Currency Support"
 msgstr "دعم متعدد العملات"
 
-#: templates/home.html:897
+#: templates/home.html:1023
 msgid "Reporting & Analytics"
 msgstr "التقارير والتحليلات"
 
-#: templates/home.html:900
+#: templates/home.html:1027
 msgid "Balance Sheet & P&L (IFRS)"
 msgstr "الميزانية العمومية وقائمة الدخل (IFRS)"
 
-#: templates/home.html:901
+#: templates/home.html:1029
 msgid "Custom Reports & KPIs"
 msgstr "تقارير مخصصة ومؤشرات أداء"
 
-#: templates/home.html:902
-#, fuzzy
-#| msgid "Dashboard"
+#: templates/home.html:1030
 msgid "Real-time Dashboards"
 msgstr "لوحات التحكم في الوقت الفعلي"
 
-#: templates/home.html:915
+#: templates/home.html:1043
 msgid "Seamless Integrations"
 msgstr "تكاملات سلسة"
 
-#: templates/home.html:918
+#: templates/home.html:1046
 msgid "Connect your favorite tools and platforms"
 msgstr "اتصل بأدواتك ومنصاتك المفضلة"
 
-#: templates/home.html:983
+#: templates/home.html:1111
 msgid "Explore All Integrations"
 msgstr "استكشف جميع التكاملات"
 
-#: templates/home.html:995
+#: templates/home.html:1123
 msgid "Enterprise-Grade Security"
 msgstr "أمان بمستوى المؤسسات"
 
-#: templates/home.html:998
-msgid ""
-"Your financial data is protected with bank-level security and international "
-"compliance standards."
-msgstr "بياناتك المالية محمية بأمان بمستوى البنوك ومعايير الامتثال الدولية."
-
-#: templates/home.html:1009
+#: templates/home.html:1138
 msgid "AES-256"
 msgstr "AES-256"
 
-#: templates/home.html:1010
+#: templates/home.html:1139
 msgid "Encryption"
 msgstr "التشفير"
 
-#: templates/home.html:1021
+#: templates/home.html:1150
 msgid "ISO 27001"
 msgstr "ISO 27001"
 
-#: templates/home.html:1022 templates/home.html:1046
+#: templates/home.html:1151 templates/home.html:1175
 msgid "Compliant"
 msgstr "متوافق"
 
-#: templates/home.html:1033
+#: templates/home.html:1162
 msgid "2FA"
 msgstr "المصادقة الثنائية"
 
-#: templates/home.html:1045
+#: templates/home.html:1174
 msgid "GDPR"
 msgstr "GDPR"
 
-#: templates/home.html:1057
+#: templates/home.html:1186
 msgid "IFRS Compliant"
 msgstr "متوافق مع IFRS"
 
-#: templates/home.html:1062
+#: templates/home.html:1191
 msgid "SOC 2 Type II"
 msgstr "SOC 2 Type II"
 
-#: templates/home.html:1067
+#: templates/home.html:1196
 msgid "Regular Backups"
 msgstr "نسخ احتياطية منتظمة"
 
-#: templates/home.html:1072
+#: templates/home.html:1201
 #, python-format
 msgid "99.9%% Uptime"
 msgstr "99.9%% وقت تشغيل"
 
-#: templates/home.html:1085
+#: templates/home.html:1214 templates/pages/small_business.html:390
 msgid "Simple, Transparent Pricing"
 msgstr "أسعار بسيطة وشفافة"
 
-#: templates/home.html:1088
+#: templates/home.html:1217
 msgid "Choose the plan that fits your business needs"
 msgstr "اختر الخطة التي تناسب احتياجات عملك"
 
-#: templates/home.html:1094
+#: templates/home.html:1223 templates/pages/pricing.html:71
+#: templates/pages/pricing.html:289
 msgid "Free"
 msgstr "مجاني"
 
-#: templates/home.html:1096
+#: templates/home.html:1226 templates/pages/pricing.html:77
 msgid "Perfect for getting started"
 msgstr "مثالي للبدء"
 
-#: templates/home.html:1101
+#: templates/home.html:1232 templates/pages/pricing.html:105
+#: templates/pages/small_business.html:553
 msgid "Get Started Free"
 msgstr "ابدأ مجانًا"
 
-#: templates/home.html:1111
+#: templates/home.html:1242 templates/pages/accounting_firms.html:618
+#: templates/pages/pricing.html:117 templates/pages/small_business.html:431
 msgid "Most Popular"
 msgstr "الأكثر شعبية"
 
-#: templates/home.html:1113
+#: templates/home.html:1245 templates/pages/pricing.html:122
+#: templates/pages/pricing.html:294 templates/pages/small_business.html:401
+#: templates/pages/smart_invoicing.html:587
 msgid "Starter"
 msgstr "البداية"
 
-#: templates/home.html:1115 templates/home.html:1127
+#: templates/home.html:1248 templates/home.html:1262
 msgid "per month"
 msgstr "شهريًا"
 
-#: templates/home.html:1125
+#: templates/home.html:1259 templates/pages/pricing.html:171
+#: templates/pages/pricing.html:299 templates/pages/small_business.html:434
+#: templates/pages/smart_invoicing.html:637
 msgid "Professional"
 msgstr "احترافي"
 
-#: templates/home.html:1138
+#: templates/home.html:1276 templates/pages/pricing.html:221
 msgid "Custom"
 msgstr "مخصص"
 
-#: templates/home.html:1139
+#: templates/home.html:1279 templates/pages/pricing.html:224
 msgid "For large organizations"
 msgstr "للمؤسسات الكبيرة"
 
-#: templates/home.html:1144
+#: templates/home.html:1285 templates/pages/accounting_firms.html:689
+#: templates/pages/enterprise.html:443 templates/pages/enterprise.html:565
+#: templates/pages/pricing.html:256
 msgid "Contact Sales"
 msgstr "اتصل بالمبيعات"
 
-#: templates/home.html:1154
+#: templates/home.html:1295
 msgid "Compare All Plans"
 msgstr "قارن جميع الخطط"
 
-#: templates/home.html:1166
+#: templates/home.html:1307
 msgid "Ready to Transform Your Accounting?"
 msgstr "هل أنت مستعد لتحويل محاسبتك؟"
 
-#: templates/home.html:1169
-msgid ""
-"Join 10,000+ businesses already using Ovovex for smarter financial management"
-msgstr ""
-"انضم إلى أكثر من 10,000 شركة تستخدم بالفعل Ovovex للإدارة المالية الذكية"
-
-#: templates/home.html:1185
+#: templates/home.html:1327
 msgid "Schedule a Demo"
 msgstr "جدولة عرض توضيحي"
+
+#: templates/pages/accounting_firms.html:4
+msgid "Accounting Firms Solutions - Ovovex"
+msgstr "حلول مكاتب المحاسبة - Ovovex"
+
+#: templates/pages/accounting_firms.html:34
+msgid "By Business Size"
+msgstr "حسب حجم الأعمال"
+
+#: templates/pages/accounting_firms.html:83
+msgid "IFRS Compliance"
+msgstr "الامتثال لمعايير IFRS"
+
+#: templates/pages/accounting_firms.html:145
+msgid "Professional Accounting Firm Management"
+msgstr "إدارة مكاتب المحاسبة المهنية"
+
+#: templates/pages/accounting_firms.html:148
+msgid ""
+"Streamline multi-client management with powerful tools designed specifically "
+"for accounting firms. Scale your practice while maintaining exceptional "
+"client service."
+msgstr ""
+"قم بتبسيط إدارة العملاء المتعددين باستخدام أدوات قوية مصممة خصيصًا لمكاتب "
+"المحاسبة. وسّع نطاق ممارستك مع الحفاظ على خدمة عملاء استثنائية."
+
+#: templates/pages/accounting_firms.html:151
+#: templates/pages/accounting_firms.html:748
+msgid "Start Firm Trial"
+msgstr "ابدأ تجربة المكتب المجانية"
+
+#: templates/pages/accounting_firms.html:160
+msgid "Built for Accounting Professionals"
+msgstr "مصمم للمحترفين المحاسبيين"
+
+#: templates/pages/accounting_firms.html:163
+msgid ""
+"Comprehensive tools to manage client relationships, automate workflows, and "
+"deliver high-quality accounting services efficiently."
+msgstr ""
+"أدوات شاملة لإدارة علاقات العملاء وأتمتة سير العمل وتقديم خدمات محاسبية "
+"عالية الجودة بكفاءة."
+
+#: templates/pages/accounting_firms.html:178
+msgid "Multi-Client Management"
+msgstr "إدارة العملاء المتعددين"
+
+#: templates/pages/accounting_firms.html:180
+msgid ""
+"Organize and manage multiple client accounts with dedicated workspaces, "
+"custom permissions, and seamless data segregation."
+msgstr ""
+"نظم وأدر حسابات العملاء المتعددة من خلال مساحات عمل مخصصة وأذونات مخصصة وفصل "
+"سلس للبيانات."
+
+#: templates/pages/accounting_firms.html:189
+msgid "Client Portals"
+msgstr "بوابات العملاء"
+
+#: templates/pages/accounting_firms.html:191
+msgid ""
+"Give clients secure access to their financial data, documents, and reports. "
+"Enable self-service capabilities and improve client satisfaction."
+msgstr ""
+"امنح العملاء وصولاً آمنًا إلى بياناتهم المالية والمستندات والتقارير. فعّل قدرات "
+"الخدمة الذاتية وحسّن رضا العملاء."
+
+#: templates/pages/accounting_firms.html:200
+msgid "White-Label Solutions"
+msgstr "حلول العلامة البيضاء"
+
+#: templates/pages/accounting_firms.html:202
+msgid ""
+"Brand the platform with your firm's identity. Custom domains, logos, and "
+"color schemes to maintain your professional image."
+msgstr ""
+"ضع علامتك التجارية على المنصة بهوية مكتبك. نطاقات مخصصة وشعارات ومخططات "
+"ألوان للحفاظ على صورتك المهنية."
+
+#: templates/pages/accounting_firms.html:211
+msgid "Time Tracking & Billing"
+msgstr "تتبع الوقت والفوترة"
+
+#: templates/pages/accounting_firms.html:213
+msgid ""
+"Track time spent on client work, generate detailed invoices, and manage "
+"billing cycles with automated recurring charges."
+msgstr ""
+"تتبع الوقت المستغرق في عمل العملاء وأنشئ فواتير تفصيلية وأدر دورات الفوترة "
+"مع الرسوم المتكررة الآلية."
+
+#: templates/pages/accounting_firms.html:222
+msgid "Engagement Management"
+msgstr "إدارة المشاركات"
+
+#: templates/pages/accounting_firms.html:224
+msgid ""
+"Manage client engagements with customizable templates, automated workflows, "
+"and comprehensive audit trails for compliance."
+msgstr ""
+"أدر مشاركات العملاء بقوالب قابلة للتخصيص وسير عمل آلي ومسارات تدقيق شاملة "
+"للامتثال."
+
+#: templates/pages/accounting_firms.html:233
+msgid "Practice Analytics"
+msgstr "تحليلات الممارسة"
+
+#: templates/pages/accounting_firms.html:235
+msgid ""
+"Gain insights into your firm's performance with detailed analytics on "
+"profitability, client retention, and operational efficiency."
+msgstr ""
+"احصل على رؤى حول أداء مكتبك من خلال تحليلات تفصيلية حول الربحية والاحتفاظ "
+"بالعملاء والكفاءة التشغيلية."
+
+#: templates/pages/accounting_firms.html:247
+msgid "Why Accounting Firms Choose Ovovex"
+msgstr "لماذا تختار مكاتب المحاسبة Ovovex"
+
+#: templates/pages/accounting_firms.html:253
+#: templates/pages/accounting_firms.html:419
+msgid "Client Service Excellence"
+msgstr "التميز في خدمة العملاء"
+
+#: templates/pages/accounting_firms.html:257
+msgid "Secure client data portals with document sharing"
+msgstr "بوابات بيانات العملاء الآمنة مع مشاركة المستندات"
+
+#: templates/pages/accounting_firms.html:261
+msgid "Automated client communications and reminders"
+msgstr "اتصالات وتذكيرات العملاء الآلية"
+
+#: templates/pages/accounting_firms.html:265
+msgid "Real-time collaboration tools for team members"
+msgstr "أدوات التعاون في الوقت الفعلي لأعضاء الفريق"
+
+#: templates/pages/accounting_firms.html:269
+msgid "Customizable client reporting and dashboards"
+msgstr "تقارير ولوحات معلومات العملاء القابلة للتخصيص"
+
+#: templates/pages/accounting_firms.html:275
+#: templates/pages/retail_ecommerce.html:277
+msgid "Operational Efficiency"
+msgstr "الكفاءة التشغيلية"
+
+#: templates/pages/accounting_firms.html:279
+msgid "Automated data imports from client systems"
+msgstr "استيراد البيانات الآلي من أنظمة العملاء"
+
+#: templates/pages/accounting_firms.html:283
+msgid "Bulk processing capabilities for multiple clients"
+msgstr "قدرات المعالجة الجماعية لعدة عملاء"
+
+#: templates/pages/accounting_firms.html:287
+msgid "Standardized workflows and templates"
+msgstr "سير عمل وقوالب موحدة"
+
+#: templates/pages/accounting_firms.html:291
+msgid "Advanced audit trails and compliance reporting"
+msgstr "مسارات تدقيق متقدمة وتقارير امتثال"
+
+#: templates/pages/accounting_firms.html:304
+msgid "Accounting Firm Platform in Action"
+msgstr "منصة مكاتب المحاسبة في العمل"
+
+#: templates/pages/accounting_firms.html:307
+msgid ""
+"See how leading accounting firms manage multiple clients, streamline "
+"workflows, and deliver exceptional service with Ovovex."
+msgstr ""
+"شاهد كيف تدير مكاتب المحاسبة الرائدة عدة عملاء وتبسّط سير العمل وتقدم خدمة "
+"استثنائية مع Ovovex."
+
+#: templates/pages/accounting_firms.html:317
+msgid "Firm Management Demo"
+msgstr "عرض توضيحي لإدارة المكتب"
+
+#: templates/pages/accounting_firms.html:319
+msgid ""
+"Watch how accounting firms manage 100+ clients with multi-client portals, "
+"automated workflows, and comprehensive practice analytics."
+msgstr ""
+"شاهد كيف تدير مكاتب المحاسبة أكثر من 100 عميل بواسطة بوابات متعددة العملاء "
+"وسير عمل آلي وتحليلات ممارسة شاملة."
+
+#: templates/pages/accounting_firms.html:322
+msgid "Watch Firm Demo"
+msgstr "شاهد عرض المكتب التوضيحي"
+
+#: templates/pages/accounting_firms.html:333
+msgid "Multi-Client Dashboard"
+msgstr "لوحة معلومات متعددة العملاء"
+
+#: templates/pages/accounting_firms.html:335
+msgid ""
+"Centralized view of all client accounts with status updates, deadlines, and "
+"key metrics."
+msgstr ""
+"عرض مركزي لجميع حسابات العملاء مع تحديثات الحالة والمواعيد النهائية "
+"والمقاييس الرئيسية."
+
+#: templates/pages/accounting_firms.html:343
+msgid "White-Label Client Portal"
+msgstr "بوابة عملاء بالعلامة البيضاء"
+
+#: templates/pages/accounting_firms.html:345
+msgid ""
+"Branded client portals with your firm's logo, colors, and custom domain."
+msgstr "بوابات عملاء بعلامتك التجارية مع شعار مكتبك وألوانه ونطاقه المخصص."
+
+#: templates/pages/accounting_firms.html:353
+msgid "Time & Billing Automation"
+msgstr "أتمتة تتبع الوقت والفوترة"
+
+#: templates/pages/accounting_firms.html:355
+msgid ""
+"Automated time tracking, invoice generation, and client billing with "
+"recurring charges."
+msgstr "تتبع الوقت الآلي وإنشاء الفواتير وفوترة العملاء مع الرسوم المتكررة."
+
+#: templates/pages/accounting_firms.html:367
+msgid "Comprehensive Firm Management Features"
+msgstr "ميزات إدارة المكتب الشاملة"
+
+#: templates/pages/accounting_firms.html:370
+msgid ""
+"Everything accounting firms need to manage clients efficiently, maintain "
+"compliance, and grow their practice."
+msgstr ""
+"كل ما تحتاجه مكاتب المحاسبة لإدارة العملاء بكفاءة والحفاظ على الامتثال "
+"وتنمية ممارستها."
+
+#: templates/pages/accounting_firms.html:378
+msgid "Advanced Multi-Client Management"
+msgstr "إدارة العملاء المتعددين المتقدمة"
+
+#: templates/pages/accounting_firms.html:382
+msgid "Unlimited client accounts with dedicated workspaces"
+msgstr "حسابات عملاء غير محدودة مع مساحات عمل مخصصة"
+
+#: templates/pages/accounting_firms.html:386
+msgid "Role-based permissions for staff and client access"
+msgstr "أذونات على أساس الدور للموظفين ووصول العملاء"
+
+#: templates/pages/accounting_firms.html:390
+msgid "Automated client onboarding and setup workflows"
+msgstr "سير عمل آلي لتأهيل وإعداد العملاء"
+
+#: templates/pages/accounting_firms.html:394
+msgid "Client data segregation and security controls"
+msgstr "فصل بيانات العملاء وضوابط الأمان"
+
+#: templates/pages/accounting_firms.html:398
+msgid "Bulk operations for managing multiple clients"
+msgstr "عمليات جماعية لإدارة عدة عملاء"
+
+#: templates/pages/accounting_firms.html:405
+msgid "Manage hundreds of clients with complete data isolation"
+msgstr "إدارة مئات العملاء مع عزل كامل للبيانات"
+
+#: templates/pages/accounting_firms.html:415
+msgid "Empower clients with self-service capabilities"
+msgstr "تمكين العملاء بقدرات الخدمة الذاتية"
+
+#: templates/pages/accounting_firms.html:423
+msgid "Secure document sharing and collaboration tools"
+msgstr "مشاركة المستندات الآمنة وأدوات التعاون"
+
+#: templates/pages/accounting_firms.html:427
+msgid "Real-time notifications and automated reminders"
+msgstr "إشعارات فورية وتذكيرات آلية"
+
+#: templates/pages/accounting_firms.html:431
+msgid "Customizable client dashboards and reports"
+msgstr "لوحات معلومات وتقارير عملاء قابلة للتخصيص"
+
+#: templates/pages/accounting_firms.html:435
+msgid "Client feedback and satisfaction tracking"
+msgstr "تتبع ملاحظات العملاء ورضاهم"
+
+#: templates/pages/accounting_firms.html:439
+msgid "Integrated client communication tools"
+msgstr "أدوات اتصال العملاء المتكاملة"
+
+#: templates/pages/accounting_firms.html:448
+msgid "Practice Analytics & Insights"
+msgstr "تحليلات ورؤى الممارسة"
+
+#: templates/pages/accounting_firms.html:452
+msgid "Detailed profitability analysis by client and service"
+msgstr "تحليل الربحية التفصيلي حسب العميل والخدمة"
+
+#: templates/pages/accounting_firms.html:456
+msgid "Staff productivity and utilization reports"
+msgstr "تقارير إنتاجية واستخدام الموظفين"
+
+#: templates/pages/accounting_firms.html:460
+msgid "Client retention and growth analytics"
+msgstr "تحليلات الاحتفاظ بالعملاء والنمو"
+
+#: templates/pages/accounting_firms.html:464
+msgid "Workflow efficiency and bottleneck identification"
+msgstr "كفاءة سير العمل وتحديد الاختناقات"
+
+#: templates/pages/accounting_firms.html:468
+msgid "Custom KPI dashboards and benchmarking"
+msgstr "لوحات معلومات مؤشرات الأداء الرئيسية المخصصة والمقارنة المعيارية"
+
+#: templates/pages/accounting_firms.html:475
+msgid "Data-driven insights to grow your practice"
+msgstr "رؤى مستندة إلى البيانات لتنمية ممارستك"
+
+#: templates/pages/accounting_firms.html:488
+msgid "Trusted by Accounting Firms"
+msgstr "موثوق به من قبل مكاتب المحاسبة"
+
+#: templates/pages/accounting_firms.html:491
+msgid ""
+"See what accounting professionals say about managing their practices with "
+"Ovovex."
+msgstr "انظر ماذا يقول المحترفون المحاسبيون عن إدارة ممارساتهم مع Ovovex."
+
+#: templates/pages/accounting_firms.html:503
+msgid "Partners & Co."
+msgstr "بارتنرز وشركاه"
+
+#: templates/pages/accounting_firms.html:504
+msgid "Regional Accounting Firm"
+msgstr "مكتب محاسبة إقليمي"
+
+#: templates/pages/accounting_firms.html:508
+msgid ""
+"Ovovex transformed how we serve our 200+ clients. The white-label portals "
+"make us look like a Fortune 500 firm, and our efficiency has doubled."
+msgstr ""
+"غيّرت Ovovex طريقة خدمتنا لأكثر من 200 عميل. بوابات العلامة البيضاء تجعلنا "
+"نبدو مثل شركة Fortune 500، وتضاعفت كفاءتنا."
+
+#: templates/pages/accounting_firms.html:526
+msgid "Anderson Financial"
+msgstr "أندرسون المالية"
+
+#: templates/pages/accounting_firms.html:527
+msgid "Tax & Accounting Specialists"
+msgstr "متخصصون في الضرائب والمحاسبة"
+
+#: templates/pages/accounting_firms.html:531
+msgid ""
+"The automated time tracking and billing features saved us 15 hours per week. "
+"Our clients love the transparent billing and our margins improved "
+"significantly."
+msgstr ""
+"وفّرت ميزات تتبع الوقت والفوترة الآلية 15 ساعة أسبوعيًا. يحب عملاؤنا الفوترة "
+"الشفافة وتحسنت هوامشنا بشكل كبير."
+
+#: templates/pages/accounting_firms.html:549
+msgid "Business Consultants Inc."
+msgstr "مستشارو الأعمال المحدودة"
+
+#: templates/pages/accounting_firms.html:550
+msgid "Full-Service Accounting Firm"
+msgstr "مكتب محاسبة كامل الخدمات"
+
+#: templates/pages/accounting_firms.html:554
+msgid ""
+"The practice analytics give us incredible insights into our business. We can "
+"now identify which services are most profitable and focus our marketing "
+"efforts accordingly."
+msgstr ""
+"تمنحنا تحليلات الممارسة رؤى مذهلة حول أعمالنا. يمكننا الآن تحديد الخدمات "
+"الأكثر ربحية وتركيز جهودنا التسويقية وفقًا لذلك."
+
+#: templates/pages/accounting_firms.html:573
+msgid "Accounting Firm Pricing"
+msgstr "أسعار مكاتب المحاسبة"
+
+#: templates/pages/accounting_firms.html:576
+msgid ""
+"Flexible pricing designed for accounting firms of all sizes. Scale as your "
+"practice grows."
+msgstr ""
+"أسعار مرنة مصممة لمكاتب المحاسبة من جميع الأحجام. وسّع نطاق عملك مع نمو "
+"ممارستك."
+
+#: templates/pages/accounting_firms.html:584
+msgid "Starter Firm"
+msgstr "مكتب البداية"
+
+#: templates/pages/accounting_firms.html:585
+#: templates/pages/accounting_firms.html:622
+#: templates/pages/accounting_firms.html:660 templates/pages/pricing.html:74
+#: templates/pages/pricing.html:125 templates/pages/pricing.html:174
+#: templates/pages/starter_signup.html:82
+msgid "month"
+msgstr "شهر"
+
+#: templates/pages/accounting_firms.html:586
+msgid "Perfect for small accounting practices"
+msgstr "مثالي لممارسات المحاسبة الصغيرة"
+
+#: templates/pages/accounting_firms.html:590
+msgid "Up to 25 client accounts"
+msgstr "حتى 25 حساب عميل"
+
+#: templates/pages/accounting_firms.html:594
+msgid "Basic client portals"
+msgstr "بوابات العملاء الأساسية"
+
+#: templates/pages/accounting_firms.html:598
+msgid "Time tracking & billing"
+msgstr "تتبع الوقت والفوترة"
+
+#: templates/pages/accounting_firms.html:602
+msgid "Basic practice reports"
+msgstr "تقارير الممارسة الأساسية"
+
+#: templates/pages/accounting_firms.html:606 templates/pages/pricing.html:94
+msgid "Email support"
+msgstr "دعم عبر البريد الإلكتروني"
+
+#: templates/pages/accounting_firms.html:621
+msgid "Professional Firm"
+msgstr "المكتب الاحترافي"
+
+#: templates/pages/accounting_firms.html:623
+msgid "Ideal for growing accounting firms"
+msgstr "مثالي لمكاتب المحاسبة المتنامية"
+
+#: templates/pages/accounting_firms.html:627
+msgid "Up to 100 client accounts"
+msgstr "حتى 100 حساب عميل"
+
+#: templates/pages/accounting_firms.html:631
+msgid "White-label client portals"
+msgstr "بوابات العملاء بالعلامة البيضاء"
+
+#: templates/pages/accounting_firms.html:635
+msgid "Advanced time & billing"
+msgstr "تتبع الوقت والفوترة المتقدم"
+
+#: templates/pages/accounting_firms.html:639
+msgid "Full practice analytics"
+msgstr "تحليلات الممارسة الكاملة"
+
+#: templates/pages/accounting_firms.html:643
+msgid "Priority phone support"
+msgstr "دعم هاتفي ذو أولوية"
+
+#: templates/pages/accounting_firms.html:647 templates/pages/pricing.html:237
+#: templates/pages/small_business.html:478
+msgid "Custom integrations"
+msgstr "تكاملات مخصصة"
+
+#: templates/pages/accounting_firms.html:659
+msgid "Enterprise Firm"
+msgstr "المكتب المؤسسي"
+
+#: templates/pages/accounting_firms.html:661
+msgid "For large accounting partnerships"
+msgstr "للشراكات المحاسبية الكبيرة"
+
+#: templates/pages/accounting_firms.html:665
+msgid "Unlimited client accounts"
+msgstr "حسابات عملاء غير محدودة"
+
+#: templates/pages/accounting_firms.html:669
+msgid "Full white-label customization"
+msgstr "تخصيص كامل للعلامة البيضاء"
+
+#: templates/pages/accounting_firms.html:673
+msgid "Advanced automation workflows"
+msgstr "سير عمل أتمتة متقدم"
+
+#: templates/pages/accounting_firms.html:677 templates/pages/pricing.html:241
+#: templates/pages/small_business.html:490
+msgid "Dedicated account manager"
+msgstr "مدير حساب مخصص"
+
+#: templates/pages/accounting_firms.html:681
+msgid "Custom development services"
+msgstr "خدمات تطوير مخصصة"
+
+#: templates/pages/accounting_firms.html:685
+#: templates/pages/enterprise.html:460 templates/pages/pricing.html:249
+msgid "24/7 premium support"
+msgstr "دعم مميز على مدار الساعة"
+
+#: templates/pages/accounting_firms.html:702
+msgid "Accounting Firm FAQ"
+msgstr "الأسئلة الشائعة لمكاتب المحاسبة"
+
+#: templates/pages/accounting_firms.html:705
+msgid "Answers to common questions from accounting firms."
+msgstr "إجابات على الأسئلة الشائعة من مكاتب المحاسبة."
+
+#: templates/pages/accounting_firms.html:711
+msgid "How does client data security work?"
+msgstr "كيف يعمل أمان بيانات العملاء؟"
+
+#: templates/pages/accounting_firms.html:712
+msgid ""
+"Each client account is completely segregated with bank-grade encryption. "
+"Your firm maintains full control over client data access, and we comply with "
+"all major privacy regulations including GDPR and CCPA."
+msgstr ""
+"كل حساب عميل معزول تمامًا مع تشفير بمستوى البنوك. يحتفظ مكتبك بالتحكم الكامل "
+"في الوصول إلى بيانات العملاء، ونحن نلتزم بجميع لوائح الخصوصية الرئيسية بما "
+"في ذلك GDPR وCCPA."
+
+#: templates/pages/accounting_firms.html:716
+msgid "Can I migrate my existing clients?"
+msgstr "هل يمكنني ترحيل عملائي الحاليين؟"
+
+#: templates/pages/accounting_firms.html:717
+msgid ""
+"Yes! We provide comprehensive data migration tools and services. Our team "
+"can help import client data from QuickBooks, Xero, Excel files, and most "
+"accounting software platforms."
+msgstr ""
+"نعم! نوفر أدوات وخدمات ترحيل بيانات شاملة. يمكن لفريقنا المساعدة في استيراد "
+"بيانات العملاء من QuickBooks وXero وملفات Excel ومعظم منصات برامج المحاسبة."
+
+#: templates/pages/accounting_firms.html:721
+#: templates/pages/enterprise.html:538
+msgid "What level of customization is available?"
+msgstr "ما مستوى التخصيص المتاح؟"
+
+#: templates/pages/accounting_firms.html:722
+msgid ""
+"Professional and Enterprise plans include white-label branding, custom "
+"workflows, and API access. Enterprise plans also include custom development "
+"services for unique requirements."
+msgstr ""
+"تتضمن خطط الاحترافية والمؤسسية علامة بيضاء وسير عمل مخصص ووصول API. تتضمن "
+"الخطط المؤسسية أيضًا خدمات تطوير مخصصة للمتطلبات الفريدة."
+
+#: templates/pages/accounting_firms.html:726
+msgid "How does the billing work for multiple clients?"
+msgstr "كيف تعمل الفوترة لعدة عملاء؟"
+
+#: templates/pages/accounting_firms.html:727
+msgid ""
+"You pay one monthly fee for your firm account. Client billing is handled "
+"separately through our integrated invoicing system, with automated recurring "
+"charges and detailed time tracking."
+msgstr ""
+"تدفع رسمًا شهريًا واحدًا لحساب مكتبك. يتم التعامل مع فوترة العملاء بشكل منفصل "
+"من خلال نظام الفوترة المتكامل لدينا، مع رسوم متكررة آلية وتتبع تفصيلي للوقت."
+
+#: templates/pages/accounting_firms.html:731
+msgid "Can I integrate with my existing software?"
+msgstr "هل يمكنني التكامل مع برنامجي الحالي؟"
+
+#: templates/pages/accounting_firms.html:732
+msgid ""
+"Yes, we offer integrations with major accounting software, CRM systems, and "
+"practice management tools. Our API-first architecture also supports custom "
+"integrations for specialized needs."
+msgstr ""
+"نعم، نقدم تكاملات مع برامج المحاسبة الرئيسية وأنظمة CRM وأدوات إدارة "
+"الممارسة. تدعم بنيتنا المعمارية API-first أيضًا التكاملات المخصصة للاحتياجات "
+"المتخصصة."
+
+#: templates/pages/accounting_firms.html:742
+msgid "Grow Your Accounting Practice"
+msgstr "نمِّ ممارستك المحاسبية"
+
+#: templates/pages/accounting_firms.html:745
+msgid ""
+"Join leading accounting firms who use Ovovex to scale their operations and "
+"deliver exceptional client service."
+msgstr ""
+"انضم إلى مكاتب المحاسبة الرائدة التي تستخدم Ovovex لتوسيع نطاق عملياتها "
+"وتقديم خدمة عملاء استثنائية."
+
+#: templates/pages/ai_bookkeeping.html:4
+msgid "AI Bookkeeping - Ovovex"
+msgstr "عرض توضيحي لمسك الدفاتر بالذكاء الاصطناعي"
+
+#: templates/pages/ai_bookkeeping.html:42
+msgid "Smart Categorization"
+msgstr "تصنيف المعاملات الذكي"
+
+#: templates/pages/ai_bookkeeping.html:52
+#: templates/pages/ai_bookkeeping.html:207
+msgid "Automated Reconciliation"
+msgstr "التسوية التلقائية"
+
+#: templates/pages/ai_bookkeeping.html:62
+msgid "Receipt Processing"
+msgstr "معالجة بالذكاء الاصطناعي"
+
+#: templates/pages/ai_bookkeeping.html:72
+msgid "Pattern Recognition"
+msgstr "التسوية البنكية"
+
+#: templates/pages/ai_bookkeeping.html:82
+msgid "Predictive Insights"
+msgstr "التحليلات التنبؤية"
+
+#: templates/pages/ai_bookkeeping.html:92
+msgid "Fraud Detection"
+msgstr "كشف الشذوذ"
+
+#: templates/pages/ai_bookkeeping.html:111
+msgid "Time Savings"
+msgstr ""
+
+#: templates/pages/ai_bookkeeping.html:133
+msgid "Accuracy & Compliance"
+msgstr "الأمان والامتثال"
+
+#: templates/pages/ai_bookkeeping.html:164
+msgid ""
+"Watch how our AI learns your business patterns and automates complex "
+"bookkeeping tasks, from transaction categorization to financial reporting."
+msgstr ""
+
+#: templates/pages/ai_bookkeeping.html:173 templates/pages/pricing.html:506
+msgid "AI Bookkeeping Demo"
+msgstr "عرض توضيحي لمسك الدفاتر بالذكاء الاصطناعي"
+
+#: templates/pages/ai_bookkeeping.html:174
+msgid ""
+"See how AI processes receipts, categorizes transactions, reconciles "
+"accounts, and generates financial reports automatically."
+msgstr ""
+"شاهد الذكاء الاصطناعي لدينا يصنف المعاملات، ويسوي الحسابات، ويحدد الشذوذات "
+"في الوقت الفعلي."
+
+#: templates/pages/ai_bookkeeping.html:187
+msgid "Smart Receipt Processing"
+msgstr "تتبع المصروفات الأساسية"
+
+#: templates/pages/ai_bookkeeping.html:189
+msgid ""
+"Upload receipts and watch AI extract vendor names, amounts, dates, and tax "
+"information instantly."
+msgstr ""
+"قم بتحميل الإيصالات وشاهد الذكاء الاصطناعي يستخرج أسماء البائعين والمبالغ "
+"والتواريخ والمعلومات الضريبية على الفور."
+
+#: templates/pages/ai_bookkeeping.html:197
+msgid "Intelligent Categorization"
+msgstr "تصنيف المصروفات تلقائيًا"
+
+#: templates/pages/ai_bookkeeping.html:199
+#, fuzzy, python-format
+#| msgid ""
+#| "Our AI learns from your business patterns to automatically categorize "
+#| "transactions, saving you hours of manual work each week."
+msgid ""
+"AI learns your business patterns and automatically categorizes transactions "
+"with 99%% accuracy."
+msgstr ""
+"يتعلم ذكاؤنا الاصطناعي من أنماط عملك لتصنيف المعاملات تلقائيًا، مما يوفر لك "
+"ساعات من العمل اليدوي كل أسبوع."
+
+#: templates/pages/ai_bookkeeping.html:209
+msgid ""
+"Bank reconciliation happens automatically with AI matching transactions and "
+"identifying discrepancies."
+msgstr ""
+
+#: templates/pages/ai_bookkeeping.html:223
+msgid ""
+"Comprehensive AI-powered automation that handles every aspect of "
+"bookkeeping, from data entry to financial analysis."
+msgstr ""
+
+#: templates/pages/ai_bookkeeping.html:230
+msgid "Intelligent Data Processing"
+msgstr "معالجة بالذكاء الاصطناعي"
+
+#: templates/pages/ai_bookkeeping.html:257
+msgid "AI that gets smarter with every transaction"
+msgstr ""
+
+#: templates/pages/ai_bookkeeping.html:267
+msgid "Set it and forget it bookkeeping automation"
+msgstr ""
+
+#: templates/pages/ai_bookkeeping.html:271
+msgid "Automated Workflows"
+msgstr "مسارات عمل مخصصة"
+
+#: templates/pages/ai_bookkeeping.html:327
+msgid "Turn bookkeeping data into strategic insights"
+msgstr ""
+
+#: templates/pages/ai_bookkeeping.html:342
+msgid ""
+"See how companies have transformed their financial operations and reduced "
+"bookkeeping costs with Ovovex AI Bookkeeping."
+msgstr ""
+
+#: templates/pages/ai_bookkeeping.html:353
+msgid "Marketing Bros"
+msgstr ""
+
+#: templates/pages/ai_bookkeeping.html:354
+msgid "Digital Marketing Agency"
+msgstr ""
+
+#: templates/pages/ai_bookkeeping.html:357
+msgid ""
+"AI Bookkeeping saved us 20 hours per week. What used to take our bookkeeper "
+"2 days now happens automatically overnight."
+msgstr ""
+
+#: templates/pages/ai_bookkeeping.html:374
+msgid "E-commerce Central"
+msgstr ""
+
+#: templates/pages/ai_bookkeeping.html:375
+msgid "Online Retail Business"
+msgstr "الأعمال الصغيرة"
+
+#: templates/pages/ai_bookkeeping.html:378
+msgid ""
+"The AI caught a $50,000 duplicate payment that our old system missed. It's "
+"paying for itself many times over."
+msgstr ""
+
+#: templates/pages/ai_bookkeeping.html:395
+msgid "Professional Law"
+msgstr "احترافي"
+
+#: templates/pages/ai_bookkeeping.html:396
+msgid "Legal Practice"
+msgstr ""
+
+#: templates/pages/ai_bookkeeping.html:399
+msgid ""
+"Client trust funds are handled with perfect accuracy. The AI compliance "
+"features give us complete peace of mind."
+msgstr ""
+
+#: templates/pages/ai_bookkeeping.html:419
+msgid ""
+"Transparent pricing that scales with your business. Start with basic "
+"automation and upgrade as your AI accuracy improves."
+msgstr ""
+
+#: templates/pages/ai_bookkeeping.html:426
+msgid "AI Starter"
+msgstr "البداية"
+
+#: templates/pages/ai_bookkeeping.html:428
+msgid "Perfect for small businesses getting started with AI"
+msgstr "مثالي للبدء"
+
+#: templates/pages/ai_bookkeeping.html:463
+msgid "AI Professional"
+msgstr "احترافي"
+
+#: templates/pages/ai_bookkeeping.html:465
+msgid "Advanced AI for growing businesses"
+msgstr "للشركات المتنامية"
+
+#: templates/pages/ai_bookkeeping.html:501
+msgid "AI Enterprise"
+msgstr "المؤسسات"
+
+#: templates/pages/ai_bookkeeping.html:503
+msgid "Full AI automation for large organizations"
+msgstr "للمؤسسات الكبيرة"
+
+#: templates/pages/ai_bookkeeping.html:546
+msgid "Answers to common questions about our AI-powered bookkeeping platform."
+msgstr "أسئلة شائعة حول أسعارنا وخططنا."
+
+#: templates/pages/ai_bookkeeping.html:551
+msgid "How accurate is the AI categorization?"
+msgstr "تصنيف المصروفات تلقائيًا"
+
+#: templates/pages/ai_bookkeeping.html:552
+#, python-format
+msgid ""
+"Our AI achieves 99%% accuracy within the first month of use, learning from "
+"your corrections and business patterns. Most businesses see 95%%+ accuracy "
+"from day one."
+msgstr ""
+
+#: templates/pages/ai_bookkeeping.html:556
+msgid "Can I still review and correct transactions?"
+msgstr ""
+
+#: templates/pages/ai_bookkeeping.html:557
+msgid ""
+"Absolutely. You maintain full control with the ability to review, correct, "
+"and approve all AI-suggested categorizations. The AI learns from your "
+"corrections to improve accuracy."
+msgstr ""
+
+#: templates/pages/ai_bookkeeping.html:561
+msgid "What types of documents can the AI process?"
+msgstr ""
+
+#: templates/pages/ai_bookkeeping.html:562
+msgid ""
+"The AI can process receipts, invoices, bank statements, credit card "
+"statements, utility bills, and most business documents with printed or "
+"handwritten text."
+msgstr ""
+"يمكن للذكاء الاصطناعي معالجة الإيصالات والفواتير وكشوف الحسابات المصرفية "
+"وكشوف بطاقات الائتمان وفواتير الخدمات ومعظم المستندات التجارية بنص مطبوع أو "
+"مكتوب بخط اليد."
+
+#: templates/pages/ai_bookkeeping.html:566
+msgid "How does the AI handle complex accounting scenarios?"
+msgstr ""
+
+#: templates/pages/ai_bookkeeping.html:567
+msgid ""
+"The AI is trained on complex accounting rules and can handle multi-currency "
+"transactions, deferred revenue, inventory accounting, and industry-specific "
+"requirements."
+msgstr ""
+
+#: templates/pages/ai_bookkeeping.html:571
+msgid "Is my financial data secure with AI processing?"
+msgstr ""
+
+#: templates/pages/ai_bookkeeping.html:572
+msgid ""
+"Yes, all data is encrypted and processed in secure environments. AI models "
+"are trained on anonymized data, and your sensitive financial information "
+"never leaves our secure infrastructure."
+msgstr ""
+
+#: templates/pages/bank_grade_security.html:22
+#, fuzzy
+#| msgid "Bank-Grade Security"
+msgid " Bank-Grade Security "
+msgstr "أمان بمستوى البنوك"
+
+#: templates/pages/bank_grade_security.html:32
+msgid " Secure Your Data "
+msgstr ""
+
+#: templates/pages/bank_grade_security.html:37
+#, fuzzy
+#| msgid "Enterprise-Grade Security"
+msgid " Enterprise-Grade Data Protection "
+msgstr "أمان بمستوى المؤسسات"
+
+#: templates/pages/bank_grade_security.html:62
+#: templates/pages/bank_grade_security.html:295
+msgid "End-to-End Encryption"
+msgstr "التشفير"
+
+#: templates/pages/bank_grade_security.html:81
+msgid "ISO 27001 Certification"
+msgstr ""
+
+#: templates/pages/bank_grade_security.html:100
+#: templates/pages/bank_grade_security.html:313
+msgid "Multi-Factor Authentication"
+msgstr ""
+
+#: templates/pages/bank_grade_security.html:119
+msgid "Secure Infrastructure"
+msgstr ""
+
+#: templates/pages/bank_grade_security.html:138
+msgid "Continuous Monitoring"
+msgstr "مراقبة مؤشرات الأداء المخصصة"
+
+#: templates/pages/bank_grade_security.html:157
+msgid "Compliance & Auditing"
+msgstr "الامتثال"
+
+#: templates/pages/bank_grade_security.html:174
+#, fuzzy
+#| msgid "Bank-Grade Security"
+msgid " Why Bank-Grade Security Matters "
+msgstr "أمان بمستوى البنوك"
+
+#: templates/pages/bank_grade_security.html:181
+msgid "Data Protection"
+msgstr "التعاون الجماعي"
+
+#: templates/pages/bank_grade_security.html:205
+msgid "Business Continuity"
+msgstr ""
+
+#: templates/pages/bank_grade_security.html:235
+msgid " Security Infrastructure in Action "
+msgstr ""
+
+#: templates/pages/bank_grade_security.html:253
+msgid "Security Platform Demo"
+msgstr ""
+
+#: templates/pages/bank_grade_security.html:263
+#, fuzzy
+#| msgid "Watch Firm Demo"
+msgid " Watch Security Demo "
+msgstr "شاهد عرض المكتب التوضيحي"
+
+#: templates/pages/bank_grade_security.html:277
+msgid "Real-Time Threat Monitoring"
+msgstr "تتبع التدفق النقدي في الوقت الفعلي"
+
+#: templates/pages/bank_grade_security.html:332
+#, fuzzy
+#| msgid "Comprehensive Enterprise Features"
+msgid " Comprehensive Security Features "
+msgstr "ميزات المحاسبة الأساسية"
+
+#: templates/pages/bank_grade_security.html:346
+msgid "Advanced Data Protection"
+msgstr "تحليلات متقدمة"
+
+#: templates/pages/bank_grade_security.html:395
+msgid "Identity & Access Management"
+msgstr "إدارة المخزون"
+
+#: templates/pages/bank_grade_security.html:426
+msgid "AI-Powered Security Operations"
+msgstr ""
+
+#: templates/pages/bank_grade_security.html:455
+msgid "AI monitors and responds to threats 24/7"
+msgstr ""
+
+#: templates/pages/bank_grade_security.html:469
+#, fuzzy
+#| msgid "Enterprise Success Stories"
+msgid " Security Success Stories "
+msgstr "قصص نجاح المؤسسات"
+
+#: templates/pages/bank_grade_security.html:489
+msgid "Finance Bank"
+msgstr ""
+
+#: templates/pages/bank_grade_security.html:491
+msgid "Regional Bank"
+msgstr ""
+
+#: templates/pages/bank_grade_security.html:518
+msgid "Health Corp"
+msgstr ""
+
+#: templates/pages/bank_grade_security.html:521
+msgid "Healthcare Provider"
+msgstr ""
+
+#: templates/pages/bank_grade_security.html:549
+msgid "Insurance Trust"
+msgstr ""
+
+#: templates/pages/bank_grade_security.html:552
+msgid "Insurance Company"
+msgstr ""
+
+#: templates/pages/bank_grade_security.html:578
+#, fuzzy
+#| msgid "Security Professional"
+msgid " Security Pricing "
+msgstr "احترافي"
+
+#: templates/pages/bank_grade_security.html:592
+msgid "Security Essentials"
+msgstr ""
+
+#: templates/pages/bank_grade_security.html:598
+msgid "Essential security for small businesses"
+msgstr "رائع للشركات الصغيرة"
+
+#: templates/pages/bank_grade_security.html:625
+#: templates/pages/bank_grade_security.html:679
+#: templates/pages/ifrs_compliance.html:624
+#: templates/pages/ifrs_compliance.html:679
+#: templates/pages/real_time_analytics.html:625
+#: templates/pages/real_time_analytics.html:679
+#: templates/pages/smart_invoicing.html:620
+#: templates/pages/smart_invoicing.html:674
+#, fuzzy
+#| msgid "Start Free Trial"
+msgid " Start Free Trial "
+msgstr "ابدأ التجربة المجانية"
+
+#: templates/pages/bank_grade_security.html:642
+msgid "Security Professional"
+msgstr "احترافي"
+
+#: templates/pages/bank_grade_security.html:648
+msgid "Advanced security for growing businesses"
+msgstr "للشركات المتنامية"
+
+#: templates/pages/bank_grade_security.html:688
+msgid "Security Enterprise"
+msgstr "المؤسسات"
+
+#: templates/pages/bank_grade_security.html:694
+msgid "Complete security operations for enterprises"
+msgstr "عمليات أمنية كاملة للمؤسسات"
+
+#: templates/pages/bank_grade_security.html:725
+#: templates/pages/ifrs_compliance.html:726
+#: templates/pages/real_time_analytics.html:725
+#: templates/pages/smart_invoicing.html:720
+#, fuzzy
+#| msgid "Contact Sales"
+msgid " Contact Sales "
+msgstr "اتصل بالمبيعات"
+
+#: templates/pages/bank_grade_security.html:738
+#, fuzzy
+#| msgid "Security"
+msgid " Security FAQ "
+msgstr "الأمان"
+
+#: templates/pages/bank_grade_security.html:749
+msgid "What certifications do you hold?"
+msgstr ""
+
+#: templates/pages/bank_grade_security.html:761
+msgid "How do you protect against data breaches?"
+msgstr ""
+
+#: templates/pages/bank_grade_security.html:773
+msgid "What happens if there's a security incident?"
+msgstr ""
+
+#: templates/pages/bank_grade_security.html:785
+msgid "Can I integrate with my existing security tools?"
+msgstr ""
+
+#: templates/pages/bank_grade_security.html:796
+msgid "How do you ensure data privacy compliance?"
+msgstr ""
+
+#: templates/pages/bank_grade_security.html:813
+msgid " Protect Your Financial Data "
+msgstr ""
+
+#: templates/pages/bank_grade_security.html:823
+#, fuzzy
+#| msgid "Bank-Grade Security"
+msgid " Get Bank-Grade Security "
+msgstr "أمان بمستوى البنوك"
+
+#: templates/pages/enterprise.html:4
+msgid "Enterprise Accounting Solutions - Ovovex"
+msgstr "حلول محاسبة الشركات الصغيرة - Ovovex"
+
+#: templates/pages/enterprise.html:19
+msgid "Enterprise-Grade Accounting for Large Organizations"
+msgstr "حلول محاسبة الشركات الصغيرة - Ovovex"
+
+#: templates/pages/enterprise.html:20
+msgid ""
+"Powerful, scalable accounting solutions designed for enterprises with 500+ "
+"employees. Handle complex financial operations with confidence and precision."
+msgstr ""
+"حلول محاسبية قوية وقابلة للتوسع مصممة للمؤسسات التي تضم أكثر من 500 موظف. "
+"تعامل مع العمليات المالية المعقدة بثقة ودقة."
+
+#: templates/pages/enterprise.html:21
+msgid "Start Enterprise Trial"
+msgstr "ابدأ التجربة المجانية"
+
+#: templates/pages/enterprise.html:28
+msgid "Advanced Features for Enterprise Finance"
+msgstr "ميزات متقدمة لتمويل المؤسسات"
+
+#: templates/pages/enterprise.html:30
+msgid ""
+"Comprehensive accounting capabilities that scale with your business growth, "
+"supporting complex organizational structures and global operations."
+msgstr ""
+"قدرات محاسبية شاملة تنمو مع أعمالك، تدعم الهياكل التنظيمية المعقدة والعمليات "
+"العالمية."
+
+#: templates/pages/enterprise.html:45
+msgid "Multi-Entity Management"
+msgstr "إدارة متعددة العملاء"
+
+#: templates/pages/enterprise.html:47
+msgid ""
+"Manage multiple subsidiaries, divisions, and legal entities within a single "
+"platform. Consolidated reporting and inter-company transactions made simple."
+msgstr "تعامل مع عدة كيانات وعملات مع الدمج التلقائي والمعاملات بين الشركات."
+
+#: templates/pages/enterprise.html:56
+msgid "Global Currency Support"
+msgstr "دعم متعدد العملات"
+
+#: templates/pages/enterprise.html:58
+msgid ""
+"Handle multiple currencies with real-time exchange rates, automatic "
+"conversions, and comprehensive foreign currency risk management."
+msgstr ""
+"التعامل مع عملات متعددة بأسعار صرف فورية، وتحويلات تلقائية، وإدارة شاملة "
+"لمخاطر العملات الأجنبية."
+
+#: templates/pages/enterprise.html:67 templates/pages/pricing.html:371
+msgid "Advanced Analytics"
+msgstr "التحليلات المتقدمة"
+
+#: templates/pages/enterprise.html:69
+msgid ""
+"Deep financial analytics with predictive modeling, scenario planning, and "
+"executive dashboards for data-driven decision making."
+msgstr ""
+"تحليلات مالية متعمقة مع نمذجة تنبؤية، وتخطيط السيناريوهات، ولوحات معلومات "
+"تنفيذية لاتخاذ قرارات مبنية على البيانات."
+
+#: templates/pages/enterprise.html:78
+msgid "Enterprise Security"
+msgstr "أمان بمستوى المؤسسات"
+
+#: templates/pages/enterprise.html:80
+msgid ""
+"Bank-grade security with role-based access control, audit trails, and "
+"compliance with SOX, GDPR, and other regulatory requirements."
+msgstr ""
+"أمان بمستوى البنوك مع التحكم في الوصول حسب الدور، ومسارات التدقيق، والامتثال "
+"لـ SOX و GDPR والمتطلبات التنظيمية الأخرى."
+
+#: templates/pages/enterprise.html:89
+msgid "Workflow Automation"
+msgstr "أتمتة سير العمل"
+
+#: templates/pages/enterprise.html:91
+msgid ""
+"Automate complex approval workflows, recurring transactions, and financial "
+"processes to increase efficiency and reduce errors."
+msgstr ""
+"أتمتة سير عمل الموافقات المعقدة، والمعاملات المتكررة، والعمليات المالية "
+"لزيادة الكفاءة وتقليل الأخطاء."
+
+#: templates/pages/enterprise.html:100
+msgid "Dedicated Support"
+msgstr "دعم مخصص"
+
+#: templates/pages/enterprise.html:102
+msgid ""
+"24/7 enterprise support with dedicated account managers, custom training, "
+"and priority response times for critical issues."
+msgstr ""
+"دعم مؤسسات على مدار الساعة طوال أيام الأسبوع مع مديري حسابات مخصصين، وتدريب "
+"مخصص، وأوقات استجابة ذات أولوية للمشكلات الحرجة."
+
+#: templates/pages/enterprise.html:114
+msgid "Why Enterprises Choose Ovovex"
+msgstr "لماذا تختار المؤسسات Ovovex"
+
+#: templates/pages/enterprise.html:120
+msgid "Scalability & Performance"
+msgstr "الأمان والامتثال"
+
+#: templates/pages/enterprise.html:124
+msgid "Handles millions of transactions daily"
+msgstr "يعالج ملايين المعاملات يومياً"
+
+#: templates/pages/enterprise.html:128
+msgid "Auto-scaling infrastructure for peak loads"
+msgstr "بنية تحتية ذاتية التوسع لأحمال الذروة"
+
+#: templates/pages/enterprise.html:132
+#, python-format
+msgid "99.9%% uptime SLA with disaster recovery"
+msgstr "ضمان وقت تشغيل 99.9%% مع استعادة الكوارث"
+
+#: templates/pages/enterprise.html:136
+msgid "Global data centers for optimal performance"
+msgstr "مراكز بيانات عالمية للأداء الأمثل"
+
+#: templates/pages/enterprise.html:142
+msgid "Compliance & Integration"
+msgstr "الامتثال"
+
+#: templates/pages/enterprise.html:146
+msgid "IFRS and GAAP compliant reporting"
+msgstr "الامتثال لمعايير IFRS و GAAP"
+
+#: templates/pages/enterprise.html:150
+msgid "Pre-built integrations with ERP systems"
+msgstr "هل يمكنك التكامل مع أنظمة ERP الموجودة لدينا؟"
+
+#: templates/pages/enterprise.html:154
+msgid "API-first architecture for custom integrations"
+msgstr "بنية API أولاً للتكاملات المخصصة"
+
+#: templates/pages/enterprise.html:158
+msgid "SOC 2 Type II certified infrastructure"
+msgstr "معتمد SOC 2 Type II"
+
+#: templates/pages/enterprise.html:171
+msgid "Enterprise Platform in Action"
+msgstr "منصة المؤسسات في العمل"
+
+#: templates/pages/enterprise.html:174
+msgid ""
+"Experience our enterprise-grade accounting platform with advanced features "
+"designed for large organizations."
+msgstr ""
+"اختبر منصتنا المحاسبية على مستوى المؤسسات مع ميزات متقدمة مصممة للمؤسسات "
+"الكبيرة."
+
+#: templates/pages/enterprise.html:184
+msgid "Enterprise Demo"
+msgstr "المؤسسات"
+
+#: templates/pages/enterprise.html:186
+msgid ""
+"See how Fortune 500 companies manage complex financial operations with multi-"
+"entity support, global currencies, and advanced analytics."
+msgstr ""
+"شاهد كيف تدير شركات Fortune 500 العمليات المالية المعقدة مع دعم الكيانات "
+"المتعددة والعملات العالمية والتحليلات المتقدمة."
+
+#: templates/pages/enterprise.html:189
+msgid "Watch Enterprise Demo"
+msgstr "المؤسسات"
+
+#: templates/pages/enterprise.html:200
+msgid "Multi-Entity Dashboard"
+msgstr "لوحات التحكم في الوقت الفعلي"
+
+#: templates/pages/enterprise.html:202
+msgid ""
+"Consolidated view of all subsidiaries and divisions with real-time financial "
+"metrics."
+msgstr "عرض موحد لجميع الفروع والأقسام مع المقاييس المالية في الوقت الفعلي."
+
+#: templates/pages/enterprise.html:210
+msgid "Global Currency Management"
+msgstr "إدارة المخزون"
+
+#: templates/pages/enterprise.html:212
+msgid ""
+"Automated currency conversions and hedging strategies for international "
+"operations."
+msgstr "تحويلات عملات آلية واستراتيجيات تحوط للعمليات الدولية."
+
+#: templates/pages/enterprise.html:220
+msgid "Executive Analytics"
+msgstr "التحليلات التنبؤية"
+
+#: templates/pages/enterprise.html:222
+msgid ""
+"Advanced reporting with predictive analytics and scenario planning tools."
+msgstr "تقارير متقدمة مع تحليلات تنبؤية وأدوات تخطيط السيناريوهات."
+
+#: templates/pages/enterprise.html:234
+msgid "Comprehensive Enterprise Features"
+msgstr "ميزات المحاسبة الأساسية"
+
+#: templates/pages/enterprise.html:237
+msgid ""
+"Every tool your enterprise needs for complex financial management, from "
+"multi-entity operations to global compliance."
+msgstr ""
+"كل أداة تحتاجها مؤسستك للإدارة المالية المعقدة، من عمليات الكيانات المتعددة "
+"إلى الامتثال العالمي."
+
+#: templates/pages/enterprise.html:245
+msgid "Advanced Multi-Entity Management"
+msgstr "إدارة متعددة العملاء"
+
+#: templates/pages/enterprise.html:249
+msgid "Unlimited subsidiaries and legal entities in one platform"
+msgstr "فروع وكيانات قانونية غير محدودة في منصة واحدة"
+
+#: templates/pages/enterprise.html:253
+msgid "Automated inter-company transactions and eliminations"
+msgstr "معاملات وإلغاءات آلية بين الشركات"
+
+#: templates/pages/enterprise.html:257
+msgid "Consolidated financial statements with segment reporting"
+msgstr "إنشاء القوائم المالية"
+
+#: templates/pages/enterprise.html:261
+msgid "Entity-level permissions and access controls"
+msgstr "أذونات وضوابط وصول على مستوى الكيان"
+
+#: templates/pages/enterprise.html:265
+msgid "Multi-entity budgeting and forecasting"
+msgstr "الميزانية والتنبؤات متعددة الكيانات"
+
+#: templates/pages/enterprise.html:272
+msgid "Manage complex corporate structures with ease"
+msgstr "إدارة الهياكل المؤسسية المعقدة بسهولة"
+
+#: templates/pages/enterprise.html:282
+msgid "Seamless international financial management"
+msgstr "إدارة مالية دولية سلسة"
+
+#: templates/pages/enterprise.html:286
+msgid "Global Operations Support"
+msgstr "دعم العمليات العالمية"
+
+#: templates/pages/enterprise.html:290
+msgid "150+ currencies with real-time exchange rates"
+msgstr "أكثر من 150 عملة بأسعار صرف فورية"
+
+#: templates/pages/enterprise.html:294
+msgid "Automated foreign currency revaluation"
+msgstr "التسوية التلقائية"
+
+#: templates/pages/enterprise.html:298
+msgid "Multi-language interface and reporting"
+msgstr "واجهة وتقارير متعددة اللغات"
+
+#: templates/pages/enterprise.html:302
+msgid "Regional tax compliance and reporting"
+msgstr "الامتثال الضريبي الإقليمي والتقارير"
+
+#: templates/pages/enterprise.html:306
+msgid "Cross-border transaction management"
+msgstr "إدارة المعاملات عبر الحدود"
+
+#: templates/pages/enterprise.html:315
+msgid "Executive Analytics & Intelligence"
+msgstr "التحليلات التنبؤية"
+
+#: templates/pages/enterprise.html:319
+msgid "Predictive financial modeling and forecasting"
+msgstr "النمذجة المالية التنبؤية"
+
+#: templates/pages/enterprise.html:323
+msgid "Real-time KPI dashboards and alerts"
+msgstr "لوحات التحكم في الوقت الفعلي"
+
+#: templates/pages/enterprise.html:327
+msgid "Scenario planning and sensitivity analysis"
+msgstr "تخطيط السيناريوهات وتحليل الحساسية"
+
+#: templates/pages/enterprise.html:331
+msgid "Custom report builder with drag-and-drop interface"
+msgstr "منشئ تقارير مخصص بواجهة السحب والإفلات"
+
+#: templates/pages/enterprise.html:335
+msgid "AI-powered insights and recommendations"
+msgstr "مسح وتصنيف الإيصالات بالذكاء الاصطناعي"
+
+#: templates/pages/enterprise.html:342
+msgid "Data-driven decisions with advanced analytics"
+msgstr "قرارات مبنية على البيانات مع تحليلات متقدمة"
+
+#: templates/pages/enterprise.html:355
+msgid "Enterprise Success Stories"
+msgstr "قصص نجاح المؤسسات"
+
+#: templates/pages/enterprise.html:358
+msgid ""
+"See how leading enterprises transformed their financial operations with "
+"Ovovex."
+msgstr "شاهد كيف حولت المؤسسات الرائدة عملياتها المالية مع Ovovex."
+
+#: templates/pages/enterprise.html:370
+msgid "TechCorp Global"
+msgstr "TechCorp العالمية"
+
+#: templates/pages/enterprise.html:371
+msgid "Fortune 500 Technology Company"
+msgstr "شركة تكنولوجيا من Fortune 500"
+
+#: templates/pages/enterprise.html:375
+#, python-format
+msgid ""
+"Ovovex scaled seamlessly with our global expansion, handling 50+ entities "
+"across 20 countries. Monthly close time reduced by 60%%."
+msgstr ""
+"قامت Ovovex بالتوسع بسلاسة مع توسعنا العالمي، حيث تعاملت مع أكثر من 50 كيانًا "
+"في 20 دولة. انخفض وقت الإغلاق الشهري بنسبة 60%%."
+
+#: templates/pages/enterprise.html:378 templates/pages/enterprise.html:397
+#: templates/pages/enterprise.html:416
+msgid "Results:"
+msgstr "النتائج:"
+
+#: templates/pages/enterprise.html:378
+#, python-format
+msgid "60%% faster month-end close, $2M annual savings"
+msgstr "إغلاق نهاية الشهر أسرع بنسبة 60%%، وتوفير 2 مليون دولار سنوياً"
+
+#: templates/pages/enterprise.html:389
+msgid "Manufacturing Plus"
+msgstr "التصنيع"
+
+#: templates/pages/enterprise.html:390
+msgid "Global Manufacturing Conglomerate"
+msgstr "التصنيع"
+
+#: templates/pages/enterprise.html:394
+msgid ""
+"The multi-currency support and automated consolidations eliminated our "
+"biggest financial reporting headaches. Compliance is now effortless."
+msgstr ""
+"أدى دعم العملات المتعددة والتوحيدات التلقائية إلى القضاء على أكبر صعوبات "
+"التقارير المالية لدينا. أصبح الامتثال الآن سهلاً."
+
+#: templates/pages/enterprise.html:397
+#, python-format
+msgid "100%% IFRS compliance, 40%% reduction in audit time"
+msgstr "امتثال 100%% لـ IFRS، وانخفاض بنسبة 40%% في وقت التدقيق"
+
+#: templates/pages/enterprise.html:408
+msgid "RetailMax Corporation"
+msgstr "التعاون الجماعي"
+
+#: templates/pages/enterprise.html:409
+msgid "International Retail Chain"
+msgstr "التكاملات"
+
+#: templates/pages/enterprise.html:413
+msgid ""
+"Real-time analytics helped us optimize inventory and cash flow across 500+ "
+"stores. Executive decision-making is now data-driven."
+msgstr ""
+"ساعدتنا التحليلات في الوقت الفعلي على تحسين المخزون والتدفق النقدي عبر أكثر "
+"من 500 متجر. أصبح اتخاذ القرارات التنفيذية الآن مبنيًا على البيانات."
+
+#: templates/pages/enterprise.html:416
+#, python-format
+msgid "25%% improvement in cash flow, 15%% increase in margins"
+msgstr "تحسن بنسبة 25%% في التدفق النقدي، وزيادة بنسبة 15%% في الهوامش"
+
+#: templates/pages/enterprise.html:428
+msgid "Enterprise Pricing"
+msgstr "تسعير المؤسسات"
+
+#: templates/pages/enterprise.html:431
+msgid ""
+"Custom pricing based on your organization's specific needs. Contact our "
+"sales team for a tailored quote."
+msgstr ""
+"تسعير مخصص بناءً على احتياجات مؤسستك المحددة. اتصل بفريق المبيعات لدينا "
+"للحصول على عرض مخصص."
+
+#: templates/pages/enterprise.html:442
+msgid "Custom Enterprise Solution"
+msgstr "تكاملات مخصصة"
+
+#: templates/pages/enterprise.html:444
+msgid "Tailored for organizations with 500+ employees and complex requirements"
+msgstr "للمؤسسات الكبيرة"
+
+#: templates/pages/enterprise.html:448
+msgid "Unlimited entities and users"
+msgstr "مستخدمون غير محدودين"
+
+#: templates/pages/enterprise.html:452
+msgid "Full feature set with custom integrations"
+msgstr "بنية API أولاً للتكاملات المخصصة"
+
+#: templates/pages/enterprise.html:456
+msgid "Dedicated account management"
+msgstr "مدير حساب مخصص"
+
+#: templates/pages/enterprise.html:464
+msgid "Custom training and onboarding"
+msgstr "تدريب وتأهيل مخصص"
+
+#: templates/pages/enterprise.html:468
+msgid "SLA guarantees and priority response"
+msgstr "ضمانات SLA واستجابة ذات أولوية"
+
+#: templates/pages/enterprise.html:472
+msgid "Contact Sales Team"
+msgstr "اتصل بالمبيعات"
+
+#: templates/pages/enterprise.html:480
+msgid "Implementation Services"
+msgstr "خدمات التنفيذ"
+
+#: templates/pages/enterprise.html:481
+msgid "Professional Services"
+msgstr "احترافي"
+
+#: templates/pages/enterprise.html:482
+msgid "Expert implementation and migration support"
+msgstr "دعم خبير في التنفيذ والترحيل"
+
+#: templates/pages/enterprise.html:486
+msgid "Data migration from legacy systems"
+msgstr "ترحيل البيانات من الأنظمة القديمة"
+
+#: templates/pages/enterprise.html:490
+msgid "Custom integration development"
+msgstr "تكاملات مخصصة"
+
+#: templates/pages/enterprise.html:494
+msgid "Process optimization consulting"
+msgstr "استشارات تحسين العمليات"
+
+#: templates/pages/enterprise.html:498
+msgid "Staff training and change management"
+msgstr "إدارة مالية دولية سلسة"
+
+#: templates/pages/enterprise.html:502
+msgid "Go-live support and post-launch assistance"
+msgstr "دعم بدء التشغيل والمساعدة بعد الإطلاق"
+
+#: templates/pages/enterprise.html:506
+msgid "Contact Services Team"
+msgstr "اتصل بالمبيعات"
+
+#: templates/pages/enterprise.html:519
+msgid "Enterprise FAQ"
+msgstr "الأسئلة الشائعة للمؤسسات"
+
+#: templates/pages/enterprise.html:522
+msgid "Answers to common questions from enterprise customers."
+msgstr "أسئلة شائعة حول أسعارنا وخططنا."
+
+#: templates/pages/enterprise.html:528
+msgid "How long does enterprise implementation take?"
+msgstr "كم من الوقت يستغرق تنفيذ المؤسسات؟"
+
+#: templates/pages/enterprise.html:529
+msgid ""
+"Implementation timelines vary based on complexity, but typically range from "
+"3-6 months. We provide detailed project plans and regular progress updates "
+"to ensure smooth deployment."
+msgstr ""
+"تختلف جداول التنفيذ بناءً على التعقيد، ولكن عادةً ما تتراوح من 3 إلى 6 أشهر. "
+"نقدم خطط مشروع مفصلة وتحديثات منتظمة للتقدم لضمان النشر السلس."
+
+#: templates/pages/enterprise.html:533
+msgid "Can you integrate with our existing ERP systems?"
+msgstr "هل يمكنك التكامل مع أنظمة ERP الموجودة لدينا؟"
+
+#: templates/pages/enterprise.html:534
+msgid ""
+"Yes, we have pre-built integrations with major ERP systems including SAP, "
+"Oracle, Microsoft Dynamics, and many others. Our API-first architecture also "
+"supports custom integrations."
+msgstr ""
+"نعم، لدينا تكاملات جاهزة مع أنظمة ERP الرئيسية بما في ذلك SAP و Oracle و "
+"Microsoft Dynamics والعديد من الأنظمة الأخرى. تدعم بنيتنا المعمارية API-"
+"first أيضًا التكاملات المخصصة."
+
+#: templates/pages/enterprise.html:539
+msgid ""
+"We offer extensive customization options including custom workflows, "
+"reporting templates, user interfaces, and business logic. Our professional "
+"services team works closely with your IT and finance teams."
+msgstr ""
+"نقدم خيارات تخصيص واسعة بما في ذلك سير العمل المخصص وقوالب التقارير وواجهات "
+"المستخدم ومنطق الأعمال. يعمل فريق خدماتنا المهنية بشكل وثيق مع فرق تكنولوجيا "
+"المعلومات والتمويل لديك."
+
+#: templates/pages/enterprise.html:543
+msgid "Do you provide on-premise deployment options?"
+msgstr "هل تقدم خيارات نشر في الموقع؟"
+
+#: templates/pages/enterprise.html:544
+msgid ""
+"For highly regulated industries or organizations with strict data residency "
+"requirements, we offer on-premise deployment options alongside our cloud-"
+"based solutions."
+msgstr ""
+"بالنسبة للصناعات المنظمة للغاية أو المؤسسات ذات متطلبات إقامة البيانات "
+"الصارمة، نقدم خيارات نشر محلية إلى جانب حلولنا السحابية."
+
+#: templates/pages/enterprise.html:548
+msgid "What kind of SLAs do you offer?"
+msgstr "ما نوع الدعم الذي تقدمونه؟"
+
+#: templates/pages/enterprise.html:549
+#, python-format
+msgid ""
+"Enterprise customers receive 99.9%% uptime SLAs, priority support response "
+"times (1 hour for critical issues), and dedicated account management. Custom "
+"SLAs can be negotiated based on your requirements."
+msgstr "المؤسسات"
+
+#: templates/pages/enterprise.html:559
+msgid "Ready to Scale Your Finance Operations?"
+msgstr "هل أنت مستعد لتحويل محاسبتك؟"
+
+#: templates/pages/enterprise.html:562
+msgid ""
+"Contact our enterprise sales team to discuss your specific requirements and "
+"get a customized solution for your organization."
+msgstr ""
+"اتصل بفريق مبيعات المؤسسات لدينا لمناقشة متطلباتك المحددة والحصول على حل "
+"مخصص لمؤسستك."
+
+#: templates/pages/ifrs_compliance.html:22
+#, fuzzy
+#| msgid "IFRS Compliance Demo"
+msgid " IFRS Compliance Solutions "
+msgstr "الامتثال لمعايير IFRS"
+
+#: templates/pages/ifrs_compliance.html:32
+#, fuzzy
+#| msgid "Compliance"
+msgid " Ensure Compliance "
+msgstr "الامتثال"
+
+#: templates/pages/ifrs_compliance.html:37
+#, fuzzy
+#| msgid "International Retail Chain"
+msgid " International Standards Compliance "
+msgstr "التكاملات"
+
+#: templates/pages/ifrs_compliance.html:62
+msgid "IFRS Standards Library"
+msgstr ""
+
+#: templates/pages/ifrs_compliance.html:81
+msgid "Automated Compliance"
+msgstr "مسك الدفاتر الآلي"
+
+#: templates/pages/ifrs_compliance.html:119
+#: templates/pages/ifrs_compliance.html:311
+msgid "Compliance Monitoring"
+msgstr "الامتثال"
+
+#: templates/pages/ifrs_compliance.html:137
+msgid "Training & Guidance"
+msgstr ""
+
+#: templates/pages/ifrs_compliance.html:155
+msgid "Audit Support"
+msgstr "دعم مخصص"
+
+#: templates/pages/ifrs_compliance.html:172
+#, fuzzy
+#| msgid "IFRS Compliance Demo"
+msgid " Why IFRS Compliance Matters "
+msgstr "الامتثال لمعايير IFRS"
+
+#: templates/pages/ifrs_compliance.html:179
+msgid "Global Business Requirements"
+msgstr "متطلبات الأعمال العالمية"
+
+#: templates/pages/ifrs_compliance.html:203
+msgid "Operational Benefits"
+msgstr ""
+
+#: templates/pages/ifrs_compliance.html:233
+#, fuzzy
+#| msgid "IFRS Compliance Demo"
+msgid " IFRS Compliance in Action "
+msgstr "الامتثال لمعايير IFRS"
+
+#: templates/pages/ifrs_compliance.html:251
+msgid "IFRS Compliance Demo"
+msgstr "الامتثال لمعايير IFRS"
+
+#: templates/pages/ifrs_compliance.html:261
+#, fuzzy
+#| msgid "IFRS Compliance Demo"
+msgid " Watch Compliance Demo "
+msgstr "الامتثال لمعايير IFRS"
+
+#: templates/pages/ifrs_compliance.html:275
+msgid "Automatic IFRS Application"
+msgstr ""
+
+#: templates/pages/ifrs_compliance.html:293
+msgid "Compliant Financial Statements"
+msgstr "إنشاء القوائم المالية"
+
+#: templates/pages/ifrs_compliance.html:330
+#, fuzzy
+#| msgid "Comprehensive Firm Management Features"
+msgid " Comprehensive IFRS Compliance Features "
+msgstr "ميزات إدارة المكتب الشاملة"
+
+#: templates/pages/ifrs_compliance.html:344
+msgid "IFRS Standards Automation"
+msgstr ""
+
+#: templates/pages/ifrs_compliance.html:373
+msgid "International standards, automated compliance"
+msgstr ""
+
+#: templates/pages/ifrs_compliance.html:385
+msgid "Audit-ready financial statements every time"
+msgstr "إنشاء القوائم المالية"
+
+#: templates/pages/ifrs_compliance.html:391
+msgid "Automated Financial Reporting"
+msgstr "التقارير المالية"
+
+#: templates/pages/ifrs_compliance.html:422
+msgid "Compliance Monitoring & Audit Support"
+msgstr ""
+
+#: templates/pages/ifrs_compliance.html:451
+msgid "Audit-ready compliance documentation"
+msgstr ""
+
+#: templates/pages/ifrs_compliance.html:465
+#, fuzzy
+#| msgid "IFRS Compliance Demo"
+msgid " IFRS Compliance Success Stories "
+msgstr "الامتثال لمعايير IFRS"
+
+#: templates/pages/ifrs_compliance.html:485
+msgid "Global Industries"
+msgstr "الصناعات العالمية"
+
+#: templates/pages/ifrs_compliance.html:488
+msgid "Manufacturing Conglomerate"
+msgstr "التصنيع"
+
+#: templates/pages/ifrs_compliance.html:516
+msgid "International Trade"
+msgstr "التكاملات"
+
+#: templates/pages/ifrs_compliance.html:519
+msgid "Import/Export Company"
+msgstr ""
+
+#: templates/pages/ifrs_compliance.html:547
+msgid "Finance Corp"
+msgstr "التقارير المالية"
+
+#: templates/pages/ifrs_compliance.html:550
+msgid "Financial Services"
+msgstr "التقارير المالية"
+
+#: templates/pages/ifrs_compliance.html:576
+#, fuzzy
+#| msgid "IFRS Compliance"
+msgid " IFRS Compliance Pricing "
+msgstr "الامتثال لمعايير IFRS"
+
+#: templates/pages/ifrs_compliance.html:590
+msgid "IFRS Starter"
+msgstr "البداية"
+
+#: templates/pages/ifrs_compliance.html:641
+msgid "IFRS Professional"
+msgstr "احترافي"
+
+#: templates/pages/ifrs_compliance.html:688
+msgid "IFRS Enterprise"
+msgstr "المؤسسات"
+
+#: templates/pages/ifrs_compliance.html:739
+#, fuzzy
+#| msgid "IFRS Compliance"
+msgid " IFRS Compliance FAQ "
+msgstr "الامتثال لمعايير IFRS"
+
+#: templates/pages/ifrs_compliance.html:750
+msgid "Which IFRS standards are supported?"
+msgstr ""
+
+#: templates/pages/ifrs_compliance.html:762
+msgid "How do you handle IFRS implementation?"
+msgstr ""
+
+#: templates/pages/ifrs_compliance.html:774
+msgid "Can the system generate XBRL filings?"
+msgstr ""
+
+#: templates/pages/ifrs_compliance.html:786
+msgid "What about local GAAP requirements?"
+msgstr ""
+
+#: templates/pages/ifrs_compliance.html:797
+msgid "How do you stay current with IFRS changes?"
+msgstr ""
+
+#: templates/pages/ifrs_compliance.html:814
+#, fuzzy
+#| msgid "IFRS Compliance"
+msgid " Achieve IFRS Compliance "
+msgstr "الامتثال لمعايير IFRS"
+
+#: templates/pages/ifrs_compliance.html:823
+#, fuzzy
+#| msgid "IFRS Compliance"
+msgid " Start IFRS Compliance "
+msgstr "الامتثال لمعايير IFRS"
+
+#: templates/pages/pricing.html:21
+msgid "Choose Your Perfect Plan"
+msgstr "اختر خطتك المثالية"
+
+#: templates/pages/pricing.html:41
+msgid "Transparent Pricing, No Hidden Fees"
+msgstr "أسعار شفافة، بدون رسوم خفية"
+
+#: templates/pages/pricing.html:58
+msgid "Flexible Plans for Every Business"
+msgstr "خطط مرنة لكل نشاط تجاري"
+
+#: templates/pages/pricing.html:82
+msgid "Up to 5 invoices per month"
+msgstr "ما يصل إلى 5 فواتير شهريًا"
+
+#: templates/pages/pricing.html:86
+msgid "Basic expense tracking"
+msgstr "تتبع المصروفات الأساسية"
+
+#: templates/pages/pricing.html:90
+msgid "Financial reports"
+msgstr "التقارير المالية"
+
+#: templates/pages/pricing.html:98 templates/pages/small_business.html:419
+msgid "Mobile app access"
+msgstr "الوصول إلى تطبيق الهاتف المحمول"
+
+#: templates/pages/pricing.html:128
+msgid "Great for small businesses"
+msgstr "رائع للشركات الصغيرة"
+
+#: templates/pages/pricing.html:133 templates/pages/small_business.html:440
+msgid "Unlimited invoices"
+msgstr "فواتير غير محدودة"
+
+#: templates/pages/pricing.html:137 templates/pages/small_business.html:444
+msgid "Advanced expense tracking"
+msgstr "تتبع متقدم للمصروفات"
+
+#: templates/pages/pricing.html:145
+msgid "Bank reconciliation"
+msgstr "تسوية بنكية"
+
+#: templates/pages/pricing.html:149
+msgid "Priority email support"
+msgstr "دعم بريد إلكتروني ذو أولوية"
+
+#: templates/pages/pricing.html:177
+msgid "For growing businesses"
+msgstr "للشركات المتنامية"
+
+#: templates/pages/pricing.html:182
+msgid "Everything in Starter"
+msgstr "كل ما في خطة البداية"
+
+#: templates/pages/pricing.html:186
+msgid "Advanced analytics"
+msgstr "تحليلات متقدمة"
+
+#: templates/pages/pricing.html:190
+msgid "Inventory management"
+msgstr "إدارة المخزون"
+
+#: templates/pages/pricing.html:194
+msgid "Project accounting"
+msgstr "محاسبة المشاريع"
+
+#: templates/pages/pricing.html:198
+msgid "Custom workflows"
+msgstr "مسارات عمل مخصصة"
+
+#: templates/pages/pricing.html:202
+msgid "Phone support"
+msgstr "الدعم الهاتفي"
+
+#: templates/pages/pricing.html:229 templates/pages/small_business.html:474
+msgid "Everything in Professional"
+msgstr "كل ما في الخطة الاحترافية"
+
+#: templates/pages/pricing.html:233 templates/pages/small_business.html:486
+msgid "Unlimited users"
+msgstr "مستخدمون غير محدودين"
+
+#: templates/pages/pricing.html:245
+msgid "SLA guarantees"
+msgstr "ضمانات اتفاقية مستوى الخدمة"
+
+#: templates/pages/pricing.html:269
+msgid "Compare Plan Features"
+msgstr "قارن ميزات الخطط"
+
+#: templates/pages/pricing.html:311
+msgid "Monthly Invoices"
+msgstr "الفواتير الشهرية"
+
+#: templates/pages/pricing.html:315 templates/pages/pricing.html:318
+#: templates/pages/pricing.html:321 templates/pages/pricing.html:332
+msgid "Unlimited"
+msgstr "غير محدود"
+
+#: templates/pages/pricing.html:337
+msgid "Bank Reconciliation"
+msgstr "التسوية البنكية"
+
+#: templates/pages/pricing.html:354 templates/pages/retail_ecommerce.html:196
+msgid "Inventory Management"
+msgstr "إدارة المخزون"
+
+#: templates/pages/pricing.html:388
+msgid "API Access"
+msgstr "الوصول إلى API"
+
+#: templates/pages/pricing.html:405
+msgid "Phone Support"
+msgstr "الدعم الهاتفي"
+
+#: templates/pages/pricing.html:422
+msgid "Custom Integrations"
+msgstr "التكاملات المخصصة"
+
+#: templates/pages/pricing.html:465
+msgid "Platform Overview Demo"
+msgstr "عرض توضيحي للمنصة"
+
+#: templates/pages/pricing.html:475
+msgid "Watch Full Demo"
+msgstr "شاهد العرض التوضيحي الكامل"
+
+#: templates/pages/pricing.html:489
+msgid "Smart Invoicing Demo"
+msgstr "عرض توضيحي للفواتير الذكية"
+
+#: templates/pages/pricing.html:523
+#: templates/pages/real_time_analytics.html:251
+msgid "Analytics Dashboard Demo"
+msgstr "عرض توضيحي للوحة التحليلات"
+
+#: templates/pages/pricing.html:541
+msgid "Pricing FAQ"
+msgstr "الأسئلة الشائعة عن الأسعار"
+
+#: templates/pages/pricing.html:544
+msgid "Common questions about our pricing and plans."
+msgstr "أسئلة شائعة حول أسعارنا وخططنا."
+
+#: templates/pages/pricing.html:551
+msgid "Can I change plans anytime?"
+msgstr "هل يمكنني تغيير الخطط في أي وقت؟"
+
+#: templates/pages/pricing.html:562
+msgid "What payment methods do you accept?"
+msgstr "ما هي طرق الدفع التي تقبلونها؟"
+
+#: templates/pages/pricing.html:573
+msgid "Is there a free trial?"
+msgstr "هل هناك نسخة تجريبية مجانية؟"
+
+#: templates/pages/pricing.html:584
+msgid "What happens if I exceed my plan limits?"
+msgstr "ماذا يحدث إذا تجاوزت حدود خطتي؟"
+
+#: templates/pages/pricing.html:595
+msgid "Do you offer discounts for annual billing?"
+msgstr "هل تقدمون خصومات للفوترة السنوية؟"
+
+#: templates/pages/pricing.html:606
+msgid "Can I cancel my subscription?"
+msgstr "هل يمكنني إلغاء اشتراكي؟"
+
+#: templates/pages/pricing.html:622
+msgid "Ready to Get Started?"
+msgstr "هل أنت مستعد للبدء؟"
+
+#: templates/pages/pricing.html:640
+msgid "Schedule Demo"
+msgstr "جدولة عرض توضيحي"
+
+#: templates/pages/real_time_analytics.html:22
+#, fuzzy
+#| msgid "Real-time financial insights at your fingertips"
+msgid " Real-Time Financial Insights "
+msgstr "رؤى في الوقت الفعلي في متناول يدك"
+
+#: templates/pages/real_time_analytics.html:31
+#, fuzzy
+#| msgid "Mobile Analytics"
+msgid " Explore Analytics "
+msgstr "التحليلات في الوقت الفعلي"
+
+#: templates/pages/real_time_analytics.html:36
+msgid " Live Financial Insights "
+msgstr ""
+
+#: templates/pages/real_time_analytics.html:61
+msgid "Live Dashboards"
+msgstr "لوحة التحكم"
+
+#: templates/pages/real_time_analytics.html:80
+msgid "Cash Flow Monitoring"
+msgstr "التنبؤ بالتدفق النقدي"
+
+#: templates/pages/real_time_analytics.html:99
+msgid "Revenue Analytics"
+msgstr "التحليلات المتقدمة"
+
+#: templates/pages/real_time_analytics.html:118
+msgid "Smart Alerts"
+msgstr "رؤى ذكية"
+
+#: templates/pages/real_time_analytics.html:136
+msgid "Mobile Analytics"
+msgstr "التحليلات في الوقت الفعلي"
+
+#: templates/pages/real_time_analytics.html:155
+msgid "Custom Reports"
+msgstr "تقارير مخصصة ومؤشرات أداء"
+
+#: templates/pages/real_time_analytics.html:172
+#, fuzzy
+#| msgid "Real-Time Analytics"
+msgid " The Advantage of Real-Time Analytics "
+msgstr "التحليلات في الوقت الفعلي"
+
+#: templates/pages/real_time_analytics.html:179
+msgid "Faster Decision Making"
+msgstr ""
+
+#: templates/pages/real_time_analytics.html:203
+msgid "Proactive Management"
+msgstr "إدارة المخزون"
+
+#: templates/pages/real_time_analytics.html:233
+#, fuzzy
+#| msgid "Real-Time Analytics"
+msgid " Real-Time Analytics in Action "
+msgstr "التحليلات في الوقت الفعلي"
+
+#: templates/pages/real_time_analytics.html:261
+#, fuzzy
+#| msgid "Watch Enterprise Demo"
+msgid " Watch Analytics Demo "
+msgstr "المؤسسات"
+
+#: templates/pages/real_time_analytics.html:275
+msgid "Live KPI Dashboard"
+msgstr "لوحة التحكم"
+
+#: templates/pages/real_time_analytics.html:293
+msgid "Smart Alert System"
+msgstr ""
+
+#: templates/pages/real_time_analytics.html:330
+#, fuzzy
+#| msgid "Comprehensive Accounting Features"
+msgid " Comprehensive Analytics Features "
+msgstr "ميزات المحاسبة الأساسية"
+
+#: templates/pages/real_time_analytics.html:344
+msgid "Live Dashboard Platform"
+msgstr ""
+
+#: templates/pages/real_time_analytics.html:373
+msgid "See your business performance evolve in real-time"
+msgstr ""
+
+#: templates/pages/real_time_analytics.html:387
+msgid "Never miss critical business events again"
+msgstr ""
+
+#: templates/pages/real_time_analytics.html:393
+msgid "Intelligent Alert System"
+msgstr ""
+
+#: templates/pages/real_time_analytics.html:424
+msgid "Predictive Analytics Engine"
+msgstr "التحليلات التنبؤية"
+
+#: templates/pages/real_time_analytics.html:453
+msgid "Predict the future of your business finances"
+msgstr "اختر الخطة التي تناسب احتياجات عملك"
+
+#: templates/pages/real_time_analytics.html:467
+#, fuzzy
+#| msgid "Real-Time Analytics"
+msgid " Real-Time Analytics Success Stories "
+msgstr "التحليلات في الوقت الفعلي"
+
+#: templates/pages/real_time_analytics.html:487
+msgid "Retail Flow"
+msgstr ""
+
+#: templates/pages/real_time_analytics.html:490
+msgid "E-commerce Platform"
+msgstr "جولة كاملة في المنصة"
+
+#: templates/pages/real_time_analytics.html:518
+msgid "Manufacturing Solutions"
+msgstr "التصنيع"
+
+#: templates/pages/real_time_analytics.html:521
+msgid "Industrial Equipment"
+msgstr ""
+
+#: templates/pages/real_time_analytics.html:549
+msgid "Healthcare Corp"
+msgstr ""
+
+#: templates/pages/real_time_analytics.html:552
+msgid "Medical Services"
+msgstr ""
+
+#: templates/pages/real_time_analytics.html:578
+#, fuzzy
+#| msgid "Real-Time Analytics"
+msgid " Real-Time Analytics Pricing "
+msgstr "التحليلات في الوقت الفعلي"
+
+#: templates/pages/real_time_analytics.html:592
+msgid "Analytics Starter"
+msgstr "عرض توضيحي للوحة التحليلات"
+
+#: templates/pages/real_time_analytics.html:598
+msgid "Essential real-time dashboards for small businesses"
+msgstr "رائع للشركات الصغيرة"
+
+#: templates/pages/real_time_analytics.html:642
+msgid "Analytics Pro"
+msgstr "عرض توضيحي للوحة التحليلات"
+
+#: templates/pages/real_time_analytics.html:648
+msgid "Advanced analytics for growing businesses"
+msgstr "رائع للشركات الصغيرة"
+
+#: templates/pages/real_time_analytics.html:688
+msgid "Analytics Enterprise"
+msgstr "المؤسسات"
+
+#: templates/pages/real_time_analytics.html:694
+msgid "Complete analytics platform for large organizations"
+msgstr "منصة تحليلات كاملة للمنظمات الكبيرة"
+
+#: templates/pages/real_time_analytics.html:738
+#, fuzzy
+#| msgid "Real-Time Analytics"
+msgid " Real-Time Analytics FAQ "
+msgstr "التحليلات في الوقت الفعلي"
+
+#: templates/pages/real_time_analytics.html:749
+msgid "How real-time is the data?"
+msgstr ""
+
+#: templates/pages/real_time_analytics.html:760
+msgid "Can I create custom dashboards?"
+msgstr "لوحات تحكم تفاعلية"
+
+#: templates/pages/real_time_analytics.html:771
+msgid "What types of alerts are available?"
+msgstr ""
+
+#: templates/pages/real_time_analytics.html:783
+msgid "How accurate are the cash flow forecasts?"
+msgstr ""
+
+#: templates/pages/real_time_analytics.html:794
+msgid "Can multiple users access the analytics?"
+msgstr "هل يمكن لعدة مستخدمين الوصول إلى التحليلات؟"
+
+#: templates/pages/real_time_analytics.html:811
+msgid " See Your Business in Real-Time "
+msgstr ""
+
+#: templates/pages/real_time_analytics.html:820
+#, fuzzy
+#| msgid "Real-Time Analytics"
+msgid " Get Real-Time Analytics "
+msgstr "التحليلات في الوقت الفعلي"
+
+#: templates/pages/retail_ecommerce.html:4
+#, fuzzy
+#| msgid "Retail & E-commerce Pricing"
+msgid "Retail & E-commerce Accounting - Ovovex"
+msgstr "أسعار البيع بالتجزئة والتجارة الإلكترونية"
+
+#: templates/pages/retail_ecommerce.html:8
+#, fuzzy
+#| msgid "Core Accounting Features"
+msgid "Retail-Specific Accounting Features"
+msgstr "ميزات المحاسبة الأساسية"
+
+#: templates/pages/retail_ecommerce.html:11
+msgid ""
+"Tools designed to handle the unique challenges of retail and e-commerce "
+"businesses, from inventory management to multi-channel sales tracking."
+msgstr ""
+
+#: templates/pages/retail_ecommerce.html:15
+msgid "Accounting for Retail & E-commerce"
+msgstr "المحاسبة للبيع بالتجزئة والتجارة الإلكترونية"
+
+#: templates/pages/retail_ecommerce.html:18
+msgid ""
+"Specialized accounting solutions for retail stores and online businesses. "
+"Manage inventory, sales channels, and customer data with ease."
+msgstr ""
+"حلول محاسبية متخصصة لمتاجر البيع بالتجزئة والأعمال عبر الإنترنت. إدارة "
+"المخزون وقنوات المبيعات وبيانات العملاء بسهولة."
+
+#: templates/pages/retail_ecommerce.html:21
+msgid "Start Retail Trial"
+msgstr "ابدأ تجربة البيع بالتجزئة"
+
+#: templates/pages/retail_ecommerce.html:198
+msgid "Track inventory across multiple locations and sales channels."
+msgstr ""
+
+#: templates/pages/retail_ecommerce.html:199
+msgid ""
+"Automated stock alerts, cost of goods sold calculations, and inventory "
+"valuation."
+msgstr ""
+
+#: templates/pages/retail_ecommerce.html:208
+msgid "Multi-Channel Sales"
+msgstr "مبيعات متعددة القنوات"
+
+#: templates/pages/retail_ecommerce.html:210
+#, fuzzy
+#| msgid ""
+#| "Consolidate sales data from online stores, physical locations, and "
+#| "marketplaces. Real-time sales tracking and channel performance analytics."
+msgid ""
+"Consolidate sales data from online stores, physical locations, and "
+"marketplaces."
+msgstr ""
+"دمج بيانات المبيعات من المتاجر الإلكترونية والمواقع الفعلية والأسواق. تتبع "
+"المبيعات في الوقت الفعلي وتحليلات أداء القنوات."
+
+#: templates/pages/retail_ecommerce.html:211
+msgid "Real-time sales tracking and channel performance analytics."
+msgstr ""
+
+#: templates/pages/retail_ecommerce.html:220
+msgid "Point of Sale Integration"
+msgstr "تكامل نقاط البيع"
+
+#: templates/pages/retail_ecommerce.html:222
+#, fuzzy
+#| msgid ""
+#| "Seamless integration with POS systems for real-time transaction "
+#| "recording, payment processing, and sales tax calculations."
+msgid ""
+"Seamless integration with POS systems for real-time transaction recording,"
+msgstr ""
+"تكامل سلس مع أنظمة نقاط البيع لتسجيل المعاملات في الوقت الفعلي ومعالجة "
+"المدفوعات وحسابات ضريبة المبيعات."
+
+#: templates/pages/retail_ecommerce.html:223
+#, fuzzy
+#| msgid "Automatic invoice numbering and due date calculations"
+msgid "payment processing, and sales tax calculations."
+msgstr "ترقيم الفواتير التلقائي وحسابات تاريخ الاستحقاق"
+
+#: templates/pages/retail_ecommerce.html:232
+msgid "Customer Analytics"
+msgstr "تحليلات العملاء"
+
+#: templates/pages/retail_ecommerce.html:234
+msgid "Track customer behavior, purchase patterns, and lifetime value."
+msgstr ""
+
+#: templates/pages/retail_ecommerce.html:235
+msgid "Segment customers for targeted marketing and personalized service."
+msgstr ""
+
+#: templates/pages/retail_ecommerce.html:244
+msgid "Shipping & Returns"
+msgstr "الشحن والإرجاع"
+
+#: templates/pages/retail_ecommerce.html:246
+msgid ""
+"Track shipping costs, manage returns and refunds, and calculate accurate"
+msgstr ""
+
+#: templates/pages/retail_ecommerce.html:247
+msgid "gross margins including all fulfillment expenses."
+msgstr ""
+
+#: templates/pages/retail_ecommerce.html:256
+msgid "Pricing & Promotions"
+msgstr "التسعير والعروض الترويجية"
+
+#: templates/pages/retail_ecommerce.html:258
+msgid "Manage complex pricing strategies, discounts, and promotions."
+msgstr ""
+
+#: templates/pages/retail_ecommerce.html:259
+msgid "Track promotional performance and ROI on marketing campaigns."
+msgstr ""
+
+#: templates/pages/retail_ecommerce.html:281
+#, fuzzy
+#| msgid "Automated client communications and reminders"
+msgid "Automated inventory tracking and reorder alerts"
+msgstr "اتصالات وتذكيرات العملاء الآلية"
+
+#: templates/pages/retail_ecommerce.html:285
+#, fuzzy
+#| msgid "Automatic invoice numbering and due date calculations"
+msgid "Real-time sales and profit margin calculations"
+msgstr "ترقيم الفواتير التلقائي وحسابات تاريخ الاستحقاق"
+
+#: templates/pages/retail_ecommerce.html:289
+#, fuzzy
+#| msgid "Retail & E-commerce Pricing"
+msgid "Integrated POS and e-commerce platform connections"
+msgstr "أسعار البيع بالتجزئة والتجارة الإلكترونية"
+
+#: templates/pages/retail_ecommerce.html:293
+msgid "Automated tax calculations for multiple jurisdictions"
+msgstr ""
+
+#: templates/pages/retail_ecommerce.html:299
+msgid "Business Intelligence"
+msgstr "ذكاء الأعمال"
+
+#: templates/pages/retail_ecommerce.html:303
+#, fuzzy
+#| msgid "Customer Analytics"
+msgid "Customer lifetime value and retention analytics"
+msgstr "تحليلات العملاء"
+
+#: templates/pages/retail_ecommerce.html:307
+#, fuzzy
+#| msgid "Customer profitability reports"
+msgid "Product performance and profitability reports"
+msgstr "تقارير ربحية العملاء"
+
+#: templates/pages/retail_ecommerce.html:311
+#, fuzzy
+#| msgid "Advanced analytics & forecasting"
+msgid "Seasonal trend analysis and forecasting"
+msgstr "تحليلات متقدمة"
+
+#: templates/pages/retail_ecommerce.html:315
+#, fuzzy
+#| msgid "Multi-entity budgeting and forecasting"
+msgid "Multi-channel attribution and marketing ROI"
+msgstr "الميزانية والتنبؤات متعددة الكيانات"
+
+#: templates/pages/retail_ecommerce.html:328
+#, fuzzy
+#| msgid "Retail & E-commerce Pricing"
+msgid "Retail & E-commerce Platform in Action"
+msgstr "أسعار البيع بالتجزئة والتجارة الإلكترونية"
+
+#: templates/pages/retail_ecommerce.html:331
+#, fuzzy
+#| msgid ""
+#| "Specialized accounting solutions for retail stores and online businesses. "
+#| "Manage inventory, sales channels, and customer data with ease."
+msgid ""
+"See how retailers and online stores manage inventory, track sales across "
+"channels, and optimize profitability with Ovovex."
+msgstr ""
+"حلول محاسبية متخصصة لمتاجر البيع بالتجزئة والأعمال عبر الإنترنت. إدارة "
+"المخزون وقنوات المبيعات وبيانات العملاء بسهولة."
+
+#: templates/pages/retail_ecommerce.html:341
+#, fuzzy
+#| msgid "RetailMax Corporation"
+msgid "Retail Operations Demo"
+msgstr "التعاون الجماعي"
+
+#: templates/pages/retail_ecommerce.html:343
+msgid ""
+"Experience our retail platform with multi-channel sales tracking, automated "
+"inventory management, and real-time business analytics for stores and online "
+"businesses."
+msgstr ""
+
+#: templates/pages/retail_ecommerce.html:346
+#, fuzzy
+#| msgid "Watch Full Demo"
+msgid "Watch Retail Demo"
+msgstr "شاهد العرض التوضيحي الكامل"
+
+#: templates/pages/retail_ecommerce.html:357
+#, fuzzy
+#| msgid "Multi-Client Dashboard"
+msgid "Multi-Channel Dashboard"
+msgstr "لوحة معلومات متعددة العملاء"
+
+#: templates/pages/retail_ecommerce.html:359
+#, fuzzy
+#| msgid ""
+#| "Consolidate sales data from online stores, physical locations, and "
+#| "marketplaces. Real-time sales tracking and channel performance analytics."
+msgid ""
+"Unified view of sales across online stores, physical locations, and "
+"marketplaces with real-time performance metrics."
+msgstr ""
+"دمج بيانات المبيعات من المتاجر الإلكترونية والمواقع الفعلية والأسواق. تتبع "
+"المبيعات في الوقت الفعلي وتحليلات أداء القنوات."
+
+#: templates/pages/retail_ecommerce.html:367
+#, fuzzy
+#| msgid "Inventory Management"
+msgid "Smart Inventory Management"
+msgstr "إدارة المخزون"
+
+#: templates/pages/retail_ecommerce.html:369
+#, fuzzy
+#| msgid "Automatic invoice numbering and due date calculations"
+msgid ""
+"Automated stock tracking, low inventory alerts, and intelligent reorder "
+"recommendations across all locations."
+msgstr "ترقيم الفواتير التلقائي وحسابات تاريخ الاستحقاق"
+
+#: templates/pages/retail_ecommerce.html:377
+#, fuzzy
+#| msgid "Customer Analytics"
+msgid "Customer Insights Analytics"
+msgstr "تحليلات العملاء"
+
+#: templates/pages/retail_ecommerce.html:379
+msgid ""
+"Deep customer behavior analysis, purchase patterns, and personalized "
+"marketing recommendations."
+msgstr ""
+
+#: templates/pages/small_business.html:4
+msgid "Small Business Accounting Solutions - Ovovex"
+msgstr "حلول محاسبة الشركات الصغيرة - Ovovex"
+
+#: templates/pages/small_business.html:19
+msgid "Accounting Made Simple for Small Businesses"
+msgstr "محاسبة مبسطة للشركات الصغيرة"
+
+#: templates/pages/small_business.html:22
+msgid ""
+"Streamline your finances with Ovovex. Perfect for businesses with up to 50 "
+"employees. Get professional accounting tools without the complexity."
+msgstr ""
+"بسّط شؤونك المالية مع Ovovex. مثالي للشركات التي تضم ما يصل إلى 50 موظفًا. "
+"احصل على أدوات محاسبية احترافية دون التعقيد."
+
+#: templates/pages/small_business.html:34
+msgid "Everything You Need to Manage Your Finances"
+msgstr "كل ما تحتاجه لإدارة أعمالك"
+
+#: templates/pages/small_business.html:37
+msgid ""
+"From invoicing to tax preparation, Ovovex provides all the tools small "
+"businesses need to stay organized and compliant."
+msgstr ""
+"من إصدار الفواتير إلى التحضير الضريبي، يوفر Ovovex جميع الأدوات التي تحتاجها "
+"الشركات الصغيرة للبقاء منظمة ومتوافقة."
+
+#: templates/pages/small_business.html:52
+msgid "Easy Invoicing"
+msgstr "المبيعات والفواتير"
+
+#: templates/pages/small_business.html:54
+msgid ""
+"Create professional invoices in seconds. Customize templates, send "
+"reminders, and track payments all in one place."
+msgstr ""
+"أنشئ فواتير احترافية في ثوانٍ باستخدام قوالب مدعومة بالذكاء الاصطناعي. تتبع "
+"حالة الدفع وأرسل تذكيرات آلية."
+
+#: templates/pages/small_business.html:63
+msgid "Expense Tracking"
+msgstr "تتبع المصروفات الأساسية"
+
+#: templates/pages/small_business.html:65
+msgid ""
+"Capture receipts with your phone, categorize expenses automatically, and get "
+"real-time insights into your spending."
+msgstr ""
+"التقط الإيصالات، وصنف المصروفات تلقائيًا، وتتبع الإنفاق عبر المشاريع والأقسام."
+
+#: templates/pages/small_business.html:74
+msgid "Financial Reports"
+msgstr "التقارير المالية"
+
+#: templates/pages/small_business.html:76
+msgid ""
+"Generate profit & loss statements, balance sheets, and cash flow reports "
+"with just a few clicks."
+msgstr ""
+"أنشئ بيانات الربح والخسارة والميزانية العمومية وتقارير التدفق النقدي ببضع "
+"نقرات فقط."
+
+#: templates/pages/small_business.html:85
+msgid "Tax Preparation"
+msgstr "التعاون الجماعي"
+
+#: templates/pages/small_business.html:87
+msgid ""
+"Stay organized for tax season with automatic tax calculations, quarterly "
+"estimates, and direct IRS filing."
+msgstr ""
+"ابقَ منظمًا لموسم الضرائب مع حسابات ضريبية تلقائية وتقديرات ربع سنوية وتقديم "
+"مباشر إلى مصلحة الضرائب."
+
+#: templates/pages/small_business.html:96
+msgid "Multi-User Access"
+msgstr "دعم متعدد المستخدمين"
+
+#: templates/pages/small_business.html:98
+msgid ""
+"Give your accountant or bookkeeper secure access to collaborate on your "
+"financial data in real-time."
+msgstr ""
+"امنح محاسبك أو كاتب حساباتك وصولاً آمنًا للتعاون على بياناتك المالية في الوقت "
+"الفعلي."
+
+#: templates/pages/small_business.html:107
+msgid "Easy Integrations"
+msgstr "التكاملات"
+
+#: templates/pages/small_business.html:109
+msgid ""
+"Connect with QuickBooks, Xero, PayPal, Stripe, and hundreds of other "
+"business apps to automate your workflow."
+msgstr ""
+"اتصل بـ QuickBooks وXero وPayPal وStripe ومئات من تطبيقات الأعمال الأخرى "
+"لأتمتة سير عملك."
+
+#: templates/pages/small_business.html:124
+msgid ""
+"Watch how easy it is to manage your small business finances with our "
+"intuitive platform."
+msgstr ""
+"شاهد مدى سهولة إدارة شؤون مشروعك الصغير المالية باستخدام منصتنا البديهية."
+
+#: templates/pages/small_business.html:134
+msgid "Interactive Demo"
+msgstr "لوحات تحكم تفاعلية"
+
+#: templates/pages/small_business.html:136
+msgid ""
+"Experience our platform with a guided tour showing invoicing, expense "
+"tracking, and financial reporting."
+msgstr ""
+"اختبر منصتنا بجولة إرشادية تعرض إصدار الفواتير وتتبع النفقات والتقارير "
+"المالية."
+
+#: templates/pages/small_business.html:150
+msgid "Mobile App Demo"
+msgstr "الوصول إلى تطبيق الهاتف المحمول"
+
+#: templates/pages/small_business.html:152
+msgid "Capture receipts and track expenses on the go with our mobile app."
+msgstr "التقط الإيصالات وتتبع النفقات أثناء التنقل باستخدام تطبيقنا للجوال."
+
+#: templates/pages/small_business.html:160
+msgid "Dashboard Demo"
+msgstr "لوحة التحكم"
+
+#: templates/pages/small_business.html:162
+msgid ""
+"Get real-time insights into your business performance with interactive "
+"dashboards."
+msgstr ""
+"احصل على رؤى في الوقت الفعلي حول أداء عملك بالتحليلات المدعومة بالذكاء "
+"الاصطناعي والتنبؤات."
+
+#: templates/pages/small_business.html:170
+#: templates/pages/smart_invoicing.html:252
+msgid "Invoicing Demo"
+msgstr "عرض توضيحي للفواتير الذكية"
+
+#: templates/pages/small_business.html:172
+msgid "Create and send professional invoices in under 60 seconds."
+msgstr "أنشئ وأرسل فواتير احترافية في أقل من 60 ثانية."
+
+#: templates/pages/small_business.html:184
+msgid "Comprehensive Accounting Features"
+msgstr "ميزات المحاسبة الأساسية"
+
+#: templates/pages/small_business.html:187
+msgid ""
+"Everything you need to manage your business finances, from basic bookkeeping "
+"to advanced reporting."
+msgstr ""
+"كل ما تحتاجه لإدارة شؤون أعمالك المالية، من مسك الدفاتر الأساسي إلى التقارير "
+"المتقدمة."
+
+#: templates/pages/small_business.html:195
+msgid "Professional Invoicing"
+msgstr "احترافي"
+
+#: templates/pages/small_business.html:199
+msgid "Customizable invoice templates with your branding"
+msgstr "قوالب فواتير قابلة للتخصيص بعلامتك التجارية"
+
+#: templates/pages/small_business.html:203
+msgid "Automatic invoice numbering and due date calculations"
+msgstr "ترقيم الفواتير التلقائي وحسابات تاريخ الاستحقاق"
+
+#: templates/pages/small_business.html:207
+msgid "Payment tracking and overdue reminders"
+msgstr "تتبع المدفوعات وتذكيرات التأخير"
+
+#: templates/pages/small_business.html:211
+msgid "Recurring invoices for subscription businesses"
+msgstr "الفواتير المتكررة والتذكيرات"
+
+#: templates/pages/small_business.html:215
+msgid "Multi-currency support for international clients"
+msgstr "دعم متعدد العملات"
+
+#: templates/pages/small_business.html:222
+msgid "Create invoices 5x faster than traditional methods"
+msgstr "أنشئ فواتير أسرع بـ 5 مرات من الطرق التقليدية"
+
+#: templates/pages/small_business.html:232
+msgid "AI-powered receipt scanning and categorization"
+msgstr "مسح وتصنيف الإيصالات بالذكاء الاصطناعي"
+
+#: templates/pages/small_business.html:236
+msgid "Smart Expense Tracking"
+msgstr "تتبع المصروفات الأساسية"
+
+#: templates/pages/small_business.html:240
+msgid "Snap receipts with your phone for instant digitization"
+msgstr "التقط الإيصالات بهاتفك للرقمنة الفورية"
+
+#: templates/pages/small_business.html:244
+msgid "Automatic expense categorization using AI"
+msgstr "تصنيف المصروفات تلقائيًا"
+
+#: templates/pages/small_business.html:248
+msgid "Mileage tracking for business travel"
+msgstr "تتبع المسافات المقطوعة"
+
+#: templates/pages/small_business.html:252
+msgid "Integration with credit cards and bank accounts"
+msgstr "التكامل مع بطاقات الائتمان والحسابات المصرفية"
+
+#: templates/pages/small_business.html:256
+msgid "Tax-deductible expense identification"
+msgstr "تحديد النفقات القابلة للخصم الضريبي"
+
+#: templates/pages/small_business.html:265
+msgid "Advanced Financial Reports"
+msgstr "التقارير المالية"
+
+#: templates/pages/small_business.html:269
+msgid "Profit & Loss statements with customizable date ranges"
+msgstr "بيانات الربح والخسارة مع نطاقات تاريخ قابلة للتخصيص"
+
+#: templates/pages/small_business.html:273
+msgid "Balance sheet and cash flow reports"
+msgstr "تقارير الميزانية العمومية والتدفق النقدي"
+
+#: templates/pages/small_business.html:277
+msgid "Budget vs actual spending analysis"
+msgstr "تحليل الميزانية مقابل الإنفاق الفعلي"
+
+#: templates/pages/small_business.html:281
+msgid "Customer profitability reports"
+msgstr "تقارير ربحية العملاء"
+
+#: templates/pages/small_business.html:285
+msgid "Export to PDF, Excel, or QuickBooks format"
+msgstr "التصدير بتنسيق PDF أو Excel أو QuickBooks"
+
+#: templates/pages/small_business.html:292
+msgid "Real-time financial insights at your fingertips"
+msgstr "رؤى في الوقت الفعلي في متناول يدك"
+
+#: templates/pages/small_business.html:305
+msgid "Trusted by Small Business Owners"
+msgstr "رائع للشركات الصغيرة"
+
+#: templates/pages/small_business.html:308
+msgid "See what our customers say about managing their finances with Ovovex."
+msgstr "انظر ماذا يقول عملاؤنا عن إدارة شؤونهم المالية مع Ovovex."
+
+#: templates/pages/small_business.html:320
+msgid "Sarah Martinez"
+msgstr "سارة مارتينيز"
+
+#: templates/pages/small_business.html:321
+msgid "Owner, Martinez Consulting"
+msgstr "مالك، استشارات مارتينيز"
+
+#: templates/pages/small_business.html:325
+msgid ""
+"Ovovex saved me 20 hours per month on bookkeeping. The automated invoicing "
+"and expense tracking features are game-changers for my small business."
+msgstr ""
+"وفر لي Ovovex 20 ساعة شهريًا في مسك الدفاتر. ميزات الفوترة التلقائية وتتبع "
+"النفقات غيّرت قواعد اللعبة لمشروعي الصغير."
+
+#: templates/pages/small_business.html:343
+msgid "David Johnson"
+msgstr "ديفيد جونسون"
+
+#: templates/pages/small_business.html:344
+msgid "Owner, Johnson Bakery"
+msgstr "مالك، مخبز جونسون"
+
+#: templates/pages/small_business.html:348
+msgid ""
+"As a bakery owner, I need accurate financial tracking. Ovovex's mobile app "
+"lets me capture receipts instantly, and the reports help me make better "
+"business decisions."
+msgstr ""
+"كمالك مخبز، أحتاج إلى تتبع مالي دقيق. تطبيق Ovovex للجوال يتيح لي التقاط "
+"الإيصالات على الفور، والتقارير تساعدني في اتخاذ قرارات عمل أفضل."
+
+#: templates/pages/small_business.html:366
+msgid "Rachel Lee"
+msgstr "راشيل لي"
+
+#: templates/pages/small_business.html:367
+msgid "Owner, Lee Design Studio"
+msgstr "مالك، استوديو لي للتصميم"
+
+#: templates/pages/small_business.html:371
+msgid ""
+"The customer support is amazing, and the software is so intuitive. I went "
+"from dreading tax season to actually understanding my business finances."
+msgstr ""
+"دعم العملاء رائع والبرنامج سهل الاستخدام للغاية. انتقلت من الخوف من موسم "
+"الضرائب إلى فهم شؤون أعمالي المالية بالفعل."
+
+#: templates/pages/small_business.html:393
+msgid ""
+"Choose the plan that fits your small business needs. No hidden fees, no "
+"surprises."
+msgstr "اختر الخطة التي تناسب احتياجات عملك"
+
+#: templates/pages/small_business.html:402
+#: templates/pages/small_business.html:435
+#: templates/pages/small_business.html:469
+msgid "/month"
+msgstr "شهر"
+
+#: templates/pages/small_business.html:403
+msgid "Perfect for freelancers and solo entrepreneurs"
+msgstr "مثالي للمستقلين ورواد الأعمال الفرديين"
+
+#: templates/pages/small_business.html:407
+msgid "Up to 50 invoices per month"
+msgstr "ما يصل إلى 5 فواتير شهريًا"
+
+#: templates/pages/small_business.html:411
+msgid "Expense tracking"
+msgstr "تتبع المصروفات الأساسية"
+
+#: templates/pages/small_business.html:415
+msgid "Basic financial reports"
+msgstr "التقارير المالية"
+
+#: templates/pages/small_business.html:436
+msgid "Ideal for growing small businesses"
+msgstr "رائع للشركات الصغيرة"
+
+#: templates/pages/small_business.html:448
+msgid "Full financial reporting suite"
+msgstr "التقارير المالية"
+
+#: templates/pages/small_business.html:452
+msgid "Multi-user access (up to 3 users)"
+msgstr "دعم متعدد المستخدمين"
+
+#: templates/pages/small_business.html:456
+msgid "Priority customer support"
+msgstr "دعم بريد إلكتروني ذو أولوية"
+
+#: templates/pages/small_business.html:468
+msgid "Premium"
+msgstr "ممتاز"
+
+#: templates/pages/small_business.html:470
+msgid "For established businesses with advanced needs"
+msgstr "للشركات الراسخة ذات الاحتياجات المتقدمة"
+
+#: templates/pages/small_business.html:482
+msgid "Advanced analytics & forecasting"
+msgstr "تحليلات متقدمة"
+
+#: templates/pages/small_business.html:507
+msgid "Frequently Asked Questions"
+msgstr "الأسئلة الشائعة"
+
+#: templates/pages/small_business.html:510
+msgid "Get answers to common questions about Ovovex for small businesses."
+msgstr "احصل على إجابات على الأسئلة الشائعة حول Ovovex للشركات الصغيرة."
+
+#: templates/pages/small_business.html:516
+msgid "How long does it take to set up Ovovex?"
+msgstr "كم من الوقت يستغرق إعداد Ovovex؟"
+
+#: templates/pages/small_business.html:517
+msgid ""
+"Most small businesses can get started in under 30 minutes. We provide guided "
+"setup wizards and import tools for your existing data."
+msgstr ""
+"يمكن لمعظم الشركات الصغيرة البدء في أقل من 30 دقيقة. نوفر معالجات إعداد "
+"موجهة وأدوات استيراد لبياناتك الحالية."
+
+#: templates/pages/small_business.html:521
+msgid "Can I import my existing financial data?"
+msgstr "هل يمكنني استيراد بياناتي المالية الحالية؟"
+
+#: templates/pages/small_business.html:522
+msgid ""
+"Yes! We support importing from QuickBooks, Xero, Excel spreadsheets, and "
+"most accounting software. Our team can help with complex migrations."
+msgstr ""
+"نعم! ندعم الاستيراد من QuickBooks وXero وجداول Excel ومعظم برامج المحاسبة. "
+"يمكن لفريقنا المساعدة في عمليات الترحيل المعقدة."
+
+#: templates/pages/small_business.html:526
+msgid "Is my financial data secure?"
+msgstr "هل بياناتي المالية آمنة؟"
+
+#: templates/pages/small_business.html:527
+msgid ""
+"Absolutely. We use bank-grade 256-bit SSL encryption, regular security "
+"audits, and comply with SOC 2 Type II standards. Your data is safer with us "
+"than in most banks."
+msgstr ""
+"بالتأكيد. نستخدم تشفير SSL 256 بت بمستوى البنوك، وعمليات تدقيق أمنية منتظمة، "
+"ونلتزم بمعايير SOC 2 Type II. بياناتك أكثر أمانًا معنا من معظم البنوك."
+
+#: templates/pages/small_business.html:531
+msgid "What kind of support do you provide?"
+msgstr "ما نوع الدعم الذي تقدمونه؟"
+
+#: templates/pages/small_business.html:532
+msgid ""
+"All plans include email support with 24-hour response times. Professional "
+"and Premium plans include phone support and priority assistance."
+msgstr ""
+"تتضمن جميع الخطط دعمًا عبر البريد الإلكتروني مع أوقات استجابة 24 ساعة. تتضمن "
+"الخطط الاحترافية والممتازة دعمًا هاتفيًا ومساعدة ذات أولوية."
+
+#: templates/pages/small_business.html:536
+msgid "Can I cancel my subscription anytime?"
+msgstr "هل يمكنني إلغاء اشتراكي؟"
+
+#: templates/pages/small_business.html:537
+msgid ""
+"Yes, you can cancel your subscription at any time with no penalties. Your "
+"data remains accessible for 30 days after cancellation for export purposes."
+msgstr ""
+"نعم، يمكنك إلغاء اشتراكك في أي وقت دون عقوبات. تظل بياناتك متاحة لمدة 30 "
+"يومًا بعد الإلغاء لأغراض التصدير."
+
+#: templates/pages/small_business.html:547
+msgid "Ready to Simplify Your Accounting?"
+msgstr "هل أنت مستعد لتحويل محاسبتك؟"
+
+#: templates/pages/small_business.html:550
+msgid ""
+"Join thousands of small businesses who trust Ovovex to handle their "
+"finances. Start your free trial today."
+msgstr ""
+"انضم إلى آلاف الشركات التي تستخدم بالفعل Ovovex لتبسيط محاسبتها. ابدأ النسخة "
+"التجريبية المجانية اليوم - لا حاجة لبطاقة ائتمان."
+
+#: templates/pages/smart_invoicing.html:22
+#, fuzzy
+#| msgid "Smart Invoicing & Billing"
+msgid " Smart Invoicing Solutions "
+msgstr "الفواتير والفوترة الذكية"
+
+#: templates/pages/smart_invoicing.html:32
+#, fuzzy
+#| msgid "Smart Invoicing"
+msgid " Try Smart Invoicing "
+msgstr "الفواتير الذكية"
+
+#: templates/pages/smart_invoicing.html:37
+#, fuzzy
+#| msgid "Automated Payment Processing"
+msgid " Automated Billing & Payments "
+msgstr "مسك الدفاتر الآلي"
+
+#: templates/pages/smart_invoicing.html:61
+msgid "One-Click Invoicing"
+msgstr "المبيعات والفواتير"
+
+#: templates/pages/smart_invoicing.html:80
+msgid "Payment Processing"
+msgstr "معالجة بالذكاء الاصطناعي"
+
+#: templates/pages/smart_invoicing.html:99
+msgid "Automated Reminders"
+msgstr "مسك الدفاتر الآلي"
+
+#: templates/pages/smart_invoicing.html:118
+msgid "Recurring Billing"
+msgstr "أتمتة الفواتير المتكررة"
+
+#: templates/pages/smart_invoicing.html:137
+msgid "Mobile Invoicing"
+msgstr "المبيعات والفواتير"
+
+#: templates/pages/smart_invoicing.html:156
+msgid "Payment Analytics"
+msgstr "التحليلات في الوقت الفعلي"
+
+#: templates/pages/smart_invoicing.html:173
+#, fuzzy
+#| msgid "Smart Invoicing"
+msgid " Why Choose Smart Invoicing? "
+msgstr "الفواتير الذكية"
+
+#: templates/pages/smart_invoicing.html:180
+msgid "Faster Payments"
+msgstr "مدفوعات أسرع"
+
+#: templates/pages/smart_invoicing.html:204
+msgid "Professional Presentation"
+msgstr "احترافي"
+
+#: templates/pages/smart_invoicing.html:234
+#, fuzzy
+#| msgid "Smart Invoicing & Billing"
+msgid " Smart Invoicing in Action "
+msgstr "الفواتير والفوترة الذكية"
+
+#: templates/pages/smart_invoicing.html:262
+#, fuzzy
+#| msgid "Smart Invoicing Demo"
+msgid " Watch Invoicing Demo "
+msgstr "عرض توضيحي للفواتير الذكية"
+
+#: templates/pages/smart_invoicing.html:276
+msgid "One-Click Invoice Creation"
+msgstr "إنشاء فاتورة بنقرة واحدة"
+
+#: templates/pages/smart_invoicing.html:294
+msgid "Automated Payment Processing"
+msgstr "مسك الدفاتر الآلي"
+
+#: templates/pages/smart_invoicing.html:312
+msgid "Cash Flow Analytics"
+msgstr "التنبؤ بالتدفق النقدي"
+
+#: templates/pages/smart_invoicing.html:330
+#, fuzzy
+#| msgid "Comprehensive Accounting Features"
+msgid " Comprehensive Invoicing Features "
+msgstr "ميزات المحاسبة الأساسية"
+
+#: templates/pages/smart_invoicing.html:343
+msgid "Intelligent Invoice Creation"
+msgstr "إنشاء فواتير ذكي"
+
+#: templates/pages/smart_invoicing.html:386
+msgid "Get paid faster with integrated payment solutions"
+msgstr "احصل على أموالك بشكل أسرع مع حلول الدفع المتكاملة"
+
+#: templates/pages/smart_invoicing.html:392
+msgid "Advanced Payment Processing"
+msgstr "تتبع متقدم للمصروفات"
+
+#: templates/pages/smart_invoicing.html:423
+msgid "Smart Automation & Insights"
+msgstr "رؤى ذكية"
+
+#: templates/pages/smart_invoicing.html:452
+msgid "Turn invoicing data into business intelligence"
+msgstr "حوّل بيانات الفوترة إلى ذكاء الأعمال"
+
+#: templates/pages/smart_invoicing.html:466
+#, fuzzy
+#| msgid "Smart Invoicing"
+msgid " Businesses Love Smart Invoicing "
+msgstr "الفواتير الذكية"
+
+#: templates/pages/smart_invoicing.html:485
+msgid "Design Co."
+msgstr "شركة التصميم"
+
+#: templates/pages/smart_invoicing.html:487
+msgid "Creative Agency"
+msgstr "وكالة إبداعية"
+
+#: templates/pages/smart_invoicing.html:514
+msgid "Tech Solutions"
+msgstr "الحلول"
+
+#: templates/pages/smart_invoicing.html:517
+msgid "IT Services Company"
+msgstr "شركة خدمات تقنية المعلومات"
+
+#: templates/pages/smart_invoicing.html:545
+msgid "Consulting Corp"
+msgstr "نواة المحاسبة"
+
+#: templates/pages/smart_invoicing.html:548
+msgid "Management Consulting"
+msgstr "استشارات الإدارة"
+
+#: templates/pages/smart_invoicing.html:574
+#, fuzzy
+#| msgid "Smart Invoicing & Billing"
+msgid " Smart Invoicing Pricing "
+msgstr "الفواتير والفوترة الذكية"
+
+#: templates/pages/smart_invoicing.html:593
+msgid "Perfect for freelancers and small businesses"
+msgstr "رائع للشركات الصغيرة"
+
+#: templates/pages/smart_invoicing.html:643
+msgid "Ideal for growing businesses"
+msgstr "رائع للشركات الصغيرة"
+
+#: templates/pages/smart_invoicing.html:689
+msgid "For large organizations with complex needs"
+msgstr "للمؤسسات الكبيرة"
+
+#: templates/pages/smart_invoicing.html:733
+#, fuzzy
+#| msgid "Smart Invoicing"
+msgid " Smart Invoicing FAQ "
+msgstr "الفواتير الذكية"
+
+#: templates/pages/smart_invoicing.html:744
+msgid "How quickly can I start sending invoices?"
+msgstr "ما مدى سرعة البدء في إرسال الفواتير؟"
+
+#: templates/pages/smart_invoicing.html:755
+msgid "What payment methods do you support?"
+msgstr "ما هي طرق الدفع التي تقبلونها؟"
+
+#: templates/pages/smart_invoicing.html:767
+msgid "Can I customize invoice templates?"
+msgstr "هل يمكنني تخصيص قوالب الفواتير؟"
+
+#: templates/pages/smart_invoicing.html:779
+msgid "How do automated reminders work?"
+msgstr "كيف تعمل التذكيرات الآلية؟"
+
+#: templates/pages/smart_invoicing.html:791
+msgid "Is my payment data secure?"
+msgstr "هل بيانات الدفع الخاصة بي آمنة؟"
+
+#: templates/pages/smart_invoicing.html:808
+msgid " Get Paid Faster with Smart Invoicing "
+msgstr ""
+
+#: templates/pages/smart_invoicing.html:817
+#, fuzzy
+#| msgid "Smart Invoicing Demo"
+msgid " Start Invoicing Smart "
+msgstr "عرض توضيحي للفواتير الذكية"
+
+#: templates/pages/starter_signup.html:7
+#, fuzzy
+#| msgid "Join Ovovex"
+msgid "Join Ovovex Starter Plan"
+msgstr "انضم إلى Ovovex"
+
+#: templates/pages/starter_signup.html:22
+#, fuzzy
+#| msgid "Starter"
+msgid "Starter Plan"
+msgstr "البداية"
+
+#: templates/pages/starter_signup.html:30
+msgid "30-Day Free Trial - No Credit Card Required"
+msgstr ""
+
+#: templates/pages/starter_signup.html:35
+#, fuzzy
+#| msgid "Perfect for small businesses getting started with AI"
+msgid "Perfect for Small Businesses Ready to Grow"
+msgstr "مثالي للبدء"
+
+#: templates/pages/starter_signup.html:50
+#, fuzzy
+#| msgid "Unlimited invoices"
+msgid "Unlimited invoices & expenses"
+msgstr "فواتير غير محدودة"
+
+#: templates/pages/starter_signup.html:59
+#, fuzzy
+#| msgid "Up to 50 employees"
+msgid "Up to 5 team members"
+msgstr "حتى 50 موظف"
+
+#: templates/pages/starter_signup.html:67
+#, fuzzy
+#| msgid "Priority email support"
+msgid "Priority support included"
+msgstr "دعم بريد إلكتروني ذو أولوية"
+
+#: templates/pages/starter_signup.html:75
+#, fuzzy
+#| msgid "API-first architecture for custom integrations"
+msgid "API access for integrations"
+msgstr "بنية API أولاً للتكاملات المخصصة"
+
+#: templates/pages/starter_signup.html:84
+#, fuzzy
+#| msgid "Is there a free trial?"
+msgid "After your free trial ends"
+msgstr "هل هناك نسخة تجريبية مجانية؟"
+
+#: templates/pages/starter_signup.html:89
+#, fuzzy
+#| msgid "Free"
+msgid "Days Free"
+msgstr "مجاني"
+
+#: templates/pages/starter_signup.html:93
+msgid "Team Members"
+msgstr ""
+
+#: templates/pages/starter_signup.html:97
+#, fuzzy
+#| msgid "Monthly Invoices"
+msgid "Invoices"
+msgstr "الفواتير الشهرية"
+
+#: templates/pages/starter_signup.html:109
+#, fuzzy
+#| msgid "Start Free Trial"
+msgid "Start Your Free Trial"
+msgstr "ابدأ التجربة المجانية"
+
+#: templates/pages/starter_signup.html:112
+msgid "Create your account and get started in minutes"
+msgstr ""
+
+#~ msgid "Why Retailers Choose Ovovex"
+#~ msgstr "لماذا يختار تجار التجزئة Ovovex"
+
+#, fuzzy
+#~| msgid "Comprehensive Accounting Features"
+#~ msgid "Comprehensive Retail Accounting Features"
+#~ msgstr "ميزات المحاسبة الأساسية"
+
+#, fuzzy
+#~| msgid ""
+#~| "Every tool your enterprise needs for complex financial management, from "
+#~| "multi-entity operations to global compliance."
+#~ msgid ""
+#~ "Everything retail and e-commerce businesses need for accurate financial "
+#~ "management, from inventory tracking to customer analytics."
+#~ msgstr ""
+#~ "كل أداة تحتاجها مؤسستك للإدارة المالية المعقدة، من عمليات الكيانات "
+#~ "المتعددة إلى الامتثال العالمي."
+
+#, fuzzy
+#~| msgid "Inventory Management"
+#~ msgid "Advanced Inventory Management"
+#~ msgstr "إدارة المخزون"
+
+#, fuzzy
+#~| msgid "Multi-Channel Sales"
+#~ msgid "Omni-Channel Sales Management"
+#~ msgstr "مبيعات متعددة القنوات"
+
+#, fuzzy
+#~| msgid "Automated inter-company transactions and eliminations"
+#~ msgid "Automated transaction matching and reconciliation"
+#~ msgstr "معاملات وإلغاءات آلية بين الشركات"
+
+#, fuzzy
+#~| msgid "Common questions about our pricing and plans."
+#~ msgid "A/B testing analytics for pricing and promotions"
+#~ msgstr "أسئلة شائعة حول أسعارنا وخططنا."
+
+#~ msgid "Trusted by Retailers & Online Stores"
+#~ msgstr "موثوق به من قبل تجار التجزئة والمتاجر الإلكترونية"
+
+#~ msgid ""
+#~ "See what retail businesses say about managing their finances with Ovovex."
+#~ msgstr ""
+#~ "انظر ماذا تقول شركات البيع بالتجزئة عن إدارة شؤونها المالية مع Ovovex."
+
+#~ msgid "Fashion Store Plus"
+#~ msgstr "متجر الأزياء بلس"
+
+#~ msgid "Multi-location Retail Chain"
+#~ msgstr "سلسلة بيع بالتجزئة متعددة المواقع"
+
+#~ msgid "Eco Commerce"
+#~ msgstr "إيكو كوميرس"
+
+#~ msgid "Sustainable Products E-commerce"
+#~ msgstr "التجارة الإلكترونية للمنتجات المستدامة"
+
+#~ msgid "Home & Market"
+#~ msgstr "هوم أند ماركت"
+
+#~ msgid "Home Goods Marketplace"
+#~ msgstr "سوق السلع المنزلية"
+
+#~ msgid ""
+#~ "Flexible pricing designed for retail businesses of all sizes, from single "
+#~ "stores to multi-channel operations."
+#~ msgstr ""
+#~ "أسعار مرنة مصممة لشركات البيع بالتجزئة من جميع الأحجام، من المتاجر "
+#~ "المنفردة إلى العمليات متعددة القنوات."
+
+#~ msgid "Starter Store"
+#~ msgstr "المتجر المبتدئ"
+
+#~ msgid "Growing Business"
+#~ msgstr "الأعمال المتنامية"
+
+#~ msgid "Enterprise Retail"
+#~ msgstr "البيع بالتجزئة المؤسسي"
+
+#~ msgid "Retail & E-commerce FAQ"
+#~ msgstr "الأسئلة الشائعة حول البيع بالتجزئة والتجارة الإلكترونية"
+
+#~ msgid "Answers to common questions from retail and online business owners."
+#~ msgstr ""
+#~ "إجابات على الأسئلة الشائعة من أصحاب متاجر البيع بالتجزئة والأعمال "
+#~ "الإلكترونية."
+
+#~ msgid "Grow Your Retail Business"
+#~ msgstr "نمِّ أعمال البيع بالتجزئة الخاصة بك"
+
+#~ msgid ""
+#~ "Join successful retailers who use Ovovex to optimize operations, increase "
+#~ "profitability, and scale their businesses."
+#~ msgstr ""
+#~ "انضم إلى تجار التجزئة الناجحين الذين يستخدمون Ovovex لتحسين العمليات "
+#~ "وزيادة الربحية وتوسيع نطاق أعمالهم."
+
+#~ msgid ""
+#~ "Access your dashboard and manage your finances with ease. Your accounting "
+#~ "data is secured with bank-grade encryption."
+#~ msgstr ""
+#~ "الوصول إلى لوحة المعلومات الخاصة بك وإدارة أموالك بسهولة. بياناتك "
+#~ "المحاسبية محمية بتشفير بمستوى البنوك."
+
+#~ msgid ""
+#~ "Your data is protected with 256-bit SSL encryption and advanced security "
+#~ "protocols."
+#~ msgstr "بياناتك محمية بتشفير SSL بسعة 256 بت وبروتوكولات أمان متقدمة."
+
+#~ msgid ""
+#~ "Join thousands of businesses who trust Ovovex for their accounting needs. "
+#~ "Get started in minutes with our intuitive platform."
+#~ msgstr ""
+#~ "انضم إلى آلاف الشركات التي تثق في Ovovex لتلبية احتياجاتها المحاسبية. "
+#~ "ابدأ في دقائق مع منصتنا سهلة الاستخدام."
+
+#~ msgid ""
+#~ "Professional accounting software with AI-powered automation, IFRS "
+#~ "compliance, and enterprise-grade security for modern businesses."
+#~ msgstr ""
+#~ "برنامج محاسبة احترافي بأتمتة مدعومة بالذكاء الاصطناعي، والامتثال لمعايير "
+#~ "IFRS، وأمان بمستوى المؤسسات للأعمال الحديثة."
+
+#~ msgid ""
+#~ "Empowering businesses with intelligent, IFRS-compliant accounting "
+#~ "solutions for the modern world."
+#~ msgstr "تمكين الشركات بحلول محاسبية ذكية ومتوافقة مع IFRS للعالم الحديث."
+
+#~ msgid ""
+#~ "Automated, secure, and IFRS-compliant accounting system made for modern "
+#~ "teams. Transform your financial management with intelligent automation."
+#~ msgstr ""
+#~ "نظام محاسبة آلي وآمن ومتوافق مع معايير IFRS مصمم للفرق الحديثة. حوّل "
+#~ "إدارتك المالية بالأتمتة الذكية."
+
+#~ msgid ""
+#~ "Watch our comprehensive video demo to see how Ovovex transforms "
+#~ "accounting workflows with AI-powered automation"
+#~ msgstr ""
+#~ "شاهد عرض الفيديو الشامل لترى كيف تحوّل Ovovex سير عمل المحاسبة بالأتمتة "
+#~ "المدعومة بالذكاء الاصطناعي"
+
+#~ msgid ""
+#~ "Watch our comprehensive video walkthrough to see how Ovovex streamlines "
+#~ "accounting processes with intelligent automation and real-time insights."
+#~ msgstr ""
+#~ "شاهد الشرح الشامل لترى كيف تبسط Ovovex عمليات المحاسبة بالأتمتة الذكية "
+#~ "والرؤى في الوقت الفعلي."
+
+#~ msgid ""
+#~ "See every feature in action, from invoice generation to financial "
+#~ "reporting"
+#~ msgstr "شاهد كل ميزة أثناء العمل، من إنشاء الفواتير إلى التقارير المالية"
+
+#~ msgid ""
+#~ "Watch AI-powered features like smart categorization and anomaly detection"
+#~ msgstr "شاهد ميزات الذكاء الاصطناعي مثل التصنيف الذكي وكشف الشذوذ"
+
+#~ msgid ""
+#~ "Experience live financial insights and interactive reporting capabilities"
+#~ msgstr "اختبر الرؤى المالية المباشرة وإمكانيات التقارير التفاعلية"
+
+#~ msgid "See how multiple users can work together seamlessly in real-time"
+#~ msgstr "شاهد كيف يمكن للمستخدمين المتعددين العمل معًا بسلاسة في الوقت الفعلي"
+
+#~ msgid ""
+#~ "From invoicing to financial reporting, Ovovex provides comprehensive "
+#~ "accounting tools designed for modern businesses"
+#~ msgstr ""
+#~ "من الفواتير إلى التقارير المالية، توفر Ovovex أدوات محاسبية شاملة مصممة "
+#~ "للشركات الحديثة"
+
+#~ msgid ""
+#~ "Create professional invoices in seconds with AI-powered templates. Track "
+#~ "payment status and send automated reminders."
+#~ msgstr ""
+#~ "أنشئ فواتير احترافية في ثوانٍ باستخدام قوالب مدعومة بالذكاء الاصطناعي. "
+#~ "تتبع حالة الدفع وأرسل تذكيرات آلية."
+
+#~ msgid ""
+#~ "Get real-time insights into your business performance with AI-driven "
+#~ "analytics and predictive forecasting."
+#~ msgstr ""
+#~ "احصل على رؤى في الوقت الفعلي حول أداء عملك بالتحليلات المدعومة بالذكاء "
+#~ "الاصطناعي والتنبؤات."
+
+#~ msgid ""
+#~ "Capture receipts, categorize expenses automatically, and track spending "
+#~ "across projects and departments."
+#~ msgstr ""
+#~ "التقط الإيصالات، وصنف المصروفات تلقائيًا، وتتبع الإنفاق عبر المشاريع "
+#~ "والأقسام."
+
+#~ msgid ""
+#~ "Work seamlessly with your team, accountants, and stakeholders with role-"
+#~ "based permissions and real-time collaboration."
+#~ msgstr ""
+#~ "اعمل بسلاسة مع فريقك والمحاسبين وأصحاب المصلحة بأذونات قائمة على الأدوار "
+#~ "وتعاون في الوقت الفعلي."
+
+#~ msgid ""
+#~ "Bank-level security with IFRS compliance, automated backups, and "
+#~ "comprehensive audit capabilities."
+#~ msgstr ""
+#~ "أمان بمستوى البنوك مع امتثال IFRS ونسخ احتياطي آلي وقدرات تدقيق شاملة."
+
+#~ msgid ""
+#~ "Connect with 200+ business apps including banks, payment processors, "
+#~ "CRMs, and e-commerce platforms."
+#~ msgstr ""
+#~ "اتصل مع أكثر من 200 تطبيق أعمال بما في ذلك البنوك ومعالجات الدفع وأنظمة "
+#~ "CRM ومنصات التجارة الإلكترونية."
+
+#~ msgid ""
+#~ "Leverage artificial intelligence to automate routine tasks, gain "
+#~ "insights, and make smarter financial decisions"
+#~ msgstr ""
+#~ "استفد من الذكاء الاصطناعي لأتمتة المهام الروتينية والحصول على رؤى واتخاذ "
+#~ "قرارات مالية أذكى"
+
+#~ msgid ""
+#~ "Our AI learns from your business patterns to automatically categorize "
+#~ "transactions, saving you hours of manual work each week."
+#~ msgstr ""
+#~ "يتعلم ذكاؤنا الاصطناعي من أنماط عملك لتصنيف المعاملات تلقائيًا، مما يوفر "
+#~ "لك ساعات من العمل اليدوي كل أسبوع."
+
+#~ msgid ""
+#~ "Forecast cash flow and identify trends before they impact your business"
+#~ msgstr "تنبأ بالتدفق النقدي وحدد الاتجاهات قبل أن تؤثر على عملك"
+
+#~ msgid "Automatically flag unusual transactions and potential fraud attempts"
+#~ msgstr ""
+#~ "وضع علامة تلقائيًا على المعاملات غير العادية ومحاولات الاحتيال المحتملة"
+
+#~ msgid ""
+#~ "Receive personalized recommendations to optimize your financial "
+#~ "performance"
+#~ msgstr "احصل على توصيات مخصصة لتحسين أدائك المالي"
+
+#~ msgid ""
+#~ "Ask questions about your finances in plain English and get instant answers"
+#~ msgstr "اطرح أسئلة حول أموالك بلغة بسيطة واحصل على إجابات فورية"
+
+#~ msgid ""
+#~ "Automated recurring invoices, payment reminders, and multi-currency "
+#~ "support with IFRS compliance."
+#~ msgstr "فواتير متكررة آلية وتذكيرات دفع ودعم متعدد العملات مع امتثال IFRS."
+
+#~ msgid ""
+#~ "AI-powered transaction categorization and automated journal entries "
+#~ "following IFRS standards."
+#~ msgstr ""
+#~ "تصنيف معاملات مدعوم بالذكاء الاصطناعي وقيود يومية آلية تتبع معايير IFRS."
+
+#~ msgid ""
+#~ "Live financial dashboards, KPI tracking, and predictive analytics for "
+#~ "informed decision-making."
+#~ msgstr ""
+#~ "لوحات تحكم مالية مباشرة وتتبع مؤشرات الأداء والتحليلات التنبؤية لاتخاذ "
+#~ "قرارات مستنيرة."
+
+#~ msgid ""
+#~ "Handle multiple entities and currencies with automatic consolidation and "
+#~ "intercompany transactions."
+#~ msgstr ""
+#~ "تعامل مع عدة كيانات وعملات مع الدمج التلقائي والمعاملات بين الشركات."
+
+#~ msgid ""
+#~ "Smart forecasting, anomaly detection, and automated financial analysis "
+#~ "with machine learning."
+#~ msgstr "تنبؤات ذكية وكشف الشذوذ وتحليل مالي آلي بالتعلم الآلي."
+
+#~ msgid ""
+#~ "AES-256 encryption, 2FA, ISO 27001 compliance, and regular security "
+#~ "audits for data protection."
+#~ msgstr ""
+#~ "تشفير AES-256 ومصادقة ثنائية وامتثال ISO 27001 وعمليات تدقيق أمنية منتظمة "
+#~ "لحماية البيانات."
+
+#~ msgid ""
+#~ "Your financial data is protected with bank-level security and "
+#~ "international compliance standards."
+#~ msgstr "بياناتك المالية محمية بأمان بمستوى البنوك ومعايير الامتثال الدولية."
+
+#~ msgid ""
+#~ "Join 10,000+ businesses already using Ovovex for smarter financial "
+#~ "management"
+#~ msgstr ""
+#~ "انضم إلى أكثر من 10,000 شركة تستخدم بالفعل Ovovex للإدارة المالية الذكية"
+
+#~ msgid "Bank-Grade Security - Ovovex"
+#~ msgstr "أمان بمستوى البنوك"
+
+#~ msgid "Answers to common questions about our bank-grade security platform."
+#~ msgstr "أسئلة شائعة حول أسعارنا وخططنا."
+
+#~ msgid ""
+#~ "Yes, we provide APIs and integrations with popular security tools like "
+#~ "SIEM systems, identity providers, and compliance platforms. Enterprise "
+#~ "plans include custom integration support."
+#~ msgstr "المؤسسات"
+
+#~ msgid "IFRS Compliance - Ovovex"
+#~ msgstr "الامتثال لمعايير IFRS"
+
+#~ msgid "Advanced IFRS compliance for multinational corporations"
+#~ msgstr "المؤسسات"
+
+#~ msgid ""
+#~ "Yes, Professional and Enterprise plans include automatic XBRL tagging for "
+#~ "regulatory filings in multiple jurisdictions, ensuring your financial "
+#~ "statements are ready for submission to stock exchanges and regulators."
+#~ msgstr "المؤسسات"
+
+#~ msgid "Pricing Plans - Ovovex"
+#~ msgstr "خطط الأسعار - Ovovex"
+
+#~ msgid ""
+#~ "Start free and scale as you grow. All plans include our core accounting "
+#~ "features with advanced capabilities for growing businesses."
+#~ msgstr ""
+#~ "ابدأ مجانًا وتوسع مع نموك. جميع الخطط تشمل ميزات المحاسبة الأساسية مع "
+#~ "قدرات متقدمة للأعمال المتنامية."
+
+#~ msgid ""
+#~ "All plans include unlimited users, bank-grade security, and 24/7 support. "
+#~ "Cancel or change plans anytime with no penalties."
+#~ msgstr ""
+#~ "جميع الخطط تشمل مستخدمين غير محدودين، وأمان بمستوى مصرفي، ودعم على مدار "
+#~ "الساعة. يمكنك الإلغاء أو تغيير الخطط في أي وقت دون عقوبات."
+
+#~ msgid ""
+#~ "Choose the plan that fits your business size and needs. All plans include "
+#~ "our core accounting features."
+#~ msgstr ""
+#~ "اختر الخطة التي تناسب حجم واحتياجات عملك. جميع الخطط تشمل ميزات المحاسبة "
+#~ "الأساسية."
+
+#~ msgid ""
+#~ "Detailed breakdown of what's included in each plan to help you make the "
+#~ "right choice."
+#~ msgstr "تفصيل شامل لما يتضمنه كل خطة لمساعدتك في اتخاذ القرار الصحيح."
+
+#~ msgid ""
+#~ "Watch live demos of our platform and see how it can transform your "
+#~ "accounting workflow."
+#~ msgstr ""
+#~ "شاهد عروض حية لمنصتنا واكتشف كيف يمكنها تحويل سير عمل المحاسبة لديك."
+
+#~ msgid ""
+#~ "Get a comprehensive tour of Ovovex's features, from invoicing to "
+#~ "financial reporting. See how our AI-powered tools can automate your "
+#~ "accounting processes."
+#~ msgstr ""
+#~ "احصل على جولة شاملة لميزات Ovovex، من الفواتير إلى التقارير المالية. شاهد "
+#~ "كيف يمكن لأدواتنا المدعومة بالذكاء الاصطناعي أتمتة عمليات المحاسبة الخاصة "
+#~ "بك."
+
+#~ msgid ""
+#~ "See how our AI automatically generates professional invoices, tracks "
+#~ "payments, and sends reminders."
+#~ msgstr ""
+#~ "شاهد كيف يقوم الذكاء الاصطناعي لدينا تلقائيًا بإنشاء فواتير احترافية، "
+#~ "وتتبع المدفوعات، وإرسال التذكيرات."
+
+#~ msgid ""
+#~ "Watch our AI categorize transactions, reconcile accounts, and identify "
+#~ "anomalies in real-time."
+#~ msgstr ""
+#~ "شاهد الذكاء الاصطناعي لدينا يصنف المعاملات، ويسوي الحسابات، ويحدد "
+#~ "الشذوذات في الوقت الفعلي."
+
+#~ msgid ""
+#~ "Explore interactive dashboards with real-time financial metrics, trends, "
+#~ "and insights."
+#~ msgstr ""
+#~ "استكشف لوحات التحكم التفاعلية مع المقاييس المالية والاتجاهات والرؤى في "
+#~ "الوقت الفعلي."
+
+#~ msgid ""
+#~ "Yes! You can upgrade or downgrade your plan at any time. Changes take "
+#~ "effect immediately, and we'll prorate the billing accordingly."
+#~ msgstr ""
+#~ "نعم! يمكنك الترقية أو التخفيض من خطتك في أي وقت. تسري التغييرات على "
+#~ "الفور، وسنقوم بتقسيم الفواتير وفقًا لذلك."
+
+#~ msgid ""
+#~ "We accept all major credit cards, PayPal, and bank transfers for annual "
+#~ "plans. All payments are processed securely through Stripe."
+#~ msgstr ""
+#~ "نقبل جميع بطاقات الائتمان الرئيسية، وPayPal، والتحويلات البنكية للخطط "
+#~ "السنوية. تتم معالجة جميع المدفوعات بشكل آمن عبر Stripe."
+
+#~ msgid ""
+#~ "Yes! All paid plans come with a 14-day free trial. No credit card "
+#~ "required to start. You can explore all features during the trial period."
+#~ msgstr ""
+#~ "نعم! تأتي جميع الخطط المدفوعة مع فترة تجريبية مجانية مدتها 14 يومًا. لا "
+#~ "حاجة لبطاقة ائتمان للبدء. يمكنك استكشاف جميع الميزات خلال الفترة "
+#~ "التجريبية."
+
+#~ msgid ""
+#~ "We'll notify you when you approach your limits. You can upgrade your plan "
+#~ "at any time, or pay for overages if you prefer to stay on your current "
+#~ "plan."
+#~ msgstr ""
+#~ "سنخطرك عندما تقترب من حدودك. يمكنك الترقية إلى خطة أخرى في أي وقت، أو "
+#~ "الدفع مقابل التجاوزات إذا كنت تفضل البقاء على خطتك الحالية."
+
+#, python-format
+#~ msgid ""
+#~ "Yes! Save 20%% when you pay annually. This discount is applied "
+#~ "automatically at checkout when you select annual billing."
+#~ msgstr ""
+#~ "نعم! وفر 20%% عند الدفع سنويًا. يتم تطبيق هذا الخصم تلقائيًا عند الدفع "
+#~ "عندما تختار الفوترة السنوية."
+
+#~ msgid ""
+#~ "You can cancel your subscription at any time from your account settings. "
+#~ "You'll continue to have access until the end of your billing period."
+#~ msgstr ""
+#~ "يمكنك إلغاء اشتراكك في أي وقت من إعدادات حسابك. ستستمر في الوصول حتى "
+#~ "نهاية فترة الفوترة."
+
+#~ msgid ""
+#~ "Join thousands of businesses already using Ovovex to streamline their "
+#~ "accounting. Start your free trial today - no credit card required."
+#~ msgstr ""
+#~ "انضم إلى آلاف الشركات التي تستخدم بالفعل Ovovex لتبسيط محاسبتها. ابدأ "
+#~ "النسخة التجريبية المجانية اليوم - لا حاجة لبطاقة ائتمان."
+
+#~ msgid "Real-time Analytics - Ovovex"
+#~ msgstr "التحليلات في الوقت الفعلي"
+
+#~ msgid ""
+#~ "Monitor revenue, expenses, profit margins, and cash flow with dashboards "
+#~ "that update in real-time as transactions are processed."
+#~ msgstr ""
+#~ "راقب الإيرادات والنفقات وهوامش الربح والتدفق النقدي باستخدام لوحات "
+#~ "معلومات تُحدّث في الوقت الفعلي مع معالجة المعاملات."
+
+#~ msgid ""
+#~ "Receive instant notifications for cash flow changes, overdue payments, "
+#~ "budget variances, and other critical business events."
+#~ msgstr ""
+#~ "تلقَّ إشعارات فورية لتغيرات التدفق النقدي والمدفوعات المتأخرة وانحرافات "
+#~ "الميزانية والأحداث التجارية الحرجة الأخرى."
+
+#~ msgid "Answers to common questions about our real-time analytics platform."
+#~ msgstr "أسئلة شائعة حول أسعارنا وخططنا."
+
+#~ msgid ""
+#~ "Yes, all plans include dashboard customization tools. Professional and "
+#~ "Enterprise plans offer advanced customization with custom metrics, "
+#~ "calculated fields, and API integrations."
+#~ msgstr "المؤسسات"
+
+#~ msgid ""
+#~ "You can set alerts for cash flow thresholds, overdue payments, budget "
+#~ "variances, unusual transactions, revenue milestones, and custom KPI "
+#~ "targets with email, SMS, and in-app notifications."
+#~ msgstr ""
+#~ "يمكنك تعيين تنبيهات لحدود التدفق النقدي والمدفوعات المتأخرة وانحرافات "
+#~ "الميزانية والمعاملات غير الاعتيادية ومعالم الإيرادات وأهداف مؤشرات الأداء "
+#~ "المخصصة مع إشعارات البريد الإلكتروني والرسائل القصيرة والتطبيق."
+
+#~ msgid ""
+#~ "Yes, Professional and Enterprise plans support multi-user access with "
+#~ "role-based permissions. You can share specific dashboards or reports with "
+#~ "team members, accountants, or stakeholders."
+#~ msgstr "المؤسسات"
+
+#~ msgid "Smart Invoicing - Ovovex"
+#~ msgstr "عرض توضيحي للفواتير الذكية"
+
+#~ msgid ""
+#~ "See how our intelligent invoicing platform automates billing, accelerates "
+#~ "payments, and provides real-time cash flow insights."
+#~ msgstr ""
+#~ "شاهد كيف تعمل منصة الفوترة الذكية على أتمتة الفوترة وتسريع المدفوعات "
+#~ "وتوفير رؤى التدفق النقدي في الوقت الفعلي."
+
+#~ msgid ""
+#~ "Watch how businesses create professional invoices in under 60 seconds, "
+#~ "automate payment collection, and track cash flow in real-time."
+#~ msgstr ""
+#~ "أنشئ فواتير احترافية في ثوانٍ باستخدام قوالب مدعومة بالذكاء الاصطناعي. "
+#~ "تتبع حالة الدفع وأرسل تذكيرات آلية."
+
+#~ msgid ""
+#~ "Create professional invoices instantly with smart templates, auto-"
+#~ "populated client data, and intelligent pricing suggestions."
+#~ msgstr ""
+#~ "أنشئ فواتير احترافية في ثوانٍ باستخدام قوالب مدعومة بالذكاء الاصطناعي. "
+#~ "تتبع حالة الدفع وأرسل تذكيرات آلية."
+
+#~ msgid ""
+#~ "Accept payments instantly with integrated payment gateways, automatic "
+#~ "reconciliation, and real-time cash flow updates."
+#~ msgstr ""
+#~ "اقبل المدفوعات فورًا مع بوابات الدفع المتكاملة والتسوية التلقائية وتحديثات "
+#~ "التدفق النقدي في الوقت الفعلي."
+
+#~ msgid ""
+#~ "Track payment trends, predict cash flow, and identify collection "
+#~ "bottlenecks with advanced analytics and reporting."
+#~ msgstr ""
+#~ "تتبع اتجاهات الدفع، وتوقع التدفق النقدي، وحدد اختناقات التحصيل باستخدام "
+#~ "التحليلات والتقارير المتقدمة."
+
+#~ msgid ""
+#~ "Everything you need for professional billing, from invoice creation to "
+#~ "payment collection and cash flow management."
+#~ msgstr ""
+#~ "كل ما تحتاجه للفوترة الاحترافية، من إنشاء الفاتورة إلى تحصيل المدفوعات "
+#~ "وإدارة التدفق النقدي."
+
+#~ msgid "Create invoices 5x faster with intelligent automation"
+#~ msgstr "أنشئ فواتير أسرع بـ 5 مرات مع الأتمتة الذكية"
+
+#~ msgid ""
+#~ "See how companies have transformed their billing process and improved "
+#~ "cash flow with Ovovex Smart Invoicing."
+#~ msgstr ""
+#~ "شاهد كيف حوّلت الشركات عملية الفوترة وحسّنت التدفق النقدي باستخدام الفوترة "
+#~ "الذكية من Ovovex."
+
+#~ msgid ""
+#~ "Transparent pricing designed for businesses of all sizes. Pay only for "
+#~ "what you use with flexible invoicing plans."
+#~ msgstr ""
+#~ "أسعار شفافة مصممة للشركات بجميع أحجامها. ادفع فقط مقابل ما تستخدمه مع خطط "
+#~ "فوترة مرنة."
+
+#~ msgid "Answers to common questions about our invoicing platform."
+#~ msgstr "أسئلة شائعة حول أسعارنا وخططنا."
+
+#~ msgid ""
+#~ "You can create and send your first invoice within minutes of signing up. "
+#~ "Our templates are pre-configured, and you can import client data or add "
+#~ "it manually to get started immediately."
+#~ msgstr ""
+#~ "يمكنك إنشاء وإرسال فاتورتك الأولى في غضون دقائق من التسجيل. قوالبنا مُعدة "
+#~ "مسبقًا، ويمكنك استيراد بيانات العملاء أو إضافتها يدويًا للبدء فورًا."
+
+#~ msgid ""
+#~ "We support credit cards, debit cards, ACH bank transfers, digital wallets "
+#~ "(Apple Pay, Google Pay), and traditional payment methods. All payments "
+#~ "are processed securely through PCI-compliant gateways."
+#~ msgstr ""
+#~ "نقبل جميع بطاقات الائتمان الرئيسية، وPayPal، والتحويلات البنكية للخطط "
+#~ "السنوية. تتم معالجة جميع المدفوعات بشكل آمن عبر Stripe."
+
+#~ msgid ""
+#~ "Yes, you can fully customize invoice templates with your logo, colors, "
+#~ "fonts, and layout. Professional plans include advanced branding options, "
+#~ "while Enterprise plans offer complete template customization."
+#~ msgstr ""
+#~ "المؤسساتنعم، يمكنك تخصيص قوالب الفواتير بالكامل باستخدام شعارك وألوانك "
+#~ "وخطوطك وتخطيطك. تتضمن الخطط الاحترافية خيارات علامات تجارية متقدمة، بينما "
+#~ "تقدم خطط المؤسسات تخصيصًا كاملاً للقوالب."
+
+#, python-format
+#~ msgid ""
+#~ "You can set up customizable reminder sequences that automatically send "
+#~ "friendly reminders, payment updates, and escalation notices based on due "
+#~ "dates and payment status. This typically improves collection rates by "
+#~ "30-50%%."
+#~ msgstr ""
+#~ "يمكنك إعداد سلاسل تذكير قابلة للتخصيص ترسل تلقائيًا تذكيرات ودية وتحديثات "
+#~ "دفع وإشعارات تصعيد بناءً على تواريخ الاستحقاق وحالة الدفع. يؤدي هذا عادةً "
+#~ "إلى تحسين معدلات التحصيل بنسبة 30-50%%."
+
+#~ msgid ""
+#~ "Absolutely. We use bank-grade encryption, comply with PCI DSS standards, "
+#~ "and never store sensitive payment information on our servers. All payment "
+#~ "processing is handled through certified payment gateways."
+#~ msgstr ""
+#~ "بالتأكيد. نستخدم تشفيرًا بمستوى البنوك، ونلتزم بمعايير PCI DSS، ولا نخزن "
+#~ "أبدًا معلومات الدفع الحساسة على خوادمنا. تتم معالجة جميع المدفوعات من خلال "
+#~ "بوابات دفع معتمدة."
