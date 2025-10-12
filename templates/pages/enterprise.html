@@ -8,7 +8,7 @@
 
 <div class="min-h-screen bg-gray-50">
     <!-- Extended Navbar Section -->
-    <section class="bg-white shadow-lg relative z-50" style="background-image: url('/static/images/image1.jpg'); background-size: 130%; background-position: center;">
+    <section class="text-white py-32 relative overflow-hidden z-50" style="background-image: url('/static/images/image1.jpg'); background-size: 130%; background-position: center; background-repeat: no-repeat;">
         <div class="absolute inset-0 bg-black bg-opacity-40"></div>
         <div class="relative">
             
@@ -16,9 +16,7 @@
             <!-- Extended Hero Content -->
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 <div class="text-center">
-                    <h1 class="text-4xl md:text-6xl font-bold mb-6">{% trans "Enterprise-Grade Accounting for Large Organizations" %}</h1>
-                    <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">{% trans "Powerful, scalable accounting solutions designed for enterprises with 500+ employees. Handle complex financial operations with confidence and precision." %}</p>
-                    <a href="{% url 'signup' %}" class="bg-white text-indigo-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition duration-300">{% trans "Start Enterprise Trial" %}</a>
+                    <h1 class="text-4xl md:text-6xl font-bold mb-6 text-white">{% trans "Enterprise-Grade Accounting for Large Organizations" %}</h1>
                 </div>
             </div>
 
@@ -37,6 +35,7 @@
     <!-- Features Section -->
     <section class="py-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Feature 1 -->
                 <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
                     <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-6">
@@ -414,97 +413,6 @@
                     </p>
                     <div class="text-sm text-gray-500">
                         <strong>{% trans "Results:" %}</strong> {% trans "25% improvement in cash flow, 15% increase in margins" %}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Enterprise Pricing Section -->
-    <section class="py-20 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                    {% trans "Enterprise Pricing" %}
-                </h2>
-                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-                    {% trans "Custom pricing based on your organization's specific needs. Contact our sales team for a tailored quote." %}
-                </p>
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-8">
-                <!-- Enterprise Plan -->
-                <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-indigo-500 relative">
-                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                        <span class="bg-indigo-500 text-white px-4 py-1 rounded-full text-sm font-semibold">Enterprise</span>
-                    </div>
-                    <div class="text-center">
-                        <h3 class="text-2xl font-bold text-gray-900 mb-4">{% trans "Custom Enterprise Solution" %}</h3>
-                        <div class="text-3xl font-bold text-gray-900 mb-2">{% trans "Contact Sales" %}</div>
-                        <p class="text-gray-600 mb-6">{% trans "Tailored for organizations with 500+ employees and complex requirements" %}</p>
-                        <ul class="text-left space-y-3 mb-8">
-                            <li class="flex items-center">
-                                <i class="fas fa-check text-green-500 mr-3"></i>
-                                {% trans "Unlimited entities and users" %}
-                            </li>
-                            <li class="flex items-center">
-                                <i class="fas fa-check text-green-500 mr-3"></i>
-                                {% trans "Full feature set with custom integrations" %}
-                            </li>
-                            <li class="flex items-center">
-                                <i class="fas fa-check text-green-500 mr-3"></i>
-                                {% trans "Dedicated account management" %}
-                            </li>
-                            <li class="flex items-center">
-                                <i class="fas fa-check text-green-500 mr-3"></i>
-                                {% trans "24/7 premium support" %}
-                            </li>
-                            <li class="flex items-center">
-                                <i class="fas fa-check text-green-500 mr-3"></i>
-                                {% trans "Custom training and onboarding" %}
-                            </li>
-                            <li class="flex items-center">
-                                <i class="fas fa-check text-green-500 mr-3"></i>
-                                {% trans "SLA guarantees and priority response" %}
-                            </li>
-                        </ul>
-                        <a href="mailto:sales@ovovex.com" class="block bg-indigo-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition duration-300">
-                            {% trans "Contact Sales Team" %}
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Implementation Services -->
-                <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-gray-200">
-                    <div class="text-center">
-                        <h3 class="text-2xl font-bold text-gray-900 mb-4">{% trans "Implementation Services" %}</h3>
-                        <div class="text-3xl font-bold text-gray-900 mb-2">{% trans "Professional Services" %}</div>
-                        <p class="text-gray-600 mb-6">{% trans "Expert implementation and migration support" %}</p>
-                        <ul class="text-left space-y-3 mb-8">
-                            <li class="flex items-center">
-                                <i class="fas fa-check text-green-500 mr-3"></i>
-                                {% trans "Data migration from legacy systems" %}
-                            </li>
-                            <li class="flex items-center">
-                                <i class="fas fa-check text-green-500 mr-3"></i>
-                                {% trans "Custom integration development" %}
-                            </li>
-                            <li class="flex items-center">
-                                <i class="fas fa-check text-green-500 mr-3"></i>
-                                {% trans "Process optimization consulting" %}
-                            </li>
-                            <li class="flex items-center">
-                                <i class="fas fa-check text-green-500 mr-3"></i>
-                                {% trans "Staff training and change management" %}
-                            </li>
-                            <li class="flex items-center">
-                                <i class="fas fa-check text-green-500 mr-3"></i>
-                                {% trans "Go-live support and post-launch assistance" %}
-                            </li>
-                        </ul>
-                        <a href="mailto:services@ovovex.com" class="block bg-gray-100 text-gray-800 px-6 py-3 rounded-lg font-semibold hover:bg-gray-200 transition duration-300">
-                            {% trans "Contact Services Team" %}
-                        </a>
                     </div>
                 </div>
             </div>

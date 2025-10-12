@@ -17,9 +17,7 @@
         </a>
       </div>
       <div class="hidden md:flex items-center space-x-8">
-        <a href="/" class="text-gray-700 hover:text-gray-900"
-          >{% trans "Home" %}</a
-        >
+        <a href="/" class="text-gray-700 hover:text-gray-900">{% trans "Home" %}</a>
         <div class="relative group">
           <button class="text-gray-700 hover:text-gray-900 flex items-center">
             {% trans "Solutions" %} <i class="fas fa-chevron-down ml-1"></i>
@@ -29,8 +27,7 @@
           >
             <div class="p-4">
               <div class="text-sm font-semibold text-gray-500 mb-2">
-                <i class="fas fa-building mr-2"></i>{% trans "By Business Size"
-                %}
+                <i class="fas fa-building mr-2"></i>{% trans "By Business Size" %}
               </div>
               <a
                 href="{% url 'small_business' %}"
@@ -78,15 +75,13 @@
                 href="{% url 'retail_ecommerce' %}"
                 class="flex items-center p-2 hover:bg-gray-100 rounded"
               >
-                <i class="fas fa-shopping-cart mr-2 text-gray-600"></i>{% trans
-                "Retail & E-commerce" %}
+                <i class="fas fa-shopping-cart mr-2 text-gray-600"></i>{% trans "Retail & E-commerce" %}
               </a>
               <a
                 href="{% url 'manufacturing' %}"
                 class="flex items-center p-2 hover:bg-gray-100 rounded"
               >
-                <i class="fas fa-hammer mr-2 text-gray-600"></i>{% trans
-                "Manufacturing" %}
+                <i class="fas fa-hammer mr-2 text-gray-600"></i>{% trans "Manufacturing" %}
               </a>
             </div>
           </div>
@@ -103,43 +98,36 @@
                 href="{% url 'smart_invoicing' %}"
                 class="flex items-center p-2 hover:bg-gray-100 rounded"
               >
-                <i class="fas fa-file-invoice-dollar mr-2 text-gray-600"></i>{%
-                trans "Smart Invoicing" %}
+                <i class="fas fa-file-invoice-dollar mr-2 text-gray-600"></i>{% trans "Smart Invoicing" %}
               </a>
               <a
                 href="{% url 'ai_bookkeeping' %}"
                 class="flex items-center p-2 hover:bg-gray-100 rounded"
               >
-                <i class="fas fa-robot mr-2 text-gray-600"></i>{% trans "AI
-                Bookkeeping" %}
+                <i class="fas fa-robot mr-2 text-gray-600"></i>{% trans "AI Bookkeeping" %}
               </a>
               <a
                 href="{% url 'real_time_analytics' %}"
                 class="flex items-center p-2 hover:bg-gray-100 rounded"
               >
-                <i class="fas fa-chart-line mr-2 text-gray-600"></i>{% trans
-                "Real-time Analytics" %}
+                <i class="fas fa-chart-line mr-2 text-gray-600"></i>{% trans "Real-time Analytics" %}
               </a>
               <a
                 href="{% url 'ifrs_compliance' %}"
                 class="flex items-center p-2 hover:bg-gray-100 rounded"
               >
-                <i class="fas fa-certificate mr-2 text-gray-600"></i>{% trans
-                "IFRS Compliance" %}
+                <i class="fas fa-certificate mr-2 text-gray-600"></i>{% trans "IFRS Compliance" %}
               </a>
               <a
                 href="{% url 'bank_grade_security' %}"
                 class="flex items-center p-2 hover:bg-gray-100 rounded"
               >
-                <i class="fas fa-lock mr-2 text-gray-600"></i>{% trans
-                "Bank-Grade Security" %}
+                <i class="fas fa-lock mr-2 text-gray-600"></i>{% trans "Bank-Grade Security" %}
               </a>
             </div>
           </div>
         </div>
-        <a href="{% url 'pricing' %}" class="text-gray-700 hover:text-gray-900"
-          >{% trans "Pricing" %}</a
-        >
+        <a href="{% url 'pricing' %}" class="text-gray-700 hover:text-gray-900">{% trans "Pricing" %}</a>
 
         <!-- Language Switcher -->
         <div class="relative group">
@@ -161,10 +149,8 @@
                 value="en"
                 class="w-full text-left flex items-center p-2 hover:bg-gray-100 rounded {% if LANGUAGE_CODE == 'en' %}bg-gray-100{% endif %}"
               >
-                <i
-                  class="fas fa-check mr-2 {% if LANGUAGE_CODE != 'en' %}invisible{% endif %}"
-                ></i
-                >English
+                <i class="fas fa-check mr-2 {% if LANGUAGE_CODE != 'en' %}invisible{% endif %}"></i>
+                English
               </button>
               <button
                 type="submit"
@@ -172,24 +158,19 @@
                 value="ar"
                 class="w-full text-left flex items-center p-2 hover:bg-gray-100 rounded {% if LANGUAGE_CODE == 'ar' %}bg-gray-100{% endif %}"
               >
-                <i
-                  class="fas fa-check mr-2 {% if LANGUAGE_CODE != 'ar' %}invisible{% endif %}"
-                ></i
-                >العربية
+                <i class="fas fa-check mr-2 {% if LANGUAGE_CODE != 'ar' %}invisible{% endif %}"></i>
+                العربية
               </button>
             </form>
           </div>
         </div>
 
         {% if not user.is_authenticated %}
-        <a href="{% url 'login' %}" class="text-gray-700 hover:text-gray-900"
-          >{% trans "Login" %}</a
-        >
+        <a href="{% url 'login' %}" class="text-gray-700 hover:text-gray-900">{% trans "Login" %}</a>
         <a
           href="{% url 'starter_signup' %}"
           class="bg-gray-900 text-white px-4 py-2 rounded-lg hover:bg-gray-800"
-          >{% trans "Sign Up" %}</a
-        >
+        >{% trans "Sign Up" %}</a>
         {% endif %}
       </div>
       <div class="md:hidden flex items-center">
@@ -207,8 +188,7 @@
         </a>
         <div class="relative group">
           <button class="text-gray-700 hover:text-gray-900 flex items-center">
-            <i class="fas fa-user-circle mr-2"></i>{{
-            user.first_name|default:user.username }}
+            <i class="fas fa-user-circle mr-2"></i>{{ user.first_name|default:user.username }}
           </button>
           <div
             class="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50"
@@ -218,8 +198,7 @@
                 href="{% url 'dashboard' %}"
                 class="flex items-center p-2 hover:bg-gray-100 rounded"
               >
-                <i class="fas fa-tachometer-alt mr-2"></i>{% trans "Dashboard"
-                %}
+                <i class="fas fa-tachometer-alt mr-2"></i>{% trans "Dashboard" %}
               </a>
               <a
                 href="{% url 'customer_profile' %}"

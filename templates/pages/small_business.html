@@ -8,105 +8,107 @@
 
 <div class="min-h-screen bg-gray-50">
     <!-- Hero Section -->
-    <section class="bg-white shadow-lg relative z-40 pt-16" style="background-image: url('/static/images/digital-composite-image-man-using-laptop.jpg'); background-size: 130%; background-position: center;">
+    <section class="text-white py-32 relative overflow-hidden" style="background-image: url('/static/images/digital-composite-image-man-using-laptop.jpg'); background-size: 130%; background-position: center; background-repeat: no-repeat;">
         <div class="absolute inset-0 bg-black bg-opacity-40"></div>
         <div class="relative">
 
             <!-- Hero Content -->
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 <div class="text-center">
-                    <h1 class="text-4xl md:text-6xl font-bold mb-6">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-6 text-white">
                         {% trans "Accounting Made Simple for Small Businesses" %}
                     </h1>
-                    <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
-                        {% trans "Streamline your finances with Ovovex. Perfect for businesses with up to 50 employees. Get professional accounting tools without the complexity." %}
-                    </p>
-                    <a href="{% url 'signup' %}" class="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition duration-300">
-                        {% trans "Start Free Trial" %}
-                    </a>
                 </div>
             </div>
 
             <!-- Extended Features Section -->
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
                 <div class="text-center mb-8">
-                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
-                        {% trans "Everything You Need to Manage Your Finances" %}
-                    </h2>
+                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">{% trans "Everything You Need in One Place" %}</h2>
                     <p class="text-xl text-gray-200 max-w-2xl mx-auto">
-                        {% trans "From invoicing to tax preparation, Ovovex provides all the tools small businesses need to stay organized and compliant." %}
+                        {% trans "Complete accounting tools designed specifically for small businesses. Simple, powerful, and affordable." %}
                     </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="py-20">
+    <!-- Business Features Section -->
+    <section class="py-20 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <!-- Feature 1 -->
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                    {% trans "Complete Business Management Suite" %}
+                </h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    {% trans "Everything you need to run and grow your business, from inventory to customer insights." %}
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Inventory Management -->
                 <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
                     <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
-                        <i class="fas fa-file-invoice-dollar text-blue-600 text-2xl"></i>
+                        <i class="fas fa-boxes text-blue-600 text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Easy Invoicing" %}</h3>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Inventory Management" %}</h3>
                     <p class="text-gray-600">
-                        {% trans "Create professional invoices in seconds. Customize templates, send reminders, and track payments all in one place." %}
+                        {% trans "Track stock levels, manage suppliers, and automate reordering with smart inventory controls." %}
                     </p>
                 </div>
 
-                <!-- Feature 2 -->
+                <!-- Multi-Channel Sales -->
                 <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
                     <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-6">
-                        <i class="fas fa-receipt text-green-600 text-2xl"></i>
+                        <i class="fas fa-store text-green-600 text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Expense Tracking" %}</h3>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Multi-Channel Sales" %}</h3>
                     <p class="text-gray-600">
-                        {% trans "Capture receipts with your phone, categorize expenses automatically, and get real-time insights into your spending." %}
+                        {% trans "Sell across multiple platforms including online stores, marketplaces, and social commerce." %}
                     </p>
                 </div>
 
-                <!-- Feature 3 -->
+                <!-- Point of Sale Integration -->
                 <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
                     <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-6">
-                        <i class="fas fa-chart-bar text-purple-600 text-2xl"></i>
+                        <i class="fas fa-cash-register text-purple-600 text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Financial Reports" %}</h3>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Point of Sale Integration" %}</h3>
                     <p class="text-gray-600">
-                        {% trans "Generate profit & loss statements, balance sheets, and cash flow reports with just a few clicks." %}
+                        {% trans "Seamlessly connect your POS system with inventory, sales tracking, and financial reporting." %}
                     </p>
                 </div>
 
-                <!-- Feature 4 -->
+                <!-- Customer Analytics -->
                 <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
                     <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-6">
-                        <i class="fas fa-calculator text-orange-600 text-2xl"></i>
+                        <i class="fas fa-chart-pie text-orange-600 text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Tax Preparation" %}</h3>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Customer Analytics" %}</h3>
                     <p class="text-gray-600">
-                        {% trans "Stay organized for tax season with automatic tax calculations, quarterly estimates, and direct IRS filing." %}
+                        {% trans "Understand customer behavior, preferences, and buying patterns with detailed analytics." %}
                     </p>
                 </div>
 
-                <!-- Feature 5 -->
+                <!-- Shipping & Returns -->
                 <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
                     <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-6">
-                        <i class="fas fa-users text-red-600 text-2xl"></i>
+                        <i class="fas fa-truck text-red-600 text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Multi-User Access" %}</h3>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Shipping & Returns" %}</h3>
                     <p class="text-gray-600">
-                        {% trans "Give your accountant or bookkeeper secure access to collaborate on your financial data in real-time." %}
+                        {% trans "Manage shipping rates, track packages, and handle returns with automated workflows." %}
                     </p>
                 </div>
 
-                <!-- Feature 6 -->
+                <!-- Pricing & Promotions -->
                 <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
                     <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-6">
-                        <i class="fas fa-plug text-indigo-600 text-2xl"></i>
+                        <i class="fas fa-tags text-indigo-600 text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Easy Integrations" %}</h3>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Pricing & Promotions" %}</h3>
                     <p class="text-gray-600">
-                        {% trans "Connect with QuickBooks, Xero, PayPal, Stripe, and hundreds of other business apps to automate your workflow." %}
+                        {% trans "Create dynamic pricing strategies, run promotions, and manage discounts effectively." %}
                     </p>
                 </div>
             </div>
@@ -170,127 +172,6 @@
                             <h4 class="text-lg font-semibold text-gray-900">{% trans "Invoicing Demo" %}</h4>
                         </div>
                         <p class="text-gray-600">{% trans "Create and send professional invoices in under 60 seconds." %}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Detailed Features Section -->
-    <section class="py-20 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                    {% trans "Comprehensive Accounting Features" %}
-                </h2>
-                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-                    {% trans "Everything you need to manage your business finances, from basic bookkeeping to advanced reporting." %}
-                </p>
-            </div>
-
-            <div class="space-y-16">
-                <!-- Invoicing Feature -->
-                <div class="grid lg:grid-cols-2 gap-12 items-center">
-                    <div>
-                        <h3 class="text-2xl font-bold text-gray-900 mb-4">{% trans "Professional Invoicing" %}</h3>
-                        <ul class="space-y-3 text-gray-600">
-                            <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                {% trans "Customizable invoice templates with your branding" %}
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                {% trans "Automatic invoice numbering and due date calculations" %}
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                {% trans "Payment tracking and overdue reminders" %}
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                {% trans "Recurring invoices for subscription businesses" %}
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                {% trans "Multi-currency support for international clients" %}
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="bg-white p-8 rounded-lg shadow-lg">
-                        <div class="text-center">
-                            <i class="fas fa-file-invoice-dollar text-blue-600 text-6xl mb-4"></i>
-                            <p class="text-gray-600">{% trans "Create invoices 5x faster than traditional methods" %}</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Expense Management -->
-                <div class="grid lg:grid-cols-2 gap-12 items-center">
-                    <div class="bg-white p-8 rounded-lg shadow-lg">
-                        <div class="text-center">
-                            <i class="fas fa-receipt text-green-600 text-6xl mb-4"></i>
-                            <p class="text-gray-600">{% trans "AI-powered receipt scanning and categorization" %}</p>
-                        </div>
-                    </div>
-                    <div>
-                        <h3 class="text-2xl font-bold text-gray-900 mb-4">{% trans "Smart Expense Tracking" %}</h3>
-                        <ul class="space-y-3 text-gray-600">
-                            <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                {% trans "Snap receipts with your phone for instant digitization" %}
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                {% trans "Automatic expense categorization using AI" %}
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                {% trans "Mileage tracking for business travel" %}
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                {% trans "Integration with credit cards and bank accounts" %}
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                {% trans "Tax-deductible expense identification" %}
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Financial Reporting -->
-                <div class="grid lg:grid-cols-2 gap-12 items-center">
-                    <div>
-                        <h3 class="text-2xl font-bold text-gray-900 mb-4">{% trans "Advanced Financial Reports" %}</h3>
-                        <ul class="space-y-3 text-gray-600">
-                            <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                {% trans "Profit & Loss statements with customizable date ranges" %}
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                {% trans "Balance sheet and cash flow reports" %}
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                {% trans "Budget vs actual spending analysis" %}
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                {% trans "Customer profitability reports" %}
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
-                                {% trans "Export to PDF, Excel, or QuickBooks format" %}
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="bg-white p-8 rounded-lg shadow-lg">
-                        <div class="text-center">
-                            <i class="fas fa-chart-bar text-purple-600 text-6xl mb-4"></i>
-                            <p class="text-gray-600">{% trans "Real-time financial insights at your fingertips" %}</p>
-                        </div>
                     </div>
                 </div>
             </div>
