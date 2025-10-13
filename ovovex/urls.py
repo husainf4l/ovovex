@@ -28,7 +28,7 @@ urlpatterns = [
     path("health/", views.health_check, name="health_check"),  # Health check endpoint
     path('i18n/', include('django.conf.urls.i18n')),  # Language switcher endpoint
     # Temporarily move dashboard outside i18n_patterns for testing
-    path("dashboard/", views.dashboard_view, name="dashboard"),
+    path("dashboard/", include('dashboard.urls')),
 ]
 
 # Translatable URLs (will have language prefix like /en/ or /ar/)
@@ -36,9 +36,7 @@ urlpatterns = [
 urlpatterns += i18n_patterns(
     path("", views.home, name="home"),
     # Authentication URLs
-    path("login/", views.login_view, name="login"),
-    path("signup/", views.signup_view, name="signup"),
-    path("logout/", views.logout_view, name="logout"),
+    path("accounts/", include('accounts.urls')),
     # Dashboard - temporarily moved outside i18n_patterns for testing
     # path("dashboard/", views.dashboard_view, name="dashboard"),
     # Core Accounting
@@ -210,6 +208,8 @@ urlpatterns += i18n_patterns(
     ),
     path("ai-insights/", views.ai_insights_view, name="ai_insights"),
     path("anomaly-detection/", views.anomaly_detection_view, name="anomaly_detection"),
+    # API endpoints
+    path("api/", include('api.urls')),
     # Operations
     path(
         "expense-management/", views.expense_management_view, name="expense_management"
@@ -330,47 +330,6 @@ urlpatterns += i18n_patterns(
         name="notification_stats_api",
     ),
     # Public Pages
-    path("small-business/", views.small_business_view, name="small_business"),
-    path("enterprise/", views.enterprise_view, name="enterprise"),
-    path("accounting-firms/", views.accounting_firms_view, name="accounting_firms"),
-    path("retail-ecommerce/", views.retail_ecommerce_view, name="retail_ecommerce"),
-    path("manufacturing/", views.manufacturing_view, name="manufacturing"),
-    path("smart-invoicing/", views.smart_invoicing_view, name="smart_invoicing"),
-    path("ai-bookkeeping/", views.ai_bookkeeping_view, name="ai_bookkeeping"),
-    path(
-        "real-time-analytics/",
-        views.real_time_analytics_view,
-        name="real_time_analytics",
-    ),
-    path("ifrs-compliance/", views.ifrs_compliance_view, name="ifrs_compliance"),
-    path(
-        "bank-grade-security/",
-        views.bank_grade_security_view,
-        name="bank_grade_security",
-    ),
-    path("pricing/", views.pricing_view, name="pricing"),
-    path("get-started/", views.get_started_view, name="get_started"),
-    path("start-free-trial/", views.start_free_trial_view, name="start_free_trial"),
-    # Signup Pages
-    path("professional-signup/", TemplateView.as_view(template_name='pages/professional_signup.html'), name='professional_signup'),
-    path("starter-signup/", TemplateView.as_view(template_name='pages/starter_signup.html'), name='starter_signup'),
-    path("enterprise-signup/", TemplateView.as_view(template_name='pages/enterprise_signup.html'), name='enterprise_signup'),
-    path("free-signup/", TemplateView.as_view(template_name='pages/free_signup.html'), name='free_signup'),
-    path("contact-sales/", views.contact_sales_view, name="contact_sales"),
-    # Pricing Pages
-    path('pages/starter-plan/', TemplateView.as_view(template_name='pages/starter_plan.html'), name='starter_plan'),
-    path('pages/professional-plan/', TemplateView.as_view(template_name='pages/professional_plan.html'), name='professional_plan'),
-    path('pages/enterprise-plan/', TemplateView.as_view(template_name='pages/enterprise_plan.html'), name='enterprise_plan'),
-    # Billing Pages
-    path('pages/payment-setup/', TemplateView.as_view(template_name='pages/payment_setup.html'), name='payment_setup'),
-    path('pages/subscription-management/', TemplateView.as_view(template_name='pages/subscription_management.html'), name='subscription_management'),
-    path('pages/billing-history/', TemplateView.as_view(template_name='pages/billing_history.html'), name='billing_history'),
-    # Feature Pages
-    path('features/smart-invoicing/', TemplateView.as_view(template_name='features/smart-invoicing.html'), name='feature_smart_invoicing'),
-    path('features/financial-analytics/', TemplateView.as_view(template_name='features/financial-analytics.html'), name='feature_financial_analytics'),
-    path('features/expense-management/', TemplateView.as_view(template_name='features/expense-management.html'), name='feature_expense_management'),
-    path('features/team-collaboration/', TemplateView.as_view(template_name='features/team-collaboration.html'), name='feature_team_collaboration'),
-    path('features/security-compliance/', TemplateView.as_view(template_name='features/security-compliance.html'), name='feature_security_compliance'),
-    path('features/integrations/', TemplateView.as_view(template_name='features/integrations.html'), name='feature_integrations'),
+    path("pages/", include('pages.urls')),
     # This closes the i18n_patterns() function - all URLs above will have language prefix
 )

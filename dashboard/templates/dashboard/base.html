@@ -1,0 +1,263 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- Dashboard Header/Navbar -->
+<div
+  class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-4 sm:px-6 lg:px-6 py-4 transition-colors duration-300 ml-0 lg:ml-64"
+>
+  <div class="flex items-center justify-between">
+    <div class="flex items-center space-x-4">
+      <!-- Drawer Toggle Button -->
+      <button
+        id="drawer-toggle"
+        class="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-300"
+        data-drawer-target="drawer-navigation"
+        data-drawer-toggle="drawer-navigation"
+        data-drawer-backdrop="drawer-backdrop"
+        aria-controls="drawer-navigation"
+      >
+        <i class="fas fa-bars text-xl"></i>
+      </button>
+      <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">
+        {% block page_title %}Dashboard{% endblock %}
+      </h1>
+      {% block page_status %}{% endblock %}
+    </div>
+    <div class="flex items-center space-x-4">
+      <!-- Quick Search -->
+      <div class="relative">
+        <input
+          type="text"
+          placeholder="Search transactions, invoices..."
+          class="w-64 pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-300"
+        />
+        <i
+          class="fas fa-search absolute left-3 top-3 text-gray-400 dark:text-gray-500"
+        ></i>
+      </div>
+      <!-- Notifications -->
+      <div class="relative">
+        <button
+          id="notifications-btn"
+          class="relative p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100"
+        >
+          <i class="fas fa-bell text-xl"></i>
+          <span
+            id="notification-count"
+            class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 items-center justify-center hidden"
+            >0</span
+          >
+        </button>
+        <!-- Notifications Dropdown -->
+        <div
+          id="notifications-dropdown"
+          class="absolute top-full right-0 mt-2 w-96 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 hidden z-50 max-h-96 overflow-hidden"
+        >
+          <div class="p-4 border-b border-gray-200 dark:border-gray-700">
+            <div class="flex items-center justify-between">
+              <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100">
+                Notifications
+              </h3>
+              <div class="flex items-center space-x-2">
+                <button
+                  id="mark-all-read-btn"
+                  class="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300"
+                >
+                  Mark all read
+                </button>
+                <button
+                  id="refresh-notifications-btn"
+                  class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100"
+                >
+                  <i class="fas fa-sync-alt text-sm"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div id="notifications-list" class="max-h-80 overflow-y-auto">
+            <!-- Notifications will be loaded here -->
+            <div class="p-4 text-center text-gray-500 dark:text-gray-400">
+              <i class="fas fa-bell-slash text-3xl mb-2"></i>
+              <p>Loading notifications...</p>
+            </div>
+          </div>
+          <div class="p-4 border-t border-gray-200 dark:border-gray-700">
+            <a
+              href="#"
+              class="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium"
+              >View All Notifications</a
+            >
+          </div>
+        </div>
+      </div>
+      <!-- Company Selector -->
+      <select
+        class="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-300"
+      >
+        <option>Ovovex Corp</option>
+        <option>Subsidiary A</option>
+        <option>Subsidiary B</option>
+      </select>
+      <!-- Theme Toggle -->
+      <button
+        id="theme-toggle"
+        class="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-300"
+      >
+        <i class="fas fa-moon text-xl dark:hidden"></i>
+        <i class="fas fa-sun text-xl hidden dark:inline"></i>
+      </button>
+      <!-- Help & Support -->
+      <div class="relative">
+        <button
+          id="help-btn"
+          class="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-300"
+          title="Help & Support"
+        >
+          <i class="fas fa-question-circle text-xl"></i>
+        </button>
+        <!-- Help Dropdown -->
+        <div
+          id="help-dropdown"
+          class="absolute top-full right-0 mt-2 w-80 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 hidden z-50"
+        >
+          <div class="p-4 border-b border-gray-200 dark:border-gray-700">
+            <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100">
+              Help & Support
+            </h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400">
+              Get help with Ovovex
+            </p>
+          </div>
+          <div class="p-4 space-y-3">
+            <a
+              href="#"
+              class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200"
+            >
+              <div
+                class="w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center"
+              >
+                <i class="fas fa-book text-blue-600 dark:text-blue-400"></i>
+              </div>
+              <div>
+                <div class="font-medium text-gray-900 dark:text-gray-100">
+                  Documentation
+                </div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">
+                  User guides & tutorials
+                </div>
+              </div>
+            </a>
+            <a
+              href="#"
+              class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200"
+            >
+              <div
+                class="w-8 h-8 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center"
+              >
+                <i
+                  class="fas fa-robot text-green-600 dark:text-green-400"
+                ></i>
+              </div>
+              <div>
+                <div class="font-medium text-gray-900 dark:text-gray-100">
+                  AI Assistant
+                </div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">
+                  Get instant answers
+                </div>
+              </div>
+            </a>
+            <a
+              href="#"
+              class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200"
+            >
+              <div
+                class="w-8 h-8 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center"
+              >
+                <i
+                  class="fas fa-video text-purple-600 dark:text-purple-400"
+                ></i>
+              </div>
+              <div>
+                <div class="font-medium text-gray-900 dark:text-gray-100">
+                  Video Tutorials
+                </div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">
+                  Step-by-step guides
+                </div>
+              </div>
+            </a>
+            <a
+              href="#"
+              class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200"
+            >
+              <div
+                class="w-8 h-8 bg-orange-100 dark:bg-orange-900 rounded-lg flex items-center justify-center"
+              >
+                <i
+                  class="fas fa-comments text-orange-600 dark:text-orange-400"
+                ></i>
+              </div>
+              <div>
+                <div class="font-medium text-gray-900 dark:text-gray-100">
+                  Community Forum
+                </div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">
+                  Connect with other users
+                </div>
+              </div>
+            </a>
+            <a
+              href="#"
+              class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200"
+            >
+              <div
+                class="w-8 h-8 bg-red-100 dark:bg-red-900 rounded-lg flex items-center justify-center"
+              >
+                <i class="fas fa-headset text-red-600 dark:text-red-400"></i>
+              </div>
+              <div>
+                <div class="font-medium text-gray-900 dark:text-gray-100">
+                  Contact Support
+                </div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">
+                  Get help from our team
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="p-4 border-t border-gray-200 dark:border-gray-700">
+            <div class="text-center">
+              <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                Need immediate help?
+              </p>
+              <button
+                class="w-full bg-blue-600 text-white text-sm font-medium py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors duration-200"
+              >
+                Start Live Chat
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Main Content Area -->
+<div
+  class="min-h-screen bg-gray-50 dark:bg-gray-900 ml-0 lg:ml-64 transition-all duration-300 ease-in-out main-content"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8 pt-8">
+    {% block dashboard_content %}{% endblock %}
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<!-- Flowbite JS for drawer functionality -->
+<script src="https://cdn.jsdelivr.net/npm/flowbite@2.3.0/dist/flowbite.min.js"></script>
+{% endblock %}

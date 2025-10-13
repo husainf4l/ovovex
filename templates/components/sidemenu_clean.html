@@ -1,0 +1,507 @@
+<!-- Modern Apple-style Sidebar -->
+<div id="sidebar" class="fixed left-0 top-0 h-full z-40 transition-all duration-300 ease-in-out w-64 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border-r border-gray-200/20 dark:border-gray-700/20">
+    <div class="flex flex-col h-full">
+
+        <!-- Header -->
+        <div class="flex items-center justify-between h-16 px-6">
+            <a href="/" class="flex items-center text-gray-900 dark:text-white hover:text-gray-600 dark:hover:text-gray-300 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:ring-offset-2 focus:ring-offset-transparent rounded-lg sidebar-brand group">
+                {% include 'components/logo.html' %}
+            </a>
+
+            <button
+                id="sidebar-toggle"
+                class="w-8 h-8 flex items-center justify-center text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 hover:bg-gray-100/50 dark:hover:bg-gray-800/50 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500/20 focus:ring-offset-2 focus:ring-offset-transparent group"
+                aria-label="Toggle sidebar"
+            >
+                <i id="sidebar-toggle-icon" class="fas fa-chevron-left text-sm transition-transform duration-200 group-hover:scale-110"></i>
+            </button>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="flex-1 px-3 py-4 space-y-1 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300/30 dark:scrollbar-thumb-gray-600/30 scrollbar-track-transparent">
+
+            <!-- Dashboard -->
+            <a href="{% url 'dashboard:dashboard' %}" class="{% if request.resolver_match.url_name == 'dashboard' %}bg-blue-50 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300{% else %}text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-gray-900 dark:hover:text-white{% endif %} group flex items-center px-3 py-2.5 text-sm font-medium rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:ring-offset-2 focus:ring-offset-transparent sidebar-link" data-tooltip="Dashboard">
+                <div class="w-5 h-5 flex items-center justify-center flex-shrink-0 rounded-md bg-blue-100 dark:bg-blue-900/30 group-hover:bg-blue-200 dark:group-hover:bg-blue-800/50 transition-colors duration-200">
+                    <i class="fas fa-tachometer-alt text-blue-600 dark:text-blue-400 text-xs"></i>
+                </div>
+                <span class="ml-3 truncate sidebar-text">Dashboard</span>
+                {% if request.resolver_match.url_name == 'dashboard' %}
+                <div class="ml-auto w-2 h-2 bg-blue-500 rounded-full flex-shrink-0 sidebar-indicator"></div>
+                {% endif %}
+            </a>
+
+            <!-- Core Accounting -->
+            <div class="pt-6">
+                <div class="px-3 py-2 mb-2">
+                    <h2 class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider sidebar-section-title">Core Accounting</h2>
+                </div>
+                <div class="space-y-1">
+                    <a href="{% url 'general_ledger' %}" class="{% if request.resolver_match.url_name == 'general_ledger' %}bg-gray-50 dark:bg-gray-800/50 text-gray-900 dark:text-white{% else %}text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-gray-900 dark:hover:text-white{% endif %} group flex items-center px-3 py-2.5 text-sm font-medium rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500/20 focus:ring-offset-2 focus:ring-offset-transparent sidebar-link" data-tooltip="General Ledger">
+                        <div class="w-5 h-5 flex items-center justify-center flex-shrink-0 rounded-md bg-gray-100 dark:bg-gray-800/30 group-hover:bg-gray-200 dark:group-hover:bg-gray-700/50 transition-colors duration-200">
+                            <i class="fas fa-book text-gray-600 dark:text-gray-400 text-xs"></i>
+                        </div>
+                        <span class="ml-3 truncate sidebar-text">General Ledger</span>
+                    </a>
+                    <a href="{% url 'invoices' %}" class="{% if request.resolver_match.url_name == 'invoices' %}bg-red-50 dark:bg-red-950/50 text-red-700 dark:text-red-300{% else %}text-gray-700 dark:text-gray-300 hover:bg-red-50 dark:hover:bg-red-950/30 hover:text-red-700 dark:hover:text-red-300{% endif %} group flex items-center px-3 py-2.5 text-sm font-medium rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:ring-offset-2 focus:ring-offset-transparent sidebar-link" data-tooltip="Invoices">
+                        <div class="w-5 h-5 flex items-center justify-center flex-shrink-0 rounded-md bg-red-100 dark:bg-red-900/30 group-hover:bg-red-200 dark:group-hover:bg-red-800/50 transition-colors duration-200">
+                            <i class="fas fa-file-invoice-dollar text-red-600 dark:text-red-400 text-xs"></i>
+                        </div>
+                        <span class="ml-3 truncate sidebar-text">Invoices</span>
+                        <span class="ml-auto inline-flex items-center rounded-full bg-red-100 dark:bg-red-900/30 px-2 py-0.5 text-xs font-medium text-red-700 dark:text-red-300 flex-shrink-0 sidebar-indicator">12</span>
+                    </a>
+                    <a href="{% url 'balance_sheet' %}" class="{% if request.resolver_match.url_name == 'balance_sheet' %}bg-gray-50 dark:bg-gray-800/50 text-gray-900 dark:text-white{% else %}text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-gray-900 dark:hover:text-white{% endif %} group flex items-center px-3 py-2.5 text-sm font-medium rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500/20 focus:ring-offset-2 focus:ring-offset-transparent sidebar-link" data-tooltip="Balance Sheet">
+                        <div class="w-5 h-5 flex items-center justify-center flex-shrink-0 rounded-md bg-gray-100 dark:bg-gray-800/30 group-hover:bg-gray-200 dark:group-hover:bg-gray-700/50 transition-colors duration-200">
+                            <i class="fas fa-balance-scale text-gray-600 dark:text-gray-400 text-xs"></i>
+                        </div>
+                        <span class="ml-3 truncate sidebar-text">Balance Sheet</span>
+                    </a>
+                    <a href="{% url 'pnl_statement' %}" class="{% if request.resolver_match.url_name == 'pnl_statement' %}bg-gray-50 dark:bg-gray-800/50 text-gray-900 dark:text-white{% else %}text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-gray-900 dark:hover:text-white{% endif %} group flex items-center px-3 py-2.5 text-sm font-medium rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500/20 focus:ring-offset-2 focus:ring-offset-transparent sidebar-link" data-tooltip="P&L Statement">
+                        <div class="w-5 h-5 flex items-center justify-center flex-shrink-0 rounded-md bg-gray-100 dark:bg-gray-800/30 group-hover:bg-gray-200 dark:group-hover:bg-gray-700/50 transition-colors duration-200">
+                            <i class="fas fa-chart-line text-gray-600 dark:text-gray-400 text-xs"></i>
+                        </div>
+                        <span class="ml-3 truncate sidebar-text">P&L Statement</span>
+                    </a>
+                    <a href="{% url 'journal_entries' %}" class="{% if request.resolver_match.url_name == 'journal_entries' %}bg-yellow-50 dark:bg-yellow-950/50 text-yellow-700 dark:text-yellow-300{% else %}text-gray-700 dark:text-gray-300 hover:bg-yellow-50 dark:hover:bg-yellow-950/30 hover:text-yellow-700 dark:hover:text-yellow-300{% endif %} group flex items-center px-3 py-2.5 text-sm font-medium rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-yellow-500/20 focus:ring-offset-2 focus:ring-offset-transparent sidebar-link" data-tooltip="Journal Entries">
+                        <div class="w-5 h-5 flex items-center justify-center flex-shrink-0 rounded-md bg-yellow-100 dark:bg-yellow-900/30 group-hover:bg-yellow-200 dark:group-hover:bg-yellow-800/50 transition-colors duration-200">
+                            <i class="fas fa-journal-whills text-yellow-600 dark:text-yellow-400 text-xs"></i>
+                        </div>
+                        <span class="ml-3 truncate sidebar-text">Journal Entries</span>
+                        <span class="ml-auto inline-flex items-center rounded-full bg-yellow-100 dark:bg-yellow-900/30 px-2 py-0.5 text-xs font-medium text-yellow-800 dark:text-yellow-300 flex-shrink-0 sidebar-indicator">New</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Financial Management -->
+            <div class="pt-6">
+                <div class="px-3 py-2 mb-2">
+                    <h2 class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider sidebar-section-title">Financial Management</h2>
+                </div>
+                <div class="space-y-1">
+                    <a href="{% url 'cash_flow' %}" class="{% if request.resolver_match.url_name == 'cash_flow' %}bg-gray-50 dark:bg-gray-800/50 text-gray-900 dark:text-white{% else %}text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-gray-900 dark:hover:text-white{% endif %} group flex items-center px-3 py-2.5 text-sm font-medium rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500/20 focus:ring-offset-2 focus:ring-offset-transparent sidebar-link" data-tooltip="Cash Flow">
+                        <div class="w-5 h-5 flex items-center justify-center flex-shrink-0 rounded-md bg-gray-100 dark:bg-gray-800/30 group-hover:bg-gray-200 dark:group-hover:bg-gray-700/50 transition-colors duration-200">
+                            <i class="fas fa-cash-register text-gray-600 dark:text-gray-400 text-xs"></i>
+                        </div>
+                        <span class="ml-3 truncate sidebar-text">Cash Flow</span>
+                    </a>
+                    <a href="{% url 'budgeting' %}" class="{% if request.resolver_match.url_name == 'budgeting' %}bg-gray-50 dark:bg-gray-800/50 text-gray-900 dark:text-white{% else %}text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-gray-900 dark:hover:text-white{% endif %} group flex items-center px-3 py-2.5 text-sm font-medium rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500/20 focus:ring-offset-2 focus:ring-offset-transparent sidebar-link" data-tooltip="Budgeting">
+                        <div class="w-5 h-5 flex items-center justify-center flex-shrink-0 rounded-md bg-gray-100 dark:bg-gray-800/30 group-hover:bg-gray-200 dark:group-hover:bg-gray-700/50 transition-colors duration-200">
+                            <i class="fas fa-chart-pie text-gray-600 dark:text-gray-400 text-xs"></i>
+                        </div>
+                        <span class="ml-3 truncate sidebar-text">Budgeting</span>
+                    </a>
+                    <a href="{% url 'fixed_assets' %}" class="{% if request.resolver_match.url_name == 'fixed_assets' %}bg-gray-50 dark:bg-gray-800/50 text-gray-900 dark:text-white{% else %}text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-gray-900 dark:hover:text-white{% endif %} group flex items-center px-3 py-2.5 text-sm font-medium rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500/20 focus:ring-offset-2 focus:ring-offset-transparent sidebar-link" data-tooltip="Fixed Assets">
+                        <div class="w-5 h-5 flex items-center justify-center flex-shrink-0 rounded-md bg-gray-100 dark:bg-gray-800/30 group-hover:bg-gray-200 dark:group-hover:bg-gray-700/50 transition-colors duration-200">
+                            <i class="fas fa-building text-gray-600 dark:text-gray-400 text-xs"></i>
+                        </div>
+                        <span class="ml-3 truncate sidebar-text">Fixed Assets</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Analytics -->
+            <div class="pt-6">
+                <div class="px-3 py-2 mb-2">
+                    <h2 class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider sidebar-section-title">Analytics</h2>
+                </div>
+                <div class="space-y-1">
+                    <a href="{% url 'financial_ratios' %}" class="{% if request.resolver_match.url_name == 'financial_ratios' %}bg-gray-50 dark:bg-gray-800/50 text-gray-900 dark:text-white{% else %}text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-gray-900 dark:hover:text-white{% endif %} group flex items-center px-3 py-2.5 text-sm font-medium rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500/20 focus:ring-offset-2 focus:ring-offset-transparent sidebar-link" data-tooltip="Reports">
+                        <div class="w-5 h-5 flex items-center justify-center flex-shrink-0 rounded-md bg-gray-100 dark:bg-gray-800/30 group-hover:bg-gray-200 dark:group-hover:bg-gray-700/50 transition-colors duration-200">
+                            <i class="fas fa-chart-bar text-gray-600 dark:text-gray-400 text-xs"></i>
+                        </div>
+                        <span class="ml-3 truncate sidebar-text">Reports</span>
+                    </a>
+                    <a href="{% url 'ai_insights' %}" class="{% if request.resolver_match.url_name == 'ai_insights' %}bg-purple-50 dark:bg-purple-950/50 text-purple-700 dark:text-purple-300{% else %}text-gray-700 dark:text-gray-300 hover:bg-purple-50 dark:hover:bg-purple-950/30 hover:text-purple-700 dark:hover:text-purple-300{% endif %} group flex items-center px-3 py-2.5 text-sm font-medium rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:ring-offset-2 focus:ring-offset-transparent sidebar-link" data-tooltip="AI Insights">
+                        <div class="w-5 h-5 flex items-center justify-center flex-shrink-0 rounded-md bg-purple-100 dark:bg-purple-900/30 group-hover:bg-purple-200 dark:group-hover:bg-purple-800/50 transition-colors duration-200">
+                            <i class="fas fa-robot text-purple-600 dark:text-purple-400 text-xs"></i>
+                        </div>
+                        <span class="ml-3 truncate sidebar-text">AI Insights</span>
+                        <span class="ml-auto inline-flex items-center rounded-full bg-purple-100 dark:bg-purple-900/30 px-2 py-0.5 text-xs font-medium text-purple-800 dark:text-purple-300 flex-shrink-0 sidebar-indicator">AI</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Settings -->
+            <div class="pt-6">
+                <a href="{% url 'settings' %}" class="{% if request.resolver_match.url_name == 'settings' %}bg-gray-50 dark:bg-gray-800/50 text-gray-900 dark:text-white{% else %}text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:text-gray-900 dark:hover:text-white{% endif %} group flex items-center px-3 py-2.5 text-sm font-medium rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500/20 focus:ring-offset-2 focus:ring-offset-transparent sidebar-link" data-tooltip="Settings">
+                    <div class="w-5 h-5 flex items-center justify-center flex-shrink-0 rounded-md bg-gray-100 dark:bg-gray-800/30 group-hover:bg-gray-200 dark:group-hover:bg-gray-700/50 transition-colors duration-200">
+                        <i class="fas fa-cog text-gray-600 dark:text-gray-400 text-xs"></i>
+                    </div>
+                    <span class="ml-3 truncate sidebar-text">Settings</span>
+                </a>
+            </div>
+
+        </nav>
+
+        <!-- User Section -->
+        <div class="p-4 border-t border-gray-200/20 dark:border-gray-700/20">
+            <div class="flex items-center space-x-3 mb-4 p-3 rounded-xl bg-gray-50/50 dark:bg-gray-800/30">
+                <div class="w-10 h-10 bg-gray-200 dark:bg-gray-700 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <i class="fas fa-user text-gray-600 dark:text-gray-400"></i>
+                </div>
+                <div class="flex-1 min-w-0 sidebar-user-details">
+                    <p class="text-sm font-medium text-gray-900 dark:text-white truncate">{{ user.get_full_name|default:user.username }}</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 truncate">{{ user.email }}</p>
+                </div>
+            </div>
+
+            <a href="{% url 'accounts:logout' %}" class="flex items-center justify-center px-3 py-2.5 text-sm font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/30 rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:ring-offset-2 focus:ring-offset-transparent sidebar-logout group">
+                <i class="fas fa-sign-out-alt sidebar-logout-icon group-hover:scale-105 transition-transform duration-200"></i>
+                <span class="ml-2 sidebar-logout-text">Logout</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Sidebar Toggle Script -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const sidebar = document.getElementById('sidebar');
+    const toggleBtn = document.getElementById('sidebar-toggle');
+    const toggleIcon = document.getElementById('sidebar-toggle-icon');
+    const mainContent = document.querySelector('.main-content');
+    const header = document.querySelector('.bg-white.dark\\:bg-gray-800.border-b');
+
+    // Check for saved sidebar state
+    const sidebarCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+
+    // Function to toggle sidebar
+    function toggleSidebar() {
+        const isCollapsed = sidebar.classList.contains('w-16');
+
+        if (isCollapsed) {
+            // Expand sidebar
+            sidebar.classList.remove('w-16');
+            sidebar.classList.add('w-64');
+            toggleIcon.classList.remove('rotate-180');
+            if (mainContent) {
+                mainContent.classList.remove('lg:ml-16');
+                mainContent.classList.add('lg:ml-64');
+            }
+            if (header) {
+                header.classList.remove('lg:ml-16');
+                header.classList.add('lg:ml-64');
+            }
+            localStorage.setItem('sidebarCollapsed', 'false');
+        } else {
+            // Collapse sidebar
+            sidebar.classList.remove('w-64');
+            sidebar.classList.add('w-16');
+            toggleIcon.classList.add('rotate-180');
+            if (mainContent) {
+                mainContent.classList.remove('lg:ml-64');
+                mainContent.classList.add('lg:ml-16');
+            }
+            if (header) {
+                header.classList.remove('lg:ml-64');
+                header.classList.add('lg:ml-16');
+            }
+            localStorage.setItem('sidebarCollapsed', 'true');
+        }
+    }
+
+    // Initialize sidebar state
+    if (sidebarCollapsed) {
+        sidebar.classList.remove('w-64');
+        sidebar.classList.add('w-16');
+        toggleIcon.classList.add('rotate-180');
+        if (mainContent) {
+            mainContent.classList.remove('lg:ml-64');
+            mainContent.classList.add('lg:ml-16');
+        }
+        if (header) {
+            header.classList.remove('lg:ml-64');
+            header.classList.add('lg:ml-16');
+        }
+    }
+
+    // Add click event listener
+    toggleBtn.addEventListener('click', toggleSidebar);
+
+    // Add keyboard shortcut (Ctrl/Cmd + B)
+    document.addEventListener('keydown', function(e) {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'b') {
+            e.preventDefault();
+            toggleSidebar();
+        }
+    });
+});
+</script>
+
+<style>
+/* Enhanced scrollbar */
+.scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+}
+.scrollbar-thin::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 3px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, rgba(59, 130, 246, 0.4) 0%, rgba(147, 51, 234, 0.4) 100%);
+    border-radius: 3px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, rgba(59, 130, 246, 0.6) 0%, rgba(147, 51, 234, 0.6) 100%);
+}
+.dark .scrollbar-thin::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+.dark .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, rgba(59, 130, 246, 0.3) 0%, rgba(147, 51, 234, 0.3) 100%);
+}
+.dark .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, rgba(59, 130, 246, 0.5) 0%, rgba(147, 51, 234, 0.5) 100%);
+}
+
+/* Collapsed sidebar */
+#sidebar.w-16 .sidebar-text,
+#sidebar.w-16 .sidebar-indicator,
+#sidebar.w-16 .sidebar-section-title,
+#sidebar.w-16 .sidebar-user-details,
+#sidebar.w-16 .sidebar-logout-text {
+    opacity: 0;
+    transform: translateX(-15px) scale(0.95);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+#sidebar.w-16 .sidebar-brand {
+    justify-content: center;
+}
+#sidebar.w-16 .sidebar-link {
+    justify-content: center;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+}
+#sidebar.w-16 .sidebar-logout {
+    justify-content: center;
+    padding-left: 0.875rem;
+    padding-right: 0.875rem;
+}
+#sidebar.w-16 .sidebar-logout-icon {
+    margin-right: 0;
+}
+
+/* Expanded sidebar */
+#sidebar.w-64 .sidebar-text,
+#sidebar.w-64 .sidebar-indicator,
+#sidebar.w-64 .sidebar-section-title,
+#sidebar.w-64 .sidebar-user-details,
+#sidebar.w-64 .sidebar-logout-text {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    #sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        backdrop-filter: blur(25px);
+        -webkit-backdrop-filter: blur(25px);
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+    }
+    #sidebar.sidebar-open {
+        transform: translateX(0);
+    }
+    .sidebar-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.4) 100%);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        z-index: 30;
+        display: none;
+        animation: overlayFadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .sidebar-overlay.sidebar-open {
+        display: block;
+    }
+    @keyframes overlayFadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+}
+
+/* Smooth transitions */
+#sidebar * {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Enhanced tooltips */
+#sidebar.w-16 .sidebar-link:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.9) 100%);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    color: white;
+    padding: 0.875rem 1.25rem;
+    border-radius: 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    white-space: nowrap;
+    z-index: 50;
+    margin-left: 1rem;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    opacity: 0;
+    animation: tooltipSlideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    pointer-events: none;
+}
+@keyframes tooltipSlideIn {
+    to {
+        opacity: 1;
+        transform: translateY(-50%) translateX(0);
+    }
+    from {
+        opacity: 0;
+        transform: translateY(-50%) translateX(-10px);
+    }
+}
+
+/* Active state enhancements */
+.sidebar-link.active {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(147, 51, 234, 0.1) 100%);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+/* Focus states */
+.sidebar-link:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.4), 0 4px 12px rgba(59, 130, 246, 0.2);
+}
+
+/* Hover effects */
+.sidebar-link:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+.dark .sidebar-link:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Icon animations */
+.sidebar-link:hover .fa-icon {
+    transform: scale(1.15) rotate(8deg);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+/* User section glass morphism */
+.sidebar-user-info {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.5) 100%);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+.dark .sidebar-user-info {
+    background: linear-gradient(135deg, rgba(31, 41, 55, 0.6) 0%, rgba(17, 24, 39, 0.4) 100%);
+    border: 1px solid rgba(75, 85, 99, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Button interactions */
+#sidebar-toggle:hover {
+    transform: scale(1.08) rotate(5deg);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+#sidebar-toggle:active {
+    transform: scale(0.95) rotate(-5deg);
+}
+
+/* Section headers enhancement */
+.sidebar-section-title {
+    position: relative;
+    overflow: hidden;
+}
+.sidebar-section-title::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%);
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+}
+.sidebar-section-title:hover::before {
+    transform: translateX(100%);
+}
+
+/* Pulse animation for active indicators */
+@keyframes pulse-glow {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 0 6px rgba(59, 130, 246, 0);
+    }
+}
+.sidebar-indicator.active {
+    animation: pulse-glow 2s infinite;
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    #sidebar * {
+        transition: none !important;
+    }
+    #sidebar.w-16 .sidebar-link:hover::after {
+        animation: none;
+        opacity: 1;
+    }
+    .sidebar-indicator.active {
+        animation: none;
+    }
+}
+@media (prefers-contrast: high) {
+    #sidebar {
+        background: white;
+        border-right: 3px solid black;
+    }
+    .dark #sidebar {
+        background: black;
+        border-right: 3px solid white;
+    }
+    .sidebar-user-info {
+        background: rgba(255, 255, 255, 0.9);
+        border: 2px solid black;
+    }
+    .dark .sidebar-user-info {
+        background: rgba(0, 0, 0, 0.9);
+        border: 2px solid white;
+    }
+}
+
+/* Loading state */
+#sidebar.loading {
+    opacity: 0.6;
+    pointer-events: none;
+    filter: blur(1px);
+}
+
+/* Subtle background pattern */
+#sidebar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image:
+        radial-gradient(circle at 25% 25%, rgba(59, 130, 246, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(147, 51, 234, 0.03) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+</style>

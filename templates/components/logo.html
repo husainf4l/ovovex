@@ -1,0 +1,13 @@
+{% load static %}
+<!-- Logo Component -->
+<div class="flex items-center">
+    <img
+        src="{% static 'images/ovovex-logo.webp' %}"
+        alt="Ovovex Logo"
+        class="h-12 w-auto object-contain"
+        onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';"
+    >
+    <span class="ml-2 text-xl font-semibold text-gray-900 dark:text-white" style="display: none;">
+        Ovovex
+    </span>
+</div>

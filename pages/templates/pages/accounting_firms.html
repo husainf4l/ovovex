@@ -1,0 +1,747 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Accounting Firms Solutions - Ovovex" %}{% endblock %}
+
+{% block content %}
+{% include 'components/navbar.html' %}
+
+<div class="min-h-screen bg-gray-50">
+    <!-- Extended Navbar Section -->
+    <section class="bg-white shadow-lg relative z-50" style="background-image: url('/static/images/image2.jpg'); background-size: 130%; background-position: center;">
+        <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+        <div class="relative">
+            <!-- Navbar -->
+            <nav class="bg-white shadow-lg">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex justify-between h-16">
+                        <div class="flex items-center">
+                            <a class="flex items-center text-gray-800 hover:text-gray-600 font-bold text-xl" href="/">
+                                <div class="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center mr-3">
+                                    <i class="fas fa-cube text-white"></i>
+                                </div>
+                                Ovovex
+                            </a>
+                        </div>
+                        <div class="hidden md:flex items-center space-x-8">
+                            <a href="/" class="text-gray-700 hover:text-gray-900">{% trans "Home" %}</a>
+                            <div class="relative group">
+                                <button class="text-gray-700 hover:text-gray-900 flex items-center">
+                                    {% trans "Solutions" %} <i class="fas fa-chevron-down ml-1"></i>
+                                </button>
+                                <div class="absolute left-0 mt-2 w-64 bg-white shadow-lg rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                                    <div class="p-4">
+                                        <div class="text-sm font-semibold text-gray-500 mb-2"><i class="fas fa-building mr-2"></i>{% trans "By Business Size" %}</div>
+                                        <a href="{% url 'pages:small_business' %}" class="flex items-center p-2 hover:bg-gray-100 rounded">
+                                            <i class="fas fa-store mr-2 text-gray-600"></i>
+                                            <div>
+                                                <div class="font-semibold">{% trans "Small Business" %}</div>
+                                                <div class="text-sm text-gray-500">{% trans "Up to 50 employees" %}</div>
+                                            </div>
+                                        </a>
+                                        <a href="{% url 'pages:enterprise' %}" class="flex items-center p-2 hover:bg-gray-100 rounded">
+                                            <i class="fas fa-industry mr-2 text-gray-600"></i>
+                                            <div>
+                                                <div class="font-semibold">{% trans "Enterprise" %}</div>
+                                                <div class="text-sm text-gray-500">{% trans "500+ employees" %}</div>
+                                            </div>
+                                        </a>
+                                        <a href="{% url 'pages:accounting_firms' %}" class="flex items-center p-2 hover:bg-gray-100 rounded">
+                                            <i class="fas fa-handshake mr-2 text-gray-600"></i>
+                                            <div>
+                                                <div class="font-semibold">{% trans "Accounting Firms" %}</div>
+                                                <div class="text-sm text-gray-500">{% trans "Multi-client management" %}</div>
+                                            </div>
+                                        </a>
+                                        <hr class="my-2">
+                                        <div class="text-sm font-semibold text-gray-500 mb-2"><i class="fas fa-tags mr-2"></i>{% trans "By Industry" %}</div>
+                                        <a href="{% url 'pages:retail_ecommerce' %}" class="flex items-center p-2 hover:bg-gray-100 rounded">
+                                            <i class="fas fa-shopping-cart mr-2 text-gray-600"></i>{% trans "Retail & E-commerce" %}
+                                        </a>
+                                        <a href="{% url 'pages:manufacturing' %}" class="flex items-center p-2 hover:bg-gray-100 rounded">
+                                            <i class="fas fa-hammer mr-2 text-gray-600"></i>{% trans "Manufacturing" %}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="relative group">
+                                <button class="text-gray-700 hover:text-gray-900 flex items-center">
+                                    {% trans "Platform" %} <i class="fas fa-chevron-down ml-1"></i>
+                                </button>
+                                <div class="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                                    <div class="p-2">
+                                        <a href="{% url 'pages:smart_invoicing' %}" class="flex items-center p-2 hover:bg-gray-100 rounded">
+                                            <i class="fas fa-file-invoice-dollar mr-2 text-gray-600"></i>{% trans "Smart Invoicing" %}
+                                        </a>
+                                        <a href="{% url 'pages:ai_bookkeeping' %}" class="flex items-center p-2 hover:bg-gray-100 rounded">
+                                            <i class="fas fa-robot mr-2 text-gray-600"></i>{% trans "AI Bookkeeping" %}
+                                        </a>
+                                        <a href="{% url 'pages:real_time_analytics' %}" class="flex items-center p-2 hover:bg-gray-100 rounded">
+                                            <i class="fas fa-chart-line mr-2 text-gray-600"></i>{% trans "Real-time Analytics" %}
+                                        </a>
+                                        <a href="{% url 'pages:ifrs_compliance' %}" class="flex items-center p-2 hover:bg-gray-100 rounded">
+                                            <i class="fas fa-certificate mr-2 text-gray-600"></i>{% trans "IFRS Compliance" %}
+                                        </a>
+                                        <a href="{% url 'pages:bank_grade_security' %}" class="flex items-center p-2 hover:bg-gray-100 rounded">
+                                            <i class="fas fa-lock mr-2 text-gray-600"></i>{% trans "Bank-Grade Security" %}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#pricing" class="text-gray-700 hover:text-gray-900">{% trans "Pricing" %}</a>
+                            {% if not user.is_authenticated %}
+                            <a href="{% url 'accounts:login' %}" class="text-gray-700 hover:text-gray-900">{% trans "Login" %}</a>
+                            <a href="{% url 'pages:starter_signup' %}" class="bg-gray-900 text-white px-4 py-2 rounded-lg hover:bg-gray-800">{% trans "Sign Up" %}</a>
+                            {% endif %}
+                        </div>
+                        <div class="md:hidden flex items-center">
+                            <button class="text-gray-700 hover:text-gray-900">
+                                <i class="fas fa-bars"></i>
+                            </button>
+                        </div>
+                        {% if user.is_authenticated %}
+                        <div class="hidden md:flex items-center space-x-4">
+                            <a href="{% url 'dashboard:dashboard' %}" class="text-gray-700 hover:text-gray-900 flex items-center">
+                                <i class="fas fa-tachometer-alt mr-2"></i>{% trans "Dashboard" %}
+                            </a>
+                            <div class="relative group">
+                                <button class="text-gray-700 hover:text-gray-900 flex items-center">
+                                    <i class="fas fa-user-circle mr-2"></i>{{ user.get_full_name|default:user.username }}
+                                </button>
+                                <div class="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                                    <div class="p-2">
+                                        <a href="{% url 'dashboard:dashboard' %}" class="flex items-center p-2 hover:bg-gray-100 rounded">
+                                            <i class="fas fa-tachometer-alt mr-2"></i>{% trans "Dashboard" %}
+                                        </a>
+                                        <a href="#" class="flex items-center p-2 hover:bg-gray-100 rounded">
+                                            <i class="fas fa-user mr-2"></i>{% trans "Profile" %}
+                                        </a>
+                                        <a href="#" class="flex items-center p-2 hover:bg-gray-100 rounded">
+                                            <i class="fas fa-cog mr-2"></i>{% trans "Settings" %}
+                                        </a>
+                                        <hr class="my-1">
+                                        <a href="{% url 'accounts:logout' %}" class="flex items-center p-2 hover:bg-gray-100 rounded">
+                                            <i class="fas fa-sign-out-alt mr-2"></i>{% trans "Logout" %}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% else %}
+                        <div class="hidden md:flex items-center">
+                            <a href="{% url 'accounts:signup' %}" class="bg-gray-900 text-white px-6 py-2 rounded-lg hover:bg-gray-800 flex items-center">
+                                {% trans "Start Free Trial" %} <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Extended Hero Content -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <div class="text-center">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-6">
+                        {% trans "Professional Accounting Firm Management" %}
+                    </h1>
+                </div>
+            </div>
+
+            <!-- Extended Features Section within Navbar -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
+                        {% trans "Built for Accounting Professionals" %}
+                    </h2>
+                    <p class="text-xl text-gray-200 max-w-2xl mx-auto">
+                        {% trans "Comprehensive tools to manage client relationships, automate workflows, and deliver high-quality accounting services efficiently." %}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Feature 1 -->
+                <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-users text-green-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Multi-Client Management" %}</h3>
+                    <p class="text-gray-600">
+                        {% trans "Organize and manage multiple client accounts with dedicated workspaces, custom permissions, and seamless data segregation." %}
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-desktop text-blue-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Client Portals" %}</h3>
+                    <p class="text-gray-600">
+                        {% trans "Give clients secure access to their financial data, documents, and reports. Enable self-service capabilities and improve client satisfaction." %}
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-tags text-purple-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">{% trans "White-Label Solutions" %}</h3>
+                    <p class="text-gray-600">
+                        {% trans "Brand the platform with your firm's identity. Custom domains, logos, and color schemes to maintain your professional image." %}
+                    </p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+                    <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-clock text-orange-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Time Tracking & Billing" %}</h3>
+                    <p class="text-gray-600">
+                        {% trans "Track time spent on client work, generate detailed invoices, and manage billing cycles with automated recurring charges." %}
+                    </p>
+                </div>
+
+                <!-- Feature 5 -->
+                <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+                    <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-file-contract text-red-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Engagement Management" %}</h3>
+                    <p class="text-gray-600">
+                        {% trans "Manage client engagements with customizable templates, automated workflows, and comprehensive audit trails for compliance." %}
+                    </p>
+                </div>
+
+                <!-- Feature 6 -->
+                <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+                    <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-chart-pie text-indigo-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">{% trans "Practice Analytics" %}</h3>
+                    <p class="text-gray-600">
+                        {% trans "Gain insights into your firm's performance with detailed analytics on profitability, client retention, and operational efficiency." %}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="bg-gray-100 py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                    {% trans "Why Accounting Firms Choose Ovovex" %}
+                </h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="bg-white p-8 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-semibold text-gray-900 mb-6">{% trans "Client Service Excellence" %}</h3>
+                    <ul class="space-y-4 text-gray-600">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                            {% trans "Secure client data portals with document sharing" %}
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                            {% trans "Automated client communications and reminders" %}
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                            {% trans "Real-time collaboration tools for team members" %}
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                            {% trans "Customizable client reporting and dashboards" %}
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-8 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-semibold text-gray-900 mb-6">{% trans "Operational Efficiency" %}</h3>
+                    <ul class="space-y-4 text-gray-600">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                            {% trans "Automated data imports from client systems" %}
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                            {% trans "Bulk processing capabilities for multiple clients" %}
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                            {% trans "Standardized workflows and templates" %}
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                            {% trans "Advanced audit trails and compliance reporting" %}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                    {% trans "Accounting Firm Platform in Action" %}
+                </h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    {% trans "See how leading accounting firms manage multiple clients, streamline workflows, and deliver exceptional service with Ovovex." %}
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <!-- Demo Video Placeholder -->
+                <div class="bg-gray-100 rounded-lg p-8 text-center">
+                    <div class="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-play text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold text-gray-900 mb-4">{% trans "Firm Management Demo" %}</h3>
+                    <p class="text-gray-600 mb-6">
+                        {% trans "Watch how accounting firms manage 100+ clients with multi-client portals, automated workflows, and comprehensive practice analytics." %}
+                    </p>
+                    <button class="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition duration-300">
+                        {% trans "Watch Firm Demo" %}
+                    </button>
+                </div>
+
+                <!-- Demo Screenshots -->
+                <div class="space-y-6">
+                    <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+                        <div class="flex items-center mb-4">
+                            <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
+                                <i class="fas fa-users text-blue-600"></i>
+                            </div>
+                            <h4 class="text-lg font-semibold text-gray-900">{% trans "Multi-Client Dashboard" %}</h4>
+                        </div>
+                        <p class="text-gray-600">{% trans "Centralized view of all client accounts with status updates, deadlines, and key metrics." %}</p>
+                    </div>
+
+                    <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+                        <div class="flex items-center mb-4">
+                            <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mr-4">
+                                <i class="fas fa-tags text-purple-600"></i>
+                            </div>
+                            <h4 class="text-lg font-semibold text-gray-900">{% trans "White-Label Client Portal" %}</h4>
+                        </div>
+                        <p class="text-gray-600">{% trans "Branded client portals with your firm's logo, colors, and custom domain." %}</p>
+                    </div>
+
+                    <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+                        <div class="flex items-center mb-4">
+                            <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center mr-4">
+                                <i class="fas fa-clock text-orange-600"></i>
+                            </div>
+                            <h4 class="text-lg font-semibold text-gray-900">{% trans "Time & Billing Automation" %}</h4>
+                        </div>
+                        <p class="text-gray-600">{% trans "Automated time tracking, invoice generation, and client billing with recurring charges." %}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detailed Features Section -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                    {% trans "Comprehensive Firm Management Features" %}
+                </h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    {% trans "Everything accounting firms need to manage clients efficiently, maintain compliance, and grow their practice." %}
+                </p>
+            </div>
+
+            <div class="space-y-16">
+                <!-- Multi-Client Management -->
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4">{% trans "Advanced Multi-Client Management" %}</h3>
+                        <ul class="space-y-3 text-gray-600">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                {% trans "Unlimited client accounts with dedicated workspaces" %}
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                {% trans "Role-based permissions for staff and client access" %}
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                {% trans "Automated client onboarding and setup workflows" %}
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                {% trans "Client data segregation and security controls" %}
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                {% trans "Bulk operations for managing multiple clients" %}
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="bg-white p-8 rounded-lg shadow-lg">
+                        <div class="text-center">
+                            <i class="fas fa-users text-green-600 text-6xl mb-4"></i>
+                            <p class="text-gray-600">{% trans "Manage hundreds of clients with complete data isolation" %}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Client Service Tools -->
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div class="bg-white p-8 rounded-lg shadow-lg">
+                        <div class="text-center">
+                            <i class="fas fa-desktop text-blue-600 text-6xl mb-4"></i>
+                            <p class="text-gray-600">{% trans "Empower clients with self-service capabilities" %}</p>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4">{% trans "Client Service Excellence" %}</h3>
+                        <ul class="space-y-3 text-gray-600">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                {% trans "Secure document sharing and collaboration tools" %}
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                {% trans "Real-time notifications and automated reminders" %}
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                {% trans "Customizable client dashboards and reports" %}
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                {% trans "Client feedback and satisfaction tracking" %}
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                {% trans "Integrated client communication tools" %}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Practice Management -->
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4">{% trans "Practice Analytics & Insights" %}</h3>
+                        <ul class="space-y-3 text-gray-600">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                {% trans "Detailed profitability analysis by client and service" %}
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                {% trans "Staff productivity and utilization reports" %}
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                {% trans "Client retention and growth analytics" %}
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                {% trans "Workflow efficiency and bottleneck identification" %}
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                {% trans "Custom KPI dashboards and benchmarking" %}
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="bg-white p-8 rounded-lg shadow-lg">
+                        <div class="text-center">
+                            <i class="fas fa-chart-pie text-indigo-600 text-6xl mb-4"></i>
+                            <p class="text-gray-600">{% trans "Data-driven insights to grow your practice" %}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                    {% trans "Trusted by Accounting Firms" %}
+                </h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    {% trans "See what accounting professionals say about managing their practices with Ovovex." %}
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-gray-50 p-8 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
+                            <span class="text-green-600 font-semibold">PC</span>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-900">{% trans "Partners & Co." %}</h4>
+                            <p class="text-gray-600 text-sm">{% trans "Regional Accounting Firm" %}</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic">
+                        {% trans "Ovovex transformed how we serve our 200+ clients. The white-label portals make us look like a Fortune 500 firm, and our efficiency has doubled." %}
+                    </p>
+                    <div class="flex text-yellow-400 mt-4">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="bg-gray-50 p-8 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                            <span class="text-blue-600 font-semibold">AF</span>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-900">{% trans "Anderson Financial" %}</h4>
+                            <p class="text-gray-600 text-sm">{% trans "Tax & Accounting Specialists" %}</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic">
+                        {% trans "The automated time tracking and billing features saved us 15 hours per week. Our clients love the transparent billing and our margins improved significantly." %}
+                    </p>
+                    <div class="flex text-yellow-400 mt-4">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="bg-gray-50 p-8 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mr-4">
+                            <span class="text-purple-600 font-semibold">BC</span>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-900">{% trans "Business Consultants Inc." %}</h4>
+                            <p class="text-gray-600 text-sm">{% trans "Full-Service Accounting Firm" %}</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic">
+                        {% trans "The practice analytics give us incredible insights into our business. We can now identify which services are most profitable and focus our marketing efforts accordingly." %}
+                    </p>
+                    <div class="flex text-yellow-400 mt-4">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Firm Pricing Section -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                    {% trans "Accounting Firm Pricing" %}
+                </h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    {% trans "Flexible pricing designed for accounting firms of all sizes. Scale as your practice grows." %}
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Starter Firm Plan -->
+                <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-gray-200">
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4">{% trans "Starter Firm" %}</h3>
+                        <div class="text-4xl font-bold text-gray-900 mb-2">$49<span class="text-lg font-normal">/{% trans "month" %}</span></div>
+                        <p class="text-gray-600 mb-6">{% trans "Perfect for small accounting practices" %}</p>
+                        <ul class="text-left space-y-3 mb-8">
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-3"></i>
+                                {% trans "Up to 25 client accounts" %}
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-3"></i>
+                                {% trans "Basic client portals" %}
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-3"></i>
+                                {% trans "Time tracking & billing" %}
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-3"></i>
+                                {% trans "Basic practice reports" %}
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-3"></i>
+                                {% trans "Email support" %}
+                            </li>
+                        </ul>
+                        <a href="{% url 'accounts:signup' %}" class="block bg-gray-100 text-gray-800 px-6 py-3 rounded-lg font-semibold hover:bg-gray-200 transition duration-300">
+                            {% trans "Start Free Trial" %}
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Professional Firm Plan -->
+                <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-green-500 relative">
+                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                        <span class="bg-green-500 text-white px-4 py-1 rounded-full text-sm font-semibold">{% trans "Most Popular" %}</span>
+                    </div>
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4">{% trans "Professional Firm" %}</h3>
+                        <div class="text-4xl font-bold text-gray-900 mb-2">$149<span class="text-lg font-normal">/{% trans "month" %}</span></div>
+                        <p class="text-gray-600 mb-6">{% trans "Ideal for growing accounting firms" %}</p>
+                        <ul class="text-left space-y-3 mb-8">
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-3"></i>
+                                {% trans "Up to 100 client accounts" %}
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-3"></i>
+                                {% trans "White-label client portals" %}
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-3"></i>
+                                {% trans "Advanced time & billing" %}
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-3"></i>
+                                {% trans "Full practice analytics" %}
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-3"></i>
+                                {% trans "Priority phone support" %}
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-3"></i>
+                                {% trans "Custom integrations" %}
+                            </li>
+                        </ul>
+                        <a href="{% url 'accounts:signup' %}" class="block bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition duration-300">
+                            {% trans "Start Free Trial" %}
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Enterprise Firm Plan -->
+                <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-gray-200">
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4">{% trans "Enterprise Firm" %}</h3>
+                        <div class="text-4xl font-bold text-gray-900 mb-2">$299<span class="text-lg font-normal">/{% trans "month" %}</span></div>
+                        <p class="text-gray-600 mb-6">{% trans "For large accounting partnerships" %}</p>
+                        <ul class="text-left space-y-3 mb-8">
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-3"></i>
+                                {% trans "Unlimited client accounts" %}
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-3"></i>
+                                {% trans "Full white-label customization" %}
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-3"></i>
+                                {% trans "Advanced automation workflows" %}
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-3"></i>
+                                {% trans "Dedicated account manager" %}
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-3"></i>
+                                {% trans "Custom development services" %}
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-3"></i>
+                                {% trans "24/7 premium support" %}
+                            </li>
+                        </ul>
+                        <a href="mailto:sales@ovovex.com" class="block bg-gray-100 text-gray-800 px-6 py-3 rounded-lg font-semibold hover:bg-gray-200 transition duration-300">
+                            {% trans "Contact Sales" %}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Firm FAQ Section -->
+    <section class="py-20 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                    {% trans "Accounting Firm FAQ" %}
+                </h2>
+                <p class="text-xl text-gray-600">
+                    {% trans "Answers to common questions from accounting firms." %}
+                </p>
+            </div>
+
+            <div class="space-y-6">
+                <div class="bg-gray-50 p-6 rounded-lg">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-3">{% trans "How does client data security work?" %}</h3>
+                    <p class="text-gray-600">{% trans "Each client account is completely segregated with bank-grade encryption. Your firm maintains full control over client data access, and we comply with all major privacy regulations including GDPR and CCPA." %}</p>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-lg">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-3">{% trans "Can I migrate my existing clients?" %}</h3>
+                    <p class="text-gray-600">{% trans "Yes! We provide comprehensive data migration tools and services. Our team can help import client data from QuickBooks, Xero, Excel files, and most accounting software platforms." %}</p>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-lg">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-3">{% trans "What level of customization is available?" %}</h3>
+                    <p class="text-gray-600">{% trans "Professional and Enterprise plans include white-label branding, custom workflows, and API access. Enterprise plans also include custom development services for unique requirements." %}</p>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-lg">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-3">{% trans "How does the billing work for multiple clients?" %}</h3>
+                    <p class="text-gray-600">{% trans "You pay one monthly fee for your firm account. Client billing is handled separately through our integrated invoicing system, with automated recurring charges and detailed time tracking." %}</p>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-lg">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-3">{% trans "Can I integrate with my existing software?" %}</h3>
+                    <p class="text-gray-600">{% trans "Yes, we offer integrations with major accounting software, CRM systems, and practice management tools. Our API-first architecture also supports custom integrations for specialized needs." %}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="bg-gray-900 text-white py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">
+                {% trans "Grow Your Accounting Practice" %}
+            </h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto">
+                {% trans "Join leading accounting firms who use Ovovex to scale their operations and deliver exceptional client service." %}
+            </p>
+            <a href="{% url 'accounts:signup' %}" class="bg-green-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-green-700 transition duration-300">
+                {% trans "Start Firm Trial" %}
+            </a>
+        </div>
+    </section>
+</div>
+{% endblock %}

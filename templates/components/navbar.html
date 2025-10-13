@@ -32,7 +32,7 @@
                 <i class="fas fa-building mr-2"></i>By Business Size
               </div>
               <a
-                href="{% url 'small_business' %}"
+                href="{% url 'pages:small_business' %}"
                 class="flex items-center p-2 hover:bg-gray-100 rounded"
               >
                 <i class="fas fa-store mr-2 text-gray-600"></i>
@@ -44,7 +44,7 @@
                 </div>
               </a>
               <a
-                href="{% url 'enterprise' %}"
+                href="{% url 'pages:enterprise' %}"
                 class="flex items-center p-2 hover:bg-gray-100 rounded"
               >
                 <i class="fas fa-industry mr-2 text-gray-600"></i>
@@ -56,7 +56,7 @@
                 </div>
               </a>
               <a
-                href="{% url 'accounting_firms' %}"
+                href="{% url 'pages:accounting_firms' %}"
                 class="flex items-center p-2 hover:bg-gray-100 rounded"
               >
                 <i class="fas fa-handshake mr-2 text-gray-600"></i>
@@ -74,13 +74,13 @@
                 <i class="fas fa-tags mr-2"></i>By Industry
               </div>
               <a
-                href="{% url 'retail_ecommerce' %}"
+                href="{% url 'pages:retail_ecommerce' %}"
                 class="flex items-center p-2 hover:bg-gray-100 rounded"
               >
                 <i class="fas fa-shopping-cart mr-2 text-gray-600"></i>Retail & E-commerce
               </a>
               <a
-                href="{% url 'manufacturing' %}"
+                href="{% url 'pages:manufacturing' %}"
                 class="flex items-center p-2 hover:bg-gray-100 rounded"
               >
                 <i class="fas fa-hammer mr-2 text-gray-600"></i>Manufacturing
@@ -97,32 +97,32 @@
           >
             <div class="p-2">
               <a
-                href="{% url 'smart_invoicing' %}"
+                href="{% url 'pages:smart_invoicing' %}"
                 class="flex items-center p-2 hover:bg-gray-100 rounded"
               >
                 <i class="fas fa-file-invoice-dollar mr-2 text-gray-600"></i>Smart Invoicing
               </a>
               <a
-                href="{% url 'ai_bookkeeping' %}"
+                href="{% url 'pages:ai_bookkeeping' %}"
                 class="flex items-center p-2 hover:bg-gray-100 rounded"
               >
                 <i class="fas fa-robot mr-2 text-gray-600"></i>AI
                 Bookkeeping
               </a>
               <a
-                href="{% url 'real_time_analytics' %}"
+                href="{% url 'pages:real_time_analytics' %}"
                 class="flex items-center p-2 hover:bg-gray-100 rounded"
               >
                 <i class="fas fa-chart-line mr-2 text-gray-600"></i>Real-time Analytics
               </a>
               <a
-                href="{% url 'ifrs_compliance' %}"
+                href="{% url 'pages:ifrs_compliance' %}"
                 class="flex items-center p-2 hover:bg-gray-100 rounded"
               >
                 <i class="fas fa-certificate mr-2 text-gray-600"></i>IFRS Compliance
               </a>
               <a
-                href="{% url 'bank_grade_security' %}"
+                href="{% url 'pages:bank_grade_security' %}"
                 class="flex items-center p-2 hover:bg-gray-100 rounded"
               >
                 <i class="fas fa-lock mr-2 text-gray-600"></i>Bank-Grade Security
@@ -130,16 +130,16 @@
             </div>
           </div>
         </div>
-        <a href="{% url 'pricing' %}" class="text-gray-700 hover:text-gray-900"
+        <a href="{% url 'pages:pricing' %}" class="text-gray-700 hover:text-gray-900"
           >Pricing</a
         >
 
         {% if not user.is_authenticated %}
-        <a href="{% url 'login' %}" class="text-gray-700 hover:text-gray-900"
+        <a href="{% url 'accounts:login' %}" class="text-gray-700 hover:text-gray-900"
           >Login</a
         >
         <a
-          href="{% url 'starter_signup' %}"
+          href="{% url 'pages:starter_signup' %}"
           class="bg-gray-900 text-white px-4 py-2 rounded-lg hover:bg-gray-800"
           >Sign Up</a
         >
@@ -153,7 +153,7 @@
       {% if user.is_authenticated %}
       <div class="hidden md:flex items-center space-x-4">
         <a
-          href="{% url 'dashboard' %}"
+          href="{% url 'dashboard:dashboard' %}"
           class="text-gray-700 hover:text-gray-900 flex items-center"
         >
           <i class="fas fa-tachometer-alt mr-2"></i>Dashboard
@@ -167,7 +167,7 @@
           >
             <div class="p-2">
               <a
-                href="{% url 'dashboard' %}"
+                href="{% url 'dashboard:dashboard' %}"
                 class="flex items-center p-2 hover:bg-gray-100 rounded"
               >
                 <i class="fas fa-tachometer-alt mr-2"></i>Dashboard
@@ -186,7 +186,7 @@
               </a>
               <hr class="my-1" />
               <a
-                href="{% url 'logout' %}"
+                href="{% url 'accounts:logout' %}"
                 class="flex items-center p-2 hover:bg-gray-100 rounded"
               >
                 <i class="fas fa-sign-out-alt mr-2"></i>Logout
@@ -198,7 +198,7 @@
       {% else %}
       <div class="hidden md:flex items-center">
         <a
-          href="http://127.0.0.1:8000/starter-signup/"
+          href="{% url 'pages:starter_signup' %}"
           class="bg-gray-900 text-white px-6 py-2 rounded-lg hover:bg-gray-800 flex items-center"
         >
           Start Free Trial <i class="fas fa-arrow-right ml-2"></i>
