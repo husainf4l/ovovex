@@ -27,6 +27,8 @@ urlpatterns = [
     path("admin/", admin.site.urls),  # Admin panel doesn't need translation prefix
     path("health/", views.health_check, name="health_check"),  # Health check endpoint
     path('i18n/', include('django.conf.urls.i18n')),  # Language switcher endpoint
+    # Temporarily move dashboard outside i18n_patterns for testing
+    path("dashboard/", views.dashboard_view, name="dashboard"),
 ]
 
 # Translatable URLs (will have language prefix like /en/ or /ar/)
@@ -37,8 +39,8 @@ urlpatterns += i18n_patterns(
     path("login/", views.login_view, name="login"),
     path("signup/", views.signup_view, name="signup"),
     path("logout/", views.logout_view, name="logout"),
-    # Dashboard
-    path("dashboard/", views.dashboard_view, name="dashboard"),
+    # Dashboard - temporarily moved outside i18n_patterns for testing
+    # path("dashboard/", views.dashboard_view, name="dashboard"),
     # Core Accounting
     path("ledger/", views.general_ledger_view, name="general_ledger"),
     path("invoices/", views.invoices_view, name="invoices"),
