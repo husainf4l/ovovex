@@ -1,5 +1,6 @@
 {% extends 'dashboard/base.html' %}
 {% load static %}
+{% load humanize %}
 
 {% block page_title %}Accounting Dashboard{% endblock %}
 
@@ -32,7 +33,7 @@
               >Cash flow positive</span
             >
             <span class="bg-white/20 px-3 py-1 rounded-full"
-              >3 invoices due soon</span
+              >{{ outstanding_invoices_count }} invoices due soon</span
             >
           </div>
         </div>
@@ -103,7 +104,7 @@
                   Pending Approvals
                   <span
                     class="ml-auto bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 text-xs px-2 py-1 rounded-full"
-                    >3</span
+                    >{{ pending_approvals_count }}</span
                   >
                 </a>
                 <a
@@ -114,7 +115,7 @@
                   Expense Reviews
                   <span
                     class="ml-auto bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs px-2 py-1 rounded-full"
-                    >7</span
+                    >{{ expense_reviews_count }}</span
                   >
                 </a>
                 <a
@@ -125,7 +126,7 @@
                   Invoice Approvals
                   <span
                     class="ml-auto bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 text-xs px-2 py-1 rounded-full"
-                    >2</span
+                    >{{ invoice_approvals_count }}</span
                   >
                 </a>
                 <div
@@ -195,7 +196,7 @@
           >
         </div>
         <div class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">
-          $247,580
+          ${{ total_revenue|floatformat:0|intcomma }}
         </div>
         <div class="text-sm text-gray-600 dark:text-gray-400">
           Total Revenue
@@ -225,7 +226,7 @@
           >
         </div>
         <div class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">
-          $89,420
+          ${{ total_expenses|floatformat:0|intcomma }}
         </div>
         <div class="text-sm text-gray-600 dark:text-gray-400">
           Total Expenses
@@ -255,7 +256,7 @@
           >
         </div>
         <div class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">
-          $158,160
+          ${{ net_profit|floatformat:0|intcomma }}
         </div>
         <div class="text-sm text-gray-600 dark:text-gray-400">Net Profit</div>
         <div class="mt-2 text-xs text-gray-500 dark:text-gray-500">
@@ -283,7 +284,7 @@
           >
         </div>
         <div class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">
-          $423,750
+          ${{ cash_on_hand|floatformat:0|intcomma }}
         </div>
         <div class="text-sm text-gray-600 dark:text-gray-400">Cash on Hand</div>
         <div class="mt-2 text-xs text-gray-500 dark:text-gray-500">
@@ -307,11 +308,11 @@
             ></i>
           </div>
           <span class="text-orange-600 dark:text-orange-400 text-sm font-medium"
-            >42</span
+            >{{ outstanding_invoices_count }}</span
           >
         </div>
         <div class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">
-          $89,320
+          ${{ outstanding_invoices_amount|floatformat:0|intcomma }}
         </div>
         <div class="text-sm text-gray-600 dark:text-gray-400">Outstanding</div>
         <div class="mt-2 text-xs text-gray-500 dark:text-gray-500">
@@ -335,11 +336,11 @@
             ></i>
           </div>
           <span class="text-red-600 dark:text-red-400 text-sm font-medium"
-            >15</span
+            >{{ payables_due_count }}</span
           >
         </div>
         <div class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">
-          $34,580
+          ${{ payables_due_amount|floatformat:0|intcomma }}
         </div>
         <div class="text-sm text-gray-600 dark:text-gray-400">Payables Due</div>
         <div class="mt-2 text-xs text-gray-500 dark:text-gray-500">
@@ -370,7 +371,7 @@
           >
         </div>
         <div class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-1">
-          64.0%
+          {{ gross_margin|floatformat:1 }}%
         </div>
         <div class="text-sm text-gray-600 dark:text-gray-400">Gross Margin</div>
         <div class="mt-2 text-xs text-gray-500 dark:text-gray-500">
@@ -393,7 +394,7 @@
           >
         </div>
         <div class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-1">
-          $1,240
+          ${{ customer_acquisition_cost|floatformat:0|intcomma }}
         </div>
         <div class="text-sm text-gray-600 dark:text-gray-400">CAC</div>
         <div class="mt-2 text-xs text-gray-500 dark:text-gray-500">
@@ -416,7 +417,7 @@
           >
         </div>
         <div class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-1">
-          $89,450
+          ${{ monthly_recurring_revenue|floatformat:0|intcomma }}
         </div>
         <div class="text-sm text-gray-600 dark:text-gray-400">MRR</div>
         <div class="mt-2 text-xs text-gray-500 dark:text-gray-500">
@@ -439,7 +440,7 @@
           >
         </div>
         <div class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-1">
-          87.3%
+          {{ employee_productivity|floatformat:1 }}%
         </div>
         <div class="text-sm text-gray-600 dark:text-gray-400">Productivity</div>
         <div class="mt-2 text-xs text-gray-500 dark:text-gray-500">
@@ -506,13 +507,13 @@
               Profit Margin
             </h4>
             <span class="text-blue-600 dark:text-blue-400 text-sm font-medium"
-              >64.0%</span
+              >{{ gross_margin|floatformat:1 }}%</span
             >
           </div>
           <div
             class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3 mb-2"
           >
-            <div class="bg-blue-600 h-3 rounded-full" style="width: 64%"></div>
+            <div class="bg-blue-600 h-3 rounded-full" style="width: {{ gross_margin }}%"></div>
           </div>
           <div
             class="flex justify-between text-sm text-gray-600 dark:text-gray-400"
@@ -895,7 +896,7 @@
               <div class="flex items-center space-x-2">
                 <span
                   class="text-sm font-medium text-gray-900 dark:text-gray-100"
-                  >2.4:1</span
+                  >{{ current_ratio|floatformat:1 }}:1</span
                 >
                 <span class="text-xs text-green-600 dark:text-green-400"
                   >Good</span
@@ -909,7 +910,7 @@
               <div class="flex items-center space-x-2">
                 <span
                   class="text-sm font-medium text-gray-900 dark:text-gray-100"
-                  >1.8:1</span
+                  >{{ quick_ratio|floatformat:1 }}:1</span
                 >
                 <span class="text-xs text-green-600 dark:text-green-400"
                   >Good</span
@@ -923,7 +924,7 @@
               <div class="flex items-center space-x-2">
                 <span
                   class="text-sm font-medium text-gray-900 dark:text-gray-100"
-                  >0.3:1</span
+                  >{{ debt_to_equity_ratio|floatformat:1 }}:1</span
                 >
                 <span class="text-xs text-green-600 dark:text-green-400"
                   >Low</span
@@ -935,7 +936,7 @@
               <div class="flex items-center space-x-2">
                 <span
                   class="text-sm font-medium text-gray-900 dark:text-gray-100"
-                  >18.5%</span
+                  >{{ return_on_equity|floatformat:1 }}%</span
                 >
                 <span class="text-xs text-green-600 dark:text-green-400"
                   >Strong</span
@@ -947,7 +948,7 @@
               <div class="flex items-center space-x-2">
                 <span
                   class="text-sm font-medium text-gray-900 dark:text-gray-100"
-                  >12.2%</span
+                  >{{ return_on_assets|floatformat:1 }}%</span
                 >
                 <span class="text-xs text-blue-600 dark:text-blue-400"
                   >Good</span
@@ -967,7 +968,7 @@
             </h4>
             <span
               class="text-orange-600 dark:text-orange-400 text-sm font-medium"
-              >5 events</span
+              >{{ upcoming_events_count }} events</span
             >
           </div>
           <div class="space-y-3">
@@ -1034,7 +1035,7 @@
               >
               <span
                 class="text-sm font-medium text-green-600 dark:text-green-400"
-                >98ms</span
+                >{{ api_response_time }}ms</span
               >
             </div>
             <div class="flex justify-between items-center">
@@ -1259,7 +1260,7 @@
               <div class="flex items-center space-x-2">
                 <span
                   class="bg-red-500 text-white text-xs px-2 py-1 rounded-full"
-                  >7</span
+                  >{{ notification_count }}</span
                 >
                 <button
                   class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100"
@@ -1505,17 +1506,17 @@
             <div class="space-y-3">
               <div class="p-3 bg-white dark:bg-gray-800 rounded-lg">
                 <p class="text-sm text-gray-700 dark:text-gray-300">
-                  💡 Expected cash inflow of $45K next week
+                  💡 Expected cash inflow of ${{ expected_cash_inflow|floatformat:0|intcomma }} next week
                 </p>
               </div>
               <div class="p-3 bg-white dark:bg-gray-800 rounded-lg">
                 <p class="text-sm text-gray-700 dark:text-gray-300">
-                  ⚠️ Office supplies expense 23% above budget
+                  ⚠️ Office supplies expense {{ office_supplies_expense_percentage|floatformat:0 }}% above budget
                 </p>
               </div>
               <div class="p-3 bg-white dark:bg-gray-800 rounded-lg">
                 <p class="text-sm text-gray-700 dark:text-gray-300">
-                  📈 Revenue trend suggests 15% Q4 growth
+                  📈 Revenue trend suggests {{ revenue_growth_trend|floatformat:0 }}% Q4 growth
                 </p>
               </div>
             </div>
@@ -1652,7 +1653,7 @@
                 >Monthly Revenue</span
               >
               <span class="text-sm text-gray-600 dark:text-gray-400"
-                >$247K / $250K</span
+                >${{ monthly_revenue_actual|floatformat:0|intcomma }} / ${{ monthly_revenue_target|floatformat:0|intcomma }}</span
               >
             </div>
             <div
@@ -1678,7 +1679,7 @@
                 >New Clients</span
               >
               <span class="text-sm text-gray-600 dark:text-gray-400"
-                >5 / 8</span
+                >{{ new_clients_actual }} / {{ new_clients_target }}</span
               >
             </div>
             <div
@@ -1704,7 +1705,7 @@
                 >Expense Budget</span
               >
               <span class="text-sm text-gray-600 dark:text-gray-400"
-                >$89K / $95K</span
+                >${{ expense_budget_actual|floatformat:0|intcomma }} / ${{ expense_budget_target|floatformat:0|intcomma }}</span
               >
             </div>
             <div
@@ -1730,7 +1731,7 @@
                 >Profit Margin</span
               >
               <span class="text-sm text-gray-600 dark:text-gray-400"
-                >64.0% / 65.0%</span
+                >{{ profit_margin_actual|floatformat:1 }}% / {{ profit_margin_target|floatformat:1 }}%</span
               >
             </div>
             <div
@@ -1935,7 +1936,7 @@
                 Projected Variance
               </div>
               <div class="text-lg font-bold text-green-600 dark:text-green-400">
-                +$45K
+                +${{ projected_variance|floatformat:0|intcomma }}
               </div>
             </div>
             <div>
@@ -1943,7 +1944,7 @@
                 Confidence Level
               </div>
               <div class="text-lg font-bold text-blue-600 dark:text-blue-400">
-                87%
+                {{ forecast_confidence|floatformat:0 }}%
               </div>
             </div>
           </div>
@@ -1991,38 +1992,38 @@
           <div class="mt-4 grid grid-cols-2 gap-4">
             <div class="text-center">
               <div class="text-lg font-bold text-blue-600 dark:text-blue-400">
-                $145K
+                ${{ enterprise_revenue|floatformat:0|intcomma }}
               </div>
               <div class="text-sm text-gray-600 dark:text-gray-400">
-                Enterprise (58.5%)
+                Enterprise ({{ enterprise_percentage|floatformat:1 }}%)
               </div>
             </div>
             <div class="text-center">
               <div class="text-lg font-bold text-green-600 dark:text-green-400">
-                $67K
+                ${{ smb_revenue|floatformat:0|intcomma }}
               </div>
               <div class="text-sm text-gray-600 dark:text-gray-400">
-                SMB (27.0%)
+                SMB ({{ smb_percentage|floatformat:1 }}%)
               </div>
             </div>
             <div class="text-center">
               <div
                 class="text-lg font-bold text-purple-600 dark:text-purple-400"
               >
-                $35K
+                ${{ startup_revenue|floatformat:0|intcomma }}
               </div>
               <div class="text-sm text-gray-600 dark:text-gray-400">
-                Startup (14.1%)
+                Startup ({{ startup_percentage|floatformat:1 }}%)
               </div>
             </div>
             <div class="text-center">
               <div
                 class="text-lg font-bold text-orange-600 dark:text-orange-400"
               >
-                $580
+                ${{ other_revenue|floatformat:0|intcomma }}
               </div>
               <div class="text-sm text-gray-600 dark:text-gray-400">
-                Other (0.2%)
+                Other ({{ other_percentage|floatformat:1 }}%)
               </div>
             </div>
           </div>
@@ -2059,7 +2060,7 @@
                 Next Week
               </div>
               <div class="text-lg font-bold text-green-600 dark:text-green-400">
-                +$45K
+                +${{ cash_flow_next_week|floatformat:0|intcomma }}
               </div>
             </div>
             <div>
@@ -2067,7 +2068,7 @@
                 Next Month
               </div>
               <div class="text-lg font-bold text-blue-600 dark:text-blue-400">
-                +$127K
+                +${{ cash_flow_next_month|floatformat:0|intcomma }}
               </div>
             </div>
             <div>
@@ -2077,7 +2078,7 @@
               <div
                 class="text-lg font-bold text-purple-600 dark:text-purple-400"
               >
-                +$389K
+                +${{ cash_flow_q4_total|floatformat:0|intcomma }}
               </div>
             </div>
           </div>
@@ -2142,7 +2143,7 @@
         <div
           class="flex items-center text-sm text-green-600 dark:text-green-400 font-medium"
         >
-          <span>42 pending</span>
+          <span>{{ outstanding_invoices_count }} pending</span>
           <i class="fas fa-external-link-alt ml-1"></i>
         </div>
       </a>
@@ -2173,7 +2174,7 @@
         <div
           class="flex items-center text-sm text-yellow-600 dark:text-yellow-400 font-medium"
         >
-          <span>$423K available</span>
+          <span>${{ cash_on_hand|floatformat:0|intcomma }} available</span>
           <i class="fas fa-external-link-alt ml-1"></i>
         </div>
       </a>

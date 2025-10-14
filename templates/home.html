@@ -51,45 +51,34 @@
           <div
             class="aspect-video bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden"
           >
-            <img
-              src="{% static 'images/hero-dashboard.svg' %}"
-              alt="Financial Dashboard Preview"
+            <!-- Auto-playing Video -->
+            <video
               class="w-full h-full object-cover"
-            />
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="auto"
+              id="hero-video"
+            >
+              <source
+                src="{% static 'images/7078918_Graphs_Charts_1920x1080.mp4' %}"
+                type="video/mp4"
+              />
+              <!-- Fallback to image if video doesn't load -->
+              <img
+                src="{% static 'images/hero-dashboard.svg' %}"
+                alt="Financial Dashboard Preview"
+                class="w-full h-full object-cover"
+              />
+            </video>
           </div>
 
           <!-- Floating Elements -->
-          <div
-            class="absolute -top-4 -right-4 bg-white rounded-xl p-4 shadow-lg border border-gray-200"
-          >
-            <div class="flex items-center space-x-3">
-              <div
-                class="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center"
-              >
-                <i class="fas fa-check text-white text-sm"></i>
-              </div>
-              <div>
-                <div class="text-sm font-semibold text-gray-900">$127K</div>
-                <div class="text-xs text-gray-500">Revenue</div>
-              </div>
-            </div>
-          </div>
-
-          <div
-            class="absolute -bottom-4 -left-4 bg-white rounded-xl p-4 shadow-lg border border-gray-200"
-          >
-            <div class="flex items-center space-x-3">
-              <div
-                class="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center"
-              >
-                <i class="fas fa-users text-white text-sm"></i>
-              </div>
-              <div>
-                <div class="text-sm font-semibold text-gray-900">50K+</div>
-                <div class="text-xs text-gray-500">Users</div>
-              </div>
-            </div>
-          </div>
+                    </div>
+        </div>
+      </div>
+    </div>
         </div>
 
         <!-- Subtle Background Pattern -->
@@ -105,6 +94,30 @@
     </div>
   </div>
 </section>
+
+<!-- Hero Video Script -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const heroVideo = document.getElementById('hero-video');
+    
+    if (heroVideo) {
+      // Ensure video plays on load
+      heroVideo.play().catch(function(error) {
+        console.log('Auto-play was prevented:', error);
+      });
+      
+      // Handle video errors
+      heroVideo.addEventListener('error', function() {
+        console.log('Video failed to load');
+      });
+      
+      // Ensure video is always playing
+      heroVideo.addEventListener('pause', function() {
+        heroVideo.play();
+      });
+    }
+  });
+</script>
 
 <!-- Interactive Demo Section -->
 <section class="py-20 bg-gray-50">

@@ -1,0 +1,940 @@
+{% extends 'modules/base_module.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'components/sidemenu.html' %}
+
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 ml-64 transition-colors duration-300">
+    <!-- Top Navigation Bar -->
+    <div class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4 transition-colors duration-300">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">General Ledger</h1>
+                <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-sm font-medium rounded-full">Active</span>
+            </div>
+            <div class="flex items-center space-x-4">
+                <!-- Quick Search -->
+                <div class="relative">
+                    <input type="text" placeholder="Search accounts, entries..." class="w-64 pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+                    <i class="fas fa-search absolute left-3 top-3 text-gray-400 dark:text-gray-500"></i>
+                </div>
+                <!-- Export -->
+                <button class="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200">
+                    <i class="fas fa-download mr-2"></i>
+                    Export
+                </button>
+                <!-- Theme Toggle -->
+                <button id="theme-toggle" class="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-300">
+                    <i class="fas fa-moon text-xl dark:hidden"></i>
+                    <i class="fas fa-sun text-xl hidden dark:inline"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-8">
+        <!-- Breadcrumb -->
+        <nav class="flex mb-6" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                <li class="inline-flex items-center">
+                    <a href="{% url 'dashboard:dashboard' %}" class="inline-flex items-center text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
+                        <i class="fas fa-home mr-2"></i>
+                        Dashboard
+                    </a>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+                        <span class="text-sm font-medium text-gray-500 dark:text-gray-400">General Ledger</span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
+
+        <!-- Module Description -->
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 mb-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">General Ledger</h2>
+                    <p class="text-gray-600 dark:text-gray-400">Comprehensive view of all financial transactions organized by accounts. Track balances, post journal entries, and maintain accurate financial records.</p>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <div class="text-right">
+                        <div class="text-2xl font-bold text-gray-900 dark:text-gray-100">{{ total_entries }}</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-400">Total Entries</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- KPI Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+            <!-- Total Accounts -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-book text-blue-600 dark:text-blue-400"></i>
+                    </div>
+                    <span class="text-green-600 dark:text-green-400 text-sm font-medium">Active</span>
+                </div>
+                <div class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">{{ total_accounts }}</div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">Active Accounts</div>
+            </div>
+
+            <!-- Journal Entries This Month -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-10 h-10 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-journal-whills text-green-600 dark:text-green-400"></i>
+                    </div>
+                    <span class="text-blue-600 dark:text-blue-400 text-sm font-medium">Posted</span>
+                </div>
+                <div class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">{{ entries_this_month }}</div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">Entries This Month</div>
+            </div>
+
+            <!-- Unbalanced Entries -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-10 h-10 bg-red-100 dark:bg-red-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-exclamation-triangle text-red-600 dark:text-red-400"></i>
+                    </div>
+                    <span class="text-red-600 dark:text-red-400 text-sm font-medium">{{ unbalanced_entries }}</span>
+                </div>
+                <div class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">{{ unbalanced_entries }}</div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">Need Review</div>
+            </div>
+
+            <!-- Total Entries -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-10 h-10 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-check-circle text-purple-600 dark:text-purple-400"></i>
+                    </div>
+                    <span class="text-green-600 dark:text-green-400 text-sm font-medium">OK</span>
+                </div>
+                <div class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">{{ total_entries }}</div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">Total Entries</div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+            <button id="newJournalEntryBtn" class="flex items-center justify-center px-4 py-3 bg-blue-600 text-white font-medium rounded-xl hover:bg-blue-700 transition-colors duration-200">
+                <i class="fas fa-plus mr-2"></i>
+                New Journal Entry
+            </button>
+            <button id="importEntriesBtn" class="flex items-center justify-center px-4 py-3 bg-green-600 text-white font-medium rounded-xl hover:bg-green-700 transition-colors duration-200">
+                <i class="fas fa-upload mr-2"></i>
+                Import Entries
+            </button>
+            <button id="reconcileBtn" class="flex items-center justify-center px-4 py-3 bg-purple-600 text-white font-medium rounded-xl hover:bg-purple-700 transition-colors duration-200">
+                <i class="fas fa-balance-scale mr-2"></i>
+                Reconcile
+            </button>
+            <button id="generateReportBtn" class="flex items-center justify-center px-4 py-3 bg-gray-600 dark:bg-gray-700 text-white font-medium rounded-xl hover:bg-gray-700 dark:hover:bg-gray-600 transition-colors duration-200">
+                <i class="fas fa-chart-bar mr-2"></i>
+                Generate Report
+            </button>
+        </div>
+
+        <!-- Main Content Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Chart of Accounts -->
+            <div class="lg:col-span-2 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700">
+                <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100">Chart of Accounts</h3>
+                        <div class="flex items-center space-x-2">
+                            <select class="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-300" onchange="window.location.href='?account_type=' + this.value">
+                                <option value="all" {% if account_type_filter == 'all' %}selected{% endif %}>All Types</option>
+                                {% for type_key, type_label in account_types %}
+                                <option value="{{ type_key }}" {% if account_type_filter == type_key %}selected{% endif %}>{{ type_label }}</option>
+                                {% endfor %}
+                            </select>
+                            <button id="addAccountBtn" class="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700">+ Add Account</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-50 dark:bg-gray-700">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Account Code</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Account Name</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Type</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Balance</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                            {% for account in accounts %}
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">{{ account.code }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">{{ account.name }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{{ account.get_account_type_display }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium {% if account.current_balance >= 0 %}text-green-600 dark:text-green-400{% else %}text-red-600 dark:text-red-400{% endif %}">
+                                    ${{ account.current_balance|floatformat:2 }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    {% if account.is_active %}
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200">Active</span>
+                                    {% else %}
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200">Inactive</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="5" class="px-6 py-8 text-center text-gray-500 dark:text-gray-400">
+                                    No accounts found. Run <code class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">python manage.py seed_ledger</code> to add sample data.
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="space-y-6">
+                <!-- Recent Journal Entries -->
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700">
+                    <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                        <h4 class="text-lg font-bold text-gray-900 dark:text-gray-100">Recent Entries</h4>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        {% for entry in recent_entries %}
+                        <div class="flex items-start space-x-3">
+                            <div class="w-8 h-8 bg-{% cycle 'blue' 'green' 'purple' 'indigo' 'pink' %}-100 dark:bg-{% cycle 'blue' 'green' 'purple' 'indigo' 'pink' %}-900 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-{% if entry.status == 'POSTED' %}check{% else %}plus{% endif %} text-{% cycle 'blue' 'green' 'purple' 'indigo' 'pink' %}-600 dark:text-{% cycle 'blue' 'green' 'purple' 'indigo' 'pink' %}-400 text-xs"></i>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <p class="text-sm font-medium text-gray-900 dark:text-gray-100">{{ entry.entry_number }}</p>
+                                <p class="text-xs text-gray-600 dark:text-gray-400">{{ entry.description|truncatewords:8 }} • ${{ entry.total_debit|floatformat:0 }}</p>
+                                <p class="text-xs text-gray-500 dark:text-gray-500">{{ entry.entry_date|timesince }} ago</p>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <p class="text-sm text-gray-500 dark:text-gray-400 text-center py-4">No journal entries yet</p>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Account Balances Summary -->
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700">
+                    <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                        <h4 class="text-lg font-bold text-gray-900 dark:text-gray-100">Balance Summary</h4>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-600 dark:text-gray-400">Total Assets</span>
+                            <span class="text-sm font-medium text-green-600 dark:text-green-400">${{ balance_summary.assets|floatformat:0 }}</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-600 dark:text-gray-400">Total Liabilities</span>
+                            <span class="text-sm font-medium text-red-600 dark:text-red-400">${{ balance_summary.liabilities|floatformat:0 }}</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-600 dark:text-gray-400">Total Equity</span>
+                            <span class="text-sm font-medium text-blue-600 dark:text-blue-400">${{ balance_summary.equity|floatformat:0 }}</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-600 dark:text-gray-400">Total Revenue</span>
+                            <span class="text-sm font-medium text-green-600 dark:text-green-400">${{ balance_summary.revenue|floatformat:0 }}</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-600 dark:text-gray-400">Total Expenses</span>
+                            <span class="text-sm font-medium text-red-600 dark:text-red-400">${{ balance_summary.expenses|floatformat:0 }}</span>
+                        </div>
+                        <hr class="border-gray-200 dark:border-gray-700">
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm font-medium text-gray-900 dark:text-gray-100">Net Balance</span>
+                            <span class="text-sm font-bold text-green-600 dark:text-green-400">${{ net_balance|floatformat:0 }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Tools -->
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700">
+                    <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                        <h4 class="text-lg font-bold text-gray-900 dark:text-gray-100">Quick Tools</h4>
+                    </div>
+                    <div class="p-6 space-y-3">
+                        <button id="trialBalanceBtn" class="w-full flex items-center justify-center px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200 text-sm">
+                            <i class="fas fa-calculator mr-2"></i>
+                            Trial Balance
+                        </button>
+                        <button id="ledgerReportBtn" class="w-full flex items-center justify-center px-4 py-2 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition-colors duration-200 text-sm">
+                            <i class="fas fa-file-alt mr-2"></i>
+                            General Ledger Report
+                        </button>
+                        <button id="accountReconciliationBtn" class="w-full flex items-center justify-center px-4 py-2 bg-purple-600 text-white font-medium rounded-lg hover:bg-purple-700 transition-colors duration-200 text-sm">
+                            <i class="fas fa-balance-scale mr-2"></i>
+                            Account Reconciliation
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- New Journal Entry Modal -->
+<div id="newJournalEntryModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 z-50 items-center justify-center p-4">
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+        <div class="p-6 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100">New Journal Entry</h3>
+            <button class="closeModal text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+        </div>
+        <div class="p-6">
+            <form id="journalEntryForm" class="space-y-6">
+                <!-- Entry Header -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Entry Number</label>
+                        <input type="text" id="entryNumber" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" placeholder="Auto-generated" readonly>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Entry Date *</label>
+                        <input type="date" id="entryDate" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" required>
+                    </div>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Description *</label>
+                    <textarea id="entryDescription" rows="2" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" placeholder="Enter description..." required></textarea>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Reference</label>
+                    <input type="text" id="entryReference" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" placeholder="Optional reference number">
+                </div>
+
+                <!-- Entry Lines -->
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Entry Lines</label>
+                        <button type="button" id="addLineBtn" class="px-3 py-1 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700">
+                            <i class="fas fa-plus mr-1"></i> Add Line
+                        </button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-gray-50 dark:bg-gray-700">
+                                <tr>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Account</th>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Description</th>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Debit</th>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Credit</th>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="entryLinesContainer" class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                                <!-- Lines will be added dynamically -->
+                            </tbody>
+                            <tfoot class="bg-gray-50 dark:bg-gray-700">
+                                <tr>
+                                    <td colspan="2" class="px-4 py-3 text-right font-bold text-gray-900 dark:text-gray-100">Totals:</td>
+                                    <td class="px-4 py-3 font-bold text-gray-900 dark:text-gray-100" id="totalDebit">$0.00</td>
+                                    <td class="px-4 py-3 font-bold text-gray-900 dark:text-gray-100" id="totalCredit">$0.00</td>
+                                    <td class="px-4 py-3">
+                                        <span id="balanceIndicator" class="text-sm font-medium"></span>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="flex justify-end space-x-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <button type="button" class="closeModal px-6 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">
+                        Cancel
+                    </button>
+                    <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                        Save as Draft
+                    </button>
+                    <button type="button" id="saveAndPostBtn" class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
+                        Save & Post
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Import Entries Modal -->
+<div id="importEntriesModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 z-50 items-center justify-center p-4">
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-2xl w-full">
+        <div class="p-6 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Import Journal Entries</h3>
+            <button class="closeModal text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+        </div>
+        <div class="p-6">
+            <form id="importForm" class="space-y-6">
+                <div class="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-8 text-center">
+                    <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 dark:text-gray-500 mb-4"></i>
+                    <p class="text-gray-600 dark:text-gray-400 mb-4">Drag and drop your file here, or click to browse</p>
+                    <input type="file" id="importFile" accept=".csv,.xlsx,.xls" class="hidden">
+                    <button type="button" onclick="document.getElementById('importFile').click()" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                        Select File
+                    </button>
+                    <p class="text-xs text-gray-500 dark:text-gray-500 mt-4">Supported formats: CSV, Excel (.xlsx, .xls)</p>
+                </div>
+                
+                <div id="fileInfo" class="hidden bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-file-excel text-green-600 text-2xl"></i>
+                            <div>
+                                <p class="text-sm font-medium text-gray-900 dark:text-gray-100" id="fileName"></p>
+                                <p class="text-xs text-gray-500 dark:text-gray-400" id="fileSize"></p>
+                            </div>
+                        </div>
+                        <button type="button" id="removeFile" class="text-red-600 hover:text-red-800">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Import Options</label>
+                    <div class="space-y-2">
+                        <label class="flex items-center">
+                            <input type="checkbox" id="skipDuplicates" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500" checked>
+                            <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Skip duplicate entries</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" id="validateBalance" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500" checked>
+                            <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Validate debit/credit balance</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" id="autoPost" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                            <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Automatically post entries</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="flex justify-end space-x-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <button type="button" class="closeModal px-6 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">
+                        Cancel
+                    </button>
+                    <button type="submit" class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
+                        <i class="fas fa-upload mr-2"></i>
+                        Import Entries
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Reconcile Modal -->
+<div id="reconcileModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 z-50 items-center justify-center p-4">
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-3xl w-full">
+        <div class="p-6 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Account Reconciliation</h3>
+            <button class="closeModal text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+        </div>
+        <div class="p-6">
+            <form id="reconcileForm" class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Select Account *</label>
+                    <select id="reconcileAccount" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" required>
+                        <option value="">Choose an account...</option>
+                        {% for account in accounts %}
+                        <option value="{{ account.id }}">{{ account.code }} - {{ account.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Statement Date *</label>
+                        <input type="date" id="statementDate" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Statement Balance *</label>
+                        <input type="number" step="0.01" id="statementBalance" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" placeholder="0.00" required>
+                    </div>
+                </div>
+
+                <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+                    <div class="flex items-start space-x-3">
+                        <i class="fas fa-info-circle text-blue-600 dark:text-blue-400 mt-1"></i>
+                        <div>
+                            <h4 class="text-sm font-medium text-gray-900 dark:text-gray-100 mb-1">Reconciliation Process</h4>
+                            <ul class="text-xs text-gray-600 dark:text-gray-400 space-y-1">
+                                <li>• Compare your bank statement with ledger entries</li>
+                                <li>• Mark cleared transactions</li>
+                                <li>• Ensure statement balance matches cleared balance</li>
+                                <li>• Identify and resolve any discrepancies</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Notes</label>
+                    <textarea id="reconcileNotes" rows="3" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" placeholder="Add any notes about this reconciliation..."></textarea>
+                </div>
+
+                <div class="flex justify-end space-x-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <button type="button" class="closeModal px-6 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">
+                        Cancel
+                    </button>
+                    <button type="submit" class="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700">
+                        <i class="fas fa-balance-scale mr-2"></i>
+                        Start Reconciliation
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Add Account Modal -->
+<div id="addAccountModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 z-50 items-center justify-center p-4">
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-2xl w-full">
+        <div class="p-6 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Add New Account</h3>
+            <button class="closeModal text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+        </div>
+        <div class="p-6">
+            <form id="addAccountForm" class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Account Code *</label>
+                        <input type="text" id="accountCode" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" placeholder="e.g., 1000" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Account Type *</label>
+                        <select id="accountType" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" required>
+                            <option value="">Select type...</option>
+                            <option value="ASSET">Asset</option>
+                            <option value="LIABILITY">Liability</option>
+                            <option value="EQUITY">Equity</option>
+                            <option value="REVENUE">Revenue</option>
+                            <option value="EXPENSE">Expense</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Account Name *</label>
+                    <input type="text" id="accountName" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" placeholder="e.g., Cash in Bank" required>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Description</label>
+                    <textarea id="accountDescription" rows="3" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" placeholder="Optional description of the account..."></textarea>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Parent Account</label>
+                        <select id="parentAccount" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
+                            <option value="">None (Top Level)</option>
+                            {% for account in accounts %}
+                            <option value="{{ account.id }}">{{ account.code }} - {{ account.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Currency</label>
+                        <select id="accountCurrency" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
+                            <option value="USD">USD - US Dollar</option>
+                            <option value="EUR">EUR - Euro</option>
+                            <option value="GBP">GBP - British Pound</option>
+                            <option value="JOD">JOD - Jordanian Dinar</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Account Options</label>
+                    <div class="space-y-2">
+                        <label class="flex items-center">
+                            <input type="checkbox" id="isActive" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500" checked>
+                            <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Active account</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" id="allowManualEntry" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500" checked>
+                            <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Allow manual journal entries</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" id="requiresReconciliation" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                            <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Requires reconciliation</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="flex justify-end space-x-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <button type="button" class="closeModal px-6 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">
+                        Cancel
+                    </button>
+                    <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                        <i class="fas fa-save mr-2"></i>
+                        Create Account
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Generate Report Modal -->
+<div id="generateReportModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 z-50 items-center justify-center p-4">
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-2xl w-full">
+        <div class="p-6 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Generate Report</h3>
+            <button class="closeModal text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+        </div>
+        <div class="p-6">
+            <form id="reportForm" class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Report Type *</label>
+                    <select id="reportType" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" required>
+                        <option value="">Select report type...</option>
+                        <option value="trial_balance">Trial Balance</option>
+                        <option value="general_ledger">General Ledger</option>
+                        <option value="account_detail">Account Detail</option>
+                        <option value="journal_entries">Journal Entries Register</option>
+                        <option value="chart_of_accounts">Chart of Accounts</option>
+                    </select>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Start Date *</label>
+                        <input type="date" id="reportStartDate" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">End Date *</label>
+                        <input type="date" id="reportEndDate" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" required>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Filter by Account (Optional)</label>
+                    <select id="reportAccount" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
+                        <option value="">All accounts</option>
+                        {% for account in accounts %}
+                        <option value="{{ account.id }}">{{ account.code }} - {{ account.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Export Format *</label>
+                    <div class="grid grid-cols-3 gap-3">
+                        <label class="flex items-center justify-center px-4 py-3 border-2 border-gray-300 dark:border-gray-600 rounded-lg cursor-pointer hover:border-blue-500 transition-colors">
+                            <input type="radio" name="exportFormat" value="pdf" class="hidden peer" checked>
+                            <div class="text-center peer-checked:text-blue-600">
+                                <i class="fas fa-file-pdf text-2xl mb-1"></i>
+                                <p class="text-xs font-medium">PDF</p>
+                            </div>
+                        </label>
+                        <label class="flex items-center justify-center px-4 py-3 border-2 border-gray-300 dark:border-gray-600 rounded-lg cursor-pointer hover:border-blue-500 transition-colors">
+                            <input type="radio" name="exportFormat" value="excel" class="hidden peer">
+                            <div class="text-center peer-checked:text-blue-600">
+                                <i class="fas fa-file-excel text-2xl mb-1"></i>
+                                <p class="text-xs font-medium">Excel</p>
+                            </div>
+                        </label>
+                        <label class="flex items-center justify-center px-4 py-3 border-2 border-gray-300 dark:border-gray-600 rounded-lg cursor-pointer hover:border-blue-500 transition-colors">
+                            <input type="radio" name="exportFormat" value="csv" class="hidden peer">
+                            <div class="text-center peer-checked:text-blue-600">
+                                <i class="fas fa-file-csv text-2xl mb-1"></i>
+                                <p class="text-xs font-medium">CSV</p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Additional Options</label>
+                    <div class="space-y-2">
+                        <label class="flex items-center">
+                            <input type="checkbox" id="includeInactive" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                            <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Include inactive accounts</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" id="includeZeroBalance" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                            <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Include accounts with zero balance</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" id="showDetails" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500" checked>
+                            <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Show transaction details</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="flex justify-end space-x-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <button type="button" class="closeModal px-6 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">
+                        Cancel
+                    </button>
+                    <button type="button" id="previewReportBtn" class="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700">
+                        <i class="fas fa-eye mr-2"></i>
+                        Preview
+                    </button>
+                    <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                        <i class="fas fa-download mr-2"></i>
+                        Generate
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Theme Toggle Script -->
+<script>
+    // Theme toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    themeToggle.addEventListener('click', () => {
+        const html = document.documentElement;
+        const isDark = html.classList.contains('dark');
+        if (isDark) {
+            html.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+        } else {
+            html.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+        }
+    });
+
+    // Modal Management
+    const modals = {
+        newJournalEntry: document.getElementById('newJournalEntryModal'),
+        importEntries: document.getElementById('importEntriesModal'),
+        reconcile: document.getElementById('reconcileModal'),
+        generateReport: document.getElementById('generateReportModal'),
+        addAccount: document.getElementById('addAccountModal')
+    };
+
+    // Open modal functions
+    document.getElementById('newJournalEntryBtn').addEventListener('click', () => {
+        modals.newJournalEntry.classList.remove('hidden');
+        initializeJournalEntry();
+    });
+
+    document.getElementById('importEntriesBtn').addEventListener('click', () => {
+        modals.importEntries.classList.remove('hidden');
+    });
+
+    document.getElementById('reconcileBtn').addEventListener('click', () => {
+        modals.reconcile.classList.remove('hidden');
+    });
+
+    document.getElementById('generateReportBtn').addEventListener('click', () => {
+        modals.generateReport.classList.remove('hidden');
+        setDefaultReportDates();
+    });
+
+    document.getElementById('addAccountBtn').addEventListener('click', () => {
+        modals.addAccount.classList.remove('hidden');
+    });
+
+    // Close modal functionality
+    document.querySelectorAll('.closeModal').forEach(btn => {
+        btn.addEventListener('click', function() {
+            this.closest('[id$="Modal"]').classList.add('hidden');
+        });
+    });
+
+    // Close on outside click
+    Object.values(modals).forEach(modal => {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.add('hidden');
+            }
+        });
+    });
+
+    // Journal Entry Form Logic
+    let lineCounter = 0;
+    
+    function initializeJournalEntry() {
+        // Set today's date
+        document.getElementById('entryDate').valueAsDate = new Date();
+        // Clear lines
+        document.getElementById('entryLinesContainer').innerHTML = '';
+        lineCounter = 0;
+        // Add initial lines
+        addJournalLine();
+        addJournalLine();
+    }
+
+    function addJournalLine() {
+        lineCounter++;
+        const container = document.getElementById('entryLinesContainer');
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td class="px-4 py-2">
+                <select class="w-full px-2 py-1 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 text-sm" required>
+                    <option value="">Select account...</option>
+                    {% for account in accounts %}
+                    <option value="{{ account.id }}">{{ account.code }} - {{ account.name }}</option>
+                    {% endfor %}
+                </select>
+            </td>
+            <td class="px-4 py-2">
+                <input type="text" class="w-full px-2 py-1 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 text-sm" placeholder="Description">
+            </td>
+            <td class="px-4 py-2">
+                <input type="number" step="0.01" min="0" class="debit-input w-full px-2 py-1 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 text-sm" placeholder="0.00" onchange="updateTotals()">
+            </td>
+            <td class="px-4 py-2">
+                <input type="number" step="0.01" min="0" class="credit-input w-full px-2 py-1 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 text-sm" placeholder="0.00" onchange="updateTotals()">
+            </td>
+            <td class="px-4 py-2 text-center">
+                <button type="button" onclick="this.closest('tr').remove(); updateTotals();" class="text-red-600 hover:text-red-800">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </td>
+        `;
+        container.appendChild(row);
+        updateTotals();
+    }
+
+    document.getElementById('addLineBtn').addEventListener('click', addJournalLine);
+
+    function updateTotals() {
+        let totalDebit = 0;
+        let totalCredit = 0;
+
+        document.querySelectorAll('.debit-input').forEach(input => {
+            totalDebit += parseFloat(input.value) || 0;
+        });
+
+        document.querySelectorAll('.credit-input').forEach(input => {
+            totalCredit += parseFloat(input.value) || 0;
+        });
+
+        document.getElementById('totalDebit').textContent = '$' + totalDebit.toFixed(2);
+        document.getElementById('totalCredit').textContent = '$' + totalCredit.toFixed(2);
+
+        const indicator = document.getElementById('balanceIndicator');
+        const difference = Math.abs(totalDebit - totalCredit);
+        
+        if (difference < 0.01) {
+            indicator.innerHTML = '<span class="text-green-600 dark:text-green-400"><i class="fas fa-check-circle mr-1"></i>Balanced</span>';
+        } else {
+            indicator.innerHTML = '<span class="text-red-600 dark:text-red-400"><i class="fas fa-exclamation-triangle mr-1"></i>Out of balance: $' + difference.toFixed(2) + '</span>';
+        }
+    }
+
+    // Journal Entry Form Submit
+    document.getElementById('journalEntryForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        alert('Journal entry saved as draft! (This would submit to the backend in production)');
+        modals.newJournalEntry.classList.add('hidden');
+    });
+
+    document.getElementById('saveAndPostBtn').addEventListener('click', () => {
+        alert('Journal entry saved and posted! (This would submit to the backend in production)');
+        modals.newJournalEntry.classList.add('hidden');
+    });
+
+    // Import Form Logic
+    document.getElementById('importFile').addEventListener('change', function(e) {
+        if (this.files.length > 0) {
+            const file = this.files[0];
+            document.getElementById('fileName').textContent = file.name;
+            document.getElementById('fileSize').textContent = (file.size / 1024).toFixed(2) + ' KB';
+            document.getElementById('fileInfo').classList.remove('hidden');
+        }
+    });
+
+    document.getElementById('removeFile').addEventListener('click', () => {
+        document.getElementById('importFile').value = '';
+        document.getElementById('fileInfo').classList.add('hidden');
+    });
+
+    document.getElementById('importForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        alert('Entries imported successfully! (This would process the file in production)');
+        modals.importEntries.classList.add('hidden');
+    });
+
+    // Reconcile Form Submit
+    document.getElementById('reconcileForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        alert('Reconciliation started! (This would open reconciliation interface in production)');
+        modals.reconcile.classList.add('hidden');
+    });
+
+    // Report Form Logic
+    function setDefaultReportDates() {
+        const today = new Date();
+        const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
+        document.getElementById('reportStartDate').valueAsDate = firstDay;
+        document.getElementById('reportEndDate').valueAsDate = today;
+    }
+
+    document.getElementById('previewReportBtn').addEventListener('click', () => {
+        alert('Report preview would open here! (This would generate preview in production)');
+    });
+
+    document.getElementById('reportForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const reportType = document.getElementById('reportType').value;
+        const format = document.querySelector('input[name="exportFormat"]:checked').value;
+        alert(`Generating ${reportType} report as ${format}... (This would generate and download in production)`);
+        modals.generateReport.classList.add('hidden');
+    });
+
+    // Quick Tools - Trial Balance
+    document.getElementById('trialBalanceBtn').addEventListener('click', () => {
+        document.getElementById('reportType').value = 'trial_balance';
+        modals.generateReport.classList.remove('hidden');
+        setDefaultReportDates();
+    });
+
+    // Quick Tools - General Ledger Report
+    document.getElementById('ledgerReportBtn').addEventListener('click', () => {
+        document.getElementById('reportType').value = 'general_ledger';
+        modals.generateReport.classList.remove('hidden');
+        setDefaultReportDates();
+    });
+
+    // Quick Tools - Account Reconciliation
+    document.getElementById('accountReconciliationBtn').addEventListener('click', () => {
+        modals.reconcile.classList.remove('hidden');
+    });
+
+    // Add Account Form Submit
+    document.getElementById('addAccountForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const accountData = {
+            code: document.getElementById('accountCode').value,
+            name: document.getElementById('accountName').value,
+            type: document.getElementById('accountType').value,
+            description: document.getElementById('accountDescription').value,
+            parent: document.getElementById('parentAccount').value,
+            currency: document.getElementById('accountCurrency').value,
+            is_active: document.getElementById('isActive').checked,
+            allow_manual_entry: document.getElementById('allowManualEntry').checked,
+            requires_reconciliation: document.getElementById('requiresReconciliation').checked
+        };
+        console.log('Creating account:', accountData);
+        alert(`Account "${accountData.name}" created successfully! (This would submit to the backend in production)`);
+        modals.addAccount.classList.add('hidden');
+        // Reset form
+        document.getElementById('addAccountForm').reset();
+    });
+</script>
+
+{% endblock %}

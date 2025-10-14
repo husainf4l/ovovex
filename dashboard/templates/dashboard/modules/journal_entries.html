@@ -391,6 +391,8 @@
                         <h4 class="text-lg font-bold text-gray-900 dark:text-gray-100">Quick Tools</h4>
                     </div>
                     <div class="p-6 space-y-3">
+                        <!-- TODO: Implement these reports -->
+                        {% comment %}
                         <a href="{% url 'journal_report' %}" class="w-full flex items-center justify-center px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200 text-sm">
                             <i class="fas fa-file-alt mr-2"></i>
                             Journal Report
@@ -403,6 +405,10 @@
                             <i class="fas fa-calculator mr-2"></i>
                             Reconciliation
                         </a>
+                        {% endcomment %}
+                        <p class="text-sm text-gray-500 dark:text-gray-400 text-center py-4">
+                            Reports coming soon
+                        </p>
                     </div>
                 </div>
             </div>
@@ -591,51 +597,13 @@
     });
 
     document.getElementById('post-entries-btn').addEventListener('click', () => {
-        const selectedEntries = document.querySelectorAll('input[name="entry_select"]:checked');
-        if (selectedEntries.length === 0) {
-            alert('Please select at least one draft entry to post.');
-            return;
-        }
-        
-        const entryIds = Array.from(selectedEntries).map(cb => cb.value);
-        
-        if (confirm(`Post ${entryIds.length} selected entries?`)) {
-            fetch('{% url "post_journal_entries" %}', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
-                },
-                body: new URLSearchParams({
-                    'entry_ids[]': entryIds
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert(data.message);
-                    location.reload();
-                } else {
-                    alert('Error: ' + data.error);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred while posting entries.');
-            });
-        }
+        alert('Post entries feature coming soon!');
+        // TODO: Implement post_journal_entries URL and view
     });
 
     document.getElementById('export-btn').addEventListener('click', () => {
-        const startDate = prompt('Enter start date (YYYY-MM-DD):');
-        const endDate = prompt('Enter end date (YYYY-MM-DD):');
-        
-        let url = '{% url "export_journal_entries" %}';
-        if (startDate && endDate) {
-            url += `?start_date=${startDate}&end_date=${endDate}`;
-        }
-        
-        window.open(url, '_blank');
+        alert('Export feature coming soon!');
+        // TODO: Implement export_journal_entries URL and view
     });
 
     // Close modals
@@ -727,52 +695,14 @@
     // Form submissions
     document.getElementById('new-entry-form').addEventListener('submit', (e) => {
         e.preventDefault();
-        
-        const formData = new FormData(e.target);
-        
-        fetch('{% url "create_journal_entry" %}', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert(data.message);
-                newEntryModal.classList.add('hidden');
-                location.reload();
-            } else {
-                alert('Error: ' + data.error);
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('An error occurred while creating the entry.');
-        });
+        alert('Create journal entry feature coming soon!');
+        // TODO: Implement create_journal_entry URL and view
     });
 
     document.getElementById('reverse-entry-form').addEventListener('submit', (e) => {
         e.preventDefault();
-        
-        const formData = new FormData(e.target);
-        
-        fetch('{% url "reverse_journal_entry" %}', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert(data.message);
-                reverseEntryModal.classList.add('hidden');
-                location.reload();
-            } else {
-                alert('Error: ' + data.error);
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('An error occurred while reversing the entry.');
-        });
+        alert('Reverse entry feature coming soon!');
+        // TODO: Implement reverse_journal_entry URL and view
     });
 
     // Add checkboxes for entry selection

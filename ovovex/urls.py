@@ -20,6 +20,8 @@ from django.urls import path, include
 from django.views.generic import TemplateView
 from django.conf.urls.i18n import i18n_patterns
 from django.shortcuts import redirect
+from django.conf import settings
+from django.conf.urls.static import static
 from . import views
 
 # Non-translatable URLs (no language prefix needed)
@@ -40,18 +42,25 @@ urlpatterns += i18n_patterns(
     path("accounts/", include("accounts.urls", namespace="accounts")),
     # Dashboard - temporarily moved outside i18n_patterns for testing
     # path("dashboard/", views.dashboard_view, name="dashboard"),
-    
     # Backward compatibility redirects for old module URLs
     path("ledger/", views.redirect_general_ledger, name="redirect_general_ledger"),
     path("invoices/", views.redirect_invoices, name="redirect_invoices"),
     path("balance-sheet/", views.redirect_balance_sheet, name="redirect_balance_sheet"),
-    path("journal-entries/", views.redirect_journal_entries, name="redirect_journal_entries"),
+    path(
+        "journal-entries/",
+        views.redirect_journal_entries,
+        name="redirect_journal_entries",
+    ),
     path("budgeting/", views.redirect_budgeting, name="redirect_budgeting"),
     path("fixed-assets/", views.redirect_fixed_assets, name="redirect_fixed_assets"),
     path("ai-insights/", views.redirect_ai_insights, name="redirect_ai_insights"),
     path("settings/", views.redirect_settings, name="redirect_settings"),
-    
     # Public Pages
     path("", include("pages.urls", namespace="pages")),
     # This closes the i18n_patterns() function - all URLs above will have language prefix
 )
+
+# Serve static and media files in development
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
