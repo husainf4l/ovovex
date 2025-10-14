@@ -1,7 +1,32 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+{% load i18n %}
 {% load static %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+<html lang="{{ LANGUAGE_CODE }}" dir="{% if LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Dashboard - Ovovex{% endblock %}</title>
 
-{% block content %}
+    <!-- Tailwind CSS - Best Practice: Use specific version and local fallback -->
+    <script src="https://cdn.tailwindcss.com/3.4.1"></script>
+    <script>
+        // Fallback for Tailwind CSS if CDN fails
+        window.addEventListener('load', function() {
+            const script = document.querySelector('script[src*="tailwindcss"]');
+            if (script && !window.getComputedStyle(document.body).getPropertyValue('--tw-ring-color')) {
+                console.warn('Tailwind CSS CDN failed to load, falling back to local version');
+                // You can add fallback logic here if needed
+            }
+        });
+    </script>
+
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+<body class="bg-gray-50 text-gray-900">
 
 <!-- Dashboard Header/Navbar -->
 <div
@@ -255,9 +280,9 @@
   </div>
 </div>
 
-{% endblock %}
-
 {% block scripts %}
 <!-- Flowbite JS for drawer functionality -->
 <script src="https://cdn.jsdelivr.net/npm/flowbite@2.3.0/dist/flowbite.min.js"></script>
 {% endblock %}
+</body>
+</html>

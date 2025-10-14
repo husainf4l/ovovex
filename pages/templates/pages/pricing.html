@@ -3,7 +3,6 @@
 {% load static %}
 {% block title %}Pricing Plans - Ovovex{% endblock %}
 {% block content %}
-{% include 'components/navbar.html' %}
 
 <div class="min-h-screen bg-gray-50">
   <!-- Extended Hero Section -->
@@ -95,7 +94,7 @@
               </li>
             </ul>
             <a
-              href="{% url 'free_signup' %}"
+              href="{% url 'pages:free_signup' %}"
               class="block bg-gray-100 text-gray-800 px-6 py-3 rounded-lg font-semibold hover:bg-gray-200 transition duration-300"
             >
               Get Started Free
@@ -150,7 +149,7 @@
               </li>
             </ul>
             <a
-              href="{% url 'starter_signup' %}"
+              href="{% url 'pages:starter_signup' %}"
               class="block bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition duration-300"
             >
               Start Free Trial
@@ -199,7 +198,7 @@
               </li>
             </ul>
             <a
-              href="{% url 'professional_signup' %}"
+              href="{% url 'pages:professional_signup' %}"
               class="block bg-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 transition duration-300"
             >
               Start Free Trial
@@ -246,7 +245,7 @@
               </li>
             </ul>
             <a
-              href="{% url 'enterprise_signup' %}"
+              href="{% url 'pages:enterprise_signup' %}"
               class="block bg-gray-800 text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-900 transition duration-300"
             >
               Contact Sales
@@ -615,7 +614,7 @@
       </h2>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <a
-          href="{% url 'starter_signup' %}"
+          href="{% url 'pages:starter_signup' %}"
           class="bg-indigo-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-indigo-700 transition duration-300"
         >
           Start Free Trial

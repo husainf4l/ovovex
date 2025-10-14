@@ -26,7 +26,7 @@ from . import views
 urlpatterns = [
     path("admin/", admin.site.urls),  # Admin panel doesn't need translation prefix
     path("health/", views.health_check, name="health_check"),  # Health check endpoint
-    path('i18n/', include('django.conf.urls.i18n')),  # Language switcher endpoint
+    path("i18n/", include("django.conf.urls.i18n")),  # Language switcher endpoint
     # Temporarily move dashboard outside i18n_patterns for testing
     path("dashboard/", include("dashboard.urls", namespace="dashboard")),
 ]
@@ -234,11 +234,19 @@ urlpatterns += i18n_patterns(
     path("inventory/stock-report/", views.stock_report_view, name="stock_report"),
     path("inventory/adjust-stock/", views.adjust_stock_view, name="adjust_stock"),
     path("inventory/create-po/", views.create_po_view, name="create_po"),
-    path("inventory/set-reorder-point/", views.set_reorder_point_view, name="set_reorder_point"),
+    path(
+        "inventory/set-reorder-point/",
+        views.set_reorder_point_view,
+        name="set_reorder_point",
+    ),
     path("inventory/export/", views.export_inventory_view, name="export_inventory"),
     path("documents/", views.documents_view, name="documents"),
     # Reports & Compliance
-    path("financial-statements/", views.financial_ratios_view, name="financial_statements"),
+    path(
+        "financial-statements/",
+        views.financial_ratios_view,
+        name="financial_statements",
+    ),
     path("tax-reports/", views.tax_reports_view, name="tax_reports"),
     path("audit-compliance/", views.audit_compliance_view, name="audit_compliance"),
     # Export API endpoints

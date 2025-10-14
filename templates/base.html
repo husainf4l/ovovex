@@ -28,6 +28,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
 <body class="bg-gray-50 text-gray-900">
+    <!-- Navigation -->
+    {% block navbar %}
+    {% include 'components/navbar.html' %}
+    {% endblock %}
+    
     <!-- Main Content -->
     <main class="flex-1">
         {% block content %}

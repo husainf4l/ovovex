@@ -1,43 +1,33 @@
-{% extends 'base.html' %} {% load i18n %} {% block title %}{% trans "IFRS
-Compliance - Ovovex" %}{% endblock %} {% block content %} {% include
-'components/navbar.html' %}
+{% extends 'base.html' %}
 
-<div class="min-h-screen bg-gray-50">
+{% block title %}IFRS Compliance - Ovovex{% endblock %}
+
+{% block content %}
+
+<div class="min-h-screen bg-gray-50 pt-16">
   <!-- Hero Section -->
   <section
-    class="text-white py-32 relative overflow-hidden"
+    class="text-white py-32 relative overflow-hidden min-h-[500px]"
     style="
-      background-image: url('/static/images/image2.jpg');
-      background-size: 130%;
+      background-image: url('/static/images/accounting4.webp');
+      background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
     "
   >
-    <div
-      class="absolute inset-0 bg-gradient-to-r from-slate-600 to-slate-800 bg-opacity-80"
-    ></div>
+    <!-- Gradient overlay removed temporarily to test image visibility -->
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center">
         <h1 class="text-4xl md:text-6xl font-bold mb-6">
           IFRS Compliance Solutions
         </h1>
-        <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
-          Comprehensive IFRS compliance tools that automate standard application, ensure accurate reporting, and maintain audit-ready financial statements.
-        </p>
-        <a
-          href="{% url 'accounts:signup' %}"
-          class="bg-white text-slate-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition duration-300"
-          >Start Free Trial</a
-        >
       </div>
       <div class="mt-16 text-center">
         <h2 class="text-3xl md:text-4xl font-bold mb-4">
-          {% trans " International Standards Compliance " %}
+          International Standards Compliance
         </h2>
         <p class="text-xl text-gray-200 max-w-2xl mx-auto">
-          {% trans "Comprehensive IFRS compliance tools that automate standard
-          application, ensure accurate reporting, and maintain audit-ready
-          financial statements." %}
+          Comprehensive IFRS compliance tools that automate standard application, ensure accurate reporting, and maintain audit-ready financial statements.
         </p>
       </div>
     </div>
@@ -57,12 +47,10 @@ Compliance - Ovovex" %}{% endblock %} {% block content %} {% include
             <i class="fas fa-globe text-slate-600 text-2xl"></i>
           </div>
           <h3 class="text-xl font-semibold text-gray-900 mb-4">
-            {% trans "IFRS Standards Library" %}
+            IFRS Standards Library
           </h3>
           <p class="text-gray-600">
-            {% trans "Integrated IFRS standards with automatic updates and
-            guidance. Access the complete IFRS framework within your accounting
-            system." %}
+            Integrated IFRS standards with automatic updates and guidance. Access the complete IFRS framework within your accounting system.
           </p>
         </div>
 
@@ -76,12 +64,12 @@ Compliance - Ovovex" %}{% endblock %} {% block content %} {% include
             <i class="fas fa-balance-scale text-blue-600 text-2xl"></i>
           </div>
           <h3 class="text-xl font-semibold text-gray-900 mb-4">
-            {% trans "Automated Compliance" %}
+            Automated Compliance
           </h3>
           <p class="text-gray-600">
-            {% trans "Automatic application of IFRS rules to transactions and
+            Automatic application of IFRS rules to transactions and
             journal entries. Built-in validation ensures compliance at the point
-            of entry." %}
+            of entry.
           </p>
         </div>
 
@@ -95,12 +83,12 @@ Compliance - Ovovex" %}{% endblock %} {% block content %} {% include
             <i class="fas fa-file-alt text-green-600 text-2xl"></i>
           </div>
           <h3 class="text-xl font-semibold text-gray-900 mb-4">
-            {% trans "Financial Statement Generation" %}
+            Financial Statement Generation
           </h3>
           <p class="text-gray-600">
-            {% trans "IFRS-compliant financial statements automatically
+            IFRS-compliant financial statements automatically
             generated from your data. Includes all required disclosures and
-            presentation formats." %}
+            presentation formats.
           </p>
         </div>
 
@@ -114,11 +102,11 @@ Compliance - Ovovex" %}{% endblock %} {% block content %} {% include
             <i class="fas fa-search text-purple-600 text-2xl"></i>
           </div>
           <h3 class="text-xl font-semibold text-gray-900 mb-4">
-            {% trans "Compliance Monitoring" %}
+            Compliance Monitoring
           </h3>
           <p class="text-gray-600">
-            {% trans "Continuous monitoring for IFRS compliance with alerts for
-            potential issues. Regular compliance reports and gap analysis." %}
+            Continuous monitoring for IFRS compliance with alerts for
+            potential issues. Regular compliance reports and gap analysis.
           </p>
         </div>
 
@@ -132,11 +120,11 @@ Compliance - Ovovex" %}{% endblock %} {% block content %} {% include
             <i class="fas fa-graduation-cap text-orange-600 text-2xl"></i>
           </div>
           <h3 class="text-xl font-semibold text-gray-900 mb-4">
-            {% trans "Training & Guidance" %}
+            Training & Guidance
           </h3>
           <p class="text-gray-600">
-            {% trans "Built-in IFRS training modules and contextual help.
-            Step-by-step guidance for complex accounting treatments." %}
+            Built-in IFRS training modules and contextual help.
+            Step-by-step guidance for complex accounting treatments.
           </p>
         </div>
 
@@ -150,12 +138,12 @@ Compliance - Ovovex" %}{% endblock %} {% block content %} {% include
             <i class="fas fa-gavel text-red-600 text-2xl"></i>
           </div>
           <h3 class="text-xl font-semibold text-gray-900 mb-4">
-            {% trans "Audit Support" %}
+            Audit Support
           </h3>
           <p class="text-gray-600">
-            {% trans "Comprehensive audit trails and documentation for IFRS
+            Comprehensive audit trails and documentation for IFRS
             compliance. Automated work papers and supporting evidence for
-            auditors." %}
+            auditors.
           </p>
         </div>
       </div>
@@ -167,14 +155,14 @@ Compliance - Ovovex" %}{% endblock %} {% block content %} {% include
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16">
         <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-          {% trans " Why IFRS Compliance Matters " %}
+          Why IFRS Compliance Matters
         </h2>
       </div>
 
       <div class="grid md:grid-cols-2 gap-12">
         <div class="bg-white p-8 rounded-lg shadow-lg">
           <h3 class="text-2xl font-semibold text-gray-900 mb-6">
-            {% trans "Global Business Requirements" %}
+            Global Business Requirements
           </h3>
           <ul class="space-y-4 text-gray-600">
             <li class="flex items-start">
@@ -198,7 +186,7 @@ Compliance - Ovovex" %}{% endblock %} {% block content %} {% include
 
         <div class="bg-white p-8 rounded-lg shadow-lg">
           <h3 class="text-2xl font-semibold text-gray-900 mb-6">
-            {% trans "Operational Benefits" %}
+            Operational Benefits
           </h3>
           <ul class="space-y-4 text-gray-600">
             <li class="flex items-start">
@@ -228,12 +216,12 @@ Compliance - Ovovex" %}{% endblock %} {% block content %} {% include
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16">
         <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-          {% trans " IFRS Compliance in Action " %}
+          IFRS Compliance in Action
         </h2>
         <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-          {% trans "Experience how our platform automatically applies IFRS
+          Experience how our platform automatically applies IFRS
           standards, generates compliant financial statements, and ensures your
-          reporting meets international requirements." %}
+          reporting meets international requirements.
         </p>
       </div>
 
@@ -246,17 +234,17 @@ Compliance - Ovovex" %}{% endblock %} {% block content %} {% include
             <i class="fas fa-play text-white text-2xl"></i>
           </div>
           <h3 class="text-2xl font-semibold text-gray-900 mb-4">
-            {% trans "IFRS Compliance Demo" %}
+            IFRS Compliance Demo
           </h3>
           <p class="text-gray-600 mb-6">
-            {% trans "Watch how IFRS standards are automatically applied to
+            Watch how IFRS standards are automatically applied to
             transactions, financial statements are generated with proper
-            disclosures, and compliance is maintained effortlessly." %}
+            disclosures, and compliance is maintained effortlessly.
           </p>
           <button
             class="bg-slate-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-slate-700 transition duration-300"
           >
-            {% trans " Watch Compliance Demo " %}
+            Watch Compliance Demo
           </button>
         </div>
 
@@ -270,13 +258,13 @@ Compliance - Ovovex" %}{% endblock %} {% block content %} {% include
                 <i class="fas fa-balance-scale text-blue-600"></i>
               </div>
               <h4 class="text-lg font-semibold text-gray-900">
-                {% trans "Automatic IFRS Application" %}
+                Automatic IFRS Application
               </h4>
             </div>
             <p class="text-gray-600">
-              {% trans "See how complex IFRS standards like IFRS 9, IFRS 15, and
+              See how complex IFRS standards like IFRS 9, IFRS 15, and
               IFRS 16 are automatically applied to your transactions and
-              financial statements." %}
+              financial statements.
             </p>
           </div>
 
@@ -288,13 +276,13 @@ Compliance - Ovovex" %}{% endblock %} {% block content %} {% include
                 <i class="fas fa-file-contract text-green-600"></i>
               </div>
               <h4 class="text-lg font-semibold text-gray-900">
-                {% trans "Compliant Financial Statements" %}
+                Compliant Financial Statements
               </h4>
             </div>
             <p class="text-gray-600">
-              {% trans "Generate IFRS-compliant balance sheets, income
+              Generate IFRS-compliant balance sheets, income
               statements, and cash flow statements with all required disclosures
-              and notes automatically included." %}
+              and notes automatically included.
             </p>
           </div>
 
@@ -306,13 +294,13 @@ Compliance - Ovovex" %}{% endblock %} {% block content %} {% include
                 <i class="fas fa-shield-alt text-purple-600"></i>
               </div>
               <h4 class="text-lg font-semibold text-gray-900">
-                {% trans "Compliance Monitoring" %}
+                Compliance Monitoring
               </h4>
             </div>
             <p class="text-gray-600">
-              {% trans "Real-time monitoring ensures ongoing compliance with
+              Real-time monitoring ensures ongoing compliance with
               alerts for potential issues and automated remediation
-              suggestions." %}
+              suggestions.
             </p>
           </div>
         </div>
@@ -325,12 +313,12 @@ Compliance - Ovovex" %}{% endblock %} {% block content %} {% include
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16">
         <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-          {% trans " Comprehensive IFRS Compliance Features " %}
+          Comprehensive IFRS Compliance Features
         </h2>
         <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-          {% trans "Complete IFRS compliance automation covering all major
+          Complete IFRS compliance automation covering all major
           standards, from initial application to ongoing monitoring and
-          reporting." %}
+          reporting.
         </p>
       </div>
 
@@ -339,7 +327,7 @@ Compliance - Ovovex" %}{% endblock %} {% block content %} {% include
         <div class="grid lg:grid-cols-2 gap-12 items-center">
           <div>
             <h3 class="text-2xl font-bold text-gray-900 mb-4">
-              {% trans "IFRS Standards Automation" %}
+              IFRS Standards Automation
             </h3>
             <ul class="space-y-3 text-gray-600">
               <li class="flex items-start">
@@ -368,7 +356,7 @@ Compliance - Ovovex" %}{% endblock %} {% block content %} {% include
             <div class="text-center">
               <i class="fas fa-globe text-slate-600 text-6xl mb-4"></i>
               <p class="text-gray-600">
-                {% trans "International standards, automated compliance" %}
+                International standards, automated compliance
               </p>
             </div>
           </div>
@@ -380,13 +368,13 @@ Compliance - Ovovex" %}{% endblock %} {% block content %} {% include
             <div class="text-center">
               <i class="fas fa-file-alt text-green-600 text-6xl mb-4"></i>
               <p class="text-gray-600">
-                {% trans "Audit-ready financial statements every time" %}
+                Audit-ready financial statements every time
               </p>
             </div>
           </div>
           <div>
             <h3 class="text-2xl font-bold text-gray-900 mb-4">
-              {% trans "Automated Financial Reporting" %}
+              Automated Financial Reporting
             </h3>
             <ul class="space-y-3 text-gray-600">
               <li class="flex items-start">
@@ -417,7 +405,7 @@ Compliance - Ovovex" %}{% endblock %} {% block content %} {% include
         <div class="grid lg:grid-cols-2 gap-12 items-center">
           <div>
             <h3 class="text-2xl font-bold text-gray-900 mb-4">
-              {% trans "Compliance Monitoring & Audit Support" %}
+              Compliance Monitoring & Audit Support
             </h3>
             <ul class="space-y-3 text-gray-600">
               <li class="flex items-start">
@@ -446,7 +434,7 @@ Compliance - Ovovex" %}{% endblock %} {% block content %} {% include
             <div class="text-center">
               <i class="fas fa-gavel text-red-600 text-6xl mb-4"></i>
               <p class="text-gray-600">
-                {% trans "Audit-ready compliance documentation" %}
+                Audit-ready compliance documentation
               </p>
             </div>
           </div>
@@ -460,12 +448,12 @@ Compliance - Ovovex" %}{% endblock %} {% block content %} {% include
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16">
         <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-          {% trans " IFRS Compliance Success Stories " %}
+          IFRS Compliance Success Stories
         </h2>
         <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-          {% trans "See how international businesses have achieved and
+          See how international businesses have achieved and
           maintained IFRS compliance with Ovovex, reducing compliance costs and
-          ensuring regulatory adherence." %}
+          ensuring regulatory adherence.
         </p>
       </div>
 
@@ -480,17 +468,17 @@ Compliance - Ovovex" %}{% endblock %} {% block content %} {% include
             </div>
             <div>
               <h4 class="font-semibold text-gray-900">
-                {% trans "Global Industries" %}
+                Global Industries
               </h4>
               <p class="text-gray-600 text-sm">
-                {% trans "Manufacturing Conglomerate" %}
+                Manufacturing Conglomerate
               </p>
             </div>
           </div>
           <p class="text-gray-600 italic">
-            {% trans "IFRS compliance used to cost us €500K annually in
+            IFRS compliance used to cost us €500K annually in
             consulting fees. Ovovex automated everything and cut our compliance
-            costs by 80%." %}
+            costs by 80%.
           </p>
           <div class="flex text-yellow-400 mt-4">
             <i class="fas fa-star"></i>
@@ -511,17 +499,17 @@ Compliance - Ovovex" %}{% endblock %} {% block content %} {% include
             </div>
             <div>
               <h4 class="font-semibold text-gray-900">
-                {% trans "International Trade" %}
+                International Trade
               </h4>
               <p class="text-gray-600 text-sm">
-                {% trans "Import/Export Company" %}
+                Import/Export Company
               </p>
             </div>
           </div>
           <p class="text-gray-600 italic">
-            {% trans "Preparing for our London listing required perfect IFRS
+            Preparing for our London listing required perfect IFRS
             compliance. The automated system ensured we passed audit with zero
-            findings." %}
+            findings.
           </p>
           <div class="flex text-yellow-400 mt-4">
             <i class="fas fa-star"></i>
@@ -542,17 +530,17 @@ Compliance - Ovovex" %}{% endblock %} {% block content %} {% include
             </div>
             <div>
               <h4 class="font-semibold text-gray-900">
-                {% trans "Finance Corp" %}
+                Finance Corp
               </h4>
               <p class="text-gray-600 text-sm">
-                {% trans "Financial Services" %}
+                Financial Services
               </p>
             </div>
           </div>
           <p class="text-gray-600 italic">
-            {% trans "IFRS 9 implementation was a nightmare until we switched to
+            IFRS 9 implementation was a nightmare until we switched to
             Ovovex. The automated impairment calculations saved us months of
-            work." %}
+            work.
           </p>
           <div class="flex text-yellow-400 mt-4">
             <i class="fas fa-star"></i>
@@ -571,71 +559,71 @@ Compliance - Ovovex" %}{% endblock %} {% block content %} {% include
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16">
         <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-          {% trans " IFRS Compliance FAQ " %}
+          IFRS Compliance FAQ
         </h2>
         <p class="text-xl text-gray-600">
-          {% trans "Answers to common questions about IFRS compliance and our
-          automated solutions." %}
+          Answers to common questions about IFRS compliance and our
+          automated solutions.
         </p>
       </div>
 
       <div class="space-y-6">
         <div class="bg-gray-50 p-6 rounded-lg">
           <h3 class="text-lg font-semibold text-gray-900 mb-3">
-            {% trans "Which IFRS standards are supported?" %}
+            Which IFRS standards are supported?
           </h3>
           <p class="text-gray-600">
-            {% trans "We support all major IFRS standards including IFRS 9
+            We support all major IFRS standards including IFRS 9
             (Financial Instruments), IFRS 15 (Revenue), IFRS 16 (Leases), IAS 36
             (Impairment), and all other current standards with automatic updates
-            as new standards are issued." %}
+            as new standards are issued.
           </p>
         </div>
 
         <div class="bg-gray-50 p-6 rounded-lg">
           <h3 class="text-lg font-semibold text-gray-900 mb-3">
-            {% trans "How do you handle IFRS implementation?" %}
+            How do you handle IFRS implementation?
           </h3>
           <p class="text-gray-600">
-            {% trans "Our system automatically applies IFRS rules at the
+            Our system automatically applies IFRS rules at the
             transaction level, ensuring compliance from the moment data is
             entered. Complex standards like IFRS 9 impairment calculations are
-            handled through sophisticated algorithms." %}
+            handled through sophisticated algorithms.
           </p>
         </div>
 
         <div class="bg-gray-50 p-6 rounded-lg">
           <h3 class="text-lg font-semibold text-gray-900 mb-3">
-            {% trans "Can the system generate XBRL filings?" %}
+            Can the system generate XBRL filings?
           </h3>
           <p class="text-gray-600">
-            {% trans "Yes, Professional and Enterprise plans include automatic
+            Yes, Professional and Enterprise plans include automatic
             XBRL tagging for regulatory filings in multiple jurisdictions,
             ensuring your financial statements are ready for submission to stock
-            exchanges and regulators." %}
+            exchanges and regulators.
           </p>
         </div>
 
         <div class="bg-gray-50 p-6 rounded-lg">
           <h3 class="text-lg font-semibold text-gray-900 mb-3">
-            {% trans "What about local GAAP requirements?" %}
+            What about local GAAP requirements?
           </h3>
           <p class="text-gray-600">
-            {% trans "Our platform supports dual reporting - you can maintain
+            Our platform supports dual reporting - you can maintain
             IFRS compliance while also generating local GAAP financial
-            statements. The system handles the differences automatically." %}
+            statements. The system handles the differences automatically.
           </p>
         </div>
 
         <div class="bg-gray-50 p-6 rounded-lg">
           <h3 class="text-lg font-semibold text-gray-900 mb-3">
-            {% trans "How do you stay current with IFRS changes?" %}
+            How do you stay current with IFRS changes?
           </h3>
           <p class="text-gray-600">
-            {% trans "We maintain a dedicated IFRS standards team that monitors
+            We maintain a dedicated IFRS standards team that monitors
             IASB updates and implements changes automatically. All clients
             receive updates without additional cost or disruption to their
-            operations." %}
+            operations.
           </p>
         </div>
       </div>
@@ -646,16 +634,16 @@ Compliance - Ovovex" %}{% endblock %} {% block content %} {% include
   <section class="bg-gray-900 text-white py-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <h2 class="text-3xl md:text-4xl font-bold mb-6">
-        {% trans " Achieve IFRS Compliance " %}
+        Achieve IFRS Compliance
       </h2>
       <p class="text-xl mb-8 max-w-2xl mx-auto">
-        {% trans "Ensure your financial reporting meets international standards.
-        Get started with IFRS-compliant accounting today." %}
+        Ensure your financial reporting meets international standards.
+        Get started with IFRS-compliant accounting today.
       </p>
       <a
         href="{% url 'accounts:signup' %}"
         class="bg-slate-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-slate-700 transition duration-300"
-        >{% trans " Start IFRS Compliance " %}</a
+        >Start IFRS Compliance</a
       >
     </div>
   </section>
