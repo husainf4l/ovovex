@@ -25,13 +25,13 @@ urlpatterns = [
     path('enterprise-signup/', TemplateView.as_view(template_name='pages/enterprise_signup.html'), name='enterprise_signup'),
     path('free-signup/', TemplateView.as_view(template_name='pages/free_signup.html'), name='free_signup'),
     # Pricing Pages
-    path('pages/starter-plan/', TemplateView.as_view(template_name='pages/starter_plan.html'), name='starter_plan'),
-    path('pages/professional-plan/', TemplateView.as_view(template_name='pages/professional_plan.html'), name='professional_plan'),
-    path('pages/enterprise-plan/', TemplateView.as_view(template_name='pages/enterprise_plan.html'), name='enterprise_plan'),
+    path('starter-plan/', TemplateView.as_view(template_name='pages/starter_plan.html'), name='starter_plan'),
+    path('professional-plan/', TemplateView.as_view(template_name='pages/professional_plan.html'), name='professional_plan'),
+    path('enterprise-plan/', TemplateView.as_view(template_name='pages/enterprise_plan.html'), name='enterprise_plan'),
     # Billing Pages
-    path('pages/payment-setup/', TemplateView.as_view(template_name='pages/payment_setup.html'), name='payment_setup'),
-    path('pages/subscription-management/', TemplateView.as_view(template_name='pages/subscription_management.html'), name='subscription_management'),
-    path('pages/billing-history/', TemplateView.as_view(template_name='pages/billing_history.html'), name='billing_history'),
+    path('payment-setup/', TemplateView.as_view(template_name='pages/payment_setup.html'), name='payment_setup'),
+    path('subscription-management/', TemplateView.as_view(template_name='pages/subscription_management.html'), name='subscription_management'),
+    path('billing-history/', TemplateView.as_view(template_name='pages/billing_history.html'), name='billing_history'),
     # Feature Pages
     path('features/smart-invoicing/', TemplateView.as_view(template_name='features/smart-invoicing.html'), name='feature_smart_invoicing'),
     path('features/financial-analytics/', TemplateView.as_view(template_name='features/financial-analytics.html'), name='feature_financial_analytics'),

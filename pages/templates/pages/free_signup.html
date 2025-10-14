@@ -311,7 +311,7 @@ Ovovex{% endblock %} {% block content %} {% include 'components/navbar.html' %}
     </div>
 
     <div class="bg-white rounded-2xl shadow-xl p-8">
-      <form method="post" action="{% url 'signup' %}" class="space-y-6">
+      <form method="post" action="{% url 'accounts:signup' %}" class="space-y-6">
         {% csrf_token %}
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>

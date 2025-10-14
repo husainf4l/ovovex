@@ -19,17 +19,15 @@ Compliance - Ovovex" %}{% endblock %} {% block content %} {% include
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center">
         <h1 class="text-4xl md:text-6xl font-bold mb-6">
-          {% trans " IFRS Compliance Solutions " %}
+          IFRS Compliance Solutions
         </h1>
         <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
-          {% trans "Full compliance with International Financial Reporting
-          Standards. Ensure your financial statements meet global accounting
-          requirements." %}
+          Comprehensive IFRS compliance tools that automate standard application, ensure accurate reporting, and maintain audit-ready financial statements.
         </p>
         <a
-          href="{% url 'signup' %}"
+          href="{% url 'accounts:signup' %}"
           class="bg-white text-slate-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 transition duration-300"
-          >{% trans " Ensure Compliance " %}</a
+          >Start Free Trial</a
         >
       </div>
       <div class="mt-16 text-center">
@@ -568,169 +566,6 @@ Compliance - Ovovex" %}{% endblock %} {% block content %} {% include
     </div>
   </section>
 
-  <!-- IFRS Compliance Pricing Section -->
-  <section class="py-20 bg-gray-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-          {% trans " IFRS Compliance Pricing " %}
-        </h2>
-        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-          {% trans "Transparent pricing for IFRS compliance. Start with
-          essential standards and scale to full international reporting
-          requirements." %}
-        </p>
-      </div>
-
-      <div class="grid md:grid-cols-3 gap-8">
-        <!-- Starter Plan -->
-        <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-gray-200">
-          <div class="text-center">
-            <h3 class="text-2xl font-bold text-gray-900 mb-4">
-              {% trans "IFRS Starter" %}
-            </h3>
-            <div class="text-4xl font-bold text-gray-900 mb-2">
-              $79<span class="text-lg font-normal">/month</span>
-            </div>
-            <p class="text-gray-600 mb-6">
-              {% trans "Essential IFRS compliance for small international
-              businesses" %}
-            </p>
-            <ul class="text-left space-y-3 mb-8">
-              <li class="flex items-center">
-                <i class="fas fa-check text-green-500 mr-3"></i>
-                Basic IFRS standards library
-              </li>
-              <li class="flex items-center">
-                <i class="fas fa-check text-green-500 mr-3"></i>
-                Automated financial statements
-              </li>
-              <li class="flex items-center">
-                <i class="fas fa-check text-green-500 mr-3"></i>
-                Compliance monitoring alerts
-              </li>
-              <li class="flex items-center">
-                <i class="fas fa-check text-green-500 mr-3"></i>
-                Basic audit trail
-              </li>
-              <li class="flex items-center">
-                <i class="fas fa-check text-green-500 mr-3"></i>
-                Email support
-              </li>
-            </ul>
-            <a
-              href="{% url 'signup' %}"
-              class="block bg-gray-100 text-gray-800 px-6 py-3 rounded-lg font-semibold hover:bg-gray-200 transition duration-300"
-              >{% trans " Start Free Trial " %}</a
-            >
-          </div>
-        </div>
-
-        <!-- Professional Plan -->
-        <div
-          class="bg-white p-8 rounded-lg shadow-lg border-2 border-slate-500 relative"
-        >
-          <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
-            <span
-              class="bg-slate-500 text-white px-4 py-1 rounded-full text-sm font-semibold"
-              >Most Popular</span
-            >
-          </div>
-          <div class="text-center">
-            <h3 class="text-2xl font-bold text-gray-900 mb-4">
-              {% trans "IFRS Professional" %}
-            </h3>
-            <div class="text-4xl font-bold text-gray-900 mb-2">
-              $199<span class="text-lg font-normal">/month</span>
-            </div>
-            <p class="text-gray-600 mb-6">
-              {% trans "Complete IFRS compliance for international operations"
-              %}
-            </p>
-            <ul class="text-left space-y-3 mb-8">
-              <li class="flex items-center">
-                <i class="fas fa-check text-green-500 mr-3"></i>
-                Full IFRS standards automation
-              </li>
-              <li class="flex items-center">
-                <i class="fas fa-check text-green-500 mr-3"></i>
-                IFRS 9, 15, 16 implementation
-              </li>
-              <li class="flex items-center">
-                <i class="fas fa-check text-green-500 mr-3"></i>
-                Complete financial statement generation
-              </li>
-              <li class="flex items-center">
-                <i class="fas fa-check text-green-500 mr-3"></i>
-                Advanced compliance monitoring
-              </li>
-              <li class="flex items-center">
-                <i class="fas fa-check text-green-500 mr-3"></i>
-                XBRL tagging for filing
-              </li>
-              <li class="flex items-center">
-                <i class="fas fa-check text-green-500 mr-3"></i>
-                Priority support
-              </li>
-            </ul>
-            <a
-              href="{% url 'signup' %}"
-              class="block bg-slate-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-slate-700 transition duration-300"
-              >{% trans " Start Free Trial " %}</a
-            >
-          </div>
-        </div>
-
-        <!-- Enterprise Plan -->
-        <div class="bg-white p-8 rounded-lg shadow-lg border-2 border-gray-200">
-          <div class="text-center">
-            <h3 class="text-2xl font-bold text-gray-900 mb-4">
-              {% trans "IFRS Enterprise" %}
-            </h3>
-            <div class="text-4xl font-bold text-gray-900 mb-2">
-              $499<span class="text-lg font-normal">/month</span>
-            </div>
-            <p class="text-gray-600 mb-6">
-              {% trans "Advanced IFRS compliance for multinational corporations"
-              %}
-            </p>
-            <ul class="text-left space-y-3 mb-8">
-              <li class="flex items-center">
-                <i class="fas fa-check text-green-500 mr-3"></i>
-                All IFRS standards and interpretations
-              </li>
-              <li class="flex items-center">
-                <i class="fas fa-check text-green-500 mr-3"></i>
-                Multi-entity consolidation
-              </li>
-              <li class="flex items-center">
-                <i class="fas fa-check text-green-500 mr-3"></i>
-                Custom IFRS implementations
-              </li>
-              <li class="flex items-center">
-                <i class="fas fa-check text-green-500 mr-3"></i>
-                Advanced audit support tools
-              </li>
-              <li class="flex items-center">
-                <i class="fas fa-check text-green-500 mr-3"></i>
-                Regulatory filing automation
-              </li>
-              <li class="flex items-center">
-                <i class="fas fa-check text-green-500 mr-3"></i>
-                Dedicated IFRS consultant
-              </li>
-            </ul>
-            <a
-              href="mailto:sales@ovovex.com"
-              class="block bg-gray-100 text-gray-800 px-6 py-3 rounded-lg font-semibold hover:bg-gray-200 transition duration-300"
-              >{% trans " Contact Sales " %}</a
-            >
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- IFRS Compliance FAQ Section -->
   <section class="py-20 bg-white">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -818,7 +653,7 @@ Compliance - Ovovex" %}{% endblock %} {% block content %} {% include
         Get started with IFRS-compliant accounting today." %}
       </p>
       <a
-        href="{% url 'signup' %}"
+        href="{% url 'accounts:signup' %}"
         class="bg-slate-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-slate-700 transition duration-300"
         >{% trans " Start IFRS Compliance " %}</a
       >

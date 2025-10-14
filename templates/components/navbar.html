@@ -5,7 +5,7 @@
     <div class="flex justify-between h-16">
       <div class="flex items-center">
         <a
-          class="flex items-center text-gray-800 hover:text-gray-600 font-bold text-xl"
+          class="flex items-center text-black hover:text-gray-800 font-bold text-xl"
           href="/"
         >
           <div
@@ -17,11 +17,11 @@
         </a>
       </div>
       <div class="hidden md:flex items-center space-x-8">
-        <a href="/" class="text-gray-700 hover:text-gray-900"
+        <a href="/" class="text-black hover:text-gray-800"
           >Home</a
         >
         <div class="relative group">
-          <button class="text-gray-700 hover:text-gray-900 flex items-center">
+          <button class="text-black hover:text-gray-800 flex items-center">
             Solutions <i class="fas fa-chevron-down ml-1"></i>
           </button>
           <div
@@ -89,7 +89,7 @@
           </div>
         </div>
         <div class="relative group">
-          <button class="text-gray-700 hover:text-gray-900 flex items-center">
+          <button class="text-black hover:text-gray-800 flex items-center">
             Platform <i class="fas fa-chevron-down ml-1"></i>
           </button>
           <div
@@ -130,12 +130,12 @@
             </div>
           </div>
         </div>
-        <a href="{% url 'pages:pricing' %}" class="text-gray-700 hover:text-gray-900"
+        <a href="{% url 'pages:pricing' %}" class="text-black hover:text-gray-800"
           >Pricing</a
         >
 
         {% if not user.is_authenticated %}
-        <a href="{% url 'accounts:login' %}" class="text-gray-700 hover:text-gray-900"
+        <a href="{% url 'accounts:login' %}" class="text-black hover:text-gray-800"
           >Login</a
         >
         <a
@@ -146,7 +146,7 @@
         {% endif %}
       </div>
       <div class="md:hidden flex items-center">
-        <button class="text-gray-700 hover:text-gray-900">
+        <button class="text-black hover:text-gray-800">
           <i class="fas fa-bars"></i>
         </button>
       </div>
@@ -154,12 +154,12 @@
       <div class="hidden md:flex items-center space-x-4">
         <a
           href="{% url 'dashboard:dashboard' %}"
-          class="text-gray-700 hover:text-gray-900 flex items-center"
+          class="text-black hover:text-gray-800 flex items-center"
         >
           <i class="fas fa-tachometer-alt mr-2"></i>Dashboard
         </a>
         <div class="relative group">
-          <button class="text-gray-700 hover:text-gray-900 flex items-center">
+          <button class="text-black hover:text-gray-800 flex items-center">
             <i class="fas fa-user-circle mr-2"></i>{{ user.get_full_name|default:user.username }}
           </button>
           <div

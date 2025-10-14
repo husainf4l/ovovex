@@ -28,7 +28,7 @@ urlpatterns = [
     path("health/", views.health_check, name="health_check"),  # Health check endpoint
     path('i18n/', include('django.conf.urls.i18n')),  # Language switcher endpoint
     # Temporarily move dashboard outside i18n_patterns for testing
-    path("dashboard/", include('dashboard.urls')),
+    path("dashboard/", include("dashboard.urls", namespace="dashboard")),
 ]
 
 # Translatable URLs (will have language prefix like /en/ or /ar/)
@@ -36,7 +36,7 @@ urlpatterns = [
 urlpatterns += i18n_patterns(
     path("", views.home, name="home"),
     # Authentication URLs
-    path("accounts/", include('accounts.urls')),
+    path("accounts/", include("accounts.urls", namespace="accounts")),
     # Dashboard - temporarily moved outside i18n_patterns for testing
     # path("dashboard/", views.dashboard_view, name="dashboard"),
     # Core Accounting
@@ -208,8 +208,6 @@ urlpatterns += i18n_patterns(
     ),
     path("ai-insights/", views.ai_insights_view, name="ai_insights"),
     path("anomaly-detection/", views.anomaly_detection_view, name="anomaly_detection"),
-    # API endpoints
-    path("api/", include('api.urls')),
     # Operations
     path(
         "expense-management/", views.expense_management_view, name="expense_management"
@@ -330,6 +328,6 @@ urlpatterns += i18n_patterns(
         name="notification_stats_api",
     ),
     # Public Pages
-    path("pages/", include('pages.urls')),
+    path("", include("pages.urls", namespace="pages")),
     # This closes the i18n_patterns() function - all URLs above will have language prefix
 )
