@@ -58,28 +58,28 @@
                   Accounting
                 </div>
                 <a
-                  href="{% url 'create_invoice' %}"
+                  href="{% url 'dashboard:invoices' %}"
                   class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                 >
                   <i class="fas fa-file-invoice-dollar mr-2"></i>
                   Create Invoice
                 </a>
                 <a
-                  href="{% url 'expense_management' %}"
+                  href="{% url 'dashboard:journal_entries' %}"
                   class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                 >
                   <i class="fas fa-receipt mr-2"></i>
                   Add Expense
                 </a>
                 <a
-                  href="{% url 'create_journal_entry' %}"
+                  href="{% url 'dashboard:journal_entries' %}"
                   class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                 >
                   <i class="fas fa-journal-whills mr-2"></i>
                   New Journal Entry
                 </a>
                 <a
-                  href="{% url 'bank_reconciliation' %}"
+                  href="{% url 'dashboard:general_ledger' %}"
                   class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                 >
                   <i class="fas fa-university mr-2"></i>
@@ -139,7 +139,7 @@
                   Reports
                 </div>
                 <a
-                  href="{% url 'financial_statements' %}"
+                  href="{% url 'dashboard:balance_sheet' %}"
                   class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                 >
                   <i class="fas fa-chart-bar mr-2"></i>
@@ -167,7 +167,7 @@
           >
             <i class="fas fa-robot mr-2"></i>
             <a
-              href="{% url 'ai_insights' %}"
+              href="{% url 'dashboard:ai_insights' %}"
               class="text-white hover:text-gray-200"
               >AI Assistant</a
             >
@@ -1452,35 +1452,35 @@
           </div>
           <div class="p-6 space-y-3">
             <a
-              href="{% url 'create_invoice' %}"
+              href="{% url 'dashboard:invoices' %}"
               class="w-full flex items-center justify-center px-4 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200"
             >
               <i class="fas fa-plus mr-2"></i>
               Create Invoice
             </a>
             <a
-              href="{% url 'expense_management' %}"
+              href="{% url 'dashboard:journal_entries' %}"
               class="w-full flex items-center justify-center px-4 py-3 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition-colors duration-200"
             >
               <i class="fas fa-receipt mr-2"></i>
               Add Expense
             </a>
             <a
-              href="{% url 'create_journal_entry' %}"
+              href="{% url 'dashboard:journal_entries' %}"
               class="w-full flex items-center justify-center px-4 py-3 bg-purple-600 text-white font-medium rounded-lg hover:bg-purple-700 transition-colors duration-200"
             >
               <i class="fas fa-journal-whills mr-2"></i>
               New Journal Entry
             </a>
             <a
-              href="{% url 'bank_reconciliation' %}"
+              href="{% url 'dashboard:general_ledger' %}"
               class="w-full flex items-center justify-center px-4 py-3 bg-orange-600 text-white font-medium rounded-lg hover:bg-orange-700 transition-colors duration-200"
             >
               <i class="fas fa-university mr-2"></i>
               Reconcile Bank
             </a>
             <a
-              href="{% url 'financial_statements' %}"
+              href="{% url 'dashboard:balance_sheet' %}"
               class="w-full flex items-center justify-center px-4 py-3 bg-gray-600 dark:bg-gray-700 text-white font-medium rounded-lg hover:bg-gray-700 dark:hover:bg-gray-600 transition-colors duration-200"
             >
               <i class="fas fa-chart-bar mr-2"></i>
@@ -1753,13 +1753,13 @@
           <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
             <div class="grid grid-cols-2 gap-2">
               <a
-                href="{% url 'budgeting' %}"
+                href="{% url 'dashboard:budgeting' %}"
                 class="px-3 py-2 bg-blue-600 text-white text-xs font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200 text-center"
               >
                 Set New Goal
               </a>
               <a
-                href="{% url 'budgeting' %}"
+                href="{% url 'dashboard:budgeting' %}"
                 class="px-3 py-2 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-100 text-xs font-medium rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-200 text-center"
               >
                 View All Goals
@@ -1949,7 +1949,7 @@
           </div>
           <div class="mt-4 flex space-x-2">
             <a
-              href="{% url 'budgeting' %}"
+              href="{% url 'dashboard:budgeting' %}"
               class="flex-1 px-3 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200 text-center"
             >
               View Details
@@ -1973,7 +1973,7 @@
         <div class="p-6 border-b border-gray-200 dark:border-gray-700">
           <div class="flex items-center justify-between">
             <a
-              href="{% url 'financial_ratios' %}"
+              href="{% url 'dashboard:financial_ratios' %}"
               class="text-xl font-bold text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
               >Revenue by Client Type</a
             >
@@ -2089,7 +2089,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6 mb-8">
       <!-- General Ledger -->
       <a
-        href="{% url 'general_ledger' %}"
+        href="{% url 'dashboard:general_ledger' %}"
         class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md transition-shadow duration-200 group cursor-pointer block"
       >
         <div class="flex items-center justify-between mb-4">
@@ -2118,7 +2118,7 @@
 
       <!-- Invoices & Billing -->
       <a
-        href="{% url 'invoices' %}"
+        href="{% url 'dashboard:invoices' %}"
         class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md transition-shadow duration-200 group cursor-pointer block"
       >
         <div class="flex items-center justify-between mb-4">
@@ -2149,7 +2149,7 @@
 
       <!-- Cash Management -->
       <a
-        href="{% url 'bank_reconciliation' %}"
+        href="{% url 'dashboard:cash_flow' %}"
         class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md transition-shadow duration-200 group cursor-pointer block"
       >
         <div class="flex items-center justify-between mb-4">
@@ -2180,7 +2180,7 @@
 
       <!-- Tax & Compliance -->
       <a
-        href="{% url 'tax_center' %}"
+        href="{% url 'dashboard:financial_ratios' %}"
         class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md transition-shadow duration-200 group cursor-pointer block"
       >
         <div class="flex items-center justify-between mb-4">
@@ -2211,7 +2211,7 @@
 
       <!-- Fixed Assets -->
       <a
-        href="{% url 'fixed_assets' %}"
+        href="{% url 'dashboard:fixed_assets' %}"
         class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md transition-shadow duration-200 group cursor-pointer block"
       >
         <div class="flex items-center justify-between mb-4">
@@ -2242,7 +2242,7 @@
 
       <!-- Inventory -->
       <a
-        href="{% url 'inventory' %}"
+        href="{% url 'dashboard:budgeting' %}"
         class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md transition-shadow duration-200 group cursor-pointer block"
       >
         <div class="flex items-center justify-between mb-4">
