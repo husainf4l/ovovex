@@ -14,6 +14,7 @@ from django.db.models import Sum, Count, Q, F, Prefetch
 from django.http import JsonResponse
 from decimal import Decimal
 from datetime import datetime, timedelta
+from django.utils import timezone
 
 from accounting.models import (
     Account,
@@ -29,9 +30,8 @@ from accounting.models import (
     Budget,
     BudgetLine,
     ExpenseCategory,
+    Notification,
 )
-from dashboard.services import FinancialMetricsService
-from dashboard.utils import get_cached_dashboard_metrics
 
 
 @login_required
@@ -901,3 +901,39 @@ def delete_customer_view(request, pk):
         )
 
     return JsonResponse({"success": False, "message": "Invalid request method"})
+
+
+@login_required
+def notifications_view(request):
+    """
+    View all notifications for the current user
+    """
+    active_company = request.active_company
+
+    # Get notifications for the user and company
+    notifications = Notification.objects.filter(
+        user=request.user, company=active_company
+    ).order_by("-created_at")
+
+    # Mark all as read if requested
+    if request.method == "POST" and request.POST.get("action") == "mark_all_read":
+        notifications.filter(is_read=False).update(is_read=True, read_at=timezone.now())
+        return JsonResponse({"success": True, "message": "All notifications marked as read"})
+
+    # Paginate notifications
+    paginator = Paginator(notifications, 20)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+
+    # Get unread count
+    unread_count = notifications.filter(is_read=False).count()
+
+    context = {
+        "title": "Notifications",
+        "description": "View all your notifications and alerts.",
+        "user": request.user,
+        "notifications": page_obj,
+        "unread_count": unread_count,
+    }
+
+    return render(request, "dashboard/modules/notifications.html", context)

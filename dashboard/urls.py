@@ -56,4 +56,5 @@ urlpatterns = [
     path("financial-ratios/", views.financial_ratios_view, name="financial_ratios"),
     path("ai-insights/", views.ai_insights_view, name="ai_insights"),
     path("settings/", views.settings_view, name="settings"),
+    path("notifications/", views.notifications_view, name="notifications"),
 ]
