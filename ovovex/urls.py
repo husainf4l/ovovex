@@ -34,6 +34,8 @@ urlpatterns = [
     path("dashboard/", include("dashboard.urls", namespace="dashboard")),
     # Companies management
     path("companies/", include("companies.urls")),
+    # Accounting CRUD operations
+    path("accounting/", include("accounting.urls", namespace="accounting")),
 ]
 
 # Translatable URLs (will have language prefix like /en/ or /ar/)

@@ -16,10 +16,7 @@ def add_company(request):
 
         # Create the company
         company = Company.objects.create(
-            name=name,
-            tax_number=tax_number,
-            address=address,
-            country=country
+            name=name, tax_number=tax_number, address=address, country=country
         )
 
         # Deactivate all other companies for this user
@@ -40,7 +37,9 @@ def switch_company(request, company_id):
     UserCompany.objects.filter(user=request.user).update(is_active=False)
 
     # Activate the selected company
-    user_company = UserCompany.objects.filter(user=request.user, company_id=company_id).first()
+    user_company = UserCompany.objects.filter(
+        user=request.user, company_id=company_id
+    ).first()
 
     if user_company:
         user_company.is_active = True
@@ -62,7 +61,9 @@ def company_details(request):
         return redirect("add_company")
 
     # Check if user has access to this company
-    user_company = UserCompany.objects.filter(user=request.user, company=active_company).first()
+    user_company = UserCompany.objects.filter(
+        user=request.user, company=active_company
+    ).first()
     if not user_company:
         messages.error(request, "You don't have access to this company.")
         return redirect("dashboard:dashboard")
@@ -113,15 +114,23 @@ def upload_logo(request):
         active_company = request.active_company
 
         if not active_company:
-            return JsonResponse({"success": False, "error": "No active company"}, status=400)
+            return JsonResponse(
+                {"success": False, "error": "No active company"}, status=400
+            )
 
         # Validate file
         logo = request.FILES["logo"]
         if logo.size > 2 * 1024 * 1024:  # 2MB limit
-            return JsonResponse({"success": False, "error": "File size must be less than 2MB"}, status=400)
+            return JsonResponse(
+                {"success": False, "error": "File size must be less than 2MB"},
+                status=400,
+            )
 
         if not logo.content_type in ["image/jpeg", "image/png", "image/jpg"]:
-            return JsonResponse({"success": False, "error": "Only JPG and PNG files are allowed"}, status=400)
+            return JsonResponse(
+                {"success": False, "error": "Only JPG and PNG files are allowed"},
+                status=400,
+            )
 
         # Delete old logo
         if active_company.logo:
@@ -132,10 +141,12 @@ def upload_logo(request):
         active_company.logo = logo
         active_company.save()
 
-        return JsonResponse({
-            "success": True,
-            "logo_url": active_company.logo.url if active_company.logo else None
-        })
+        return JsonResponse(
+            {
+                "success": True,
+                "logo_url": active_company.logo.url if active_company.logo else None,
+            }
+        )
 
     return JsonResponse({"success": False, "error": "Invalid request"}, status=400)
 
@@ -143,26 +154,28 @@ def upload_logo(request):
 @login_required
 def select_company(request):
     """Company selection page for users with multiple companies"""
-    user_companies = UserCompany.objects.filter(user=request.user).select_related('company')
+    user_companies = UserCompany.objects.filter(user=request.user).select_related(
+        "company"
+    )
 
     # If user has only one company, activate it automatically
     if user_companies.count() == 1:
         uc = user_companies.first()
         uc.is_active = True
         uc.save()
-        request.session['active_company_id'] = uc.company.id
+        request.session["active_company_id"] = uc.company.id
         messages.success(request, f"Switched to {uc.company.name}")
-        return redirect('dashboard:dashboard')
+        return redirect("dashboard:dashboard")
 
     # If user has no companies, redirect to create one
     if user_companies.count() == 0:
         messages.info(request, "Let's create your first company!")
-        return redirect('add_company')
+        return redirect("add_company")
 
     context = {
-        'user_companies': user_companies,
+        "user_companies": user_companies,
     }
-    return render(request, 'companies/select_company.html', context)
+    return render(request, "companies/select_company.html", context)
 
 
 @login_required
@@ -170,13 +183,12 @@ def select_and_activate_company(request, company_id):
     """Activate a specific company and redirect to dashboard"""
     # Verify user has access to this company
     user_company = UserCompany.objects.filter(
-        user=request.user,
-        company_id=company_id
+        user=request.user, company_id=company_id
     ).first()
 
     if not user_company:
         messages.error(request, "You don't have access to this company.")
-        return redirect('select_company')
+        return redirect("select_company")
 
     # Deactivate all companies for this user
     UserCompany.objects.filter(user=request.user).update(is_active=False)
@@ -186,7 +198,7 @@ def select_and_activate_company(request, company_id):
     user_company.save()
 
     # Store in session
-    request.session['active_company_id'] = company_id
+    request.session["active_company_id"] = company_id
 
     messages.success(request, f"Switched to {user_company.company.name}")
-    return redirect('dashboard:dashboard')
+    return redirect("dashboard:dashboard")

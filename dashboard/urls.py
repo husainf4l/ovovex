@@ -1,10 +1,44 @@
 from django.urls import path
-from . import views
+from . import views, reports_views
 
 app_name = "dashboard"
 
 urlpatterns = [
     path("", views.dashboard_view, name="dashboard"),
+    # Financial Reports (NEW)
+    path(
+        "reports/profit-loss/",
+        reports_views.profit_loss_report,
+        name="profit_loss_report",
+    ),
+    path(
+        "reports/balance-sheet/",
+        reports_views.balance_sheet_report,
+        name="balance_sheet_report",
+    ),
+    path("reports/cash-flow/", reports_views.cash_flow_report, name="cash_flow_report"),
+    path("reports/aging/", reports_views.aging_report, name="aging_report"),
+    path(
+        "reports/cash-forecast/",
+        reports_views.cash_flow_forecast_view,
+        name="cash_flow_forecast",
+    ),
+    # Chart Data APIs (NEW)
+    path(
+        "api/charts/revenue-expense/",
+        reports_views.revenue_expense_chart_data,
+        name="revenue_expense_chart",
+    ),
+    path(
+        "api/charts/expense-breakdown/",
+        reports_views.expense_breakdown_chart_data,
+        name="expense_breakdown_chart",
+    ),
+    path(
+        "api/charts/top-customers/",
+        reports_views.top_customers_chart_data,
+        name="top_customers_chart",
+    ),
     # Module views
     path("general-ledger/", views.general_ledger_view, name="general_ledger"),
     path("invoices/", views.invoices_view, name="invoices"),

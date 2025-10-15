@@ -1,0 +1,191 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}{{ title }} - Ovovex{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-900 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-8">
+            <div>
+                <h1 class="text-3xl font-bold text-white">{{ title }}</h1>
+                <p class="text-gray-400 mt-2">30, 60, and 90-day cash projections</p>
+            </div>
+            <div class="flex space-x-3">
+                <a href="?export=csv" 
+                   class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition">
+                    <i class="fas fa-file-csv mr-2"></i>Export CSV
+                </a>
+                <a href="?export=pdf" 
+                   class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition">
+                    <i class="fas fa-file-pdf mr-2"></i>Export PDF
+                </a>
+                <a href="{% url 'dashboard:dashboard' %}" 
+                   class="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition">
+                    <i class="fas fa-arrow-left mr-2"></i>Dashboard
+                </a>
+            </div>
+        </div>
+
+        <!-- Summary Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+            <div class="bg-gradient-to-br from-blue-900/30 to-blue-800/20 border border-blue-700 rounded-lg p-4">
+                <div class="text-sm text-blue-300 mb-1">Current Cash</div>
+                <div class="text-2xl font-bold text-white">${{ report.current_cash|floatformat:0|intcomma }}</div>
+            </div>
+            <div class="bg-gradient-to-br from-green-900/30 to-green-800/20 border border-green-700 rounded-lg p-4">
+                <div class="text-sm text-green-300 mb-1">30-Day Projection</div>
+                <div class="text-2xl font-bold text-white">${{ report.forecast_30_days|floatformat:0|intcomma }}</div>
+            </div>
+            <div class="bg-gradient-to-br from-yellow-900/30 to-yellow-800/20 border border-yellow-700 rounded-lg p-4">
+                <div class="text-sm text-yellow-300 mb-1">60-Day Projection</div>
+                <div class="text-2xl font-bold text-white">${{ report.forecast_60_days|floatformat:0|intcomma }}</div>
+            </div>
+            <div class="bg-gradient-to-br from-purple-900/30 to-purple-800/20 border border-purple-700 rounded-lg p-4">
+                <div class="text-sm text-purple-300 mb-1">90-Day Projection</div>
+                <div class="text-2xl font-bold text-white">${{ report.forecast_90_days|floatformat:0|intcomma }}</div>
+            </div>
+        </div>
+
+        <!-- Monthly Breakdown -->
+        <div class="bg-gray-800 rounded-lg shadow-xl border border-gray-700 overflow-hidden mb-6">
+            <div class="bg-gray-700 border-b border-gray-600 px-6 py-4">
+                <h3 class="text-xl font-bold text-white">
+                    <i class="fas fa-calendar-alt mr-2"></i>Monthly Cash Flow Forecast
+                </h3>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead class="bg-gray-700 border-b border-gray-600">
+                        <tr>
+                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-300 uppercase tracking-wider">Month</th>
+                            <th class="px-6 py-4 text-right text-xs font-semibold text-gray-300 uppercase tracking-wider">Beginning Cash</th>
+                            <th class="px-6 py-4 text-right text-xs font-semibold text-gray-300 uppercase tracking-wider">Expected Inflows</th>
+                            <th class="px-6 py-4 text-right text-xs font-semibold text-gray-300 uppercase tracking-wider">Expected Outflows</th>
+                            <th class="px-6 py-4 text-right text-xs font-semibold text-gray-300 uppercase tracking-wider">Ending Cash</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-700">
+                        {% for month in report.monthly_forecast %}
+                        <tr class="hover:bg-gray-700/50 transition">
+                            <td class="px-6 py-4 text-sm font-medium text-white">
+                                {{ month.month_name }}
+                            </td>
+                            <td class="px-6 py-4 text-sm text-right font-mono text-gray-300">
+                                ${{ month.beginning_cash|floatformat:2|intcomma }}
+                            </td>
+                            <td class="px-6 py-4 text-sm text-right font-mono text-green-400">
+                                ${{ month.expected_inflows|floatformat:2|intcomma }}
+                            </td>
+                            <td class="px-6 py-4 text-sm text-right font-mono text-red-400">
+                                ${{ month.expected_outflows|floatformat:2|intcomma }}
+                            </td>
+                            <td class="px-6 py-4 text-sm text-right font-mono font-bold text-white">
+                                ${{ month.ending_cash|floatformat:2|intcomma }}
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5" class="px-6 py-8 text-center text-gray-500">
+                                <i class="fas fa-inbox text-4xl mb-2"></i>
+                                <p>No forecast data available</p>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Cash Flow Trend Chart -->
+        <div class="bg-gray-800 rounded-lg shadow-xl border border-gray-700 p-6 mb-6">
+            <h3 class="text-xl font-bold text-white mb-4">
+                <i class="fas fa-chart-line mr-2"></i>Cash Flow Trend
+            </h3>
+            <div class="h-80 flex items-center justify-center bg-gray-700/30 rounded-lg border border-gray-600">
+                <div class="text-center text-gray-500">
+                    <i class="fas fa-chart-area text-4xl mb-2"></i>
+                    <p>Line chart will be rendered here</p>
+                    <p class="text-sm">(Chart.js integration coming soon)</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Insights -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Expected Receivables -->
+            <div class="bg-gray-800 rounded-lg shadow-xl border border-gray-700 p-6">
+                <h3 class="text-lg font-bold text-green-400 mb-4">
+                    <i class="fas fa-arrow-down mr-2"></i>Expected Inflows (90 days)
+                </h3>
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center py-2 border-b border-gray-700">
+                        <span class="text-gray-300">Outstanding Invoices</span>
+                        <span class="font-mono text-green-400">${{ report.expected_receivables|floatformat:0|intcomma }}</span>
+                    </div>
+                    <div class="flex justify-between items-center py-2 border-b border-gray-700">
+                        <span class="text-gray-300">Recurring Revenue</span>
+                        <span class="font-mono text-green-400">${{ report.recurring_revenue|floatformat:0|intcomma }}</span>
+                    </div>
+                    <div class="flex justify-between items-center py-3 mt-2 border-t-2 border-green-700 font-bold">
+                        <span class="text-white">Total Expected</span>
+                        <span class="font-mono text-green-400 text-lg">${{ report.total_expected_inflows|floatformat:0|intcomma }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Expected Payables -->
+            <div class="bg-gray-800 rounded-lg shadow-xl border border-gray-700 p-6">
+                <h3 class="text-lg font-bold text-red-400 mb-4">
+                    <i class="fas fa-arrow-up mr-2"></i>Expected Outflows (90 days)
+                </h3>
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center py-2 border-b border-gray-700">
+                        <span class="text-gray-300">Outstanding Bills</span>
+                        <span class="font-mono text-red-400">${{ report.expected_payables|floatformat:0|intcomma }}</span>
+                    </div>
+                    <div class="flex justify-between items-center py-2 border-b border-gray-700">
+                        <span class="text-gray-300">Recurring Expenses</span>
+                        <span class="font-mono text-red-400">${{ report.recurring_expenses|floatformat:0|intcomma }}</span>
+                    </div>
+                    <div class="flex justify-between items-center py-3 mt-2 border-t-2 border-red-700 font-bold">
+                        <span class="text-white">Total Expected</span>
+                        <span class="font-mono text-red-400 text-lg">${{ report.total_expected_outflows|floatformat:0|intcomma }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recommendations -->
+        <div class="mt-6 bg-blue-900/20 border border-blue-700 rounded-lg p-6">
+            <h4 class="text-lg font-semibold text-blue-300 mb-3">
+                <i class="fas fa-lightbulb mr-2"></i>Cash Flow Recommendations
+            </h4>
+            <ul class="space-y-2 text-sm text-blue-200">
+                {% if report.forecast_90_days < 0 %}
+                <li class="flex items-start">
+                    <i class="fas fa-exclamation-triangle text-red-400 mt-1 mr-2"></i>
+                    <span><strong>Warning:</strong> Projected cash shortfall in 90 days. Consider securing additional financing.</span>
+                </li>
+                {% endif %}
+                {% if report.aging_90_plus > 0 %}
+                <li class="flex items-start">
+                    <i class="fas fa-exclamation-circle text-yellow-400 mt-1 mr-2"></i>
+                    <span><strong>Action Required:</strong> Follow up on invoices over 90 days old to improve collections.</span>
+                </li>
+                {% endif %}
+                <li class="flex items-start">
+                    <i class="fas fa-check-circle text-green-400 mt-1 mr-2"></i>
+                    <span>Monitor weekly to ensure projections remain accurate and adjust as needed.</span>
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-info-circle text-blue-400 mt-1 mr-2"></i>
+                    <span>Maintain a cash buffer equal to at least 30 days of operating expenses.</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

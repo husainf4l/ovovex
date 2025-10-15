@@ -113,8 +113,41 @@ DATABASES = {
         "PASSWORD": os.getenv("DB_PASSWORD", ""),
         "HOST": os.getenv("DB_HOST", ""),
         "PORT": os.getenv("DB_PORT", ""),
+        # Database optimization settings
+        "CONN_MAX_AGE": 600,  # Persistent database connections
+        "OPTIONS": {
+            # PostgreSQL specific optimizations (if using PostgreSQL)
+            # "connect_timeout": 10,
+        }
     }
 }
+
+
+# Cache Configuration
+# Use Redis in production, locmem for development
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        "LOCATION": "ovovex-cache",
+        "TIMEOUT": 300,  # 5 minutes default
+        "OPTIONS": {
+            "MAX_ENTRIES": 1000,
+        }
+    }
+}
+
+# For production with Redis:
+# CACHES = {
+#     "default": {
+#         "BACKEND": "django.core.cache.backends.redis.RedisCache",
+#         "LOCATION": os.getenv("REDIS_URL", "redis://127.0.0.1:6379/1"),
+#         "OPTIONS": {
+#             "CLIENT_CLASS": "django_redis.client.DefaultClient",
+#         },
+#         "KEY_PREFIX": "ovovex",
+#         "TIMEOUT": 300,
+#     }
+# }
 
 
 # Password validation
