@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.humanize",
     "storages",
+    "companies",
     "accounting",
     "accounts",
     "dashboard",
@@ -77,6 +78,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "companies.middleware.ActiveCompanyMiddleware",
 ]
 
 ROOT_URLCONF = "ovovex.urls"

@@ -30,17 +30,24 @@ def dashboard_view(request):
     current_month = today.replace(day=1)
     last_month = (current_month - timedelta(days=1)).replace(day=1)
 
+    # Get active company from middleware
+    active_company = request.active_company
+
     # === FINANCIAL OVERVIEW KPIs ===
 
     # 1. Total Revenue (from posted journal entries to revenue accounts)
     revenue_accounts = Account.objects.filter(
-        account_type=AccountType.REVENUE, is_active=True
+        company=active_company,
+        account_type=AccountType.REVENUE,
+        is_active=True
     )
     total_revenue = sum(acc.get_balance() for acc in revenue_accounts)
 
     # 2. Total Expenses (from posted journal entries to expense accounts)
     expense_accounts = Account.objects.filter(
-        account_type=AccountType.EXPENSE, is_active=True
+        company=active_company,
+        account_type=AccountType.EXPENSE,
+        is_active=True
     )
     total_expenses = sum(acc.get_balance() for acc in expense_accounts)
 
@@ -49,14 +56,15 @@ def dashboard_view(request):
 
     # 4. Cash on Hand (balance of cash/bank accounts)
     cash_accounts = Account.objects.filter(
-        Q(account_type=AccountType.ASSET)
-        & (Q(name__icontains="cash") | Q(name__icontains="bank")),
-        is_active=True,
-    )
+        company=active_company,
+        account_type=AccountType.ASSET,
+        is_active=True
+    ).filter(Q(name__icontains="cash") | Q(name__icontains="bank"))
     cash_on_hand = sum(acc.get_balance() for acc in cash_accounts)
 
     # 5. Outstanding Invoices (unpaid invoices)
     outstanding_invoices = Invoice.objects.filter(
+        company=active_company,
         status__in=["SENT", "OVERDUE"]
     ).aggregate(total=Sum("total_amount"), count=Count("id"))
     outstanding_amount = outstanding_invoices["total"] or Decimal("0.00")

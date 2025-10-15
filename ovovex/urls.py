@@ -32,6 +32,8 @@ urlpatterns = [
     path("i18n/", include("django.conf.urls.i18n")),  # Language switcher endpoint
     # Temporarily move dashboard outside i18n_patterns for testing
     path("dashboard/", include("dashboard.urls", namespace="dashboard")),
+    # Companies management
+    path("companies/", include("companies.urls")),
 ]
 
 # Translatable URLs (will have language prefix like /en/ or /ar/)

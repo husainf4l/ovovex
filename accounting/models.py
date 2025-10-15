@@ -4,6 +4,12 @@ from django.core.validators import MinValueValidator
 from decimal import Decimal
 
 
+# Import Company model for multi-company support
+def get_company_model():
+    from companies.models import Company
+    return Company
+
+
 class AccountType(models.TextChoices):
     ASSET = "ASSET", "Asset"
     LIABILITY = "LIABILITY", "Liability"
@@ -17,7 +23,14 @@ class Account(models.Model):
     Chart of Accounts - Defines all accounts in the general ledger
     """
 
-    code = models.CharField(max_length=20, unique=True, db_index=True)
+    company = models.ForeignKey(
+        "companies.Company",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="accounts"
+    )
+    code = models.CharField(max_length=20, db_index=True)
     name = models.CharField(max_length=255)
     account_type = models.CharField(
         max_length=20, choices=AccountType.choices, db_index=True
@@ -43,8 +56,9 @@ class Account(models.Model):
     class Meta:
         ordering = ["code"]
         indexes = [
-            models.Index(fields=["code", "account_type"]),
+            models.Index(fields=["company", "code", "account_type"]),
         ]
+        unique_together = [["company", "code"]]
 
     def __str__(self):
         return f"{self.code} - {self.name}"
@@ -79,7 +93,14 @@ class JournalEntry(models.Model):
         POSTED = "POSTED", "Posted"
         VOID = "VOID", "Void"
 
-    entry_number = models.CharField(max_length=50, unique=True, db_index=True)
+    company = models.ForeignKey(
+        "companies.Company",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="journal_entries"
+    )
+    entry_number = models.CharField(max_length=50, db_index=True)
     entry_date = models.DateField(db_index=True)
     description = models.TextField()
     reference = models.CharField(max_length=100, blank=True, null=True)
@@ -113,8 +134,9 @@ class JournalEntry(models.Model):
         ordering = ["-entry_date", "-entry_number"]
         verbose_name_plural = "Journal Entries"
         indexes = [
-            models.Index(fields=["entry_date", "status"]),
+            models.Index(fields=["company", "entry_date", "status"]),
         ]
+        unique_together = [["company", "entry_number"]]
 
     def __str__(self):
         return f"{self.entry_number} - {self.description[:50]}"
@@ -182,7 +204,14 @@ class JournalEntryLine(models.Model):
 class Customer(models.Model):
     """Customer/Client information"""
 
-    customer_code = models.CharField(max_length=20, unique=True, db_index=True)
+    company = models.ForeignKey(
+        "companies.Company",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="customers"
+    )
+    customer_code = models.CharField(max_length=20, db_index=True)
     company_name = models.CharField(max_length=255)
     contact_name = models.CharField(max_length=255)
     email = models.EmailField()
@@ -201,6 +230,10 @@ class Customer(models.Model):
 
     class Meta:
         ordering = ["company_name"]
+        unique_together = [["company", "customer_code"]]
+        indexes = [
+            models.Index(fields=["company", "customer_code"]),
+        ]
 
     def __str__(self):
         return f"{self.customer_code} - {self.company_name}"
@@ -253,7 +286,14 @@ class Invoice(models.Model):
         OVERDUE = "OVERDUE", "Overdue"
         CANCELLED = "CANCELLED", "Cancelled"
 
-    invoice_number = models.CharField(max_length=50, unique=True, db_index=True)
+    company = models.ForeignKey(
+        "companies.Company",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="invoices"
+    )
+    invoice_number = models.CharField(max_length=50, db_index=True)
     customer = models.ForeignKey(
         Customer, on_delete=models.PROTECT, related_name="invoices"
     )
@@ -284,6 +324,10 @@ class Invoice(models.Model):
 
     class Meta:
         ordering = ["-invoice_date", "-invoice_number"]
+        unique_together = [["company", "invoice_number"]]
+        indexes = [
+            models.Index(fields=["company", "invoice_date", "status"]),
+        ]
 
     def __str__(self):
         return f"{self.invoice_number} - {self.customer.company_name}"
