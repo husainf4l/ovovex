@@ -546,106 +546,106 @@ class FixedAssetForm(forms.ModelForm):
         widgets = {
             "asset_code": forms.TextInput(
                 attrs={
-                    "class": "w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500",
+                    "class": "w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900 dark:text-gray-100",
                     "placeholder": "ASSET-0001",
                 }
             ),
             "name": forms.TextInput(
                 attrs={
-                    "class": "w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500",
+                    "class": "w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900 dark:text-gray-100",
                     "placeholder": "Asset name",
                 }
             ),
             "description": forms.Textarea(
                 attrs={
-                    "class": "w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500",
+                    "class": "w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900 dark:text-gray-100",
                     "rows": 3,
                 }
             ),
             "category": forms.Select(
                 attrs={
-                    "class": "w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    "class": "w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900 dark:text-gray-100"
                 }
             ),
             "account": forms.Select(
                 attrs={
-                    "class": "w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    "class": "w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900 dark:text-gray-100"
                 }
             ),
             "acquisition_method": forms.Select(
                 attrs={
-                    "class": "w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    "class": "w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900 dark:text-gray-100"
                 }
             ),
             "purchase_date": forms.DateInput(
                 attrs={
-                    "class": "w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500",
+                    "class": "w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900 dark:text-gray-100",
                     "type": "date",
                 }
             ),
             "purchase_cost": forms.NumberInput(
                 attrs={
-                    "class": "w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500",
+                    "class": "w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900 dark:text-gray-100",
                     "step": "0.01",
                     "min": "0.00",
                 }
             ),
             "vendor": forms.Select(
                 attrs={
-                    "class": "w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    "class": "w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900 dark:text-gray-100"
                 }
             ),
             "serial_number": forms.TextInput(
                 attrs={
-                    "class": "w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    "class": "w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900 dark:text-gray-100"
                 }
             ),
             "manufacturer": forms.TextInput(
                 attrs={
-                    "class": "w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    "class": "w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900 dark:text-gray-100"
                 }
             ),
             "model": forms.TextInput(
                 attrs={
-                    "class": "w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    "class": "w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900 dark:text-gray-100"
                 }
             ),
             "barcode": forms.TextInput(
                 attrs={
-                    "class": "w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    "class": "w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900 dark:text-gray-100"
                 }
             ),
             "location": forms.TextInput(
                 attrs={
-                    "class": "w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    "class": "w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900 dark:text-gray-100"
                 }
             ),
             "department": forms.TextInput(
                 attrs={
-                    "class": "w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    "class": "w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900 dark:text-gray-100"
                 }
             ),
             "custodian": forms.TextInput(
                 attrs={
-                    "class": "w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    "class": "w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900 dark:text-gray-100"
                 }
             ),
             "salvage_value": forms.NumberInput(
                 attrs={
-                    "class": "w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500",
+                    "class": "w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900 dark:text-gray-100",
                     "step": "0.01",
                     "min": "0.00",
                 }
             ),
             "useful_life_years": forms.NumberInput(
                 attrs={
-                    "class": "w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500",
+                    "class": "w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900 dark:text-gray-100",
                     "min": "1",
                 }
             ),
             "depreciation_method": forms.Select(
                 attrs={
-                    "class": "w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    "class": "w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900 dark:text-gray-100"
                 }
             ),
             "is_active": forms.CheckboxInput(
@@ -660,7 +660,7 @@ class FixedAssetForm(forms.ModelForm):
             ),
             "notes": forms.Textarea(
                 attrs={
-                    "class": "w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500",
+                    "class": "w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-900 dark:text-gray-100",
                     "rows": 3,
                 }
             ),
@@ -673,6 +673,17 @@ class FixedAssetForm(forms.ModelForm):
         if commit:
             instance.save()
         return instance
+
+    def __init__(self, *args, **kwargs):
+        company = kwargs.pop("company", None)
+        super().__init__(*args, **kwargs)
+        if company:
+            self.fields["account"].queryset = Account.objects.filter(
+                company=company, is_active=True
+            )
+            self.fields["vendor"].queryset = Vendor.objects.filter(
+                company=company, is_active=True
+            )
 
 
 # ============================================================================

@@ -684,7 +684,7 @@ def fixed_asset_create(request):
     active_company = request.active_company
 
     if request.method == "POST":
-        form = FixedAssetForm(request.POST)
+        form = FixedAssetForm(request.POST, company=active_company)
         if form.is_valid():
             asset = form.save(commit=False)
             asset.company = active_company
@@ -705,6 +705,7 @@ def fixed_asset_create(request):
         )
 
         form = FixedAssetForm(
+            company=active_company,
             initial={
                 "asset_code": next_code,
                 "purchase_date": datetime.now().date(),
@@ -750,7 +751,7 @@ def fixed_asset_edit(request, pk):
     asset = get_object_or_404(FixedAsset, pk=pk, company=active_company)
 
     if request.method == "POST":
-        form = FixedAssetForm(request.POST, instance=asset)
+        form = FixedAssetForm(request.POST, instance=asset, company=active_company)
         if form.is_valid():
             updated_asset = form.save(commit=False)
             updated_asset.updated_by = request.user
@@ -760,7 +761,7 @@ def fixed_asset_edit(request, pk):
             )
             return redirect("accounting:fixed_asset_detail", pk=asset.pk)
     else:
-        form = FixedAssetForm(instance=asset)
+        form = FixedAssetForm(instance=asset, company=active_company)
 
     context = {
         "title": f"Edit Asset: {asset.asset_code}",

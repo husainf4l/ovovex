@@ -1,0 +1,341 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'components/sidemenu.html' %}
+
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 ml-64 transition-colors duration-300">
+    <!-- Top Navigation Bar -->
+    <div class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4 transition-colors duration-300">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <button onclick="window.history.back()" class="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">{{ title }}</h1>
+                {% if asset.is_active %}
+                <span class="px-3 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 text-sm font-medium rounded-full">Active</span>
+                {% else %}
+                <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 text-sm font-medium rounded-full">Inactive</span>
+                {% endif %}
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="{% url 'accounting:fixed_asset_edit' asset.pk %}" class="px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200">
+                    <i class="fas fa-edit mr-2"></i>
+                    Edit Asset
+                </a>
+                <a href="{% url 'accounting:fixed_asset_delete' asset.pk %}" class="px-4 py-2 bg-red-600 text-white font-medium rounded-lg hover:bg-red-700 transition-colors duration-200">
+                    <i class="fas fa-trash mr-2"></i>
+                    Delete
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-8">
+        <!-- Breadcrumb -->
+        <nav class="flex mb-6" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                <li class="inline-flex items-center">
+                    <a href="{% url 'dashboard:dashboard' %}" class="inline-flex items-center text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
+                        <i class="fas fa-home mr-2"></i>
+                        Dashboard
+                    </a>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+                        <a href="{% url 'dashboard:fixed_assets' %}" class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Fixed Assets</a>
+                    </div>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+                        <span class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ asset.asset_code }}</span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Main Asset Information -->
+            <div class="lg:col-span-2 space-y-6">
+                <!-- Basic Information -->
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">
+                        <i class="fas fa-info-circle mr-2 text-blue-600"></i>
+                        Basic Information
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-600 dark:text-gray-400">Asset Code</label>
+                            <p class="mt-1 text-sm text-gray-900 dark:text-gray-100 font-mono">{{ asset.asset_code }}</p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-600 dark:text-gray-400">Name</label>
+                            <p class="mt-1 text-sm text-gray-900 dark:text-gray-100">{{ asset.name }}</p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-600 dark:text-gray-400">Category</label>
+                            <p class="mt-1 text-sm text-gray-900 dark:text-gray-100">
+                                <span class="px-2 py-1 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200">
+                                    {{ asset.get_category_display }}
+                                </span>
+                            </p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-600 dark:text-gray-400">GL Account</label>
+                            <p class="mt-1 text-sm text-gray-900 dark:text-gray-100">{{ asset.account.code }} - {{ asset.account.name }}</p>
+                        </div>
+                        {% if asset.description %}
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-medium text-gray-600 dark:text-gray-400">Description</label>
+                            <p class="mt-1 text-sm text-gray-900 dark:text-gray-100">{{ asset.description }}</p>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Acquisition Details -->
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">
+                        <i class="fas fa-shopping-cart mr-2 text-green-600"></i>
+                        Acquisition Details
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-600 dark:text-gray-400">Acquisition Method</label>
+                            <p class="mt-1 text-sm text-gray-900 dark:text-gray-100">{{ asset.get_acquisition_method_display }}</p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-600 dark:text-gray-400">Purchase Date</label>
+                            <p class="mt-1 text-sm text-gray-900 dark:text-gray-100">{{ asset.purchase_date|date:"M d, Y" }}</p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-600 dark:text-gray-400">Purchase Cost</label>
+                            <p class="mt-1 text-sm text-gray-900 dark:text-gray-100 font-semibold">${{ asset.purchase_cost|floatformat:2 }}</p>
+                        </div>
+                        {% if asset.vendor %}
+                        <div>
+                            <label class="block text-sm font-medium text-gray-600 dark:text-gray-400">Vendor</label>
+                            <p class="mt-1 text-sm text-gray-900 dark:text-gray-100">{{ asset.vendor.company_name }}</p>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Physical Details -->
+                {% if asset.serial_number or asset.manufacturer or asset.model or asset.barcode %}
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">
+                        <i class="fas fa-cogs mr-2 text-purple-600"></i>
+                        Physical Details
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {% if asset.serial_number %}
+                        <div>
+                            <label class="block text-sm font-medium text-gray-600 dark:text-gray-400">Serial Number</label>
+                            <p class="mt-1 text-sm text-gray-900 dark:text-gray-100 font-mono">{{ asset.serial_number }}</p>
+                        </div>
+                        {% endif %}
+                        {% if asset.manufacturer %}
+                        <div>
+                            <label class="block text-sm font-medium text-gray-600 dark:text-gray-400">Manufacturer</label>
+                            <p class="mt-1 text-sm text-gray-900 dark:text-gray-100">{{ asset.manufacturer }}</p>
+                        </div>
+                        {% endif %}
+                        {% if asset.model %}
+                        <div>
+                            <label class="block text-sm font-medium text-gray-600 dark:text-gray-400">Model</label>
+                            <p class="mt-1 text-sm text-gray-900 dark:text-gray-100">{{ asset.model }}</p>
+                        </div>
+                        {% endif %}
+                        {% if asset.barcode %}
+                        <div>
+                            <label class="block text-sm font-medium text-gray-600 dark:text-gray-400">Barcode</label>
+                            <p class="mt-1 text-sm text-gray-900 dark:text-gray-100 font-mono">{{ asset.barcode }}</p>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Location & Assignment -->
+                {% if asset.location or asset.department or asset.custodian %}
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">
+                        <i class="fas fa-map-marker-alt mr-2 text-orange-600"></i>
+                        Location & Assignment
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {% if asset.location %}
+                        <div>
+                            <label class="block text-sm font-medium text-gray-600 dark:text-gray-400">Location</label>
+                            <p class="mt-1 text-sm text-gray-900 dark:text-gray-100">{{ asset.location }}</p>
+                        </div>
+                        {% endif %}
+                        {% if asset.department %}
+                        <div>
+                            <label class="block text-sm font-medium text-gray-600 dark:text-gray-400">Department</label>
+                            <p class="mt-1 text-sm text-gray-900 dark:text-gray-100">{{ asset.department }}</p>
+                        </div>
+                        {% endif %}
+                        {% if asset.custodian %}
+                        <div>
+                            <label class="block text-sm font-medium text-gray-600 dark:text-gray-400">Custodian</label>
+                            <p class="mt-1 text-sm text-gray-900 dark:text-gray-100">{{ asset.custodian }}</p>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Notes -->
+                {% if asset.notes %}
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">
+                        <i class="fas fa-sticky-note mr-2 text-yellow-600"></i>
+                        Notes
+                    </h3>
+                    <p class="text-sm text-gray-900 dark:text-gray-100">{{ asset.notes }}</p>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Sidebar -->
+            <div class="space-y-6">
+                <!-- Financial Summary -->
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">
+                        <i class="fas fa-dollar-sign mr-2 text-green-600"></i>
+                        Financial Summary
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="flex justify-between">
+                            <span class="text-sm text-gray-600 dark:text-gray-400">Purchase Cost</span>
+                            <span class="text-sm font-semibold text-gray-900 dark:text-gray-100">${{ asset.purchase_cost|floatformat:2 }}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-sm text-gray-600 dark:text-gray-400">Accumulated Depreciation</span>
+                            <span class="text-sm font-semibold text-red-600 dark:text-red-400">-${{ asset.accumulated_depreciation|floatformat:2 }}</span>
+                        </div>
+                        <hr class="border-gray-200 dark:border-gray-700">
+                        <div class="flex justify-between">
+                            <span class="text-sm font-medium text-gray-900 dark:text-gray-100">Book Value</span>
+                            <span class="text-lg font-bold text-green-600 dark:text-green-400">${{ asset.book_value|floatformat:2 }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depreciation Information -->
+                {% if asset.is_depreciated %}
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">
+                        <i class="fas fa-chart-line-down mr-2 text-red-600"></i>
+                        Depreciation Info
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="flex justify-between">
+                            <span class="text-sm text-gray-600 dark:text-gray-400">Method</span>
+                            <span class="text-sm text-gray-900 dark:text-gray-100">{{ asset.get_depreciation_method_display }}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-sm text-gray-600 dark:text-gray-400">Useful Life</span>
+                            <span class="text-sm text-gray-900 dark:text-gray-100">{{ asset.useful_life_years }} years</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-sm text-gray-600 dark:text-gray-400">Salvage Value</span>
+                            <span class="text-sm text-gray-900 dark:text-gray-100">${{ asset.salvage_value|floatformat:2 }}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-sm text-gray-600 dark:text-gray-400">Monthly Depreciation</span>
+                            <span class="text-sm text-gray-900 dark:text-gray-100">${{ monthly_depreciation|floatformat:2 }}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-sm text-gray-600 dark:text-gray-400">Asset Age</span>
+                            <span class="text-sm text-gray-900 dark:text-gray-100">{{ age_years }} years</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-sm text-gray-600 dark:text-gray-400">Remaining Life</span>
+                            <span class="text-sm text-gray-900 dark:text-gray-100">{{ remaining_life }} years</span>
+                        </div>
+                        <div class="mt-4 p-3 rounded-lg bg-gray-50 dark:bg-gray-700">
+                            <div class="text-sm font-medium text-gray-900 dark:text-gray-100">{{ depreciation_status }}</div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Status Information -->
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">
+                        <i class="fas fa-toggle-on mr-2 text-indigo-600"></i>
+                        Status
+                    </h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-gray-600 dark:text-gray-400">Active</span>
+                            {% if asset.is_active %}
+                            <span class="px-2 py-1 text-xs font-medium rounded-full bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200">Yes</span>
+                            {% else %}
+                            <span class="px-2 py-1 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200">No</span>
+                            {% endif %}
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-gray-600 dark:text-gray-400">Depreciated</span>
+                            {% if asset.is_depreciated %}
+                            <span class="px-2 py-1 text-xs font-medium rounded-full bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200">Yes</span>
+                            {% else %}
+                            <span class="px-2 py-1 text-xs font-medium rounded-full bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200">No</span>
+                            {% endif %}
+                        </div>
+                        {% if asset.is_insured %}
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-gray-600 dark:text-gray-400">Insured</span>
+                            <span class="px-2 py-1 text-xs font-medium rounded-full bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200">Yes</span>
+                        </div>
+                        {% endif %}
+                        {% if asset.is_under_warranty %}
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-gray-600 dark:text-gray-400">Under Warranty</span>
+                            <span class="px-2 py-1 text-xs font-medium rounded-full bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200">Yes</span>
+                        </div>
+                        {% endif %}
+                        {% if asset.is_leased %}
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-gray-600 dark:text-gray-400">Leased</span>
+                            <span class="px-2 py-1 text-xs font-medium rounded-full bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200">Yes</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Audit Information -->
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">
+                        <i class="fas fa-history mr-2 text-gray-600"></i>
+                        Audit Info
+                    </h3>
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-600 dark:text-gray-400">Created</label>
+                            <p class="mt-1 text-sm text-gray-900 dark:text-gray-100">{{ asset.created_at|date:"M d, Y H:i" }}</p>
+                            {% if asset.created_by %}
+                            <p class="text-xs text-gray-500 dark:text-gray-400">by {{ asset.created_by.get_full_name|default:asset.created_by.username }}</p>
+                            {% endif %}
+                        </div>
+                        {% if asset.updated_at and asset.updated_by %}
+                        <div>
+                            <label class="block text-sm font-medium text-gray-600 dark:text-gray-400">Last Updated</label>
+                            <p class="mt-1 text-sm text-gray-900 dark:text-gray-100">{{ asset.updated_at|date:"M d, Y H:i" }}</p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">by {{ asset.updated_by.get_full_name|default:asset.updated_by.username }}</p>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

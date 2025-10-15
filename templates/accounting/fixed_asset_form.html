@@ -1,0 +1,364 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'components/sidemenu.html' %}
+
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 ml-64 transition-colors duration-300">
+    <!-- Top Navigation Bar -->
+    <div class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4 transition-colors duration-300">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <button onclick="window.history.back()" class="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">{{ title }}</h1>
+            </div>
+            <div class="flex items-center space-x-4">
+                <button type="submit" form="asset-form" class="px-6 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200">
+                    <i class="fas fa-save mr-2"></i>
+                    {{ action }} Fixed Asset
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-8">
+        <!-- Breadcrumb -->
+        <nav class="flex mb-6" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                <li class="inline-flex items-center">
+                    <a href="{% url 'dashboard:dashboard' %}" class="inline-flex items-center text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
+                        <i class="fas fa-home mr-2"></i>
+                        Dashboard
+                    </a>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+                        <a href="{% url 'dashboard:fixed_assets' %}" class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Fixed Assets</a>
+                    </div>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+                        <span class="text-sm font-medium text-gray-500 dark:text-gray-400">{{ action }} Asset</span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
+
+        <form id="asset-form" method="post" class="space-y-6">
+            {% csrf_token %}
+
+            <!-- Basic Information -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">
+                    <i class="fas fa-info-circle mr-2 text-blue-600"></i>
+                    Basic Information
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            {{ form.asset_code.label }}
+                        </label>
+                        {{ form.asset_code }}
+                        {% if form.asset_code.errors %}
+                            <div class="mt-1 text-sm text-red-600 dark:text-red-400">
+                                {{ form.asset_code.errors.0 }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            {{ form.name.label }}
+                        </label>
+                        {{ form.name }}
+                        {% if form.name.errors %}
+                            <div class="mt-1 text-sm text-red-600 dark:text-red-400">
+                                {{ form.name.errors.0 }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            {{ form.description.label }}
+                        </label>
+                        {{ form.description }}
+                        {% if form.description.errors %}
+                            <div class="mt-1 text-sm text-red-600 dark:text-red-400">
+                                {{ form.description.errors.0 }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            {{ form.category.label }}
+                        </label>
+                        {{ form.category }}
+                        {% if form.category.errors %}
+                            <div class="mt-1 text-sm text-red-600 dark:text-red-400">
+                                {{ form.category.errors.0 }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            {{ form.account.label }}
+                        </label>
+                        {{ form.account }}
+                        {% if form.account.errors %}
+                            <div class="mt-1 text-sm text-red-600 dark:text-red-400">
+                                {{ form.account.errors.0 }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Acquisition Details -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">
+                    <i class="fas fa-shopping-cart mr-2 text-green-600"></i>
+                    Acquisition Details
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            {{ form.acquisition_method.label }}
+                        </label>
+                        {{ form.acquisition_method }}
+                        {% if form.acquisition_method.errors %}
+                            <div class="mt-1 text-sm text-red-600 dark:text-red-400">
+                                {{ form.acquisition_method.errors.0 }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            {{ form.purchase_date.label }}
+                        </label>
+                        {{ form.purchase_date }}
+                        {% if form.purchase_date.errors %}
+                            <div class="mt-1 text-sm text-red-600 dark:text-red-400">
+                                {{ form.purchase_date.errors.0 }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            {{ form.purchase_cost.label }}
+                        </label>
+                        {{ form.purchase_cost }}
+                        {% if form.purchase_cost.errors %}
+                            <div class="mt-1 text-sm text-red-600 dark:text-red-400">
+                                {{ form.purchase_cost.errors.0 }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            {{ form.vendor.label }}
+                        </label>
+                        {{ form.vendor }}
+                        {% if form.vendor.errors %}
+                            <div class="mt-1 text-sm text-red-600 dark:text-red-400">
+                                {{ form.vendor.errors.0 }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Physical Details -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">
+                    <i class="fas fa-cogs mr-2 text-purple-600"></i>
+                    Physical Details
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            {{ form.serial_number.label }}
+                        </label>
+                        {{ form.serial_number }}
+                        {% if form.serial_number.errors %}
+                            <div class="mt-1 text-sm text-red-600 dark:text-red-400">
+                                {{ form.serial_number.errors.0 }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            {{ form.manufacturer.label }}
+                        </label>
+                        {{ form.manufacturer }}
+                        {% if form.manufacturer.errors %}
+                            <div class="mt-1 text-sm text-red-600 dark:text-red-400">
+                                {{ form.manufacturer.errors.0 }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            {{ form.model.label }}
+                        </label>
+                        {{ form.model }}
+                        {% if form.model.errors %}
+                            <div class="mt-1 text-sm text-red-600 dark:text-red-400">
+                                {{ form.model.errors.0 }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            {{ form.barcode.label }}
+                        </label>
+                        {{ form.barcode }}
+                        {% if form.barcode.errors %}
+                            <div class="mt-1 text-sm text-red-600 dark:text-red-400">
+                                {{ form.barcode.errors.0 }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Location & Assignment -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">
+                    <i class="fas fa-map-marker-alt mr-2 text-orange-600"></i>
+                    Location & Assignment
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            {{ form.location.label }}
+                        </label>
+                        {{ form.location }}
+                        {% if form.location.errors %}
+                            <div class="mt-1 text-sm text-red-600 dark:text-red-400">
+                                {{ form.location.errors.0 }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            {{ form.department.label }}
+                        </label>
+                        {{ form.department }}
+                        {% if form.department.errors %}
+                            <div class="mt-1 text-sm text-red-600 dark:text-red-400">
+                                {{ form.department.errors.0 }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            {{ form.custodian.label }}
+                        </label>
+                        {{ form.custodian }}
+                        {% if form.custodian.errors %}
+                            <div class="mt-1 text-sm text-red-600 dark:text-red-400">
+                                {{ form.custodian.errors.0 }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Depreciation Settings -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">
+                    <i class="fas fa-chart-line-down mr-2 text-red-600"></i>
+                    Depreciation Settings
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            {{ form.salvage_value.label }}
+                        </label>
+                        {{ form.salvage_value }}
+                        {% if form.salvage_value.errors %}
+                            <div class="mt-1 text-sm text-red-600 dark:text-red-400">
+                                {{ form.salvage_value.errors.0 }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            {{ form.useful_life_years.label }}
+                        </label>
+                        {{ form.useful_life_years }}
+                        {% if form.useful_life_years.errors %}
+                            <div class="mt-1 text-sm text-red-600 dark:text-red-400">
+                                {{ form.useful_life_years.errors.0 }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            {{ form.depreciation_method.label }}
+                        </label>
+                        {{ form.depreciation_method }}
+                        {% if form.depreciation_method.errors %}
+                            <div class="mt-1 text-sm text-red-600 dark:text-red-400">
+                                {{ form.depreciation_method.errors.0 }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <div class="flex items-center">
+                            {{ form.is_depreciated }}
+                            <label class="ml-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+                                {{ form.is_depreciated.label }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Status & Notes -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">
+                    <i class="fas fa-toggle-on mr-2 text-indigo-600"></i>
+                    Status & Notes
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="flex items-center space-x-3">
+                        <div class="flex items-center">
+                            {{ form.is_active }}
+                            <label class="ml-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+                                {{ form.is_active.label }}
+                            </label>
+                        </div>
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            {{ form.notes.label }}
+                        </label>
+                        {{ form.notes }}
+                        {% if form.notes.errors %}
+                            <div class="mt-1 text-sm text-red-600 dark:text-red-400">
+                                {{ form.notes.errors.0 }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form Actions -->
+            <div class="flex justify-end space-x-4">
+                <a href="{% url 'dashboard:fixed_assets' %}" class="px-6 py-2 bg-gray-600 text-white font-medium rounded-lg hover:bg-gray-700 transition-colors duration-200">
+                    Cancel
+                </a>
+                <button type="submit" class="px-6 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200">
+                    <i class="fas fa-save mr-2"></i>
+                    {{ action }} Fixed Asset
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
