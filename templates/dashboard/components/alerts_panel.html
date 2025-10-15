@@ -1,0 +1,35 @@
+<!-- Alerts & Warnings Panel -->
+{% if advanced_metrics.alerts %}
+<div class="mb-8">
+    <div class="flex items-center justify-between mb-4">
+        <h3 class="text-xl font-bold text-white flex items-center">
+            <i class="fas fa-bell text-yellow-500 mr-3"></i>
+            Alerts & Notifications
+        </h3>
+        <span class="px-3 py-1 bg-yellow-500/20 text-yellow-400 text-sm rounded-full font-semibold">
+            {{ advanced_metrics.alerts|length }} active
+        </span>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {% for alert in advanced_metrics.alerts %}
+        <a href="{{ alert.link }}" class="block bg-gray-900 border {% if alert.type == 'danger' %}border-red-800{% elif alert.type == 'warning' %}border-yellow-800{% else %}border-blue-800{% endif %} rounded-lg p-4 hover:shadow-lg transition-all duration-300 group">
+            <div class="flex items-start">
+                <div class="p-2 {% if alert.type == 'danger' %}bg-red-500/10{% elif alert.type == 'warning' %}bg-yellow-500/10{% else %}bg-blue-500/10{% endif %} rounded-lg mr-3">
+                    <i class="fas {{ alert.icon }} text-xl {% if alert.type == 'danger' %}text-red-400{% elif alert.type == 'warning' %}text-yellow-400{% else %}text-blue-400{% endif %}"></i>
+                </div>
+                <div class="flex-1">
+                    <p class="text-sm text-gray-300 group-hover:text-white transition-colors">
+                        {{ alert.message }}
+                    </p>
+                    <div class="mt-2 flex items-center text-xs {% if alert.type == 'danger' %}text-red-400{% elif alert.type == 'warning' %}text-yellow-400{% else %}text-blue-400{% endif %}">
+                        <span>View Details</span>
+                        <i class="fas fa-arrow-right ml-1 group-hover:ml-2 transition-all"></i>
+                    </div>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}

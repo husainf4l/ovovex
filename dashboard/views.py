@@ -33,6 +33,11 @@ def dashboard_view(request):
     # Get active company from middleware
     active_company = request.active_company
 
+    # === NEW: Advanced Financial Metrics ===
+    from dashboard.services import FinancialMetricsService
+    metrics_service = FinancialMetricsService(active_company)
+    advanced_metrics = metrics_service.get_all_metrics()
+
     # === FINANCIAL OVERVIEW KPIs ===
 
     # 1. Total Revenue (from posted journal entries to revenue accounts)
@@ -238,6 +243,8 @@ def dashboard_view(request):
         "title": "Dashboard",
         "description": "Your accounting dashboard and financial overview.",
         "user": request.user,
+        # === NEW: Advanced Metrics ===
+        "advanced_metrics": advanced_metrics,
         # Main KPIs
         "total_revenue": total_revenue,
         "total_expenses": total_expenses,
@@ -304,11 +311,14 @@ def general_ledger_view(request):
     from django.db.models import Sum, Count
     from datetime import datetime, timedelta
 
+    # Get active company
+    active_company = request.active_company
+
     # Get filter parameters
     account_type_filter = request.GET.get("account_type", "all")
 
-    # Get all accounts
-    accounts = Account.objects.filter(is_active=True)
+    # Get all accounts for active company
+    accounts = Account.objects.filter(company=active_company, is_active=True)
     if account_type_filter != "all":
         accounts = accounts.filter(account_type=account_type_filter)
 
@@ -316,24 +326,26 @@ def general_ledger_view(request):
     for account in accounts:
         account.current_balance = account.get_balance()
 
-    # Get statistics
-    total_accounts = Account.objects.filter(is_active=True).count()
+    # Get statistics for active company
+    total_accounts = Account.objects.filter(company=active_company, is_active=True).count()
 
-    # Journal entries this month
+    # Journal entries this month for active company
     current_month = datetime.now().replace(day=1).date()
     entries_this_month = JournalEntry.objects.filter(
-        entry_date__gte=current_month, status="POSTED"
+        company=active_company,
+        entry_date__gte=current_month,
+        status="POSTED"
     ).count()
 
-    # Unbalanced entries (draft or not balanced)
-    unbalanced_entries = JournalEntry.objects.filter(status="DRAFT").count()
+    # Unbalanced entries (draft or not balanced) for active company
+    unbalanced_entries = JournalEntry.objects.filter(company=active_company, status="DRAFT").count()
 
-    # Recent journal entries
-    recent_entries = JournalEntry.objects.filter(status="POSTED").order_by(
+    # Recent journal entries for active company
+    recent_entries = JournalEntry.objects.filter(company=active_company, status="POSTED").order_by(
         "-entry_date", "-created_at"
     )[:5]
 
-    # Calculate balance summary by account type
+    # Calculate balance summary by account type for active company
     from decimal import Decimal
 
     balance_summary = {
@@ -344,7 +356,7 @@ def general_ledger_view(request):
         "expenses": Decimal("0.00"),
     }
 
-    for account in Account.objects.filter(is_active=True):
+    for account in Account.objects.filter(company=active_company, is_active=True):
         balance = account.get_balance()
         if account.account_type == AccountType.ASSET:
             balance_summary["assets"] += balance
@@ -360,8 +372,8 @@ def general_ledger_view(request):
     # Calculate net balance (Assets - Liabilities)
     net_balance = balance_summary["assets"] - balance_summary["liabilities"]
 
-    # Total entries count
-    total_entries = JournalEntry.objects.filter(status="POSTED").count()
+    # Total entries count for active company
+    total_entries = JournalEntry.objects.filter(company=active_company, status="POSTED").count()
 
     context = {
         "title": "General Ledger",
@@ -390,19 +402,22 @@ def invoices_view(request):
     from django.db.models import Sum, Count
     from decimal import Decimal
 
-    # Get all invoices
-    invoices = Invoice.objects.all().select_related("customer")[:20]
+    # Get active company
+    active_company = request.active_company
 
-    # Statistics
-    total_invoices = Invoice.objects.count()
-    total_revenue = Invoice.objects.aggregate(Sum("total_amount"))[
+    # Get all invoices for active company
+    invoices = Invoice.objects.filter(company=active_company).select_related("customer")[:20]
+
+    # Statistics for active company
+    total_invoices = Invoice.objects.filter(company=active_company).count()
+    total_revenue = Invoice.objects.filter(company=active_company).aggregate(Sum("total_amount"))[
         "total_amount__sum"
     ] or Decimal("0.00")
-    paid_invoices = Invoice.objects.filter(status="PAID").count()
-    overdue_invoices = Invoice.objects.filter(status="OVERDUE").count()
+    paid_invoices = Invoice.objects.filter(company=active_company, status="PAID").count()
+    overdue_invoices = Invoice.objects.filter(company=active_company, status="OVERDUE").count()
 
-    # Recent invoices
-    recent_invoices = Invoice.objects.all().order_by("-invoice_date")[:5]
+    # Recent invoices for active company
+    recent_invoices = Invoice.objects.filter(company=active_company).order_by("-invoice_date")[:5]
 
     context = {
         "title": "Invoices",
@@ -529,8 +544,11 @@ def journal_entries_view(request):
     from datetime import datetime, timedelta
     from decimal import Decimal
 
-    # Get all journal entries
-    journal_entries = JournalEntry.objects.all().order_by("-entry_date", "-id")
+    # Get active company
+    active_company = request.active_company
+
+    # Get all journal entries for active company
+    journal_entries = JournalEntry.objects.filter(company=active_company).order_by("-entry_date", "-id")
 
     # Get statistics
     total_entries = journal_entries.count()
@@ -547,7 +565,9 @@ def journal_entries_view(request):
     first_day = today.replace(day=1)
 
     month_entries = JournalEntry.objects.filter(
-        entry_date__gte=first_day, entry_date__lte=today
+        company=active_company,
+        entry_date__gte=first_day,
+        entry_date__lte=today
     )
 
     # Get all lines for month entries
@@ -560,11 +580,11 @@ def journal_entries_view(request):
         "credit_amount__sum"
     ] or Decimal("0.00")
 
-    # Get status distribution (instead of entry_type which doesn't exist)
+    # Get status distribution
     status_distribution = journal_entries.values("status").annotate(count=Count("id"))
 
-    # Get all active accounts for the dropdown
-    accounts = Account.objects.filter(is_active=True).order_by("code")
+    # Get all active accounts for the dropdown (for active company)
+    accounts = Account.objects.filter(company=active_company, is_active=True).order_by("code")
 
     context = {
         "title": "Journal Entries",

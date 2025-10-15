@@ -1,0 +1,192 @@
+<!-- Advanced Financial KPI Cards -->
+{% load humanize %}
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <!-- Cash in Bank -->
+    <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-300">
+        <div class="flex items-center justify-between mb-4">
+            <div class="p-3 bg-blue-500/10 rounded-lg">
+                <i class="fas fa-university text-2xl text-blue-500"></i>
+            </div>
+            {% if advanced_metrics.cash_metrics.trend > 0 %}
+                <span class="text-green-400 text-sm flex items-center">
+                    <i class="fas fa-arrow-up mr-1"></i>
+                    {{ advanced_metrics.cash_metrics.trend|floatformat:1 }}%
+                </span>
+            {% elif advanced_metrics.cash_metrics.trend < 0 %}
+                <span class="text-red-400 text-sm flex items-center">
+                    <i class="fas fa-arrow-down mr-1"></i>
+                    {{ advanced_metrics.cash_metrics.trend|floatformat:1 }}%
+                </span>
+            {% else %}
+                <span class="text-gray-500 text-sm">—</span>
+            {% endif %}
+        </div>
+        <h3 class="text-gray-400 text-sm font-medium mb-2">Cash in Bank</h3>
+        <p class="text-3xl font-bold text-white mb-1">
+            {{ advanced_metrics.cash_metrics.total|floatformat:2|intcomma }}
+            <span class="text-lg text-gray-500">{{ request.active_company.currency }}</span>
+        </p>
+        <p class="text-xs text-gray-500">{{ advanced_metrics.cash_metrics.accounts_count }} bank accounts</p>
+    </div>
+
+    <!-- Profit Margin -->
+    <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 hover:shadow-xl hover:shadow-green-500/10 transition-all duration-300">
+        <div class="flex items-center justify-between mb-4">
+            <div class="p-3 bg-green-500/10 rounded-lg">
+                <i class="fas fa-percentage text-2xl text-green-500"></i>
+            </div>
+            {% if advanced_metrics.profit_metrics.growth_percent > 0 %}
+                <span class="text-green-400 text-sm flex items-center">
+                    <i class="fas fa-arrow-up mr-1"></i>
+                    {{ advanced_metrics.profit_metrics.growth_percent|floatformat:1 }}%
+                </span>
+            {% elif advanced_metrics.profit_metrics.growth_percent < 0 %}
+                <span class="text-red-400 text-sm flex items-center">
+                    <i class="fas fa-arrow-down mr-1"></i>
+                    {{ advanced_metrics.profit_metrics.growth_percent|floatformat:1 }}%
+                </span>
+            {% else %}
+                <span class="text-gray-500 text-sm">—</span>
+            {% endif %}
+        </div>
+        <h3 class="text-gray-400 text-sm font-medium mb-2">Profit Margin</h3>
+        <p class="text-3xl font-bold text-white mb-1">
+            {{ advanced_metrics.profit_metrics.margin_percent|floatformat:1 }}%
+        </p>
+        <p class="text-xs text-gray-500">Net profit vs revenue</p>
+    </div>
+
+    <!-- Unpaid Invoices -->
+    <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 hover:shadow-xl hover:shadow-yellow-500/10 transition-all duration-300">
+        <div class="flex items-center justify-between mb-4">
+            <div class="p-3 bg-yellow-500/10 rounded-lg">
+                <i class="fas fa-file-invoice-dollar text-2xl text-yellow-500"></i>
+            </div>
+            {% if advanced_metrics.invoice_metrics.overdue_count > 0 %}
+                <span class="px-2 py-1 bg-red-500/20 text-red-400 text-xs rounded-full">
+                    {{ advanced_metrics.invoice_metrics.overdue_count }} overdue
+                </span>
+            {% else %}
+                <span class="px-2 py-1 bg-green-500/20 text-green-400 text-xs rounded-full">
+                    <i class="fas fa-check"></i>
+                </span>
+            {% endif %}
+        </div>
+        <h3 class="text-gray-400 text-sm font-medium mb-2">Unpaid Invoices</h3>
+        <p class="text-3xl font-bold text-white mb-1">
+            {{ advanced_metrics.invoice_metrics.unpaid_total|floatformat:0|intcomma }}
+            <span class="text-lg text-gray-500">{{ request.active_company.currency }}</span>
+        </p>
+        <p class="text-xs text-gray-500">{{ advanced_metrics.invoice_metrics.unpaid_count }} invoices pending</p>
+    </div>
+
+    <!-- Top Customer -->
+    <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 hover:shadow-xl hover:shadow-purple-500/10 transition-all duration-300">
+        <div class="flex items-center justify-between mb-4">
+            <div class="p-3 bg-purple-500/10 rounded-lg">
+                <i class="fas fa-user-tie text-2xl text-purple-500"></i>
+            </div>
+        </div>
+        <h3 class="text-gray-400 text-sm font-medium mb-2">Top Customer</h3>
+        <p class="text-lg font-bold text-white mb-1 truncate" title="{{ advanced_metrics.customer_metrics.top_customer_name }}">
+            {{ advanced_metrics.customer_metrics.top_customer_name|truncatechars:20 }}
+        </p>
+        <p class="text-sm text-gray-400">
+            {{ advanced_metrics.customer_metrics.top_customer_revenue|floatformat:0|intcomma }} {{ request.active_company.currency }}
+        </p>
+    </div>
+</div>
+
+<!-- Second Row of KPIs -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <!-- Bills Due Soon -->
+    <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 hover:shadow-xl hover:shadow-orange-500/10 transition-all duration-300">
+        <div class="flex items-center justify-between mb-4">
+            <div class="p-3 bg-orange-500/10 rounded-lg">
+                <i class="fas fa-calendar-alt text-2xl text-orange-500"></i>
+            </div>
+            {% if advanced_metrics.bill_metrics.due_soon_count > 0 %}
+                <span class="px-2 py-1 bg-orange-500/20 text-orange-400 text-xs rounded-full">
+                    Next 7 days
+                </span>
+            {% endif %}
+        </div>
+        <h3 class="text-gray-400 text-sm font-medium mb-2">Bills Due Soon</h3>
+        <p class="text-3xl font-bold text-white mb-1">
+            {{ advanced_metrics.bill_metrics.due_soon_total|floatformat:0|intcomma }}
+            <span class="text-lg text-gray-500">{{ request.active_company.currency }}</span>
+        </p>
+        <p class="text-xs text-gray-500">{{ advanced_metrics.bill_metrics.due_soon_count }} bills within 7 days</p>
+    </div>
+
+    <!-- Business Health Score -->
+    <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 hover:shadow-xl hover:shadow-cyan-500/10 transition-all duration-300">
+        <div class="flex items-center justify-between mb-4">
+            <div class="p-3 {% if advanced_metrics.health_score >= 75 %}bg-green-500/10{% elif advanced_metrics.health_score >= 50 %}bg-yellow-500/10{% else %}bg-red-500/10{% endif %} rounded-lg">
+                <i class="fas fa-heartbeat text-2xl {% if advanced_metrics.health_score >= 75 %}text-green-500{% elif advanced_metrics.health_score >= 50 %}text-yellow-500{% else %}text-red-500{% endif %}"></i>
+            </div>
+        </div>
+        <h3 class="text-gray-400 text-sm font-medium mb-2">Business Health</h3>
+        <p class="text-3xl font-bold {% if advanced_metrics.health_score >= 75 %}text-green-400{% elif advanced_metrics.health_score >= 50 %}text-yellow-400{% else %}text-red-400{% endif %} mb-1">
+            {{ advanced_metrics.health_score|floatformat:0 }}/100
+        </p>
+        <div class="w-full bg-gray-800 rounded-full h-2 mt-2">
+            <div class="{% if advanced_metrics.health_score >= 75 %}bg-green-500{% elif advanced_metrics.health_score >= 50 %}bg-yellow-500{% else %}bg-red-500{% endif %} h-2 rounded-full transition-all duration-500" style="width: {{ advanced_metrics.health_score }}%"></div>
+        </div>
+    </div>
+
+    <!-- Revenue Growth -->
+    <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 hover:shadow-xl hover:shadow-teal-500/10 transition-all duration-300">
+        <div class="flex items-center justify-between mb-4">
+            <div class="p-3 bg-teal-500/10 rounded-lg">
+                <i class="fas fa-chart-line text-2xl text-teal-500"></i>
+            </div>
+            {% if advanced_metrics.revenue_metrics.growth_percent > 0 %}
+                <span class="text-green-400 text-sm flex items-center">
+                    <i class="fas fa-arrow-up mr-1"></i>
+                    {{ advanced_metrics.revenue_metrics.growth_percent|floatformat:1 }}%
+                </span>
+            {% elif advanced_metrics.revenue_metrics.growth_percent < 0 %}
+                <span class="text-red-400 text-sm flex items-center">
+                    <i class="fas fa-arrow-down mr-1"></i>
+                    {{ advanced_metrics.revenue_metrics.growth_percent|floatformat:1 }}%
+                </span>
+            {% else %}
+                <span class="text-gray-500 text-sm">—</span>
+            {% endif %}
+        </div>
+        <h3 class="text-gray-400 text-sm font-medium mb-2">Growth vs Last Month</h3>
+        <p class="text-2xl font-bold text-white mb-1">
+            {% if advanced_metrics.revenue_metrics.growth_percent > 0 %}
+                <span class="text-green-400">+{{ advanced_metrics.revenue_metrics.growth_percent|floatformat:1 }}%</span>
+            {% elif advanced_metrics.revenue_metrics.growth_percent < 0 %}
+                <span class="text-red-400">{{ advanced_metrics.revenue_metrics.growth_percent|floatformat:1 }}%</span>
+            {% else %}
+                <span class="text-gray-400">0%</span>
+            {% endif %}
+        </p>
+        <p class="text-xs text-gray-500">Revenue trend</p>
+    </div>
+
+    <!-- Current Ratio -->
+    <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 hover:shadow-xl hover:shadow-indigo-500/10 transition-all duration-300">
+        <div class="flex items-center justify-between mb-4">
+            <div class="p-3 bg-indigo-500/10 rounded-lg">
+                <i class="fas fa-balance-scale text-2xl text-indigo-500"></i>
+            </div>
+            {% if advanced_metrics.financial_ratios.current_ratio >= 2 %}
+                <span class="px-2 py-1 bg-green-500/20 text-green-400 text-xs rounded-full">Healthy</span>
+            {% elif advanced_metrics.financial_ratios.current_ratio >= 1 %}
+                <span class="px-2 py-1 bg-yellow-500/20 text-yellow-400 text-xs rounded-full">Moderate</span>
+            {% else %}
+                <span class="px-2 py-1 bg-red-500/20 text-red-400 text-xs rounded-full">Low</span>
+            {% endif %}
+        </div>
+        <h3 class="text-gray-400 text-sm font-medium mb-2">Current Ratio</h3>
+        <p class="text-3xl font-bold text-white mb-1">
+            {{ advanced_metrics.financial_ratios.current_ratio|floatformat:2 }}
+        </p>
+        <p class="text-xs text-gray-500">Assets ÷ Liabilities</p>
+    </div>
+</div>

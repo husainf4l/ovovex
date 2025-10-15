@@ -1,0 +1,119 @@
+<!-- Reports Snapshot Section -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+    <!-- Profit & Loss Snapshot -->
+    <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 hover:shadow-xl hover:shadow-green-500/10 transition-all duration-300">
+        <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-bold text-white">P&L Summary</h3>
+            <i class="fas fa-chart-bar text-green-500 text-2xl"></i>
+        </div>
+
+        <div class="space-y-3">
+            <div class="flex justify-between items-center">
+                <span class="text-gray-400 text-sm">Total Revenue</span>
+                <span class="text-white font-semibold">
+                    {{ advanced_metrics.revenue_metrics.current_month|floatformat:0|intcomma }}
+                </span>
+            </div>
+
+            <div class="flex justify-between items-center">
+                <span class="text-gray-400 text-sm">Total Expenses</span>
+                <span class="text-white font-semibold">
+                    {{ advanced_metrics.expense_metrics.current_month|floatformat:0|intcomma }}
+                </span>
+            </div>
+
+            <div class="pt-3 border-t border-gray-800">
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-300 font-semibold">Net Profit</span>
+                    <span class="{% if advanced_metrics.profit_metrics.current_month > 0 %}text-green-400{% else %}text-red-400{% endif %} font-bold text-lg">
+                        {{ advanced_metrics.profit_metrics.current_month|floatformat:0|intcomma }}
+                    </span>
+                </div>
+                <p class="text-xs text-gray-500 mt-1">This month</p>
+            </div>
+        </div>
+
+        <a href="/dashboard/pnl-statement/" class="mt-4 block w-full px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-center rounded-lg transition-colors font-semibold text-sm">
+            View Full Report
+            <i class="fas fa-arrow-right ml-2"></i>
+        </a>
+    </div>
+
+    <!-- Balance Sheet Snapshot -->
+    <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-300">
+        <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-bold text-white">Balance Sheet</h3>
+            <i class="fas fa-balance-scale text-blue-500 text-2xl"></i>
+        </div>
+
+        <div class="space-y-3">
+            <div class="flex justify-between items-center">
+                <span class="text-gray-400 text-sm">Total Assets</span>
+                <span class="text-white font-semibold">
+                    {{ advanced_metrics.financial_ratios.assets|floatformat:0|intcomma }}
+                </span>
+            </div>
+
+            <div class="flex justify-between items-center">
+                <span class="text-gray-400 text-sm">Total Liabilities</span>
+                <span class="text-white font-semibold">
+                    {{ advanced_metrics.financial_ratios.liabilities|floatformat:0|intcomma }}
+                </span>
+            </div>
+
+            <div class="pt-3 border-t border-gray-800">
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-300 font-semibold">Equity</span>
+                    <span class="text-blue-400 font-bold text-lg">
+                        {{ advanced_metrics.financial_ratios.equity|floatformat:0|intcomma }}
+                    </span>
+                </div>
+                <p class="text-xs text-gray-500 mt-1">Owner's equity</p>
+            </div>
+        </div>
+
+        <a href="/dashboard/balance-sheet/" class="mt-4 block w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-center rounded-lg transition-colors font-semibold text-sm">
+            View Full Report
+            <i class="fas fa-arrow-right ml-2"></i>
+        </a>
+    </div>
+
+    <!-- Cash Flow Overview -->
+    <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 hover:shadow-xl hover:shadow-purple-500/10 transition-all duration-300">
+        <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-bold text-white">Cash Flow</h3>
+            <i class="fas fa-water text-purple-500 text-2xl"></i>
+        </div>
+
+        <div class="space-y-3">
+            <div class="flex justify-between items-center">
+                <span class="text-gray-400 text-sm">Cash In (Receivables)</span>
+                <span class="text-green-400 font-semibold">
+                    +{{ advanced_metrics.invoice_metrics.unpaid_total|floatformat:0|intcomma }}
+                </span>
+            </div>
+
+            <div class="flex justify-between items-center">
+                <span class="text-gray-400 text-sm">Cash Out (Payables)</span>
+                <span class="text-red-400 font-semibold">
+                    -{{ advanced_metrics.bill_metrics.due_soon_total|floatformat:0|intcomma }}
+                </span>
+            </div>
+
+            <div class="pt-3 border-t border-gray-800">
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-300 font-semibold">Net Cash Position</span>
+                    <span class="text-purple-400 font-bold text-lg">
+                        {{ advanced_metrics.cash_metrics.total|floatformat:0|intcomma }}
+                    </span>
+                </div>
+                <p class="text-xs text-gray-500 mt-1">Available now</p>
+            </div>
+        </div>
+
+        <a href="/dashboard/cash-flow/" class="mt-4 block w-full px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white text-center rounded-lg transition-colors font-semibold text-sm">
+            View Full Report
+            <i class="fas fa-arrow-right ml-2"></i>
+        </a>
+    </div>
+</div>

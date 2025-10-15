@@ -1,0 +1,291 @@
+<!-- Advanced Analytics Charts -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+    <!-- Income vs Expenses Trend -->
+    <div class="bg-gray-900 border border-gray-800 rounded-xl p-6">
+        <div class="flex items-center justify-between mb-6">
+            <h3 class="text-xl font-bold text-white flex items-center">
+                <i class="fas fa-chart-line text-blue-500 mr-3"></i>
+                Income vs Expenses (12 Months)
+            </h3>
+        </div>
+        <canvas id="incomeExpensesChart" height="250"></canvas>
+    </div>
+
+    <!-- Expense Breakdown by Category -->
+    <div class="bg-gray-900 border border-gray-800 rounded-xl p-6">
+        <div class="flex items-center justify-between mb-6">
+            <h3 class="text-xl font-bold text-white flex items-center">
+                <i class="fas fa-chart-pie text-purple-500 mr-3"></i>
+                Expense Breakdown
+            </h3>
+        </div>
+        <canvas id="expenseBreakdownChart" height="250"></canvas>
+    </div>
+</div>
+
+<!-- Cash Flow Forecast & Receivables Aging -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+    <!-- Top Customers -->
+    <div class="bg-gray-900 border border-gray-800 rounded-xl p-6">
+        <div class="flex items-center justify-between mb-6">
+            <h3 class="text-xl font-bold text-white flex items-center">
+                <i class="fas fa-users text-green-500 mr-3"></i>
+                Top 5 Customers
+            </h3>
+        </div>
+        <canvas id="topCustomersChart" height="250"></canvas>
+    </div>
+
+    <!-- Financial Ratios -->
+    <div class="bg-gray-900 border border-gray-800 rounded-xl p-6">
+        <div class="flex items-center justify-between mb-6">
+            <h3 class="text-xl font-bold text-white flex items-center">
+                <i class="fas fa-tachometer-alt text-cyan-500 mr-3"></i>
+                Financial Ratios
+            </h3>
+        </div>
+        <div class="space-y-4">
+            <!-- Current Ratio -->
+            <div>
+                <div class="flex justify-between text-sm mb-2">
+                    <span class="text-gray-400">Current Ratio</span>
+                    <span class="text-white font-semibold">{{ advanced_metrics.financial_ratios.current_ratio|floatformat:2 }}</span>
+                </div>
+                <div class="w-full bg-gray-800 rounded-full h-2">
+                    <div class="bg-blue-500 h-2 rounded-full" style="width: {% widthratio advanced_metrics.financial_ratios.current_ratio 3 100 %}%"></div>
+                </div>
+                <p class="text-xs text-gray-500 mt-1">Target: > 2.0</p>
+            </div>
+
+            <!-- Quick Ratio -->
+            <div>
+                <div class="flex justify-between text-sm mb-2">
+                    <span class="text-gray-400">Quick Ratio</span>
+                    <span class="text-white font-semibold">{{ advanced_metrics.financial_ratios.quick_ratio|floatformat:2 }}</span>
+                </div>
+                <div class="w-full bg-gray-800 rounded-full h-2">
+                    <div class="bg-green-500 h-2 rounded-full" style="width: {% widthratio advanced_metrics.financial_ratios.quick_ratio 2 100 %}%"></div>
+                </div>
+                <p class="text-xs text-gray-500 mt-1">Target: > 1.0</p>
+            </div>
+
+            <!-- Debt to Equity -->
+            <div>
+                <div class="flex justify-between text-sm mb-2">
+                    <span class="text-gray-400">Debt to Equity</span>
+                    <span class="text-white font-semibold">{{ advanced_metrics.financial_ratios.debt_to_equity|floatformat:2 }}</span>
+                </div>
+                <div class="w-full bg-gray-800 rounded-full h-2">
+                    <div class="{% if advanced_metrics.financial_ratios.debt_to_equity <= 1 %}bg-green-500{% elif advanced_metrics.financial_ratios.debt_to_equity <= 2 %}bg-yellow-500{% else %}bg-red-500{% endif %} h-2 rounded-full" style="width: {% if advanced_metrics.financial_ratios.debt_to_equity > 2 %}100{% else %}{% widthratio advanced_metrics.financial_ratios.debt_to_equity 2 100 %}{% endif %}%"></div>
+                </div>
+                <p class="text-xs text-gray-500 mt-1">Target: < 2.0</p>
+            </div>
+
+            <!-- Profit Margin -->
+            <div>
+                <div class="flex justify-between text-sm mb-2">
+                    <span class="text-gray-400">Profit Margin</span>
+                    <span class="text-white font-semibold">{{ advanced_metrics.profit_metrics.margin_percent|floatformat:1 }}%</span>
+                </div>
+                <div class="w-full bg-gray-800 rounded-full h-2">
+                    <div class="bg-purple-500 h-2 rounded-full" style="width: {% if advanced_metrics.profit_metrics.margin_percent > 100 %}100{% else %}{{ advanced_metrics.profit_metrics.margin_percent }}{% endif %}%"></div>
+                </div>
+                <p class="text-xs text-gray-500 mt-1">Target: > 20%</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Chart.js Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+// Chart.js default config
+Chart.defaults.color = '#9CA3AF';
+Chart.defaults.borderColor = '#374151';
+Chart.defaults.font.family = "'Inter', sans-serif";
+
+// Income vs Expenses Chart
+const incomeExpensesCtx = document.getElementById('incomeExpensesChart');
+if (incomeExpensesCtx) {
+    new Chart(incomeExpensesCtx, {
+        type: 'line',
+        data: {
+            labels: {{ advanced_metrics.trends|map:'month'|safe }},
+            datasets: [{
+                label: 'Revenue',
+                data: {{ advanced_metrics.trends|map:'revenue'|safe }},
+                borderColor: '#3B82F6',
+                backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                borderWidth: 3,
+                fill: true,
+                tension: 0.4
+            }, {
+                label: 'Expenses',
+                data: {{ advanced_metrics.trends|map:'expenses'|safe }},
+                borderColor: '#EF4444',
+                backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                borderWidth: 3,
+                fill: true,
+                tension: 0.4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top'
+                },
+                tooltip: {
+                    mode: 'index',
+                    intersect: false,
+                    backgroundColor: '#1F2937',
+                    titleColor: '#F3F4F6',
+                    bodyColor: '#D1D5DB',
+                    borderColor: '#374151',
+                    borderWidth: 1,
+                    padding: 12,
+                    displayColors: true,
+                    callbacks: {
+                        label: function(context) {
+                            return context.dataset.label + ': ' + context.parsed.y.toLocaleString() + ' {{ request.active_company.currency }}';
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: {
+                        color: '#374151'
+                    },
+                    ticks: {
+                        callback: function(value) {
+                            return value.toLocaleString() + ' {{ request.active_company.currency }}';
+                        }
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false
+                    }
+                }
+            }
+        }
+    });
+}
+
+// Expense Breakdown Chart
+const expenseBreakdownCtx = document.getElementById('expenseBreakdownChart');
+if (expenseBreakdownCtx) {
+    const expenseData = {{ advanced_metrics.expense_metrics.by_category|safe }};
+    const categories = Object.keys(expenseData);
+    const amounts = Object.values(expenseData);
+
+    new Chart(expenseBreakdownCtx, {
+        type: 'doughnut',
+        data: {
+            labels: categories,
+            datasets: [{
+                data: amounts,
+                backgroundColor: [
+                    '#3B82F6', '#8B5CF6', '#EC4899', '#F59E0B',
+                    '#10B981', '#06B6D4', '#F97316', '#6366F1'
+                ],
+                borderWidth: 0,
+                hoverOffset: 4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'right'
+                },
+                tooltip: {
+                    backgroundColor: '#1F2937',
+                    titleColor: '#F3F4F6',
+                    bodyColor: '#D1D5DB',
+                    borderColor: '#374151',
+                    borderWidth: 1,
+                    padding: 12,
+                    callbacks: {
+                        label: function(context) {
+                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                            const percentage = ((context.parsed / total) * 100).toFixed(1);
+                            return context.label + ': ' + context.parsed.toLocaleString() + ' {{ request.active_company.currency }} (' + percentage + '%)';
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
+
+// Top Customers Chart
+const topCustomersCtx = document.getElementById('topCustomersChart');
+if (topCustomersCtx) {
+    const customerData = {{ advanced_metrics.customer_metrics.top_5|safe }};
+    const customerNames = customerData.map(c => c.customer__company_name);
+    const customerRevenues = customerData.map(c => c.total_revenue);
+
+    new Chart(topCustomersCtx, {
+        type: 'bar',
+        data: {
+            labels: customerNames,
+            datasets: [{
+                label: 'Revenue',
+                data: customerRevenues,
+                backgroundColor: 'rgba(16, 185, 129, 0.8)',
+                borderColor: '#10B981',
+                borderWidth: 2,
+                borderRadius: 8
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    backgroundColor: '#1F2937',
+                    titleColor: '#F3F4F6',
+                    bodyColor: '#D1D5DB',
+                    borderColor: '#374151',
+                    borderWidth: 1,
+                    padding: 12,
+                    callbacks: {
+                        label: function(context) {
+                            return 'Revenue: ' + context.parsed.x.toLocaleString() + ' {{ request.active_company.currency }}';
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    grid: {
+                        color: '#374151'
+                    },
+                    ticks: {
+                        callback: function(value) {
+                            return value.toLocaleString();
+                        }
+                    }
+                },
+                y: {
+                    grid: {
+                        display: false
+                    }
+                }
+            }
+        }
+    });
+}
+</script>

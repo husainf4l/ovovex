@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
 from .forms import LoginForm, SignupForm
+from companies.models import UserCompany
 
 
 def login_view(request):
@@ -24,6 +25,27 @@ def login_view(request):
                 messages.success(
                     request, f"Welcome back, {user.first_name or user.username}!"
                 )
+
+                # Check user's companies and redirect accordingly
+                user_companies = UserCompany.objects.filter(user=user)
+                company_count = user_companies.count()
+
+                if company_count == 0:
+                    # No companies - redirect to create first company
+                    messages.info(request, "Let's set up your first company!")
+                    return redirect('add_company')
+                elif company_count == 1:
+                    # One company - auto-activate and go to dashboard
+                    uc = user_companies.first()
+                    uc.is_active = True
+                    uc.save()
+                    request.session['active_company_id'] = uc.company.id
+                    return redirect('dashboard:dashboard')
+                else:
+                    # Multiple companies - let user choose
+                    return redirect('select_company')
+
+                # Fallback (shouldn't reach here)
                 next_url = request.GET.get("next", "dashboard:dashboard")
                 return redirect(next_url)
             else:
@@ -60,7 +82,9 @@ def signup_view(request):
             messages.success(
                 request, f"Welcome to Ovovex, {user.first_name or user.username}! Your account has been created successfully."
             )
-            return redirect("dashboard:dashboard")
+            # New users need to create their first company
+            messages.info(request, "Let's create your first company to get started!")
+            return redirect("add_company")
         else:
             messages.error(request, "Please correct the errors below.")
     else:
@@ -76,8 +100,12 @@ def signup_view(request):
 
 def logout_view(request):
     """
-    Logout view
+    Logout view - clears session including active company
     """
+    # Clear active company session
+    if 'active_company_id' in request.session:
+        del request.session['active_company_id']
+
     logout(request)
     messages.success(request, "You have been logged out successfully.")
     return redirect("home")

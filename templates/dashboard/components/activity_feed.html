@@ -1,0 +1,80 @@
+<!-- Recent Activity Feed -->
+<div class="bg-gray-900 border border-gray-800 rounded-xl p-6">
+    <div class="flex items-center justify-between mb-6">
+        <h3 class="text-xl font-bold text-white flex items-center">
+            <i class="fas fa-history text-cyan-500 mr-3"></i>
+            Recent Activity
+        </h3>
+        <select class="bg-gray-800 border border-gray-700 text-gray-300 text-sm rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option>All Activities</option>
+            <option>Invoices</option>
+            <option>Bills</option>
+            <option>Payments</option>
+            <option>Journals</option>
+        </select>
+    </div>
+
+    <div class="space-y-4">
+        {% for activity in advanced_metrics.recent_activity %}
+        <div class="flex items-start p-4 bg-gray-800/50 rounded-lg hover:bg-gray-800 transition-colors group">
+            <!-- Icon -->
+            <div class="p-3 bg-{{ activity.color }}-500/10 rounded-lg mr-4 flex-shrink-0">
+                <i class="fas {{ activity.icon }} text-{{ activity.color }}-400 text-lg"></i>
+            </div>
+
+            <!-- Content -->
+            <div class="flex-1 min-w-0">
+                <div class="flex items-start justify-between mb-1">
+                    <h4 class="text-white font-semibold truncate group-hover:text-blue-400 transition-colors">
+                        {{ activity.title }}
+                    </h4>
+                    <span class="text-xs text-gray-500 ml-2 flex-shrink-0">
+                        {{ activity.timestamp|timesince }} ago
+                    </span>
+                </div>
+
+                <p class="text-sm text-gray-400 mb-2 truncate">
+                    {{ activity.description }}
+                </p>
+
+                <div class="flex items-center justify-between">
+                    <span class="text-sm font-semibold text-white">
+                        {{ activity.amount|floatformat:2|intcomma }} {{ request.active_company.currency }}
+                    </span>
+
+                    {% if activity.status %}
+                    <span class="px-2 py-1 text-xs rounded-full
+                        {% if activity.status == 'PAID' or activity.status == 'POSTED' %}
+                            bg-green-500/20 text-green-400
+                        {% elif activity.status == 'DRAFT' %}
+                            bg-gray-500/20 text-gray-400
+                        {% elif activity.status == 'OVERDUE' %}
+                            bg-red-500/20 text-red-400
+                        {% else %}
+                            bg-blue-500/20 text-blue-400
+                        {% endif %}
+                    ">
+                        {{ activity.status }}
+                    </span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="text-center py-12">
+            <i class="fas fa-inbox text-6xl text-gray-700 mb-4"></i>
+            <p class="text-gray-400">No recent activity to display</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- View All Link -->
+    {% if advanced_metrics.recent_activity %}
+    <div class="mt-6 pt-4 border-t border-gray-800">
+        <a href="/dashboard/reports/" class="text-blue-400 hover:text-blue-300 text-sm font-semibold flex items-center justify-center transition-colors">
+            View All Activity
+            <i class="fas fa-arrow-right ml-2"></i>
+        </a>
+    </div>
+    {% endif %}
+</div>

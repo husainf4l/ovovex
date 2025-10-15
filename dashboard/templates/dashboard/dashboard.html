@@ -177,7 +177,36 @@
       </div>
     </div>
 
-    <!-- KPI Cards Row -->
+    <!-- ========== ADVANCED ANALYTICS SECTION ========== -->
+    {% if advanced_metrics %}
+    
+    <!-- Advanced KPI Cards (8 Cards) -->
+    {% include 'dashboard/components/advanced_kpis.html' %}
+    
+    <!-- AI Insights Panel -->
+    {% include 'dashboard/components/ai_insights.html' %}
+    
+    <!-- Alerts & Warnings Panel -->
+    {% include 'dashboard/components/alerts_panel.html' %}
+    
+    <!-- Advanced Analytics Charts -->
+    {% include 'dashboard/components/analytics_charts.html' %}
+    
+    <!-- Activity Feed & Reports Snapshot -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        <div>
+            {% include 'dashboard/components/activity_feed.html' %}
+        </div>
+        <div>
+            {% include 'dashboard/components/reports_snapshot.html' %}
+        </div>
+    </div>
+    
+    {% endif %}
+    <!-- ========== END ADVANCED ANALYTICS ========== -->
+
+    <!-- Original KPI Cards Row (Fallback if advanced_metrics not available) -->
+    {% if not advanced_metrics %}
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6 mb-8">
       <!-- Total Revenue -->
       <div
@@ -448,6 +477,8 @@
         </div>
       </div>
     </div>
+    {% endif %}
+    <!-- End of Original KPI Cards -->
 
     <!-- Charts Section -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">

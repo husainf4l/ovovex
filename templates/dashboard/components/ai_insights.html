@@ -1,0 +1,138 @@
+<!-- AI-Generated Insights Panel -->
+<div class="bg-gradient-to-br from-blue-900/30 to-purple-900/30 border border-blue-800/50 rounded-xl p-6 mb-8">
+    <div class="flex items-center mb-6">
+        <div class="p-3 bg-blue-500/20 rounded-lg mr-4">
+            <i class="fas fa-brain text-3xl text-blue-400"></i>
+        </div>
+        <div>
+            <h3 class="text-2xl font-bold text-white">AI Financial Insights</h3>
+            <p class="text-blue-300 text-sm">Intelligent analysis of your business performance</p>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Revenue Insight -->
+        {% if advanced_metrics.revenue_metrics.growth_percent != 0 %}
+        <div class="bg-gray-900/50 backdrop-blur border border-gray-800 rounded-lg p-4">
+            <div class="flex items-start">
+                <i class="fas fa-chart-line text-{{ advanced_metrics.revenue_metrics.growth_percent|floatformat:0 > 0 }}green{{ advanced_metrics.revenue_metrics.growth_percent|floatformat:0 <= 0 }}red-400 text-xl mr-3 mt-1"></i>
+                <div>
+                    <p class="text-gray-300">
+                        Revenue
+                        <span class="font-bold text-white">
+                            {% if advanced_metrics.revenue_metrics.growth_percent > 0 %}increased{% else %}decreased{% endif %}
+                        </span> by
+                        <span class="font-bold {% if advanced_metrics.revenue_metrics.growth_percent > 0 %}text-green-400{% else %}text-red-400{% endif %}">
+                            {{ advanced_metrics.revenue_metrics.growth_percent|floatformat:1|abs }}%
+                        </span>
+                        compared to last month.
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Overdue Invoices Insight -->
+        {% if advanced_metrics.invoice_metrics.overdue_count > 0 %}
+        <div class="bg-gray-900/50 backdrop-blur border border-gray-800 rounded-lg p-4">
+            <div class="flex items-start">
+                <i class="fas fa-exclamation-triangle text-yellow-400 text-xl mr-3 mt-1"></i>
+                <div>
+                    <p class="text-gray-300">
+                        <span class="font-bold text-yellow-400">{{ advanced_metrics.invoice_metrics.overdue_count }} invoices</span>
+                        are overdue, totaling
+                        <span class="font-bold text-white">{{ advanced_metrics.invoice_metrics.overdue_total|floatformat:0|intcomma }} {{ request.active_company.currency }}</span>.
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Expense Growth Insight -->
+        {% if advanced_metrics.expense_metrics.growth_percent != 0 %}
+        <div class="bg-gray-900/50 backdrop-blur border border-gray-800 rounded-lg p-4">
+            <div class="flex items-start">
+                <i class="fas fa-money-bill-wave text-{% if advanced_metrics.expense_metrics.growth_percent > 20 %}red{% elif advanced_metrics.expense_metrics.growth_percent > 0 %}yellow{% else %}green{% endif %}-400 text-xl mr-3 mt-1"></i>
+                <div>
+                    <p class="text-gray-300">
+                        You spent
+                        <span class="font-bold {% if advanced_metrics.expense_metrics.growth_percent > 20 %}text-red-400{% elif advanced_metrics.expense_metrics.growth_percent > 0 %}text-yellow-400{% else %}text-green-400{% endif %}">
+                            {{ advanced_metrics.expense_metrics.growth_percent|floatformat:1|abs }}%
+                            {% if advanced_metrics.expense_metrics.growth_percent > 0 %}more{% else %}less{% endif %}
+                        </span>
+                        on expenses this month.
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Cash Position Insight -->
+        <div class="bg-gray-900/50 backdrop-blur border border-gray-800 rounded-lg p-4">
+            <div class="flex items-start">
+                <i class="fas fa-piggy-bank text-{% if advanced_metrics.cash_metrics.total > 10000 %}green{% elif advanced_metrics.cash_metrics.total > 5000 %}yellow{% else %}red{% endif %}-400 text-xl mr-3 mt-1"></i>
+                <div>
+                    <p class="text-gray-300">
+                        Cash position is
+                        <span class="font-bold {% if advanced_metrics.cash_metrics.total > 10000 %}text-green-400{% elif advanced_metrics.cash_metrics.total > 5000 %}text-yellow-400{% else %}text-red-400{% endif %}">
+                            {% if advanced_metrics.cash_metrics.total > 10000 %}strong{% elif advanced_metrics.cash_metrics.total > 5000 %}moderate{% else %}low{% endif %}
+                        </span>
+                        at {{ advanced_metrics.cash_metrics.total|floatformat:0|intcomma }} {{ request.active_company.currency }}.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profit Margin Insight -->
+        <div class="bg-gray-900/50 backdrop-blur border border-gray-800 rounded-lg p-4">
+            <div class="flex items-start">
+                <i class="fas fa-percentage text-{% if advanced_metrics.profit_metrics.margin_percent > 20 %}green{% elif advanced_metrics.profit_metrics.margin_percent > 10 %}yellow{% else %}red{% endif %}-400 text-xl mr-3 mt-1"></i>
+                <div>
+                    <p class="text-gray-300">
+                        Your profit margin is
+                        <span class="font-bold {% if advanced_metrics.profit_metrics.margin_percent > 20 %}text-green-400{% elif advanced_metrics.profit_metrics.margin_percent > 10 %}text-yellow-400{% else %}text-red-400{% endif %}">
+                            {{ advanced_metrics.profit_metrics.margin_percent|floatformat:1 }}%
+                        </span>,
+                        {% if advanced_metrics.profit_metrics.margin_percent > 20 %}
+                            which is excellent for your industry.
+                        {% elif advanced_metrics.profit_metrics.margin_percent > 10 %}
+                            which is within healthy range.
+                        {% else %}
+                            consider reviewing expenses to improve profitability.
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Health Score Insight -->
+        <div class="bg-gray-900/50 backdrop-blur border border-gray-800 rounded-lg p-4">
+            <div class="flex items-start">
+                <i class="fas fa-heartbeat text-{% if advanced_metrics.health_score >= 75 %}green{% elif advanced_metrics.health_score >= 50 %}yellow{% else %}red{% endif %}-400 text-xl mr-3 mt-1"></i>
+                <div>
+                    <p class="text-gray-300">
+                        Business health score is
+                        <span class="font-bold {% if advanced_metrics.health_score >= 75 %}text-green-400{% elif advanced_metrics.health_score >= 50 %}text-yellow-400{% else %}text-red-400{% endif %}">
+                            {{ advanced_metrics.health_score|floatformat:0 }}/100
+                        </span>.
+                        {% if advanced_metrics.health_score >= 75 %}
+                            Your business is performing excellently!
+                        {% elif advanced_metrics.health_score >= 50 %}
+                            Your business is stable but has room for improvement.
+                        {% else %}
+                            Focus on improving cash flow and reducing overdue receivables.
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Footer Note -->
+    <div class="mt-6 pt-4 border-t border-blue-800/50">
+        <p class="text-sm text-blue-300 flex items-center">
+            <i class="fas fa-info-circle mr-2"></i>
+            These insights are automatically generated based on your financial data and industry benchmarks.
+        </p>
+    </div>
+</div>
