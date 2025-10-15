@@ -60,15 +60,15 @@ def dashboard_view(request):
     recent_entries = (
         JournalEntry.objects.filter(company=active_company, status="POSTED")
         .select_related("created_by")
-            .only(
-                "id",
-                "entry_number",
-                "entry_date",
-                "description",
-                "status",
-                "created_by",
-                "created_by__username",
-            )
+        .only(
+            "id",
+            "entry_number",
+            "entry_date",
+            "description",
+            "status",
+            "created_by",
+            "created_by__username",
+        )
         .order_by("-entry_date")[:5]
     )
 
@@ -156,7 +156,15 @@ def general_ledger_view(request):
     recent_entries = (
         JournalEntry.objects.filter(company=active_company, status="POSTED")
         .select_related("created_by")
-            .only("id", "entry_number", "entry_date", "description", "status", "created_by", "created_by__username")
+        .only(
+            "id",
+            "entry_number",
+            "entry_date",
+            "description",
+            "status",
+            "created_by",
+            "created_by__username",
+        )
         .order_by("-entry_date", "-created_at")[:5]
     )
 
@@ -222,6 +230,11 @@ def invoices_view(request):
     # Recent invoices
     recent_invoices = invoices[:5]
 
+    # Get all customers for the invoice creation modal
+    customers = Customer.objects.filter(
+        company=active_company, is_active=True
+    ).only("id", "company_name").order_by("company_name")
+
     context = {
         "title": "Invoices",
         "description": "Create, send, and track invoices.",
@@ -232,6 +245,7 @@ def invoices_view(request):
         "paid_invoices": stats["paid_count"],
         "overdue_invoices": stats["overdue_count"],
         "recent_invoices": recent_invoices,
+        "customers": customers,
     }
 
     return render(request, "dashboard/modules/invoices.html", context)
@@ -441,7 +455,9 @@ def fixed_assets_view(request):
     )
 
     # Get aggregated statistics (single query)
-    stats = FixedAsset.objects.filter(account__company=active_company, is_active=True).aggregate(
+    stats = FixedAsset.objects.filter(
+        account__company=active_company, is_active=True
+    ).aggregate(
         total_cost=Sum("purchase_cost"),
         total_depreciation=Sum("accumulated_depreciation"),
         equipment_count=Count(
@@ -603,10 +619,10 @@ def customers_view(request):
     # Apply filters
     if search_query:
         customers = customers.filter(
-            Q(company_name__icontains=search_query) |
-            Q(contact_name__icontains=search_query) |
-            Q(email__icontains=search_query) |
-            Q(customer_code__icontains=search_query)
+            Q(company_name__icontains=search_query)
+            | Q(contact_name__icontains=search_query)
+            | Q(email__icontains=search_query)
+            | Q(customer_code__icontains=search_query)
         )
 
     if status_filter == "active":
@@ -621,15 +637,17 @@ def customers_view(request):
     customers_with_balances = []
     for customer in customers:
         outstanding_balance = customer.get_outstanding_balance()
-        total_invoiced = customer.invoices.filter(status__in=["SENT", "PAID", "OVERDUE"]).aggregate(
-            total=Sum("total_amount")
-        )["total"] or Decimal("0.00")
+        total_invoiced = customer.invoices.filter(
+            status__in=["SENT", "PAID", "OVERDUE"]
+        ).aggregate(total=Sum("total_amount"))["total"] or Decimal("0.00")
 
-        customers_with_balances.append({
-            "customer": customer,
-            "outstanding_balance": outstanding_balance,
-            "total_invoiced": total_invoiced,
-        })
+        customers_with_balances.append(
+            {
+                "customer": customer,
+                "outstanding_balance": outstanding_balance,
+                "total_invoiced": total_invoiced,
+            }
+        )
 
     context = {
         "title": "Customers",
@@ -639,7 +657,9 @@ def customers_view(request):
         "search_query": search_query,
         "status_filter": status_filter,
         "total_customers": len(customers_with_balances),
-        "active_customers": sum(1 for c in customers_with_balances if c["customer"].is_active),
+        "active_customers": sum(
+            1 for c in customers_with_balances if c["customer"].is_active
+        ),
     }
 
     return render(request, "dashboard/modules/customers.html", context)
@@ -657,59 +677,68 @@ def create_customer_view(request):
 
     if request.method == "POST":
         # Handle JSON data if content-type is application/json
-        if request.content_type == 'application/json':
+        if request.content_type == "application/json":
             try:
                 data = json.loads(request.body)
-                
+
                 # Auto-generate customer_code if not provided
-                if not data.get('customer_code'):
-                    last_customer = Customer.objects.filter(company=active_company).order_by("-id").first()
-                    data['customer_code'] = (
+                if not data.get("customer_code"):
+                    last_customer = (
+                        Customer.objects.filter(company=active_company)
+                        .order_by("-id")
+                        .first()
+                    )
+                    data["customer_code"] = (
                         f"CUST-{(int(last_customer.customer_code.split('-')[1]) + 1):04d}"
                         if last_customer
                         else "CUST-0001"
                     )
-                
+
                 form = CustomerForm(data)
             except json.JSONDecodeError:
-                return JsonResponse({
-                    "success": False,
-                    "error": "Invalid JSON data"
-                }, status=400)
+                return JsonResponse(
+                    {"success": False, "error": "Invalid JSON data"}, status=400
+                )
         else:
             form = CustomerForm(request.POST)
-            
+
         if form.is_valid():
             customer = form.save(commit=False)
             customer.company = active_company
             customer.save()
 
             # Check if this is an HTMX request
-            if request.headers.get('HX-Request'):
+            if request.headers.get("HX-Request"):
                 # Return HTML success message for HTMX
-                return render(request, 'dashboard/modules/customer_success.html', {
-                    'customer': customer,
-                    'message': f"Customer {customer.company_name} created successfully!"
-                })
+                return render(
+                    request,
+                    "dashboard/modules/customer_success.html",
+                    {
+                        "customer": customer,
+                        "message": f"Customer {customer.company_name} created successfully!",
+                    },
+                )
             else:
                 # Return JSON for regular AJAX
-                return JsonResponse({
-                    "success": True,
-                    "message": f"Customer {customer.company_name} created successfully!",
-                    "customer": {
-                        "id": customer.id,
-                        "customer_code": customer.customer_code,
-                        "company_name": customer.company_name,
-                        "contact_name": customer.contact_name,
-                        "email": customer.email,
-                        "phone": customer.phone,
+                return JsonResponse(
+                    {
+                        "success": True,
+                        "message": f"Customer {customer.company_name} created successfully!",
+                        "customer": {
+                            "id": customer.id,
+                            "customer_code": customer.customer_code,
+                            "company_name": customer.company_name,
+                            "contact_name": customer.contact_name,
+                            "email": customer.email,
+                            "phone": customer.phone,
+                        },
                     }
-                })
+                )
         else:
             # Log form errors for debugging
             print(f"Form validation errors: {form.errors.as_json()}")
-            
-            if request.headers.get('HX-Request'):
+
+            if request.headers.get("HX-Request"):
                 # Return form with errors for HTMX
                 context = {
                     "form": form,
@@ -717,14 +746,15 @@ def create_customer_view(request):
                 }
                 return render(request, "dashboard/modules/customer_form.html", context)
             else:
-                return JsonResponse({
-                    "success": False,
-                    "errors": form.errors
-                }, status=400)
+                return JsonResponse(
+                    {"success": False, "errors": form.errors}, status=400
+                )
 
     # GET request - return form HTML
     # Generate next customer code
-    last_customer = Customer.objects.filter(company=active_company).order_by("-id").first()
+    last_customer = (
+        Customer.objects.filter(company=active_company).order_by("-id").first()
+    )
     next_code = (
         f"CUST-{(int(last_customer.customer_code.split('-')[1]) + 1):04d}"
         if last_customer
@@ -760,45 +790,50 @@ def edit_customer_view(request, pk):
 
     if request.method in ["POST", "PUT"]:
         # Handle JSON data if content-type is application/json
-        if request.content_type == 'application/json':
+        if request.content_type == "application/json":
             try:
                 data = json.loads(request.body)
                 form = CustomerForm(data, instance=customer)
             except json.JSONDecodeError:
-                return JsonResponse({
-                    "success": False,
-                    "error": "Invalid JSON data"
-                }, status=400)
+                return JsonResponse(
+                    {"success": False, "error": "Invalid JSON data"}, status=400
+                )
         else:
             form = CustomerForm(request.POST, instance=customer)
-            
+
         if form.is_valid():
             customer = form.save()
 
-            if request.headers.get('HX-Request'):
+            if request.headers.get("HX-Request"):
                 # Return HTML success message for HTMX
-                return render(request, 'dashboard/modules/customer_success.html', {
-                    'customer': customer,
-                    'message': f"Customer {customer.company_name} updated successfully!"
-                })
+                return render(
+                    request,
+                    "dashboard/modules/customer_success.html",
+                    {
+                        "customer": customer,
+                        "message": f"Customer {customer.company_name} updated successfully!",
+                    },
+                )
             else:
-                return JsonResponse({
-                    "success": True,
-                    "message": f"Customer {customer.company_name} updated successfully!",
-                    "customer": {
-                        "id": customer.id,
-                        "customer_code": customer.customer_code,
-                        "company_name": customer.company_name,
-                        "contact_name": customer.contact_name,
-                        "email": customer.email,
-                        "phone": customer.phone,
+                return JsonResponse(
+                    {
+                        "success": True,
+                        "message": f"Customer {customer.company_name} updated successfully!",
+                        "customer": {
+                            "id": customer.id,
+                            "customer_code": customer.customer_code,
+                            "company_name": customer.company_name,
+                            "contact_name": customer.contact_name,
+                            "email": customer.email,
+                            "phone": customer.phone,
+                        },
                     }
-                })
+                )
         else:
             # Log form errors for debugging
             print(f"Form validation errors: {form.errors.as_json()}")
-            
-            if request.headers.get('HX-Request'):
+
+            if request.headers.get("HX-Request"):
                 # Return form with errors for HTMX
                 context = {
                     "form": form,
@@ -807,30 +842,34 @@ def edit_customer_view(request, pk):
                 }
                 return render(request, "dashboard/modules/customer_form.html", context)
             else:
-                return JsonResponse({
-                    "success": False,
-                    "errors": form.errors
-                }, status=400)
+                return JsonResponse(
+                    {"success": False, "errors": form.errors}, status=400
+                )
 
     # GET request
     # If it's a JSON request (AJAX), return customer data
-    if request.headers.get('Accept') == 'application/json' or request.META.get('HTTP_ACCEPT') == 'application/json':
-        return JsonResponse({
-            "id": customer.id,
-            "customer_code": customer.customer_code,
-            "company_name": customer.company_name,
-            "contact_name": customer.contact_name,
-            "email": customer.email,
-            "phone": customer.phone or '',
-            "address": customer.address or '',
-            "city": customer.city or '',
-            "country": customer.country or '',
-            "tax_id": customer.tax_id or '',
-            "credit_limit": str(customer.credit_limit),
-            "payment_terms_days": customer.payment_terms_days,
-            "is_active": customer.is_active,
-        })
-    
+    if (
+        request.headers.get("Accept") == "application/json"
+        or request.META.get("HTTP_ACCEPT") == "application/json"
+    ):
+        return JsonResponse(
+            {
+                "id": customer.id,
+                "customer_code": customer.customer_code,
+                "company_name": customer.company_name,
+                "contact_name": customer.contact_name,
+                "email": customer.email,
+                "phone": customer.phone or "",
+                "address": customer.address or "",
+                "city": customer.city or "",
+                "country": customer.country or "",
+                "tax_id": customer.tax_id or "",
+                "credit_limit": str(customer.credit_limit),
+                "payment_terms_days": customer.payment_terms_days,
+                "is_active": customer.is_active,
+            }
+        )
+
     # Otherwise return HTML form
     form = CustomerForm(instance=customer)
     context = {
@@ -854,12 +893,11 @@ def delete_customer_view(request, pk):
         customer.is_active = False
         customer.save()
 
-        return JsonResponse({
-            "success": True,
-            "message": f"Customer {customer.company_name} deactivated successfully!"
-        })
+        return JsonResponse(
+            {
+                "success": True,
+                "message": f"Customer {customer.company_name} deactivated successfully!",
+            }
+        )
 
-    return JsonResponse({
-        "success": False,
-        "message": "Invalid request method"
-    })
+    return JsonResponse({"success": False, "message": "Invalid request method"})

@@ -1,0 +1,200 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ title }} - Ovovex{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-900 text-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-8">
+            <div>
+                <h1 class="text-3xl font-bold text-white">{{ title }}</h1>
+                <p class="text-gray-400 mt-2">Record a customer payment</p>
+            </div>
+            <a href="{% if invoice %}{% url 'accounting:invoice_detail' invoice.pk %}{% else %}{% url 'accounting:invoice_list' %}{% endif %}"
+               class="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition">
+                <i class="fas fa-arrow-left mr-2"></i>Back
+            </a>
+        </div>
+
+        <!-- Messages -->
+        {% if messages %}
+            {% for message in messages %}
+            <div class="mb-4 p-4 rounded-lg {% if message.tags == 'success' %}bg-green-800/50 border border-green-600{% elif message.tags == 'error' %}bg-red-800/50 border border-red-600{% else %}bg-blue-800/50 border border-blue-600{% endif %}">
+                <p class="text-sm">{{ message }}</p>
+            </div>
+            {% endfor %}
+        {% endif %}
+
+        <!-- Payment Form -->
+        <div class="bg-gray-800 rounded-lg shadow-xl border border-gray-700 overflow-hidden">
+            <div class="p-6">
+                {% if invoice %}
+                <!-- Invoice Information -->
+                <div class="bg-blue-900/30 border border-blue-700 rounded-lg p-4 mb-6">
+                    <h3 class="text-lg font-semibold text-blue-300 mb-2">
+                        <i class="fas fa-info-circle mr-2"></i>Invoice Information
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                        <div>
+                            <span class="text-gray-400">Invoice Number:</span>
+                            <span class="text-white font-medium ml-2">{{ invoice.invoice_number }}</span>
+                        </div>
+                        <div>
+                            <span class="text-gray-400">Customer:</span>
+                            <span class="text-white font-medium ml-2">{{ invoice.customer.company_name }}</span>
+                        </div>
+                        <div>
+                            <span class="text-gray-400">Total Amount:</span>
+                            <span class="text-white font-medium ml-2">${{ invoice.total_amount|floatformat:2 }}</span>
+                        </div>
+                        <div>
+                            <span class="text-gray-400">Balance Due:</span>
+                            <span class="text-orange-400 font-medium ml-2">${{ invoice.get_balance_due|floatformat:2 }}</span>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                <form method="post" class="space-y-6">
+                    {% csrf_token %}
+
+                    <!-- Payment Details -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Payment Number -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">
+                                Payment Number <span class="text-red-500">*</span>
+                            </label>
+                            {{ form.payment_number }}
+                            {% if form.payment_number.errors %}
+                                <p class="mt-1 text-sm text-red-400">{{ form.payment_number.errors.0 }}</p>
+                            {% endif %}
+                        </div>
+
+                        <!-- Payment Date -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">
+                                Payment Date <span class="text-red-500">*</span>
+                            </label>
+                            {{ form.payment_date }}
+                            {% if form.payment_date.errors %}
+                                <p class="mt-1 text-sm text-red-400">{{ form.payment_date.errors.0 }}</p>
+                            {% endif %}
+                        </div>
+
+                        <!-- Customer -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">
+                                Customer <span class="text-red-500">*</span>
+                            </label>
+                            {{ form.customer }}
+                            {% if form.customer.errors %}
+                                <p class="mt-1 text-sm text-red-400">{{ form.customer.errors.0 }}</p>
+                            {% endif %}
+                        </div>
+
+                        <!-- Invoice -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">
+                                Invoice
+                            </label>
+                            {{ form.invoice }}
+                            {% if form.invoice.errors %}
+                                <p class="mt-1 text-sm text-red-400">{{ form.invoice.errors.0 }}</p>
+                            {% endif %}
+                            <p class="mt-1 text-xs text-gray-500">Optional - leave blank for general payment</p>
+                        </div>
+
+                        <!-- Amount -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">
+                                Payment Amount <span class="text-red-500">*</span>
+                            </label>
+                            {{ form.amount }}
+                            {% if form.amount.errors %}
+                                <p class="mt-1 text-sm text-red-400">{{ form.amount.errors.0 }}</p>
+                            {% endif %}
+                        </div>
+
+                        <!-- Payment Method -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">
+                                Payment Method <span class="text-red-500">*</span>
+                            </label>
+                            {{ form.payment_method }}
+                            {% if form.payment_method.errors %}
+                                <p class="mt-1 text-sm text-red-400">{{ form.payment_method.errors.0 }}</p>
+                            {% endif %}
+                        </div>
+
+                        <!-- Reference -->
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-medium text-gray-300 mb-2">
+                                Reference Number
+                            </label>
+                            {{ form.reference }}
+                            {% if form.reference.errors %}
+                                <p class="mt-1 text-sm text-red-400">{{ form.reference.errors.0 }}</p>
+                            {% endif %}
+                            <p class="mt-1 text-xs text-gray-500">Check number, transaction ID, or other reference</p>
+                        </div>
+                    </div>
+
+                    <!-- Notes -->
+                    <div class="border-t border-gray-700 pt-6">
+                        <label class="block text-sm font-medium text-gray-300 mb-2">
+                            Notes
+                        </label>
+                        {{ form.notes }}
+                        {% if form.notes.errors %}
+                            <p class="mt-1 text-sm text-red-400">{{ form.notes.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+
+                    <!-- Form Actions -->
+                    <div class="flex justify-end space-x-4 border-t border-gray-700 pt-6">
+                        <a href="{% if invoice %}{% url 'accounting:invoice_detail' invoice.pk %}{% else %}{% url 'accounting:invoice_list' %}{% endif %}"
+                           class="px-6 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition">
+                            Cancel
+                        </a>
+                        <button type="submit"
+                                class="px-6 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition">
+                            <i class="fas fa-save mr-2"></i>Record Payment
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Help Section -->
+        <div class="mt-6 bg-blue-900/30 border border-blue-700 rounded-lg p-4">
+            <h4 class="text-sm font-semibold text-blue-300 mb-2">
+                <i class="fas fa-info-circle mr-2"></i>Payment Tips
+            </h4>
+            <ul class="text-sm text-blue-200 space-y-1 list-disc list-inside">
+                <li>Always record payments as soon as they are received</li>
+                <li>Include a reference number (check number, transaction ID, etc.) for tracking</li>
+                <li>The payment will automatically update the invoice status when the balance is paid in full</li>
+                <li>You can record partial payments - the system tracks the remaining balance</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+// Auto-fill amount if invoice is selected
+document.addEventListener('DOMContentLoaded', function() {
+    const invoiceSelect = document.querySelector('[name="invoice"]');
+    const amountInput = document.querySelector('[name="amount"]');
+
+    if (invoiceSelect && amountInput) {
+        invoiceSelect.addEventListener('change', function() {
+            // In a real implementation, you could fetch the invoice balance via AJAX
+            // For now, the form is pre-filled in the view
+        });
+    }
+});
+</script>
+{% endblock %}

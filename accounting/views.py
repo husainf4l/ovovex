@@ -83,6 +83,11 @@ def invoice_create(request):
     """Create new invoice"""
     active_company = request.active_company
 
+    # Debug: Check if active_company exists
+    if not active_company:
+        messages.error(request, "No active company selected. Please select a company first.")
+        return redirect("dashboard:index")
+
     if request.method == "POST":
         form = InvoiceForm(request.POST, company=active_company)
         if form.is_valid():
@@ -117,7 +122,16 @@ def invoice_create(request):
             },
         )
 
-    context = {"title": "Create Invoice", "form": form, "action": "Create"}
+    # Debug: Add customer count to context
+    customer_count = Customer.objects.filter(company=active_company, is_active=True).count()
+
+    context = {
+        "title": "Create Invoice",
+        "form": form,
+        "action": "Create",
+        "customer_count": customer_count,
+        "active_company": active_company,
+    }
     return render(request, "accounting/invoice_form.html", context)
 
 
@@ -143,6 +157,12 @@ def invoice_detail(request, pk):
 def invoice_edit(request, pk):
     """Edit existing invoice"""
     active_company = request.active_company
+
+    # Check if active_company exists
+    if not active_company:
+        messages.error(request, "No active company selected. Please select a company first.")
+        return redirect("dashboard:index")
+
     invoice = get_object_or_404(Invoice, pk=pk, company=active_company)
 
     if request.method == "POST":
@@ -156,11 +176,16 @@ def invoice_edit(request, pk):
     else:
         form = InvoiceForm(instance=invoice, company=active_company)
 
+    # Add customer count to context
+    customer_count = Customer.objects.filter(company=active_company, is_active=True).count()
+
     context = {
         "title": f"Edit Invoice {invoice.invoice_number}",
         "form": form,
         "invoice": invoice,
         "action": "Update",
+        "customer_count": customer_count,
+        "active_company": active_company,
     }
     return render(request, "accounting/invoice_form.html", context)
 
@@ -212,7 +237,7 @@ def payment_create(request, invoice_id=None):
         invoice = get_object_or_404(Invoice, pk=invoice_id, company=active_company)
 
     if request.method == "POST":
-        form = PaymentForm(request.POST)
+        form = PaymentForm(request.POST, company=active_company)
         if form.is_valid():
             payment = form.save(commit=False)
             payment.company = active_company
@@ -229,10 +254,10 @@ def payment_create(request, invoice_id=None):
             messages.success(
                 request, f"Payment {payment.payment_number} recorded successfully!"
             )
-            return redirect(
-                "accounting:invoice_detail",
-                pk=payment.invoice.pk if payment.invoice else "invoice_list",
-            )
+            if payment.invoice:
+                return redirect("accounting:invoice_detail", pk=payment.invoice.pk)
+            else:
+                return redirect("accounting:invoice_list")
     else:
         # Generate next payment number
         last_payment = Payment.objects.filter(company=active_company).order_by("-id").first()
@@ -251,7 +276,7 @@ def payment_create(request, invoice_id=None):
             initial_data["invoice"] = invoice
             initial_data["amount"] = invoice.get_balance_due()
 
-        form = PaymentForm(initial=initial_data)
+        form = PaymentForm(initial=initial_data, company=active_company)
 
     context = {"title": "Record Payment", "form": form, "invoice": invoice}
     return render(request, "accounting/payment_form.html", context)
@@ -361,10 +386,16 @@ def journal_entry_create(request):
         "code"
     )
 
+    # Convert accounts to JSON for JavaScript
+    accounts_json = json.dumps([
+        {"id": acc.id, "code": acc.code, "name": acc.name}
+        for acc in accounts
+    ])
+
     context = {
         "title": "Create Journal Entry",
         "form": form,
-        "accounts": accounts,
+        "accounts": accounts_json,
         "action": "Create",
     }
     return render(request, "accounting/journal_entry_form.html", context)

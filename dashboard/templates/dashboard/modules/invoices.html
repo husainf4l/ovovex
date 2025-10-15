@@ -224,10 +224,10 @@
                                     <div class="flex flex-col items-center">
                                         <i class="fas fa-file-invoice text-4xl mb-2 text-gray-300 dark:text-gray-600"></i>
                                         <p>No invoices found. Create your first invoice to get started.</p>
-                                        <button class="mt-4 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700">
+                                        <a href="{% url 'accounting:invoice_create' %}" class="mt-4 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700">
                                             <i class="fas fa-plus mr-2"></i>
                                             Create Invoice
-                                        </button>
+                                        </a>
                                     </div>
                                 </td>
                             </tr>
@@ -374,10 +374,16 @@
                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Customer *</label>
                         <select id="invoiceCustomer" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" required>
                             <option value="">Select customer...</option>
-                            {% for invoice in invoices %}
-                            <option value="{{ invoice.customer.id }}">{{ invoice.customer.company_name }}</option>
+                            {% for customer in customers %}
+                            <option value="{{ customer.id }}">{{ customer.company_name }}</option>
                             {% endfor %}
                         </select>
+                        {% if not customers %}
+                        <p class="mt-2 text-sm text-yellow-600 dark:text-yellow-400">
+                            <i class="fas fa-exclamation-triangle mr-1"></i>
+                            No customers found. <a href="{% url 'accounting:customer_create' %}" class="text-blue-600 dark:text-blue-400 hover:underline">Create a customer first</a>.
+                        </p>
+                        {% endif %}
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Invoice Number *</label>
@@ -615,8 +621,8 @@
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Select Customer</label>
                     <select id="reportCustomer" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
                         <option value="">All customers</option>
-                        {% for invoice in invoices %}
-                        <option value="{{ invoice.customer.id }}">{{ invoice.customer.company_name }}</option>
+                        {% for customer in customers %}
+                        <option value="{{ customer.id }}">{{ customer.company_name }}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -735,6 +741,22 @@
 
 <!-- Theme Toggle Script -->
 <script>
+    // CSRF Token Helper Function
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
     // Theme toggle
     const themeToggle = document.getElementById('theme-toggle');
     if (themeToggle) {
@@ -765,15 +787,13 @@
         sendReminders: document.getElementById('sendRemindersModal')
     };
 
-    // Open modal functions
+    // Open modal functions - Redirect to accounting app for invoice creation
     document.getElementById('newInvoiceBtn').addEventListener('click', () => {
-        modals.createInvoice.classList.remove('hidden');
-        initializeInvoiceForm();
+        window.location.href = "{% url 'accounting:invoice_create' %}";
     });
 
     document.getElementById('createInvoiceBtn').addEventListener('click', () => {
-        modals.createInvoice.classList.remove('hidden');
-        initializeInvoiceForm();
+        window.location.href = "{% url 'accounting:invoice_create' %}";
     });
 
     document.getElementById('sendInvoiceBtn').addEventListener('click', () => {

@@ -219,6 +219,21 @@ class PaymentForm(forms.ModelForm):
             ),
         }
 
+    def __init__(self, *args, **kwargs):
+        company = kwargs.pop("company", None)
+        super().__init__(*args, **kwargs)
+        if company:
+            # Filter customers by company
+            self.fields["customer"].queryset = Customer.objects.filter(
+                company=company, is_active=True
+            )
+            # Filter invoices by company (only unpaid or partially paid)
+            from .models import Invoice
+            self.fields["invoice"].queryset = Invoice.objects.filter(
+                company=company
+            ).exclude(status="PAID").select_related("customer")
+            self.fields["invoice"].required = False
+
 
 # ============================================================================
 # JOURNAL ENTRY FORMS
