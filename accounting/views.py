@@ -215,6 +215,7 @@ def payment_create(request, invoice_id=None):
         form = PaymentForm(request.POST)
         if form.is_valid():
             payment = form.save(commit=False)
+            payment.company = active_company
             payment.created_by = request.user
             payment.save()
 
@@ -234,7 +235,7 @@ def payment_create(request, invoice_id=None):
             )
     else:
         # Generate next payment number
-        last_payment = Payment.objects.order_by("-id").first()
+        last_payment = Payment.objects.filter(company=active_company).order_by("-id").first()
         next_number = (
             f"PAY-{(int(last_payment.payment_number.split('-')[1]) + 1):04d}"
             if last_payment
@@ -437,7 +438,8 @@ def journal_entry_delete(request, pk):
 @login_required
 def expense_list(request):
     """List all expenses"""
-    expenses = Expense.objects.select_related(
+    active_company = request.active_company
+    expenses = Expense.objects.filter(company=active_company).select_related(
         "category", "vendor", "created_by"
     ).order_by("-expense_date")
 
@@ -458,10 +460,13 @@ def expense_list(request):
 @login_required
 def expense_create(request):
     """Create new expense"""
+    active_company = request.active_company
+
     if request.method == "POST":
         form = ExpenseForm(request.POST)
         if form.is_valid():
             expense = form.save(commit=False)
+            expense.company = active_company
             expense.created_by = request.user
             expense.save()
             messages.success(
@@ -470,7 +475,7 @@ def expense_create(request):
             return redirect("accounting:expense_detail", pk=expense.pk)
     else:
         # Generate next expense number
-        last_expense = Expense.objects.order_by("-id").first()
+        last_expense = Expense.objects.filter(company=active_company).order_by("-id").first()
         next_number = (
             f"EXP-{(int(last_expense.expense_number.split('-')[1]) + 1):04d}"
             if last_expense
@@ -492,7 +497,8 @@ def expense_create(request):
 @login_required
 def expense_detail(request, pk):
     """View expense details"""
-    expense = get_object_or_404(Expense, pk=pk)
+    active_company = request.active_company
+    expense = get_object_or_404(Expense, pk=pk, company=active_company)
 
     context = {"title": f"Expense {expense.expense_number}", "expense": expense}
     return render(request, "accounting/expense_detail.html", context)
@@ -501,7 +507,8 @@ def expense_detail(request, pk):
 @login_required
 def expense_approve(request, pk):
     """Approve an expense"""
-    expense = get_object_or_404(Expense, pk=pk)
+    active_company = request.active_company
+    expense = get_object_or_404(Expense, pk=pk, company=active_company)
 
     if expense.status == "SUBMITTED":
         expense.status = "APPROVED"
@@ -517,7 +524,8 @@ def expense_approve(request, pk):
 @login_required
 def expense_delete(request, pk):
     """Delete expense"""
-    expense = get_object_or_404(Expense, pk=pk)
+    active_company = request.active_company
+    expense = get_object_or_404(Expense, pk=pk, company=active_company)
 
     if request.method == "POST":
         expense_number = expense.expense_number
@@ -537,7 +545,8 @@ def expense_delete(request, pk):
 @login_required
 def budget_list(request):
     """List all budgets"""
-    budgets = Budget.objects.order_by("-fiscal_year", "-start_date")
+    active_company = request.active_company
+    budgets = Budget.objects.filter(company=active_company).order_by("-fiscal_year", "-start_date")
 
     context = {"title": "Budgets", "budgets": budgets}
     return render(request, "accounting/budget_list.html", context)
@@ -546,10 +555,13 @@ def budget_list(request):
 @login_required
 def budget_create(request):
     """Create new budget"""
+    active_company = request.active_company
+
     if request.method == "POST":
         form = BudgetForm(request.POST)
         if form.is_valid():
             budget = form.save(commit=False)
+            budget.company = active_company
             budget.created_by = request.user
             budget.save()
             messages.success(request, f'Budget "{budget.name}" created successfully!')
@@ -570,7 +582,8 @@ def budget_create(request):
 @login_required
 def budget_detail(request, pk):
     """View budget details"""
-    budget = get_object_or_404(Budget, pk=pk)
+    active_company = request.active_company
+    budget = get_object_or_404(Budget, pk=pk, company=active_company)
     lines = budget.lines.select_related("account").all()
 
     # Calculate totals
@@ -592,7 +605,8 @@ def budget_detail(request, pk):
 @login_required
 def budget_delete(request, pk):
     """Delete budget"""
-    budget = get_object_or_404(Budget, pk=pk)
+    active_company = request.active_company
+    budget = get_object_or_404(Budget, pk=pk, company=active_company)
 
     if request.method == "POST":
         budget_name = budget.name
@@ -612,7 +626,8 @@ def budget_delete(request, pk):
 @login_required
 def fixed_asset_list(request):
     """List all fixed assets"""
-    assets = FixedAsset.objects.filter(is_active=True).order_by("asset_code")
+    active_company = request.active_company
+    assets = FixedAsset.objects.filter(company=active_company, is_active=True).order_by("asset_code")
 
     total_cost = assets.aggregate(Sum("purchase_cost"))[
         "purchase_cost__sum"
@@ -635,10 +650,13 @@ def fixed_asset_list(request):
 @login_required
 def fixed_asset_create(request):
     """Create new fixed asset"""
+    active_company = request.active_company
+
     if request.method == "POST":
         form = FixedAssetForm(request.POST)
         if form.is_valid():
             asset = form.save(commit=False)
+            asset.company = active_company
             asset.created_by = request.user
             asset.book_value = asset.purchase_cost  # Initial book value
             asset.save()
@@ -648,7 +666,7 @@ def fixed_asset_create(request):
             return redirect("accounting:fixed_asset_detail", pk=asset.pk)
     else:
         # Generate next asset code
-        last_asset = FixedAsset.objects.order_by("-id").first()
+        last_asset = FixedAsset.objects.filter(company=active_company).order_by("-id").first()
         next_code = (
             f"ASSET-{(int(last_asset.asset_code.split('-')[1]) + 1):04d}"
             if last_asset
@@ -674,7 +692,8 @@ def fixed_asset_create(request):
 @login_required
 def fixed_asset_detail(request, pk):
     """View fixed asset details"""
-    asset = get_object_or_404(FixedAsset, pk=pk)
+    active_company = request.active_company
+    asset = get_object_or_404(FixedAsset, pk=pk, company=active_company)
 
     # Calculate depreciation info
     monthly_depreciation = asset.calculate_monthly_depreciation()
@@ -696,7 +715,8 @@ def fixed_asset_detail(request, pk):
 @login_required
 def fixed_asset_edit(request, pk):
     """Edit fixed asset"""
-    asset = get_object_or_404(FixedAsset, pk=pk)
+    active_company = request.active_company
+    asset = get_object_or_404(FixedAsset, pk=pk, company=active_company)
 
     if request.method == "POST":
         form = FixedAssetForm(request.POST, instance=asset)
@@ -723,7 +743,8 @@ def fixed_asset_edit(request, pk):
 @login_required
 def fixed_asset_delete(request, pk):
     """Delete fixed asset"""
-    asset = get_object_or_404(FixedAsset, pk=pk)
+    active_company = request.active_company
+    asset = get_object_or_404(FixedAsset, pk=pk, company=active_company)
 
     if request.method == "POST":
         asset_code = asset.asset_code

@@ -1,6 +1,8 @@
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
-from accounting.models import Account, AccountType
+from django.db.models import Q, Sum
+from accounting.models import Account, AccountType, Customer, Invoice, Payment, JournalEntry
+from dashboard.services.sync import DashboardSyncService
 from decimal import Decimal
 
 
@@ -10,12 +12,14 @@ def calculate_ratios_api(request):
     API endpoint to calculate financial ratios dynamically
     """
     try:
+        active_company = request.active_company
+
         # Get balance sheet data
-        assets = Account.objects.filter(account_type=AccountType.ASSET, is_active=True)
+        assets = Account.objects.filter(company=active_company, account_type=AccountType.ASSET, is_active=True)
         liabilities = Account.objects.filter(
-            account_type=AccountType.LIABILITY, is_active=True
+            company=active_company, account_type=AccountType.LIABILITY, is_active=True
         )
-        equity = Account.objects.filter(account_type=AccountType.EQUITY, is_active=True)
+        equity = Account.objects.filter(company=active_company, account_type=AccountType.EQUITY, is_active=True)
 
         total_assets = sum(acc.get_balance() for acc in assets)
         total_liabilities = sum(acc.get_balance() for acc in liabilities)
@@ -23,10 +27,10 @@ def calculate_ratios_api(request):
 
         # Get income statement data
         revenue_accounts = Account.objects.filter(
-            account_type=AccountType.REVENUE, is_active=True
+            company=active_company, account_type=AccountType.REVENUE, is_active=True
         )
         expense_accounts = Account.objects.filter(
-            account_type=AccountType.EXPENSE, is_active=True
+            company=active_company, account_type=AccountType.EXPENSE, is_active=True
         )
 
         total_revenue = sum(acc.get_balance() for acc in revenue_accounts)
@@ -117,6 +121,8 @@ def trend_analysis_api(request):
     API endpoint for financial ratios trend analysis
     """
     try:
+        active_company = request.active_company
+
         # Mock trend data - in a real system, this would be calculated from historical data
         months = ["Apr", "May", "Jun", "Jul", "Aug", "Sep"]
 
@@ -141,6 +147,8 @@ def industry_compare_api(request):
     API endpoint for industry comparison of financial ratios
     """
     try:
+        active_company = request.active_company
+
         # Mock industry comparison data
         industry_data = {
             "retail": {
@@ -215,25 +223,27 @@ def export_ratios_api(request):
     import io
 
     try:
+        active_company = request.active_company
+
         # Get format from request
         export_format = request.GET.get("format", "csv")
 
         # Calculate ratios (similar to calculate_ratios_api)
-        assets = Account.objects.filter(account_type=AccountType.ASSET, is_active=True)
+        assets = Account.objects.filter(company=active_company, account_type=AccountType.ASSET, is_active=True)
         liabilities = Account.objects.filter(
-            account_type=AccountType.LIABILITY, is_active=True
+            company=active_company, account_type=AccountType.LIABILITY, is_active=True
         )
-        equity = Account.objects.filter(account_type=AccountType.EQUITY, is_active=True)
+        equity = Account.objects.filter(company=active_company, account_type=AccountType.EQUITY, is_active=True)
 
         total_assets = sum(acc.get_balance() for acc in assets)
         total_liabilities = sum(acc.get_balance() for acc in liabilities)
         total_equity = sum(acc.get_balance() for acc in equity)
 
         revenue_accounts = Account.objects.filter(
-            account_type=AccountType.REVENUE, is_active=True
+            company=active_company, account_type=AccountType.REVENUE, is_active=True
         )
         expense_accounts = Account.objects.filter(
-            account_type=AccountType.EXPENSE, is_active=True
+            company=active_company, account_type=AccountType.EXPENSE, is_active=True
         )
 
         total_revenue = sum(acc.get_balance() for acc in revenue_accounts)
@@ -306,6 +316,206 @@ def export_ratios_api(request):
             return JsonResponse(
                 {"success": False, "error": "Unsupported export format"}
             )
+
+    except Exception as e:
+        return JsonResponse({"success": False, "error": str(e)})
+
+
+# ============================================================================
+# INTERCONNECTED DASHBOARD API ENDPOINTS
+# ============================================================================
+
+
+@login_required
+def customer_related_data_api(request, customer_id):
+    """
+    API endpoint to get related data for a customer (invoices, payments, etc.)
+    Used for dynamic dropdowns and relationship displays
+    """
+    try:
+        active_company = request.active_company
+        sync_service = DashboardSyncService(active_company)
+
+        related_data = sync_service.get_related_data("customer", customer_id)
+
+        return JsonResponse({
+            "success": True,
+            "data": related_data
+        })
+
+    except Exception as e:
+        return JsonResponse({"success": False, "error": str(e)})
+
+
+@login_required
+def invoice_related_data_api(request, invoice_id):
+    """
+    API endpoint to get related data for an invoice (customer, payments, etc.)
+    """
+    try:
+        active_company = request.active_company
+        sync_service = DashboardSyncService(active_company)
+
+        related_data = sync_service.get_related_data("invoice", invoice_id)
+
+        return JsonResponse({
+            "success": True,
+            "data": related_data
+        })
+
+    except Exception as e:
+        return JsonResponse({"success": False, "error": str(e)})
+
+
+@login_required
+def live_kpi_updates_api(request):
+    """
+    API endpoint for real-time KPI updates
+    Returns current dashboard metrics that may have changed
+    """
+    try:
+        active_company = request.active_company
+        sync_service = DashboardSyncService(active_company)
+
+        kpi_data = sync_service.get_live_kpi_updates()
+
+        return JsonResponse({
+            "success": True,
+            "kpis": kpi_data,
+            "timestamp": "2025-01-07T12:00:00Z"  # Current timestamp
+        })
+
+    except Exception as e:
+        return JsonResponse({"success": False, "error": str(e)})
+
+
+@login_required
+def customer_search_api(request):
+    """
+    API endpoint for searching customers with balances
+    Used for dynamic dropdowns in forms
+    """
+    try:
+        active_company = request.active_company
+        query = request.GET.get('q', '').strip()
+
+        customers = Customer.objects.filter(
+            company=active_company,
+            is_active=True
+        ).filter(
+            Q(company_name__icontains=query) |
+            Q(customer_code__icontains=query)
+        ).values(
+            'id', 'customer_code', 'company_name'
+        )[:10]  # Limit results
+
+        # Add balance information
+        for customer in customers:
+            customer_obj = Customer.objects.get(id=customer['id'])
+            customer['outstanding_balance'] = float(customer_obj.get_outstanding_balance())
+
+        return JsonResponse({
+            "success": True,
+            "customers": list(customers)
+        })
+
+    except Exception as e:
+        return JsonResponse({"success": False, "error": str(e)})
+
+
+@login_required
+def invoice_search_api(request):
+    """
+    API endpoint for searching unpaid invoices
+    Used for payment forms
+    """
+    try:
+        active_company = request.active_company
+        customer_id = request.GET.get('customer_id')
+        query = request.GET.get('q', '').strip()
+
+        invoices = Invoice.objects.filter(
+            company=active_company,
+            status__in=['SENT', 'OVERDUE']
+        )
+
+        if customer_id:
+            invoices = invoices.filter(customer_id=customer_id)
+
+        if query:
+            invoices = invoices.filter(
+                Q(invoice_number__icontains=query) |
+                Q(customer__company_name__icontains=query)
+            )
+
+        invoice_data = invoices.values(
+            'id', 'invoice_number', 'total_amount', 'paid_amount',
+            'customer__company_name', 'due_date', 'status'
+        ).order_by('-invoice_date')[:20]
+
+        # Calculate remaining balance for each
+        for invoice in invoice_data:
+            invoice['remaining_balance'] = float(
+                Decimal(str(invoice['total_amount'])) - Decimal(str(invoice['paid_amount']))
+            )
+
+        return JsonResponse({
+            "success": True,
+            "invoices": list(invoice_data)
+        })
+
+    except Exception as e:
+        return JsonResponse({"success": False, "error": str(e)})
+
+
+@login_required
+def dashboard_summary_api(request):
+    """
+    API endpoint for dashboard summary data
+    Returns key metrics for real-time updates
+    """
+    try:
+        active_company = request.active_company
+
+        # Get recent activity
+        recent_invoices = Invoice.objects.filter(
+            company=active_company
+        ).order_by('-created_at')[:5].values(
+            'id', 'invoice_number', 'customer__company_name',
+            'total_amount', 'status', 'created_at'
+        )
+
+        recent_payments = Payment.objects.filter(
+            company=active_company
+        ).order_by('-created_at')[:5].values(
+            'id', 'payment_number', 'customer__company_name',
+            'amount', 'payment_date', 'created_at'
+        )
+
+        # Get summary counts
+        total_customers = Customer.objects.filter(company=active_company, is_active=True).count()
+        total_invoices = Invoice.objects.filter(company=active_company).count()
+        unpaid_invoices = Invoice.objects.filter(
+            company=active_company, status__in=['SENT', 'OVERDUE']
+        ).count()
+
+        total_revenue = Invoice.objects.filter(
+            company=active_company, status='PAID'
+        ).aggregate(total=Sum('total_amount'))['total'] or Decimal('0.00')
+
+        return JsonResponse({
+            "success": True,
+            "summary": {
+                "total_customers": total_customers,
+                "total_invoices": total_invoices,
+                "unpaid_invoices": unpaid_invoices,
+                "total_revenue": float(total_revenue)
+            },
+            "recent_activity": {
+                "invoices": list(recent_invoices),
+                "payments": list(recent_payments)
+            }
+        })
 
     except Exception as e:
         return JsonResponse({"success": False, "error": str(e)})

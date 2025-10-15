@@ -48,6 +48,12 @@ def update_invoice_on_payment(sender, instance, created, **kwargs):
 
         invoice.save(update_fields=["paid_amount", "status"])
 
+        # Sync with dashboard
+        if hasattr(instance, 'company') and instance.company:
+            from dashboard.services.sync import DashboardSyncService
+            sync_service = DashboardSyncService(instance.company)
+            sync_service.sync_payment_creation(instance)
+
 
 @receiver(post_delete, sender=Payment)
 def update_invoice_on_payment_delete(sender, instance, **kwargs):
@@ -92,6 +98,17 @@ def validate_invoice(sender, instance, **kwargs):
         )
         if abs(calculated_total - instance.total_amount) > Decimal("0.01"):
             instance.total_amount = calculated_total
+
+
+@receiver(post_save, sender=Invoice)
+def sync_invoice_creation(sender, instance, created, **kwargs):
+    """
+    Sync invoice creation with dashboard
+    """
+    if created and hasattr(instance, 'company') and instance.company:
+        from dashboard.services.sync import DashboardSyncService
+        sync_service = DashboardSyncService(instance.company)
+        sync_service.sync_invoice_creation(instance)
 
 
 # ============================================================================

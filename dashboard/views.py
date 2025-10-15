@@ -6,11 +6,12 @@ Optimized Dashboard Views
 - Delegated calculations to services
 """
 
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.cache import cache
 from django.core.paginator import Paginator
 from django.db.models import Sum, Count, Q, F, Prefetch
+from django.http import JsonResponse
 from decimal import Decimal
 from datetime import datetime, timedelta
 
@@ -59,21 +60,22 @@ def dashboard_view(request):
     recent_entries = (
         JournalEntry.objects.filter(company=active_company, status="POSTED")
         .select_related("created_by")
-        .only(
-            "id",
-            "entry_number",
-            "entry_date",
-            "description",
-            "status",
-            "created_by__username",
-        )
+            .only(
+                "id",
+                "entry_number",
+                "entry_date",
+                "description",
+                "status",
+                "created_by",
+                "created_by__username",
+            )
         .order_by("-entry_date")[:5]
     )
 
     # Get top clients (light query)
     top_clients = (
         Customer.objects.filter(company=active_company, is_active=True)
-        .annotate(total_invoiced=Sum("invoice__total_amount"))
+        .annotate(total_invoiced=Sum("invoices__total_amount"))
         .filter(total_invoiced__gt=0)
         .only("id", "company_name")
         .order_by("-total_invoiced")[:5]
@@ -154,7 +156,7 @@ def general_ledger_view(request):
     recent_entries = (
         JournalEntry.objects.filter(company=active_company, status="POSTED")
         .select_related("created_by")
-        .only("id", "entry_number", "entry_date", "description", "status")
+            .only("id", "entry_number", "entry_date", "description", "status", "created_by", "created_by__username")
         .order_by("-entry_date", "-created_at")[:5]
     )
 
@@ -426,11 +428,11 @@ def fixed_assets_view(request):
 
     # Get fixed assets (light query)
     fixed_assets = (
-        FixedAsset.objects.filter(company=active_company, is_active=True)
+        FixedAsset.objects.filter(account__company=active_company, is_active=True)
         .only(
             "id",
             "asset_code",
-            "asset_name",
+            "name",
             "category",
             "purchase_cost",
             "accumulated_depreciation",
@@ -439,7 +441,7 @@ def fixed_assets_view(request):
     )
 
     # Get aggregated statistics (single query)
-    stats = FixedAsset.objects.filter(company=active_company, is_active=True).aggregate(
+    stats = FixedAsset.objects.filter(account__company=active_company, is_active=True).aggregate(
         total_cost=Sum("purchase_cost"),
         total_depreciation=Sum("accumulated_depreciation"),
         equipment_count=Count(
@@ -580,3 +582,284 @@ def create_invoice_view(request):
     from django.shortcuts import redirect
 
     return redirect("accounting:invoice_create")
+
+
+@login_required
+def customers_view(request):
+    """
+    Customer Management View
+    - List all customers for active company
+    - Add/edit/delete customers
+    """
+    active_company = request.active_company
+
+    # Get filter parameters
+    search_query = request.GET.get("search", "")
+    status_filter = request.GET.get("status", "all")
+
+    # Base queryset
+    customers = Customer.objects.filter(company=active_company)
+
+    # Apply filters
+    if search_query:
+        customers = customers.filter(
+            Q(company_name__icontains=search_query) |
+            Q(contact_name__icontains=search_query) |
+            Q(email__icontains=search_query) |
+            Q(customer_code__icontains=search_query)
+        )
+
+    if status_filter == "active":
+        customers = customers.filter(is_active=True)
+    elif status_filter == "inactive":
+        customers = customers.filter(is_active=False)
+
+    # Order by company name
+    customers = customers.order_by("company_name")
+
+    # Calculate balances for each customer
+    customers_with_balances = []
+    for customer in customers:
+        outstanding_balance = customer.get_outstanding_balance()
+        total_invoiced = customer.invoices.filter(status__in=["SENT", "PAID", "OVERDUE"]).aggregate(
+            total=Sum("total_amount")
+        )["total"] or Decimal("0.00")
+
+        customers_with_balances.append({
+            "customer": customer,
+            "outstanding_balance": outstanding_balance,
+            "total_invoiced": total_invoiced,
+        })
+
+    context = {
+        "title": "Customers",
+        "description": "Manage your customer database and track outstanding balances.",
+        "user": request.user,
+        "customers": customers_with_balances,
+        "search_query": search_query,
+        "status_filter": status_filter,
+        "total_customers": len(customers_with_balances),
+        "active_customers": sum(1 for c in customers_with_balances if c["customer"].is_active),
+    }
+
+    return render(request, "dashboard/modules/customers.html", context)
+
+
+@login_required
+def create_customer_view(request):
+    """
+    Create new customer via AJAX/modal
+    """
+    import json
+    from accounting.forms import CustomerForm
+
+    active_company = request.active_company
+
+    if request.method == "POST":
+        # Handle JSON data if content-type is application/json
+        if request.content_type == 'application/json':
+            try:
+                data = json.loads(request.body)
+                
+                # Auto-generate customer_code if not provided
+                if not data.get('customer_code'):
+                    last_customer = Customer.objects.filter(company=active_company).order_by("-id").first()
+                    data['customer_code'] = (
+                        f"CUST-{(int(last_customer.customer_code.split('-')[1]) + 1):04d}"
+                        if last_customer
+                        else "CUST-0001"
+                    )
+                
+                form = CustomerForm(data)
+            except json.JSONDecodeError:
+                return JsonResponse({
+                    "success": False,
+                    "error": "Invalid JSON data"
+                }, status=400)
+        else:
+            form = CustomerForm(request.POST)
+            
+        if form.is_valid():
+            customer = form.save(commit=False)
+            customer.company = active_company
+            customer.save()
+
+            # Check if this is an HTMX request
+            if request.headers.get('HX-Request'):
+                # Return HTML success message for HTMX
+                return render(request, 'dashboard/modules/customer_success.html', {
+                    'customer': customer,
+                    'message': f"Customer {customer.company_name} created successfully!"
+                })
+            else:
+                # Return JSON for regular AJAX
+                return JsonResponse({
+                    "success": True,
+                    "message": f"Customer {customer.company_name} created successfully!",
+                    "customer": {
+                        "id": customer.id,
+                        "customer_code": customer.customer_code,
+                        "company_name": customer.company_name,
+                        "contact_name": customer.contact_name,
+                        "email": customer.email,
+                        "phone": customer.phone,
+                    }
+                })
+        else:
+            # Log form errors for debugging
+            print(f"Form validation errors: {form.errors.as_json()}")
+            
+            if request.headers.get('HX-Request'):
+                # Return form with errors for HTMX
+                context = {
+                    "form": form,
+                    "action": "Create",
+                }
+                return render(request, "dashboard/modules/customer_form.html", context)
+            else:
+                return JsonResponse({
+                    "success": False,
+                    "errors": form.errors
+                }, status=400)
+
+    # GET request - return form HTML
+    # Generate next customer code
+    last_customer = Customer.objects.filter(company=active_company).order_by("-id").first()
+    next_code = (
+        f"CUST-{(int(last_customer.customer_code.split('-')[1]) + 1):04d}"
+        if last_customer
+        else "CUST-0001"
+    )
+
+    form = CustomerForm(
+        initial={
+            "customer_code": next_code,
+            "payment_terms_days": 30,
+            "is_active": True,
+        }
+    )
+
+    context = {
+        "form": form,
+        "action": "Create",
+    }
+
+    return render(request, "dashboard/modules/customer_form.html", context)
+
+
+@login_required
+def edit_customer_view(request, pk):
+    """
+    Edit existing customer
+    """
+    import json
+    from accounting.forms import CustomerForm
+
+    active_company = request.active_company
+    customer = get_object_or_404(Customer, pk=pk, company=active_company)
+
+    if request.method in ["POST", "PUT"]:
+        # Handle JSON data if content-type is application/json
+        if request.content_type == 'application/json':
+            try:
+                data = json.loads(request.body)
+                form = CustomerForm(data, instance=customer)
+            except json.JSONDecodeError:
+                return JsonResponse({
+                    "success": False,
+                    "error": "Invalid JSON data"
+                }, status=400)
+        else:
+            form = CustomerForm(request.POST, instance=customer)
+            
+        if form.is_valid():
+            customer = form.save()
+
+            if request.headers.get('HX-Request'):
+                # Return HTML success message for HTMX
+                return render(request, 'dashboard/modules/customer_success.html', {
+                    'customer': customer,
+                    'message': f"Customer {customer.company_name} updated successfully!"
+                })
+            else:
+                return JsonResponse({
+                    "success": True,
+                    "message": f"Customer {customer.company_name} updated successfully!",
+                    "customer": {
+                        "id": customer.id,
+                        "customer_code": customer.customer_code,
+                        "company_name": customer.company_name,
+                        "contact_name": customer.contact_name,
+                        "email": customer.email,
+                        "phone": customer.phone,
+                    }
+                })
+        else:
+            # Log form errors for debugging
+            print(f"Form validation errors: {form.errors.as_json()}")
+            
+            if request.headers.get('HX-Request'):
+                # Return form with errors for HTMX
+                context = {
+                    "form": form,
+                    "customer": customer,
+                    "action": "Edit",
+                }
+                return render(request, "dashboard/modules/customer_form.html", context)
+            else:
+                return JsonResponse({
+                    "success": False,
+                    "errors": form.errors
+                }, status=400)
+
+    # GET request
+    # If it's a JSON request (AJAX), return customer data
+    if request.headers.get('Accept') == 'application/json' or request.META.get('HTTP_ACCEPT') == 'application/json':
+        return JsonResponse({
+            "id": customer.id,
+            "customer_code": customer.customer_code,
+            "company_name": customer.company_name,
+            "contact_name": customer.contact_name,
+            "email": customer.email,
+            "phone": customer.phone or '',
+            "address": customer.address or '',
+            "city": customer.city or '',
+            "country": customer.country or '',
+            "tax_id": customer.tax_id or '',
+            "credit_limit": str(customer.credit_limit),
+            "payment_terms_days": customer.payment_terms_days,
+            "is_active": customer.is_active,
+        })
+    
+    # Otherwise return HTML form
+    form = CustomerForm(instance=customer)
+    context = {
+        "form": form,
+        "customer": customer,
+        "action": "Edit",
+    }
+
+    return render(request, "dashboard/modules/customer_form.html", context)
+
+
+@login_required
+def delete_customer_view(request, pk):
+    """
+    Delete customer (soft delete by setting is_active=False)
+    """
+    active_company = request.active_company
+    customer = get_object_or_404(Customer, pk=pk, company=active_company)
+
+    if request.method == "POST":
+        customer.is_active = False
+        customer.save()
+
+        return JsonResponse({
+            "success": True,
+            "message": f"Customer {customer.company_name} deactivated successfully!"
+        })
+
+    return JsonResponse({
+        "success": False,
+        "message": "Invalid request method"
+    })

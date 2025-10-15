@@ -1,0 +1,757 @@
+{% extends 'modules/base_module.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'components/sidemenu.html' %}
+
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 ml-64 transition-colors duration-300">
+    <!-- Top Navigation Bar -->
+    <div class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4 transition-colors duration-300">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Customers</h1>
+                <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-sm font-medium rounded-full">{{ total_customers }} Total</span>
+            </div>
+            <div class="flex items-center space-x-4">
+                <!-- Quick Search -->
+                <div class="relative">
+                    <input type="text" placeholder="Search customers..." class="w-64 pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+                    <i class="fas fa-search absolute left-3 top-3 text-gray-400 dark:text-gray-500"></i>
+                </div>
+                <!-- New Customer -->
+                <button id="newCustomerBtn" class="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200">
+                    <i class="fas fa-plus mr-2"></i>
+                    New Customer
+                </button>
+                <!-- Theme Toggle -->
+                <button id="theme-toggle" class="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors duration-300">
+                    <i class="fas fa-moon text-xl dark:hidden"></i>
+                    <i class="fas fa-sun text-xl hidden dark:inline"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-8">
+        <!-- Breadcrumb -->
+        <nav class="flex mb-6" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                <li class="inline-flex items-center">
+                    <a href="{% url 'dashboard:dashboard' %}" class="inline-flex items-center text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
+                        <i class="fas fa-home mr-2"></i>
+                        Dashboard
+                    </a>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+                        <span class="text-sm font-medium text-gray-500 dark:text-gray-400">Customers</span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
+
+        <!-- Module Description -->
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 mb-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">Customer Management</h2>
+                    <p class="text-gray-600 dark:text-gray-400">Manage your customer database, track outstanding balances, and maintain customer relationships.</p>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <div class="text-right">
+                        <div class="text-2xl font-bold text-green-600 dark:text-green-400">${{ total_outstanding|floatformat:0 }}</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-400">Outstanding</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- KPI Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+            <!-- Total Customers -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-users text-blue-600 dark:text-blue-400"></i>
+                    </div>
+                    <span class="text-blue-600 dark:text-blue-400 text-sm font-medium">Active</span>
+                </div>
+                <div class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">{{ total_customers }}</div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">Total Customers</div>
+            </div>
+
+            <!-- New This Month -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-10 h-10 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-user-plus text-green-600 dark:text-green-400"></i>
+                    </div>
+                    <span class="text-green-600 dark:text-green-400 text-sm font-medium">{{ new_customers }}</span>
+                </div>
+                <div class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">{{ new_customers }}</div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">New This Month</div>
+            </div>
+
+            <!-- Outstanding Balance -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-10 h-10 bg-orange-100 dark:bg-orange-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-dollar-sign text-orange-600 dark:text-orange-400"></i>
+                    </div>
+                    <span class="text-orange-600 dark:text-orange-400 text-sm font-medium">Due</span>
+                </div>
+                <div class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">${{ total_outstanding|floatformat:0 }}</div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">Outstanding</div>
+            </div>
+
+            <!-- Avg. Invoice Value -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-10 h-10 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-chart-line text-purple-600 dark:text-purple-400"></i>
+                    </div>
+                    <span class="text-purple-600 dark:text-purple-400 text-sm font-medium">Avg</span>
+                </div>
+                <div class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">${{ avg_invoice_value|floatformat:0 }}</div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">Avg Invoice Value</div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+            <button id="createCustomerBtn" class="flex items-center justify-center px-4 py-3 bg-blue-600 text-white font-medium rounded-xl hover:bg-blue-700 transition-colors duration-200">
+                <i class="fas fa-plus mr-2"></i>
+                Add Customer
+            </button>
+            <button id="importCustomersBtn" class="flex items-center justify-center px-4 py-3 bg-green-600 text-white font-medium rounded-xl hover:bg-green-700 transition-colors duration-200">
+                <i class="fas fa-upload mr-2"></i>
+                Import
+            </button>
+            <button id="exportCustomersBtn" class="flex items-center justify-center px-4 py-3 bg-purple-600 text-white font-medium rounded-xl hover:bg-purple-700 transition-colors duration-200">
+                <i class="fas fa-download mr-2"></i>
+                Export
+            </button>
+            <button id="customerReportsBtn" class="flex items-center justify-center px-4 py-3 bg-gray-600 dark:bg-gray-700 text-white font-medium rounded-xl hover:bg-gray-700 dark:hover:bg-gray-600 transition-colors duration-200">
+                <i class="fas fa-chart-bar mr-2"></i>
+                Reports
+            </button>
+        </div>
+
+        <!-- Main Content Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Customers List -->
+            <div class="lg:col-span-2 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700">
+                <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100">Customer Directory</h3>
+                        <div class="flex items-center space-x-2">
+                            <select class="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+                                <option>All Customers</option>
+                                <option>Active</option>
+                                <option>Inactive</option>
+                                <option>With Outstanding Balance</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-50 dark:bg-gray-700">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Customer</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Contact</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Outstanding</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Last Invoice</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Status</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                            {% for customer in customers %}
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-150">
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center text-blue-600 dark:text-blue-400 font-bold text-sm">
+                                            {{ customer.company_name|slice:":1" }}
+                                        </div>
+                                        <div class="ml-4">
+                                            <div class="text-sm font-medium text-gray-900 dark:text-gray-100">{{ customer.company_name }}</div>
+                                            <div class="text-sm text-gray-500 dark:text-gray-400">{{ customer.customer_type|title }}</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
+                                    <div>{{ customer.contact_person }}</div>
+                                    <div class="text-gray-500 dark:text-gray-400">{{ customer.email }}</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">
+                                    ${{ customer.outstanding_balance|floatformat:2 }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                                    {% if customer.last_invoice_date %}
+                                        {{ customer.last_invoice_date|date:"M d, Y" }}
+                                    {% else %}
+                                        Never
+                                    {% endif %}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    {% if customer.is_active %}
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200">Active</span>
+                                    {% else %}
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200">Inactive</span>
+                                    {% endif %}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                                    <div class="flex items-center space-x-2">
+                                        <button class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300" title="View Details" onclick="viewCustomer({{ customer.id }})">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="text-green-600 dark:text-green-400 hover:text-green-800 dark:hover:text-green-300" title="Edit" onclick="editCustomer({{ customer.id }})">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="text-purple-600 dark:text-purple-400 hover:text-purple-800 dark:hover:text-purple-300" title="Send Email" onclick="sendEmail({{ customer.id }})">
+                                            <i class="fas fa-envelope"></i>
+                                        </button>
+                                        <button class="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300" title="Delete" onclick="deleteCustomer({{ customer.id }})">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="6" class="px-6 py-8 text-center text-gray-500 dark:text-gray-400">
+                                    <div class="flex flex-col items-center">
+                                        <i class="fas fa-users text-4xl mb-2 text-gray-300 dark:text-gray-600"></i>
+                                        <p>No customers found. Add your first customer to get started.</p>
+                                        <button class="mt-4 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700">
+                                            <i class="fas fa-plus mr-2"></i>
+                                            Add Customer
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% if customers %}
+                <div class="p-4 border-t border-gray-200 dark:border-gray-700">
+                    <div class="flex items-center justify-between">
+                        <div class="text-sm text-gray-600 dark:text-gray-400">
+                            Showing {{ customers|length }} of {{ total_customers }} customers
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="px-3 py-1 border border-gray-300 dark:border-gray-600 rounded text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700">
+                                Previous
+                            </button>
+                            <button class="px-3 py-1 bg-blue-600 text-white rounded text-sm">1</button>
+                            <button class="px-3 py-1 border border-gray-300 dark:border-gray-600 rounded text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700">
+                                Next
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Sidebar -->
+            <div class="space-y-6">
+                <!-- Recent Activity -->
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700">
+                    <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                        <h4 class="text-lg font-bold text-gray-900 dark:text-gray-100">Recent Activity</h4>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        {% for activity in recent_activities %}
+                        <div class="flex items-start space-x-3">
+                            <div class="w-8 h-8 bg-{% if activity.type == 'invoice' %}blue{% elif activity.type == 'payment' %}green{% else %}purple{% endif %}-100 dark:bg-{% if activity.type == 'invoice' %}blue{% elif activity.type == 'payment' %}green{% else %}purple{% endif %}-900 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-{% if activity.type == 'invoice' %}file-invoice{% elif activity.type == 'payment' %}dollar-sign{% else %}user{% endif %} text-{% if activity.type == 'invoice' %}blue{% elif activity.type == 'payment' %}green{% else %}purple{% endif %}-600 dark:text-{% if activity.type == 'invoice' %}blue{% elif activity.type == 'payment' %}green{% else %}purple{% endif %}-400 text-xs"></i>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <p class="text-sm font-medium text-gray-900 dark:text-gray-100">{{ activity.description }}</p>
+                                <p class="text-xs text-gray-600 dark:text-gray-400">{{ activity.customer }}</p>
+                                <p class="text-xs text-gray-500 dark:text-gray-500">{{ activity.date|timesince }} ago</p>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <p class="text-sm text-gray-500 dark:text-gray-400 text-center py-4">No recent activity</p>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Customer Summary -->
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700">
+                    <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                        <h4 class="text-lg font-bold text-gray-900 dark:text-gray-100">Customer Summary</h4>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-600 dark:text-gray-400">Total Revenue</span>
+                            <span class="text-sm font-medium text-gray-900 dark:text-gray-100">${{ total_revenue|floatformat:2 }}</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-600 dark:text-gray-400">Outstanding</span>
+                            <span class="text-sm font-medium text-orange-600 dark:text-orange-400">${{ total_outstanding|floatformat:2 }}</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-600 dark:text-gray-400">Avg. Payment Time</span>
+                            <span class="text-sm font-medium text-gray-900 dark:text-gray-100">{{ avg_payment_days }} days</span>
+                        </div>
+                        <hr class="border-gray-200 dark:border-gray-700">
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm font-medium text-gray-900 dark:text-gray-100">Collection Rate</span>
+                            <span class="text-sm font-bold text-green-600 dark:text-green-400">{{ collection_rate }}%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Top Customers -->
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700">
+                    <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                        <h4 class="text-lg font-bold text-gray-900 dark:text-gray-100">Top Customers</h4>
+                    </div>
+                    <div class="p-6 space-y-4">
+                        {% for customer in top_customers %}
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center space-x-2">
+                                <div class="w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center text-blue-600 dark:text-blue-400 font-bold text-xs">
+                                    {{ customer.company_name|slice:":1" }}
+                                </div>
+                                <span class="text-sm text-gray-900 dark:text-gray-100">{{ customer.company_name }}</span>
+                            </div>
+                            <span class="text-sm font-medium text-gray-900 dark:text-gray-100">${{ customer.total_value|floatformat:0 }}</span>
+                        </div>
+                        {% empty %}
+                        <p class="text-sm text-gray-500 dark:text-gray-400 text-center py-4">No customers yet</p>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Quick Tools -->
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700">
+                    <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                        <h4 class="text-lg font-bold text-gray-900 dark:text-gray-100">Quick Tools</h4>
+                    </div>
+                    <div class="p-6 space-y-3">
+                        <button id="customerStatementBtn" class="w-full flex items-center justify-center px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200 text-sm">
+                            <i class="fas fa-file-invoice-dollar mr-2"></i>
+                            Customer Statement
+                        </button>
+                        <button id="sendNewsletterBtn" class="w-full flex items-center justify-center px-4 py-2 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition-colors duration-200 text-sm">
+                            <i class="fas fa-envelope mr-2"></i>
+                            Send Newsletter
+                        </button>
+                        <button id="agingReportBtn" class="w-full flex items-center justify-center px-4 py-2 bg-purple-600 text-white font-medium rounded-lg hover:bg-purple-700 transition-colors duration-200 text-sm">
+                            <i class="fas fa-clock mr-2"></i>
+                            Aging Report
+                        </button>
+                        <button id="bulkActionsBtn" class="w-full flex items-center justify-center px-4 py-2 bg-orange-600 text-white font-medium rounded-lg hover:bg-orange-700 transition-colors duration-200 text-sm">
+                            <i class="fas fa-tasks mr-2"></i>
+                            Bulk Actions
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Create/Edit Customer Modal -->
+<div id="customerModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 z-50 items-center justify-center p-4">
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+        <div class="p-6 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between sticky top-0 bg-white dark:bg-gray-800 z-10">
+            <h3 id="customerModalTitle" class="text-2xl font-bold text-gray-900 dark:text-gray-100">Add New Customer</h3>
+            <button class="closeModal text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+        </div>
+        <form id="customerForm" class="p-6 space-y-6">
+            <input type="hidden" id="customerId" name="customer_id">
+            
+            <!-- Basic Information -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Company Name *</label>
+                    <input type="text" id="companyName" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Customer Type</label>
+                    <select id="customerType" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
+                        <option value="individual">Individual</option>
+                        <option value="business">Business</option>
+                        <option value="nonprofit">Non-Profit</option>
+                        <option value="government">Government</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Contact Information -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Contact Person</label>
+                    <input type="text" id="contactPerson" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Email *</label>
+                    <input type="email" id="customerEmail" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" required>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Phone</label>
+                    <input type="tel" id="customerPhone" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Website</label>
+                    <input type="url" id="customerWebsite" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" placeholder="https://">
+                </div>
+            </div>
+
+            <!-- Address Information -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Address</label>
+                <textarea id="customerAddress" rows="3" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" placeholder="Street address, city, state, zip code"></textarea>
+            </div>
+
+            <!-- Additional Information -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Tax ID</label>
+                    <input type="text" id="taxId" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Payment Terms (days)</label>
+                    <input type="number" id="paymentTerms" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" placeholder="30" min="0">
+                </div>
+            </div>
+
+            <!-- Notes -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Notes</label>
+                <textarea id="customerNotes" rows="3" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" placeholder="Additional notes about this customer..."></textarea>
+            </div>
+
+            <!-- Status -->
+            <div class="flex items-center">
+                <input type="checkbox" id="isActive" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 dark:border-gray-600 rounded" checked>
+                <label for="isActive" class="ml-2 block text-sm text-gray-900 dark:text-gray-100">
+                    Active customer
+                </label>
+            </div>
+
+            <!-- Actions -->
+            <div class="flex justify-end space-x-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                <button type="button" class="closeModal px-6 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">
+                    Cancel
+                </button>
+                <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                    Save Customer
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Delete Customer Modal -->
+<div id="deleteCustomerModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 z-50 items-center justify-center p-4">
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-md w-full">
+        <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+            <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100">Delete Customer</h3>
+        </div>
+        <div class="p-6">
+            <div class="flex items-center space-x-3 mb-4">
+                <i class="fas fa-exclamation-triangle text-red-500 text-2xl"></i>
+                <div>
+                    <p class="text-gray-900 dark:text-gray-100 font-medium">Are you sure you want to delete this customer?</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">This action cannot be undone. All associated invoices and data will be permanently removed.</p>
+                </div>
+            </div>
+            <div class="flex justify-end space-x-4">
+                <button class="closeModal px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">
+                    Cancel
+                </button>
+                <button id="confirmDeleteBtn" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">
+                    Delete Customer
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Theme Toggle Script -->
+<script>
+    // Theme toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            const html = document.documentElement;
+            const isDark = html.classList.contains('dark');
+            if (isDark) {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+    }
+    
+    // Initialize theme
+    if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+    }
+
+    // Modal Management
+    const modals = {
+        customer: document.getElementById('customerModal'),
+        deleteCustomer: document.getElementById('deleteCustomerModal')
+    };
+
+    // Open modal functions
+    document.getElementById('newCustomerBtn').addEventListener('click', () => {
+        resetCustomerForm();
+        document.getElementById('customerModalTitle').textContent = 'Add New Customer';
+        modals.customer.classList.remove('hidden');
+    });
+
+    document.getElementById('createCustomerBtn').addEventListener('click', () => {
+        resetCustomerForm();
+        document.getElementById('customerModalTitle').textContent = 'Add New Customer';
+        modals.customer.classList.remove('hidden');
+    });
+
+    // Close modal functionality
+    document.querySelectorAll('.closeModal').forEach(btn => {
+        btn.addEventListener('click', function() {
+            this.closest('[id$="Modal"]').classList.add('hidden');
+        });
+    });
+
+    // Close on outside click
+    Object.values(modals).forEach(modal => {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.add('hidden');
+            }
+        });
+    });
+
+    // Customer Form Functions
+    function resetCustomerForm() {
+        document.getElementById('customerId').value = '';
+        document.getElementById('companyName').value = '';
+        document.getElementById('customerType').value = 'business';
+        document.getElementById('contactPerson').value = '';
+        document.getElementById('customerEmail').value = '';
+        document.getElementById('customerPhone').value = '';
+        document.getElementById('customerWebsite').value = '';
+        document.getElementById('customerAddress').value = '';
+        document.getElementById('taxId').value = '';
+        document.getElementById('paymentTerms').value = '30';
+        document.getElementById('customerNotes').value = '';
+        document.getElementById('isActive').checked = true;
+    }
+
+    function populateCustomerForm(customer) {
+        document.getElementById('customerId').value = customer.id;
+        document.getElementById('companyName').value = customer.company_name || '';
+        document.getElementById('contactPerson').value = customer.contact_name || '';
+        document.getElementById('customerEmail').value = customer.email || '';
+        document.getElementById('customerPhone').value = customer.phone || '';
+        document.getElementById('customerAddress').value = customer.address || '';
+        document.getElementById('taxId').value = customer.tax_id || '';
+        document.getElementById('paymentTerms').value = customer.payment_terms_days || 30;
+        document.getElementById('isActive').checked = customer.is_active;
+    }
+
+    // Customer CRUD Functions
+    async function viewCustomer(customerId) {
+        try {
+            const response = await fetch(`/dashboard/customers/${customerId}/`, {
+                method: 'GET',
+                headers: {
+                    'X-CSRFToken': getCookie('csrftoken')
+                }
+            });
+            const customer = await response.json();
+            // In a real implementation, you'd open a detailed view modal
+            console.log('Customer details:', customer);
+        } catch (error) {
+            console.error('Error fetching customer:', error);
+        }
+    }
+
+    async function editCustomer(customerId) {
+        try {
+            const response = await fetch(`/dashboard/customers/${customerId}/`, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken')
+                }
+            });
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const customer = await response.json();
+            populateCustomerForm(customer);
+            document.getElementById('customerModalTitle').textContent = 'Edit Customer';
+            modals.customer.classList.remove('hidden');
+        } catch (error) {
+            console.error('Error fetching customer:', error);
+            alert('Error loading customer data: ' + error.message);
+        }
+    }
+
+    async function deleteCustomer(customerId) {
+        // Store customer ID for confirmation
+        document.getElementById('confirmDeleteBtn').dataset.customerId = customerId;
+        modals.deleteCustomer.classList.remove('hidden');
+    }
+
+    async function sendEmail(customerId) {
+        // In a real implementation, this would open an email modal
+        alert('Email functionality would be implemented here');
+    }
+
+    // Form Submissions
+    document.getElementById('customerForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const formData = {
+            company_name: document.getElementById('companyName').value,
+            contact_name: document.getElementById('contactPerson').value,
+            email: document.getElementById('customerEmail').value,
+            phone: document.getElementById('customerPhone').value || '',
+            address: document.getElementById('customerAddress').value || '',
+            tax_id: document.getElementById('taxId').value || '',
+            payment_terms_days: document.getElementById('paymentTerms').value || 30,
+            credit_limit: 0.00,
+            is_active: document.getElementById('isActive').checked
+        };
+
+        const customerId = document.getElementById('customerId').value;
+        const method = customerId ? 'PUT' : 'POST';
+        const url = customerId ? `/dashboard/customers/${customerId}/` : '/dashboard/customers/create/';
+
+        try {
+            const response = await fetch(url, {
+                method: method,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken')
+                },
+                body: JSON.stringify(formData)
+            });
+            
+            // Check if response is ok (status 200-299)
+            if (!response.ok) {
+                const contentType = response.headers.get('content-type');
+                if (contentType && contentType.includes('application/json')) {
+                    const errorData = await response.json();
+                    console.error('Server error:', errorData);
+                    let errorMessage = 'Error saving customer:\n';
+                    if (errorData.errors) {
+                        for (const [field, errors] of Object.entries(errorData.errors)) {
+                            errorMessage += `${field}: ${errors.join(', ')}\n`;
+                        }
+                    } else if (errorData.error) {
+                        errorMessage += errorData.error;
+                    } else {
+                        errorMessage += `Server returned status ${response.status}`;
+                    }
+                    alert(errorMessage);
+                } else {
+                    alert(`Server error: ${response.status} ${response.statusText}`);
+                }
+                return;
+            }
+            
+            const result = await response.json();
+            if (result.success) {
+                alert(result.message);
+                modals.customer.classList.add('hidden');
+                location.reload(); // Refresh to show updated customer
+            } else {
+                alert('Error: ' + (result.error || result.message || 'Unknown error'));
+            }
+        } catch (error) {
+            console.error('Fetch error:', error);
+            alert('Error saving customer: ' + error.message);
+        }
+    });
+
+    document.getElementById('confirmDeleteBtn').addEventListener('click', async () => {
+        const customerId = document.getElementById('confirmDeleteBtn').dataset.customerId;
+        
+        try {
+            const response = await fetch(`/dashboard/customers/${customerId}/delete/`, {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRFToken': getCookie('csrftoken')
+                }
+            });
+            
+            const result = await response.json();
+            if (result.success) {
+                alert(result.message);
+                modals.deleteCustomer.classList.add('hidden');
+                location.reload(); // Refresh to remove deleted customer
+            } else {
+                alert('Error: ' + result.error);
+            }
+        } catch (error) {
+            alert('Error deleting customer: ' + error.message);
+        }
+    });
+
+    // Utility Functions
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    // Quick Actions
+    document.getElementById('importCustomersBtn').addEventListener('click', () => {
+        alert('Import functionality would be implemented here');
+    });
+
+    document.getElementById('exportCustomersBtn').addEventListener('click', () => {
+        alert('Export functionality would be implemented here');
+    });
+
+    document.getElementById('customerReportsBtn').addEventListener('click', () => {
+        alert('Reports functionality would be implemented here');
+    });
+
+    document.getElementById('customerStatementBtn').addEventListener('click', () => {
+        alert('Customer statement functionality would be implemented here');
+    });
+
+    document.getElementById('sendNewsletterBtn').addEventListener('click', () => {
+        alert('Newsletter functionality would be implemented here');
+    });
+
+    document.getElementById('agingReportBtn').addEventListener('click', () => {
+        alert('Aging report functionality would be implemented here');
+    });
+
+    document.getElementById('bulkActionsBtn').addEventListener('click', () => {
+        alert('Bulk actions functionality would be implemented here');
+    });
+</script>
+
+{% endblock %}

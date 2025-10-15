@@ -363,6 +363,13 @@ class Payment(models.Model):
         CREDIT_CARD = "CREDIT_CARD", "Credit Card"
         OTHER = "OTHER", "Other"
 
+    company = models.ForeignKey(
+        "companies.Company",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="payments"
+    )
     payment_number = models.CharField(max_length=50, unique=True, db_index=True)
     customer = models.ForeignKey(
         Customer, on_delete=models.PROTECT, related_name="payments"
@@ -384,6 +391,10 @@ class Payment(models.Model):
 
     class Meta:
         ordering = ["-payment_date"]
+        unique_together = [["company", "payment_number"]]
+        indexes = [
+            models.Index(fields=["company", "payment_date"]),
+        ]
 
     def __str__(self):
         return f"{self.payment_number} - ${self.amount}"
@@ -397,6 +408,13 @@ class Payment(models.Model):
 class Vendor(models.Model):
     """Vendor/Supplier information"""
 
+    company = models.ForeignKey(
+        "companies.Company",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="vendors"
+    )
     vendor_code = models.CharField(max_length=20, unique=True, db_index=True)
     company_name = models.CharField(max_length=255)
     contact_name = models.CharField(max_length=255)
@@ -413,6 +431,10 @@ class Vendor(models.Model):
 
     class Meta:
         ordering = ["company_name"]
+        unique_together = [["company", "vendor_code"]]
+        indexes = [
+            models.Index(fields=["company", "vendor_code"]),
+        ]
 
     def __str__(self):
         return f"{self.vendor_code} - {self.company_name}"
@@ -430,6 +452,13 @@ class Bill(models.Model):
 
     bill_number = models.CharField(max_length=50, unique=True, db_index=True)
     vendor = models.ForeignKey(Vendor, on_delete=models.PROTECT, related_name="bills")
+    company = models.ForeignKey(
+        "companies.Company",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="bills"
+    )
     bill_date = models.DateField(db_index=True)
     due_date = models.DateField(db_index=True)
     status = models.CharField(
@@ -454,6 +483,10 @@ class Bill(models.Model):
 
     class Meta:
         ordering = ["-bill_date", "-bill_number"]
+        unique_together = [["company", "bill_number"]]
+        indexes = [
+            models.Index(fields=["company", "bill_date", "status"]),
+        ]
 
     def __str__(self):
         return f"{self.bill_number} - {self.vendor.company_name}"
@@ -490,6 +523,13 @@ class Budget(models.Model):
         QUARTERLY = "QUARTERLY", "Quarterly"
         ANNUAL = "ANNUAL", "Annual"
 
+    company = models.ForeignKey(
+        "companies.Company",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="budgets"
+    )
     name = models.CharField(max_length=255)
     fiscal_year = models.IntegerField()
     period = models.CharField(max_length=20, choices=Period.choices)
@@ -505,6 +545,10 @@ class Budget(models.Model):
 
     class Meta:
         ordering = ["-fiscal_year", "-start_date"]
+        unique_together = [["company", "name", "fiscal_year"]]
+        indexes = [
+            models.Index(fields=["company", "fiscal_year", "is_active"]),
+        ]
 
     def __str__(self):
         return f"{self.name} - FY{self.fiscal_year}"
@@ -571,6 +615,13 @@ class FixedAsset(models.Model):
         OTHER = "OTHER", "Other"
 
     # Basic Asset Information
+    company = models.ForeignKey(
+        "companies.Company",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="fixed_assets"
+    )
     asset_code = models.CharField(
         max_length=50,
         unique=True,
@@ -927,6 +978,13 @@ class FixedAsset(models.Model):
 class ExpenseCategory(models.Model):
     """Expense categories"""
 
+    company = models.ForeignKey(
+        "companies.Company",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="expense_categories"
+    )
     name = models.CharField(max_length=255)
     account = models.ForeignKey(
         Account, on_delete=models.PROTECT, related_name="expense_categories"
@@ -936,6 +994,7 @@ class ExpenseCategory(models.Model):
 
     class Meta:
         ordering = ["name"]
+        unique_together = [["company", "name"]]
         verbose_name_plural = "Expense Categories"
 
     def __str__(self):
@@ -952,6 +1011,13 @@ class Expense(models.Model):
         REJECTED = "REJECTED", "Rejected"
         PAID = "PAID", "Paid"
 
+    company = models.ForeignKey(
+        "companies.Company",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="expenses"
+    )
     expense_number = models.CharField(max_length=50, unique=True, db_index=True)
     category = models.ForeignKey(
         ExpenseCategory, on_delete=models.PROTECT, related_name="expenses"
@@ -985,6 +1051,10 @@ class Expense(models.Model):
 
     class Meta:
         ordering = ["-expense_date", "-expense_number"]
+        unique_together = [["company", "expense_number"]]
+        indexes = [
+            models.Index(fields=["company", "expense_date", "status"]),
+        ]
 
     def __str__(self):
         return f"{self.expense_number} - {self.description[:50]}"
@@ -1005,6 +1075,13 @@ class TaxRate(models.Model):
         DEPRECIATION = "DEPRECIATION", "Depreciation Tax"
         OTHER = "OTHER", "Other"
 
+    company = models.ForeignKey(
+        "companies.Company",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="tax_rates"
+    )
     name = models.CharField(max_length=255)
     tax_type = models.CharField(
         max_length=20, choices=TaxType.choices, default=TaxType.INCOME
@@ -1029,8 +1106,9 @@ class TaxRate(models.Model):
 
     class Meta:
         ordering = ["-effective_date", "name"]
+        unique_together = [["company", "name", "jurisdiction"]]
         indexes = [
-            models.Index(fields=["tax_type", "jurisdiction", "effective_date"]),
+            models.Index(fields=["company", "tax_type", "jurisdiction", "effective_date"]),
         ]
 
     def __str__(self):
@@ -1068,6 +1146,13 @@ class TaxReturn(models.Model):
         PROPERTY_TAX = "PROPERTY_TAX", "Property Tax Return"
         OTHER = "OTHER", "Other"
 
+    company = models.ForeignKey(
+        "companies.Company",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="tax_returns"
+    )
     return_number = models.CharField(max_length=50, unique=True, db_index=True)
     return_type = models.CharField(
         max_length=20, choices=ReturnType.choices, default=ReturnType.FORM_1120
@@ -1122,9 +1207,10 @@ class TaxReturn(models.Model):
 
     class Meta:
         ordering = ["-tax_period_end", "-return_number"]
+        unique_together = [["company", "return_number"]]
         indexes = [
-            models.Index(fields=["return_type", "tax_period_end"]),
-            models.Index(fields=["status", "due_date"]),
+            models.Index(fields=["company", "return_type", "tax_period_end"]),
+            models.Index(fields=["company", "status", "due_date"]),
         ]
 
     def __str__(self):
@@ -1424,6 +1510,13 @@ class BankStatement(models.Model):
         INTEREST = "INTEREST", "Interest"
         ADJUSTMENT = "ADJUSTMENT", "Adjustment"
 
+    company = models.ForeignKey(
+        "companies.Company",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="bank_statements"
+    )
     account = models.ForeignKey(
         Account, on_delete=models.PROTECT, related_name="bank_statements"
     )
@@ -1475,9 +1568,10 @@ class BankStatement(models.Model):
 
     class Meta:
         ordering = ["-statement_date", "-created_at"]
+        unique_together = [["company", "transaction_id"]]
         indexes = [
-            models.Index(fields=["account", "statement_date"]),
-            models.Index(fields=["is_reconciled", "statement_date"]),
+            models.Index(fields=["company", "account", "statement_date"]),
+            models.Index(fields=["company", "is_reconciled", "statement_date"]),
             models.Index(fields=["transaction_id"]),
         ]
 
@@ -1493,6 +1587,13 @@ class BankReconciliation(models.Model):
         COMPLETED = "COMPLETED", "Completed"
         CANCELLED = "CANCELLED", "Cancelled"
 
+    company = models.ForeignKey(
+        "companies.Company",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="bank_reconciliations"
+    )
     account = models.ForeignKey(
         Account, on_delete=models.PROTECT, related_name="reconciliations"
     )
@@ -1530,10 +1631,10 @@ class BankReconciliation(models.Model):
 
     class Meta:
         ordering = ["-reconciliation_date"]
-        unique_together = ["account", "reconciliation_date"]
+        unique_together = [["company", "account", "reconciliation_date"]]
         indexes = [
-            models.Index(fields=["account", "status"]),
-            models.Index(fields=["reconciliation_date"]),
+            models.Index(fields=["company", "account", "status"]),
+            models.Index(fields=["company", "reconciliation_date"]),
         ]
 
     def __str__(self):
@@ -1577,6 +1678,13 @@ class ReconciliationAdjustment(models.Model):
         BANK_FEE = "BANK_FEE", "Bank Fee"
         OTHER = "OTHER", "Other"
 
+    company = models.ForeignKey(
+        "companies.Company",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="reconciliation_adjustments"
+    )
     reconciliation = models.ForeignKey(
         BankReconciliation, on_delete=models.CASCADE, related_name="adjustments"
     )
@@ -1639,6 +1747,13 @@ class AIInsight(models.Model):
         HIGH = "HIGH", "High"
         CRITICAL = "CRITICAL", "Critical"
 
+    company = models.ForeignKey(
+        "companies.Company",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="ai_insights"
+    )
     insight_id = models.CharField(max_length=50, unique=True, db_index=True)
     title = models.CharField(max_length=255)
     description = models.TextField()
@@ -1684,9 +1799,10 @@ class AIInsight(models.Model):
 
     class Meta:
         ordering = ["-generated_at", "-priority"]
+        unique_together = [["company", "insight_id"]]
         indexes = [
-            models.Index(fields=["insight_type", "priority"]),
-            models.Index(fields=["is_active", "generated_at"]),
+            models.Index(fields=["company", "insight_type", "priority"]),
+            models.Index(fields=["company", "is_active", "generated_at"]),
         ]
 
     def __str__(self):
@@ -1705,6 +1821,13 @@ class AIPrediction(models.Model):
         SEASONAL_TREND = "SEASONAL_TREND", "Seasonal Trend"
         MARKET_DEMAND = "MARKET_DEMAND", "Market Demand"
 
+    company = models.ForeignKey(
+        "companies.Company",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="ai_predictions"
+    )
     prediction_id = models.CharField(max_length=50, unique=True, db_index=True)
     title = models.CharField(max_length=255)
     prediction_type = models.CharField(max_length=30, choices=PredictionType.choices)
@@ -1743,8 +1866,9 @@ class AIPrediction(models.Model):
 
     class Meta:
         ordering = ["-prediction_date", "-generated_at"]
+        unique_together = [["company", "prediction_id"]]
         indexes = [
-            models.Index(fields=["prediction_type", "prediction_date"]),
+            models.Index(fields=["company", "prediction_type", "prediction_date"]),
         ]
 
     def __str__(self):
@@ -1767,6 +1891,13 @@ class AIModel(models.Model):
         INACTIVE = "INACTIVE", "Inactive"
         DEPRECATED = "DEPRECATED", "Deprecated"
 
+    company = models.ForeignKey(
+        "companies.Company",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="ai_models"
+    )
     model_name = models.CharField(max_length=100, unique=True)
     model_type = models.CharField(max_length=30, choices=ModelType.choices)
     version = models.CharField(max_length=20)
@@ -1806,7 +1937,7 @@ class AIModel(models.Model):
 
     class Meta:
         ordering = ["-created_at"]
-        unique_together = ["model_name", "version"]
+        unique_together = [["company", "model_name", "version"]]
 
     def __str__(self):
         return f"{self.model_name} v{self.version}"
@@ -1852,6 +1983,13 @@ class AnomalyAlert(models.Model):
         FALSE_POSITIVE = "FALSE_POSITIVE", "False Positive"
         IGNORED = "IGNORED", "Ignored"
 
+    company = models.ForeignKey(
+        "companies.Company",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="anomaly_alerts"
+    )
     alert_id = models.CharField(max_length=50, unique=True, db_index=True)
     title = models.CharField(max_length=255)
     description = models.TextField()
@@ -1928,9 +2066,10 @@ class AnomalyAlert(models.Model):
 
     class Meta:
         ordering = ["-detected_at", "-severity"]
+        unique_together = [["company", "alert_id"]]
         indexes = [
-            models.Index(fields=["status", "severity"]),
-            models.Index(fields=["anomaly_type", "detected_at"]),
+            models.Index(fields=["company", "status", "severity"]),
+            models.Index(fields=["company", "anomaly_type", "detected_at"]),
         ]
 
     def __str__(self):
@@ -1946,6 +2085,13 @@ class AnomalyDetectionModel(models.Model):
         RULE_BASED = "RULE_BASED", "Rule Based"
         HYBRID = "HYBRID", "Hybrid"
 
+    company = models.ForeignKey(
+        "companies.Company",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="anomaly_detection_models"
+    )
     model_name = models.CharField(max_length=100, unique=True)
     model_type = models.CharField(max_length=20, choices=ModelType.choices)
     version = models.CharField(max_length=20)
@@ -1972,7 +2118,7 @@ class AnomalyDetectionModel(models.Model):
 
     class Meta:
         ordering = ["-created_at"]
-        unique_together = ["model_name", "version"]
+        unique_together = [["company", "model_name", "version"]]
 
     def __str__(self):
         return f"{self.model_name} v{self.version}"
@@ -2023,6 +2169,13 @@ class Notification(models.Model):
         AI_INSIGHT = "AI_INSIGHT", "AI Insight"
         SYSTEM = "SYSTEM", "System"
 
+    company = models.ForeignKey(
+        "companies.Company",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="notifications"
+    )
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="notifications"
     )
@@ -2040,9 +2193,10 @@ class Notification(models.Model):
 
     class Meta:
         ordering = ["-created_at"]
+        unique_together = [["company", "user", "title", "created_at"]]
         indexes = [
-            models.Index(fields=["user", "is_read", "created_at"]),
-            models.Index(fields=["notification_type", "created_at"]),
+            models.Index(fields=["company", "user", "is_read", "created_at"]),
+            models.Index(fields=["company", "notification_type", "created_at"]),
         ]
 
     def __str__(self):
@@ -2064,6 +2218,13 @@ class Notification(models.Model):
 class DocumentCategory(models.Model):
     """Document categories for organization"""
 
+    company = models.ForeignKey(
+        "companies.Company",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="document_categories"
+    )
     name = models.CharField(max_length=255, unique=True)
     description = models.TextField(blank=True, null=True)
     parent_category = models.ForeignKey(
@@ -2081,6 +2242,7 @@ class DocumentCategory(models.Model):
 
     class Meta:
         ordering = ["name"]
+        unique_together = [["company", "name"]]
         verbose_name_plural = "Document Categories"
 
     def __str__(self):
