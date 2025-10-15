@@ -80,7 +80,7 @@ class Command(BaseCommand):
             self.stdout.write('  2. Start the server:')
             self.stdout.write('     python manage.py runserver')
             self.stdout.write('')
-            self.stdout.write('  3. Login at: http://localhost:8000/login/')
+            self.stdout.write('  3. Login at: http://localhost:8000/en/accounts/login/')
             self.stdout.write('     Username: admin')
             self.stdout.write('     Password: changeme123 (change immediately!)')
         else:

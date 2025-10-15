@@ -107,5 +107,5 @@ def logout_view(request):
         del request.session['active_company_id']
 
     logout(request)
-    messages.success(request, "You have been logged out successfully.")
+    # messages.success(request, "You have been logged out successfully.")
     return redirect("home")

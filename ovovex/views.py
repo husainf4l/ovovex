@@ -32,6 +32,18 @@ def health_check(request):
     return HttpResponse("OK", content_type="text/plain")
 
 
+def login_redirect(request):
+    """
+    Redirect /login/ to the correct login URL with query parameters preserved
+    """
+    from django.urls import reverse
+    login_url = reverse("accounts:login")
+    query_string = request.META.get('QUERY_STRING', '')
+    if query_string:
+        login_url += '?' + query_string
+    return redirect(login_url)
+
+
 def login_view(request):
     """
     Login page view

@@ -30,6 +30,8 @@ urlpatterns = [
     path("admin/", admin.site.urls),  # Admin panel doesn't need translation prefix
     path("health/", views.health_check, name="health_check"),  # Health check endpoint
     path("i18n/", include("django.conf.urls.i18n")),  # Language switcher endpoint
+    # Login redirect for backward compatibility
+    path("login/", views.login_redirect, name="login_redirect"),
     # Temporarily move dashboard outside i18n_patterns for testing
     path("dashboard/", include("dashboard.urls", namespace="dashboard")),
     # Companies management

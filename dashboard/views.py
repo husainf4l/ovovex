@@ -32,6 +32,7 @@ from accounting.models import (
     ExpenseCategory,
     Notification,
 )
+from .services import FinancialMetricsService
 
 
 @login_required
@@ -548,12 +549,190 @@ def financial_ratios_view(request):
 @login_required
 def budgeting_view(request):
     """Budgeting view"""
+    active_company = request.active_company
+
+    # Check if user has an active company
+    if not active_company:
+        # Redirect to company selection or show message
+        from django.contrib import messages
+        messages.warning(request, "Please select a company to manage budgets.")
+        from django.shortcuts import redirect
+        return redirect("companies:select_company")
+
+    # Get budgets for the company
+    budgets = Budget.objects.filter(company=active_company).order_by('-fiscal_year', '-created_at')
+
+    # Calculate summary statistics
+    active_budgets_count = budgets.filter(is_active=True).count()
+    total_budget_amount = budgets.filter(is_active=True).aggregate(
+        total=Sum('total_budget')
+    )['total'] or Decimal('0.00')
+
+    # Current year for default values
+    from datetime import datetime
+    current_year = datetime.now().year
+
     context = {
         "title": "Budgeting",
         "description": "Create and manage budgets for your business.",
         "user": request.user,
+        "budgets": budgets,
+        "active_budgets_count": active_budgets_count,
+        "total_budget_amount": total_budget_amount,
+        "current_year": current_year,
     }
     return render(request, "dashboard/modules/budgeting.html", context)
+
+
+@login_required
+def create_budget_view(request):
+    """
+    Create a new budget via AJAX
+    """
+    import json
+    from accounting.models import Budget
+
+    active_company = request.active_company
+
+    # Check if user has an active company
+    if not active_company:
+        return JsonResponse(
+            {"success": False, "error": "No active company selected. Please select a company first."},
+            status=400
+        )
+
+    if request.method == "POST":
+        try:
+            # Handle JSON data
+            if request.content_type == "application/json":
+                data = json.loads(request.body)
+            else:
+                data = request.POST
+
+            # Validate required fields
+            name = data.get("name", "").strip()
+            fiscal_year = data.get("fiscal_year")
+            period = data.get("period", "ANNUAL")
+            start_date = data.get("start_date")
+            end_date = data.get("end_date")
+
+            if not all([name, fiscal_year, start_date, end_date]):
+                return JsonResponse(
+                    {"success": False, "error": "All fields are required"}, status=400
+                )
+
+            # Create the budget
+            budget = Budget.objects.create(
+                company=active_company,
+                name=name,
+                fiscal_year=int(fiscal_year),
+                period=period,
+                start_date=start_date,
+                end_date=end_date,
+                created_by=request.user,
+            )
+
+            return JsonResponse(
+                {
+                    "success": True,
+                    "message": f"Budget '{name}' created successfully!",
+                    "budget": {
+                        "id": budget.id,
+                        "name": budget.name,
+                        "fiscal_year": budget.fiscal_year,
+                        "period": budget.period,
+                        "start_date": budget.start_date.strftime("%Y-%m-%d"),
+                        "end_date": budget.end_date.strftime("%Y-%m-%d"),
+                    },
+                }
+            )
+
+        except Exception as e:
+            return JsonResponse(
+                {"success": False, "error": f"Failed to create budget: {str(e)}"},
+                status=500
+            )
+
+    return JsonResponse({"success": False, "error": "Method not allowed"}, status=405)
+
+
+@login_required
+def copy_budget_view(request):
+    """
+    Copy an existing budget via AJAX
+    """
+    import json
+    from accounting.models import Budget, BudgetLine
+
+    active_company = request.active_company
+
+    # Check if user has an active company
+    if not active_company:
+        return JsonResponse(
+            {"success": False, "error": "No active company selected. Please select a company first."},
+            status=400
+        )
+
+    if request.method == "POST":
+        try:
+            # Handle JSON data
+            if request.content_type == "application/json":
+                data = json.loads(request.body)
+            else:
+                data = request.POST
+
+            budget_id = data.get("budget_id")
+            new_name = data.get("new_name", "").strip()
+
+            if not budget_id or not new_name:
+                return JsonResponse(
+                    {"success": False, "error": "Budget ID and new name are required"},
+                    status=400
+                )
+
+            # Get the original budget
+            original_budget = get_object_or_404(
+                Budget, id=budget_id, company=active_company
+            )
+
+            # Create the new budget
+            new_budget = Budget.objects.create(
+                company=active_company,
+                name=new_name,
+                fiscal_year=original_budget.fiscal_year,
+                period=original_budget.period,
+                start_date=original_budget.start_date,
+                end_date=original_budget.end_date,
+                created_by=request.user,
+            )
+
+            # Copy budget lines
+            for line in original_budget.lines.all():
+                BudgetLine.objects.create(
+                    budget=new_budget,
+                    account=line.account,
+                    budgeted_amount=line.budgeted_amount,
+                    description=line.description,
+                )
+
+            return JsonResponse(
+                {
+                    "success": True,
+                    "message": f"Budget copied as '{new_name}' successfully!",
+                    "budget": {
+                        "id": new_budget.id,
+                        "name": new_budget.name,
+                    },
+                }
+            )
+
+        except Exception as e:
+            return JsonResponse(
+                {"success": False, "error": f"Failed to copy budget: {str(e)}"},
+                status=500
+            )
+
+    return JsonResponse({"success": False, "error": "Method not allowed"}, status=405)
 
 
 @login_required

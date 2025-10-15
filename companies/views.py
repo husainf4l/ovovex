@@ -44,7 +44,7 @@ def switch_company(request, company_id):
     if user_company:
         user_company.is_active = True
         user_company.save()
-        messages.success(request, f"Switched to {user_company.company.name}")
+        # messages.success(request, f"Switched to {user_company.company.name}")
     else:
         messages.error(request, "Company not found or you don't have access to it.")
 
@@ -164,7 +164,7 @@ def select_company(request):
         uc.is_active = True
         uc.save()
         request.session["active_company_id"] = uc.company.id
-        messages.success(request, f"Switched to {uc.company.name}")
+        # messages.success(request, f"Switched to {uc.company.name}")
         return redirect("dashboard:dashboard")
 
     # If user has no companies, redirect to create one
@@ -200,5 +200,5 @@ def select_and_activate_company(request, company_id):
     # Store in session
     request.session["active_company_id"] = company_id
 
-    messages.success(request, f"Switched to {user_company.company.name}")
+    # messages.success(request, f"Switched to {user_company.company.name}")
     return redirect("dashboard:dashboard")
